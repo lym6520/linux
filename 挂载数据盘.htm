@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="云服务器、云主机、弹性计算、云存储、开放存储、OSS、ACE、数据库、mysql、RDS、SQLSERVER、开发者、负载均衡、防攻击、防DDOS攻击、云监控、云浏览器、云地图、云邮箱、phpwind、阿里云、云产品、管理云服务器、云计算、多线带宽、BGP、redhat一键安装web环境、windows一键安装web环境、远程连接服务器、服务器环境配置、如何使用FTP、如何管理云服务器、渲染云、云手机、云盾、应用托管、云引擎" name="keywords">
+<meta content="数据分享第一平台，云计算第一平台，云产品解决方案，帮助开发者解决问题" name="description">
+<title>阿里云-帮助中心</title>
+<link rel="shortcut icon" href="http://help.aliyun.com/favicon.ico" type="image/x-icon">
+<!-- 公共静态资源 -->
+<meta http-equiv="mobile-agent" content="format=html5;url=http://www.aliyun.com/">
+<meta name="renderer" content="webkit">
+<link rel="shortcut icon" href="http://www.aliyun.com/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" href="http://img03.taobaocdn.com/tps/i3/T1JBhnFfRcXXa.JOZB-114-114.png" sizes="114x114">
+<link rel="stylesheet" type="text/css" href="./挂载数据盘_files/saved_resource" charset="utf-8">
+<script type="text/javascript" async="" charset="utf-8" src="./挂载数据盘_files/core.php"></script><script async="" src="./挂载数据盘_files/analytics.js"></script><script type="text/javascript" src="./挂载数据盘_files/alipw-all.js" charset="utf-8"></script><script type="text/javascript" src="./挂载数据盘_files/baselib-all.js"></script><link rel="stylesheet" type="text/css" href="./挂载数据盘_files/style.css">
+<script type="text/javascript" src="./挂载数据盘_files/saved_resource(1)" charset="utf-8"></script>
+<!--[if lte IE 8]><script type="text/javascript" src="http://static-img3.cdn.aliyuncs.com/js/common/html5.js?v=1387088644" charset="utf-8"></script><![endif]-->
+<!--[if lte IE 7]><script src="http://static-img3.cdn.aliyuncs.com/css/new-common/iconfont/lte-ie7.js?v=1387088644"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="./挂载数据盘_files/saved_resource(2)" charset="utf-8">
+<style>
+header .logo{background-image: -webkit-image-set(url(http://img01.taobaocdn.com/tps/i1/T1mZeVXytaXXbqHRA.-134-40.png) 1x,url(http://gtms01.alicdn.com/tps/i1/T1sMEwFiFfXXbEccTy-268-80.png) 2x);background-image: -moz-image-set(url(http://img01.taobaocdn.com/tps/i1/T1mZeVXytaXXbqHRA.-134-40.png) 1x,url(http://gtms01.alicdn.com/tps/i1/T1sMEwFiFfXXbEccTy-268-80.png) 2x);background-image: -ms-image-set(url(http://img01.taobaocdn.com/tps/i1/T1mZeVXytaXXbqHRA.-134-40.png) 1x,url(http://gtms01.alicdn.com/tps/i1/T1sMEwFiFfXXbEccTy-268-80.png) 2x);background-image: -o-image-set(url(http://img01.taobaocdn.com/tps/i1/T1mZeVXytaXXbqHRA.-134-40.png) 1x,url(http://gtms01.alicdn.com/tps/i1/T1sMEwFiFfXXbEccTy-268-80.png) 2x);}
+.aysw-body .page-buy ul.header-tabs li{z-index:2;}
+.tab-panel .btn-gray{background-color:#d8d8d8 !important;}
+</style>
+<link rel="stylesheet" type="text/css" href="./挂载数据盘_files/help.css">
+<script type="text/javascript" src="./挂载数据盘_files/help.js"></script>
+<script type="text/javascript">
+AYSW.help.articleId = '271';
+</script>
+<script type="text/javascript" async="" id="tb-beacon-ac" exparams="category=&amp;userid=&amp;aliyun_id=undefined&amp;channel=112&amp;" src="./挂载数据盘_files/ac.js"></script><script type="text/javascript" async="" id="tb-beacon" exparams="category=&amp;userid=&amp;aliyun_id=undefined&amp;tid=&amp;channel=112&amp;atpanel_end" src="./挂载数据盘_files/atp.js"></script><script type="text/javascript" async="" id="tb-beacon-aplus" exparams="category=&amp;userid=&amp;aliyun_id=undefined&amp;aplus" src="./挂载数据盘_files/aplus_v2.js"></script><style type="text/css">.aly-topbar-wrap{height:26px; min-width:997px;}.aly-topbar{font-size:12px;font-family:"Microsoft Yahei";background-color:rgb(0, 162, 202);color:#ffffff;height:26px;line-height:24px;position:relative;z-index:302;width:100%;left:0;-webkit-transform:translateZ(0);text-align:left !important;}.aly-topbar a{color:#ffffff;}.aly-topbar a:hover{color:#ffffff;text-decoration:none;opacity:0.8;filter:alpha(opacity=80);}.aly-topbar .inner{margin:0 auto;width:997px}.aly-topbar .inner-left{float:left}.aly-topbar .inner-left a{}.aly-topbar .inner-left a.login-uname,.aysw-topbar-uname{color:#ffffff !important;}.aly-topbar .inner-left a.has-message{position:relative;background-color:#ff6600;color:#fff;padding:0px 4px 2px 6px;margin-left: 8px;_margin-left: 0;}.aly-topbar .inner-left a.has-message b{border-width:5px;border-color:transparent #ff6600 transparent transparent;border-style:solid;_border-style:dotted solid dotted dotted;position:absolute;left:-10px;top:50%;margin-top:-5px;width:0;height:0;font-size:0px;line-height:0;}.aly-topbar .inner-right{float:right}.aly-topbar i{display:-moz-inline-stack;display:inline-block;vertical-align:middle;*vertical-align:auto;zoom:1;*display:inline;width:1px;height:12px;margin:7px 0;background:#30aed6;margin:0 10px;vertical-align:middle}.aly-topbar .site_menu{display:-moz-inline-stack;display:inline-block;*vertical-align:auto;zoom:1;*display:inline;position:relative;z-index:2}.aly-topbar .site_menu a.menu-hd{width:62px;position:relative;display:inline-block}.aly-topbar .site_menu a.menu-hd b{position:absolute;right:0px;top:10px;width:0;height:0;border-width:4px 4px;border-style:solid;border-color: #ffffff #ff9900 #ff9900 #ff9900;font-size:0;line-height:0;}#J_site_menu:hover b{border-color: #ff9900 #ff9900 #fff #ff9900 !important;top: 6px;}.aly-topbar .site_menu .menu-bd{background-color:#ffffff;border:1px solid #999999;color:#666;display:none;position:absolute;top:20px;left:-22px;width:68px;font-size:12px;padding:10px 16px}.aly-topbar .site_menu .menu-bd b{position:absolute;border-width:6px;border-style:solid;width:0;height:0;border-color:#f5f5f5 #f5f5f5 #ff6600;left:47px;top:-14px}.aly-topbar .site_menu .menu-bd li{height:25px;line-height:25px}.aly-topbar .site_menu .menu-bd li a{color:#666;}.aly-topbar .site_menu .menu-bd li a:hover{color:#000;}.aly-topbar .site_menu:hover:hover .menu-bd,.aly-topbar .site_menu:hover:focus .menu-bd,.aly-topbar .site_menu:focus:hover .menu-bd,.aly-topbar .site_menu:focus:focus .menu-bd{display:block}</style><script type="text/javascript" src="./挂载数据盘_files/getNewTotalJsonp"></script><script type="text/javascript" src="./挂载数据盘_files/saved_resource(3)"></script><script type="text/javascript" async="" src="./挂载数据盘_files/saved_resource(4)"></script><link href="./挂载数据盘_files/saved_resource(5)" rel="Stylesheet" type="text/css"><script type="text/javascript" src="./挂载数据盘_files/gettaobaotools"></script><script type="text/javascript" src="./挂载数据盘_files/init"></script></head><body class="help-manual alipw-theme-default"><script type="text/javascript">
+function getuid(){var Name = "login_aliyunid";var search = Name + "=" ;if(document.cookie.length>0){var offset=document.cookie.indexOf(search);if(offset != -1){offset += search.length;var end = document.cookie.indexOf(";",offset);if(end == -1){end = document.cookie.length;return unescape(document.cookie.substring(offset,end));}}}};
+(function (d) {
+var ta=d.createElement("script");ta.type="text/javascript";ta.async=true;ta.id="tb-beacon-ac";
+ta.setAttribute("exparams","category=&userid=&aliyun_id="+getuid()+"&channel=112&");
+ta.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/ac.js";
+d.getElementsByTagName("head")[0].appendChild(ta);
+})(document);
+</script>
+<script type="text/javascript">
+function getuid(){var Name = "login_aliyunid";var search = Name + "=" ;if(document.cookie.length>0){var offset=document.cookie.indexOf(search);if(offset != -1){offset += search.length;var end = document.cookie.indexOf(";",offset);if(end == -1){end = document.cookie.length;return unescape(document.cookie.substring(offset,end));}}}};
+(function (d) {
+var ta=d.createElement("script");ta.type="text/javascript";ta.async=true;ta.id="tb-beacon";
+ta.setAttribute("exparams","category=&userid=&aliyun_id="+getuid()+"&tid=&channel=112&atpanel_end");
+ta.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/atp.js";
+d.getElementsByTagName("head")[0].appendChild(ta);
+})(document);
+</script>
+<script type="text/javascript">
+function getuid(){var Name = "login_aliyunid";var search = Name + "=" ;if(document.cookie.length>0){var offset=document.cookie.indexOf(search);if(offset != -1){offset += search.length;var end = document.cookie.indexOf(";",offset);if(end == -1){end = document.cookie.length;return unescape(document.cookie.substring(offset,end));}}}};
+(function (d) {
+var t=d.createElement("script");t.type="text/javascript";t.async=true;t.id="tb-beacon-aplus";
+t.setAttribute("exparams","category=&userid=&aliyun_id="+getuid()+"&aplus");
+t.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/aplus_v2.js";
+d.getElementsByTagName("head")[0].appendChild(t);
+})(document);
+</script>
+
+<div class="aysw-pagewrap">
+	    <!-- 导航 -->
+    <!--<script src="http://static.aliyun.com/js/new-common/topbar_global.js?v=1387088644"></script>-->
+<script src="./挂载数据盘_files/topbar_global.js" charset="utf-8"></script><div class="aly-topbar-wrap" data-spm="120"><div class="aly-topbar"><div class="inner"><div class="inner-left">欢迎来到阿里云，<a href="http://i.aliyun.com/" class="login-uname aysw-topbar-uname" data-lingjian="/aliyun.22.2.8">lym6520@gmail.com</a><i id="J_message-line" style="display: none;"></i><a id="J_message" href="http://i.aliyun.com/pm/" class="has-message">站内信<span class="aysw-topbar-message">0</span><b></b></a><i></i><a href="http://mail.aliyun.com/">登录阿里云邮箱</a><i></i><a href="https://account.aliyun.com/logout/logout.htm?oauth_callback=http%3A%2F%2Fhelp.aliyun.com%2Fmanual%3Fspm%3D0.0.0.0.b7MSwu%26helpId%3D271" class="register">退出</a></div><div class="inner-right" data-spm="121"><a href="http://www.aliyun.com/">首页</a><i></i><a href="http://i.aliyun.com/">用户中心</a><i></i><a href="http://console.aliyun.com/" target="_blank">管理控制台</a></div></div></div></div>
+
+<header>
+  <div class="header-wrap">
+    <div class="header-inner"><a href="http://www.aliyun.com/"> 
+        <h1 class="logo">阿里云官方网站<span class="sub-title">打造数据分享第一平台</span></h1></a><a href="http://help.aliyun.com/" title="阿里云服务中心" class="sub-logo sub-logo-help">帮助中心</a>
+      <nav>
+        <ul class="nav-child">
+          <li class="help-nav-index"><a href="http://help.aliyun.com/">帮助中心首页</a></li>
+          <li class="help-nav-guide"><a href="http://help.aliyun.com/guide">新手指南</a></li>
+          <li class="help-nav-manual"><a href="http://help.aliyun.com/manual" aria-haspopup="J_sub_menu3">产品使用帮助</a></li>
+          <li class="help-nav-webbaindex"><a href="http://www.aliyun.com/act/webbaindex.html" target="_blank">备案专区</a></li>
+          <li class="help-nav-contactservice"><a href="http://www.aliyun.com/act/contactservice.html">联系客服</a></li>
+        </ul><i class="big"></i>
+		
+<form action="" class="search-form" style="float:left">
+  <input type="text" id="help_head_search" onfocus="AYSW.help.searchInputFocusHandler(event,this)" onblur="AYSW.help.searchInputBlurHandler(event,this)" class="search-input" style="color:#999;" x-webkit-speech="" x-webkit-grammar="builtin:search" onwebkitspeechchange="wk_speechchange(event);" value="请输入问题关键字">
+          <input type="submit" value="搜索" id="J_head_submit" class="btn btn-mini btn-orange">
+        </form>
+
+      </nav>
+    </div>
+  </div>
+</header>
+  <script>
+    $('#J_head_submit').click(function(e){
+      	e.preventDefault();
+      	var keyword = $('#help_head_search').val();
+    	window.location.href = 'http://help.aliyun.com/search?keyword=' + encodeURIComponent(keyword);
+    });
+  </script>
+  <style>
+    @media screen and (max-width: 1280px){
+      .c-layout700-left {
+        width: 702px;
+      }
+    }
+    .screen997 .c-layout700-left{
+      width: 702px !important;
+    }
+    header nav li{
+    	font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft Yahei", tahoma,arial,"Hiragino Sans GB", "\5B8B\4F53";
+    }
+  </style>
+  <script>
+    function wk_speechchange(e){
+        e.target.value	= e.results[0].utterance;
+		AYSW.help.searchKeyword();
+    }
+  </script>
+<!--[if IE 6]>
+<script>
+  $(function() {
+    $('.main-menu').hover(function() {
+      $(this).find('.sub-menu').show();
+    },function() {
+      $(this).find('.sub-menu').hide();
+    })
+  });
+</script><![endif]-->
+<!--[if lte IE 8]>
+<script>
+  (function(){
+      var updscreen=function(){
+      
+        if($(window).width()>=1280){
+          if(/screen/ig.test($("body").attr("class"))){
+            $("body").get(0).className=$("body").attr("class").replace(/screen[0-9]{3,4}/ig,"screen1200");
+          }else{
+            $("body").addClass("screen1200");
+          }  
+        }else{
+          if(/screen/ig.test($("body").attr("class"))){
+            $("body").get(0).className=$("body").attr("class").replace(/screen[0-9]{3,4}/ig,"screen997");
+          }else{
+            $("body").addClass("screen997");
+          }
+        }
+      }
+      updscreen();
+      $(window).resize(updscreen);
+  })();
+</script><![endif]-->	<div class="aysw-body mt20">
+    <div class="page-help page-help-guide page-help-detail">
+        <div class="c-layout220">
+            <div class="c-layout220-left">
+                <div class="help-listpanel">
+                    <h1>价格总览</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=228" class="treeview-node"><span>价格总览</span></a></li></ul><h1>云服务器</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>云服务器介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=232">服务器介绍</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=558">操作系统/镜像/快照</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=559">地域选择</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=560">存储</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=561">数据库</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=562">网络和安全</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=565">服务条款</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>购买指导</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=567">价格总览</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=568">选择配置</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=569">试用</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=571">购买按量付费</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=572">续费</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=573">升级</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>云服务器操作管理</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=575">云服务器管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=576">云磁盘管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=577">快照管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=578">自定义镜像管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=579">系统监控管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=580">产品操作限制</a></li></ul></li><li class=""><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>linux操作指南</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=234">登录云服务器</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=583">挂载数据盘</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=584">安装软件</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=585">配置环境</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=586">代码部署</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>windows操作指南</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=588">登录云服务器</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=589">格式化分区数据盘</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=590">安装软件</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=442">配置环境</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>运维技术分享</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=594">安全问题</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=595">服务器异常</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=596">网络异常类</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=597">网站异常类</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=598">性能异常类</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=611">便捷工具</a></li></ul></li></ul><h1>负载均衡</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=335" class="treeview-node"><span>SLB介绍 </span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=337" class="treeview-node"><span>开通/管理SLB服务</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=339" class="treeview-node"><span>技术分享</span></a></li></ul><h1>开放云存储服务</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>OSS介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=260">阿里云存储服务简介</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=618">OSS基本概念</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=619">OSS基本功能</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=620">OSS与自建服务器存储对比</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=621">服务协议</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=622">赔偿标准</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=623">开通指南</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>开通和计费</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=624">快速入门</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=625">价格总览</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=626">计量计费规则</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>OSS开发工具下载</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=627">OSS API开发者手册</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=628">SDK 开发包下载</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=629">SDK 开发者手册</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=631">第三方工具</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>OSS使用技巧</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=632">Bucket管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=633">Objcet管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=634">访问控制管理</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=636">域名绑定指南</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=637">常见问题</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=638">日志管理</a></li></ul></li></ul><h1>关系型数据库</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>RDS介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=468">RDS简介</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=651">支持的数据库类型</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=652">功能特性</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=653">性能报告</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=654">版本变更历史</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=655">服务协议</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>购买指导</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=656">价格总览</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=658">公网流量计费</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>RDS操作指南</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=663">访问数据库</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=273">MySQL数据迁移</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=274">SQL Server数据迁移</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>管理数据库实例</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=669">备份恢复</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=672">优化顾问</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>技术分享</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=673">安全问题</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=676">常见问题</a></li></ul></li></ul><h1>内容分发网络</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=483" class="treeview-node"><span>CDN介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=486" class="treeview-node"><span>CDN操作指南</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=488" class="treeview-node"><span>运维技术分享</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=679" class="treeview-node"><span>计量计费规则</span></a></li></ul><h1>开放缓存服务</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=491" class="treeview-node"><span>OCS介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=494" class="treeview-node"><span>OCS操作指南</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=495" class="treeview-node"><span>OCS客户端下载</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=677" class="treeview-node"><span>运维技术分享</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=496" class="treeview-node"><span>常见问题</span></a></li></ul><h1>开放数据处理服务</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=276" class="treeview-node"><span>ODPS介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=277" class="treeview-node"><span>ODPS操作指南</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=283" class="treeview-node"><span>运维技术分享</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=680" class="treeview-node"><span>如何收费</span></a></li></ul><h1>开放结构化数据服务</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=279" class="treeview-node"><span>OTS介绍</span></a></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>OTS操作规范</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=281">数据模型</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=609">XML API参考</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=610">ProtoBuf API参考</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=282">术语表</a></li></ul></li></ul><h1>云安全</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>云安全介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=685">阿里云盾白皮书</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=349">云盾介绍</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>开通云盾服务</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=687">开通云盾服务</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>管理云盾服务</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=689">DDoS防护</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=690">网站安全防御(WAF)</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=691">密码暴力破解防御</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=694">WEB漏洞检测</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=695">端口安全检测</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>运维技术分享</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=697">网站安全防御(WAF)</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=698">密码暴力破解防御</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=702">WEB漏洞检测</a></li></ul></li></ul><h1>云监控</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=752" class="treeview-node"><span>云监控介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=753" class="treeview-node"><span>云监控操作指南</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=754" class="treeview-node"><span>运维技术分享</span></a></li></ul><h1>云引擎ACE</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=278" class="treeview-node"><span>云引擎ACE介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=11" class="treeview-node"><span>服务说明</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=13" class="treeview-node"><span>安全禁用及配置</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=15" class="treeview-node"><span>意见反馈</span></a></li></ul><h1>云邮箱</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>云邮箱介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=254">企业邮箱</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=713">个人邮箱&nbsp;&nbsp;</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>邮件收发/管理</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=714">收发</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=715">管理</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>附件管理</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=716">网盘</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>邮箱设置</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=381">文件夹和标签</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=718">客户端设置</a></li></ul></li><li><a href="http://help.aliyun.com/manual?lastSortId=383" class="treeview-node"><span>反垃圾与防病毒</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=385" class="treeview-node"><span>联系人</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=481" class="treeview-node"><span>雅虎邮箱迁移专题</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=397" class="treeview-node"><span>问题反馈</span></a></li></ul><h1>移动云</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=514" class="treeview-node"><span>移动云介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=515" class="treeview-node"><span>APP企业认证介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=516" class="treeview-node"><span>开发测试</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=517" class="treeview-node"><span>上云部署</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=518" class="treeview-node"><span>推广创收</span></a></li></ul><h1>游戏云</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=520" class="treeview-node"><span>游戏云介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=521" class="treeview-node"><span>游戏企业认证介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=522" class="treeview-node"><span>工具服务</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=523" class="treeview-node"><span>上云部署</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=524" class="treeview-node"><span>推广创收</span></a></li></ul><h1>金融云</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=721" class="treeview-node"><span>金融云介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=722" class="treeview-node"><span>部署上云</span></a></li></ul><h1>开发者服务</h1><ul class="treeview"><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>开发者服务介绍</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=742">了解开发者服务</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=743">购买帮助</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=756">云市场</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=744">售后/退款/维权帮助</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>服务商规则</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=745">流程规范</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=746">常见问题</a></li></ul></li><li class="treeview-collapsed"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="treeview-node"><i></i><span>帮助文档</span></a><ul><li><a href="http://help.aliyun.com/manual?lastSortId=747">产品文档</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=748">开发文档</a></li><li><a href="http://help.aliyun.com/manual?lastSortId=749">最佳实践</a></li></ul></li></ul><h1>企信宝</h1><ul class="treeview"><li><a href="http://help.aliyun.com/manual?lastSortId=506" class="treeview-node"><span>商品介绍</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=507" class="treeview-node"><span>我的域名</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=508" class="treeview-node"><span>我的企业通讯录</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=509" class="treeview-node"><span>应用市场</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=510" class="treeview-node"><span>我的服务器</span></a></li><li><a href="http://help.aliyun.com/manual?lastSortId=511" class="treeview-node"><span>企业办公门户</span></a></li></ul>                </div>
+            </div>
+            <div class="c-layout220-right">
+                <div class="mt20">
+                    <div class="c-breadcrumb">
+                    <span>产品使用帮助</span><span> › </span><span>云服务器</span><span> › </span><span>linux操作指南</span><span> › </span><span><a href="http://help.aliyun.com/manual?lastSortId=583">挂载数据盘</a></span><span> › </span><span>Linux 系统挂载数据盘</span>                    </div>
+                                        <div class="help-detail">
+                        <h1>Linux 系统挂载数据盘</h1>
+                        <div>
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">适用系统：Linux（Redhat , CentOS，Debian，Ubuntu）</span></div>
+<div>
+	<span style="font-size:14px;"><span style="color: rgb(255, 0, 0);">* &nbsp;Linux的云服务器数据盘未做分区和格式化，可以根据以下步骤进行分区以及格式化操作。</span></span></div>
+<div>
+	<span style="font-size:14px;">下面的操作将会把数据盘划分为一个分区来使用。</span><br>
+	&nbsp;</div>
+<div class="quote" style="margin: 0px; padding: 0px; color: rgb(153, 153, 153); font-size: 12px; outline-style: none;">
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">1、查看数据盘</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">在没有分区和格式化数据盘之前，使用 “df –h”命令，是无法看到数据盘的，可以使用“fdisk -l”命令查看。如下图：</span></div>
+<div>
+	<br>
+	<span style="font-size:14px;"><img alt="" src="./挂载数据盘_files/1(7).jpg" style=""></span><br>
+	&nbsp;</div>
+<div class="MsgContent" msgid="A61DB2A29F0E440D827C07C74B42B382" sendid="cntaobao小小晓楠">
+	<span style="font-size:14px;"><font face="微软雅黑" style="font-size: 10pt;">友情提示：</font><span style="color: rgb(255, 0, 0);"><b><font face="微软雅黑" style="font-size: 10pt;">若您执行fdisk&nbsp;-l命令，发现没有&nbsp;/dev/xvdb&nbsp;标明您的云服务无数据盘，那么您无需进行挂载，此时该教程对您不适用。</font></b></span></span></div>
+<div>
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<br>
+	<span style="font-size:14px;">2、&nbsp;对数据盘进行分区</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">执行“fdisk -S 56 /dev/xvdb”命令，对数据盘进行分区；</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">根据提示，依次输入“n”，“p”“1”，两次回车，“wq”，分区就开始了，很快就会完成。</span></div>
+<div>
+	&nbsp;</div>
+<div>
+	<span style="font-size:14px;"><img alt="" src="./挂载数据盘_files/2.jpg" style=""></span><br>
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<br>
+	<span style="font-size:14px;">3、&nbsp;查看新的分区</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">使用“fdisk -l”命令可以看到，新的分区xvdb1已经建立完成了。</span></div>
+<div>
+	<br>
+	<span style="font-size:14px;"><img alt="" src="./挂载数据盘_files/3(1).jpg" style=""><br>
+	<br>
+	<img alt="" src="./挂载数据盘_files/3.jpg" style=""></span><br>
+	<o:p></o:p></div>
+<div>
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<br>
+	<span style="font-size:14px;">&nbsp;4、格式化新分区</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">使用“mkfs.ext3 /dev/xvdb1”命令对新分区进行格式化，格式化的时间根据硬盘大小有所不同。</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">(也可自主决定选用 ext4 格式)</span></div>
+<div>
+	&nbsp;</div>
+<div>
+	<span style="font-size:14px;">&nbsp;<img alt="" src="./挂载数据盘_files/4.jpg" style=""></span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<br type="_moz">
+	<span style="font-size:14px;">&nbsp;5、添加分区信息</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">使用“echo '/dev/xvdb1 &nbsp;/mnt ext3 &nbsp; &nbsp;defaults &nbsp; &nbsp;0 &nbsp;0' &gt;&gt; /etc/fstab”（<span style="color: rgb(255, 0, 0);">不含引号</span>）命令写入新分区信息。<br>
+	然后使用“cat /etc/fstab”命令查看，出现以下信息就表示写入成功。</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;"><span style="color: rgb(255, 0, 0);">* &nbsp;如果需要把数据盘单独挂载到某个文件夹，比如单独用来存放网页，可以修改以上命令中的</span><span style="color: rgb(0, 0, 255);">/mnt</span><span style="color: rgb(255, 0, 0);">部分。</span></span></div>
+<div>
+	<br>
+	<span style="font-size:14px;"><img alt="" src="./挂载数据盘_files/5.jpg" style=""></span><br>
+	&nbsp;</div>
+<div class="quote" style="margin: 0px; padding: 0px; color: rgb(153, 153, 153); font-size: 12px; outline-style: none;">
+	&nbsp;</div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">6、挂载新分区</span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	<span style="font-size:14px;">使用“mount -a”命令挂载新分区，然后用“df -h”命令查看，出现以下信息就说明挂载成功，可以开始使用新的分区了。</span></div>
+<div>
+	<br>
+	<span style="font-size:14px;"><img alt="" src="./挂载数据盘_files/6.jpg" style=""></span></div>
+<div>
+	<span style="font-size:14px;"><span style="color:#0000ff;">&gt;&gt;</span><a href="http://help.aliyun.com/manual?spm=0.0.0.0.PEbfvq&helpId=273" target="_blank"><span style="color:#0000ff;">Linux FTP服务配置</span></a></span></div>
+<div>
+	<span style="font-size:14px;"><span style="color:#0000ff;">&gt;&gt;</span><a href="http://help.aliyun.com/manual?spm=0.0.0.0.PEbfvq&helpId=129" target="_blank"><span style="color:#0000ff;">linux一键安装web环境全攻略</span></a></span></div>
+<div>
+	<span style="font-size:14px;"><span style="color:#0000ff;">&gt;&gt;</span><a href="http://help.aliyun.com/manual?spm=0.0.0.0.VhiMLR&helpId=69" target="_blank"><span style="color:#0000ff;">硬盘分区和格式化for Windows 2008</span></a></span></div>
+<div class="MsoListParagraphCxSpLast" style="margin-left: 18pt;">
+	&nbsp;</div>
+<div class="MsoListParagraphCxSpLast" style="margin-left: 18pt;">
+	<span style="font-size:14px;"><span lang="EN-US"><v:shape alt="说明: C:Usersyueming.zhouymPictures.jpg" id="图片_x0020_40" o:spid="_x0000_i1025" style="width: 6in; height: 80.25pt; visibility: visible; mso-wrap-style: square;" type="#_x0000_t75"><v:imagedata o:title="6" src="file:///C:UsersYUEMIN~1.ZHOAppDataLocalTempmsohtmlclip1clip_image006.jpg"></v:imagedata></v:shape></span><span lang="EN-US" style="line-height: 115%; font-family: 宋体;"><o:p></o:p></span></span></div>
+<div class="text" style="margin: 0px; padding: 0px 10px 10px; outline-style: none;">
+	&nbsp;</div>
+<p class="MsoListParagraphCxSpLast" style="margin-left: 18pt; mso-add-space: auto;">
+	<span lang="EN-US" style="mso-no-proof: yes;"><v:shape alt="说明: C:Usersyueming.zhouymPictures.jpg" id="图片_x0020_40" o:spid="_x0000_i1025" style="width: 6in; height: 80.25pt; visibility: visible; mso-wrap-style: square;" type="#_x0000_t75"><v:imagedata o:title="6" src="file:///C:UsersYUEMIN~1.ZHOAppDataLocalTempmsohtmlclip1clip_image006.jpg"></v:imagedata></v:shape></span><span lang="EN-US" style="line-height: 115%; font-family: 宋体; font-size: 10pt; mso-ascii-theme-font: minor-fareast; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast;"><o:p></o:p></span></p>
+                    </div>
+                    <div class="help-section">
+                        <p>以上内容是否已经解决了您的问题？</p>
+                        <form action="http://help.aliyun.com/save" method="post" id="save">
+                        <input id="id_sec_token" name="sec_token" type="hidden" value="282dccafc0520007">                        <ul class="section mt15">
+                            <li class="section-y"><a class="cue" href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" onclick="AYSW.help.submitY(this); return false;">是，已经解决。</a> <a href="http://help.aliyun.com/manual?lastSortId=583">查看更多帮助..</a> </li>
+                            <li class="section-n"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" class="cue help-show-reason">否，尚未解决。请告诉我们原因</a> 或  
+                             	                           		<a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" onclick="AYSW.liveChat(&#39;1225141032&#39;);return false;">在线咨询</a>
+                           		                            </li>
+                            <li class="help-message c-hidden">
+                                <span class="corner"></span>
+                                <input name="helpId" type="hidden" value="271">
+                                <input name="source" type="hidden" value="manual">
+                                <input name="option" type="radio" style="display:none;" value="0">
+                                <input name="option" type="radio" checked="" value="1"><span>太简单用不上</span>
+                                <input name="option" type="radio" value="2"><span>字太多不想看</span>
+                                <input name="option" type="radio" value="3"><span>太复杂看不懂</span>
+                                <input name="option" type="radio" value="4"><span>搜索内容匹配不上</span>
+                                <a class="c-button-4" href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" onclick="AYSW.help.submitN(this); return false;">提交</a>
+                            </li>
+                        </ul>
+                        </form>
+                    </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- 底部 -->
+    <div class="copyright-100 knight-footer">
+  <div class="y-row copyright">
+    <p class="big"><a href="http://www.aliyun.com/about" target="_blank">关于我们</a><a href="http://www.aliyun.com/law" target="_blank">法律声明</a><a href="http://www.aliyun.com/links" target="_blank">友情链接</a></p>
+    <p><a href="http://page.1688.com/shtml/about/ali_group1.shtml" target="_blank">阿里巴巴集团</a><a href="http://www.alibaba.com/" target="_blank">阿里巴巴国际站</a><a href="http://www.1688.com/" target="_blank">阿里巴巴中国站</a><a href="http://www.aliexpress.com/" target="_blank">全球速卖通</a><a href="http://www.taobao.com/" target="_blank">淘宝网</a><a href="http://www.tmall.com/" target="_blank">天猫</a><a href="http://ju.taobao.com/" target="_blank">聚划算</a><a href="http://www.etao.com/" target="_blank">一淘</a><a href="http://www.alimama.com/" target="_blank">阿里妈妈</a><a href="http://www.aliyun.com/" target="_blank">阿里云计算</a><a href="http://www.yunos.com/" target="_blank">云OS</a><a href="http://www.net.cn/" target="_blank">万网</a><a href="http://www.alipay.com/" target="_blank">支付宝</a><a href="http://www.laiwang.com/" target="_blank">来往</a></p>
+    <p>© 2013 Aliyun.com 版权所有 ICP证：浙B2-20080101</p>
+    <p><a href="http://122.224.75.236/wzba/login.do?spm=5176.383338.0.0.l0hKeT&method=hdurl&doamin=http://www.aliyun.com/&id=330108000016033&SHID=1223.0AFF_NAME=com.rouger.gs.main.UserInfoAff&AFF_ACTION=qyhzdetail&PAGE_URL=ShowDetail" target="_blank" data-spm-anchor-id="5176.383338.0.0" class="img img-1"></a><a href="http://www.aliyun.com/djcp" target="_blank" class="img img-2"></a></p>
+  </div>
+</div>
+<script src="./挂载数据盘_files/saved_resource(6)" charset="utf-8"></script><img height="0" width="0" style="border-style:none;" src="./挂载数据盘_files/saved_resource(7)">
+<!--[if lte IE 7]><script src="http://static-img3.cdn.aliyuncs.com/js/www-knight/dpl/iconfont-ie7.js?v=1388652549"></script><![endif]--></div><div class="cloud-helper-body-wrap"></div><div id="J_cloudHelper" class="cloud-helper-button cloud-helper-showonce" style="position: fixed;_position: absolute;top: 394px;right: 0.1%;z-index: 10000;width:38px;height:38px;"><a href="http://help.aliyun.com/manual?spm=0.0.0.0.b7MSwu&helpId=271#" onclick="return false;" title="小云帮助"></a></div>
+<script src="./挂载数据盘_files/c.php" language="JavaScript"></script>
+</body></html>

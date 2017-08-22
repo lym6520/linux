@@ -1,0 +1,1146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0078)http://hi.baidu.com/%CD%D1%CD%CF%D0%AC/blog/item/1c34bea1c6f9818b46106479.html -->
+<!--STATUS OK--><HTML><HEAD><TITLE>Linux上配置Apache，支持中文名称文件下载的方法_ゞ脱拖鞋︶ㄣＴTUO</TITLE>
+<META http-equiv=content-type content="text/html; charset=gb2312">
+<STYLE type=text/css>.error {
+	FONT-SIZE: 12px; COLOR: #ff0000
+}
+</STYLE>
+
+<SCRIPT src="Linux上配置Apache，支持中文名称文件下载的方法_files/global.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/popup.js"></SCRIPT>
+
+<SCRIPT src="Linux上配置Apache，支持中文名称文件下载的方法_files/BdEditor-mined.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=JavaScript 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/g_spjs.js"></SCRIPT>
+
+<SCRIPT language=javascript>
+<!--
+
+var allkey="";
+var i=0;
+var flag=0;
+function setpv(allnum)
+{
+	var num = allnum.split('_');
+	document.getElementById("result").innerHTML=num[0];
+}
+
+function checkMail(s)
+{
+  	var pattern=/\w+@\w+\.[a-z]+/;
+  	if(pattern.test(s))
+    {
+       return true;
+    }
+  	else
+   {
+      return false;
+   }
+}
+
+
+function checkeandu(eanduid)
+{
+	var eanduvalue=G(eanduid).value;
+	var len=bytes(eanduvalue);
+	if(len>128)
+	{
+		showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+		return false;
+	}
+	else
+	{
+		 return true;
+	}
+
+}
+
+function cmtdel(str)
+{
+	var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title","删除评论");
+	pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+	pop.setContent("callBack",delCallback2);
+	pop.setContent("parameter",{fid:str,popup:pop});
+	pop.build();
+	pop.show();
+	return false;
+}
+function delCallback2(para)
+{
+	var o_pop=para["popup"];
+	o_pop.config.contentType=1;
+	o_pop.setContent("contentUrl","");
+	o_pop.reBuild();
+	G(para["fid"]).target=o_pop.iframeIdName;
+	eval("document."+para["fid"]).submit();
+}
+
+String.prototype.byteLength = function() {
+    return this.replace(/[^\u0000-\u007f]/g,"\u0061\u0061").length;
+}
+
+function checkname(strid)
+{
+	var ele=document.getElementById(strid);
+	var len=bytes(ele.value);
+	if(len>49)
+	{
+		showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+		return false;
+	}
+	else
+	{
+		if(len==0)
+		{
+			document.getElementById(strid).value="匿名网友";
+		}
+		 return true;
+	}
+
+}
+
+function checktext(textid)
+{
+        var tempStr='';
+        var isLightFont=false;
+		if(editor&&textid=="spBlogCmtText"){
+			//document.getElementById("spBlogCmtText").value=editor.getHtml();
+			tempStr=editor.getHtml();
+			tempStr=tempStr.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,'');
+			tempStr=tempStr.replace(/<\/span>/ig,'');
+			document.getElementById("spBlogCmtText").value=tempStr;
+            isLightFont=!(tempStr==editor.getHtml());
+        }
+		document.getElementById(textid).value=trimlr(textid);
+		var str=trimrn(textid);
+		len=str.length;
+		if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+		{
+			showErr(3,"您必须输入评论内容，请检查。");
+			return false;
+		}
+		else
+        {
+                len=str.byteLength();
+                var maxLength=isLightFont?916:1000;
+				if(len > maxLength)
+				{
+					showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+					return false;
+				}
+				if(editor&&textid=="spBlogCmtText"){
+					document.getElementById("spBlogCmtText").value=editor.getHtml();
+					document.getElementById(textid).value=trimlr(textid);
+				}
+
+			return true;
+		}
+}
+
+function showErr(index,str)
+{
+	G(index+"_err").style.display="";
+	G(index+"_err_con").innerHTML=str;
+}
+function hidErr(index)
+{
+	G(index+"_err").style.display="none";
+	G(index+"_err_con").innerHTML="";
+}
+
+function alertPop(tit,con)
+{
+	var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+	pop.setContent("title",tit);
+	pop.setContent("alertCon",con);
+	pop.build();
+	pop.show();
+}
+
+function cmtfull()
+{
+	var cnum=1;
+	if(cnum>=50000)
+	{
+		alertPop("发表评论","单篇日志评论数最多为50000条.");
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function checkcmtform()
+{
+	if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+	{
+		submitForm();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+var g_pop=null;
+function submitForm()
+{
+	g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+	g_pop.setContent("title","添加评论");
+	g_pop.setContent("contentUrl","");
+	g_pop.setContent("someDisabledBtn","btn_ok");
+	g_pop.build();
+	G("popFormSubmit").target=g_pop.iframeIdName;
+	g_pop.show();
+}
+
+function g_close_pop()
+{
+	g_pop.close();
+}
+
+function formatonlinpic()
+{
+var picobj=document.getElementsByName("onlinepic");
+var picnum=picobj.length;
+
+	for(var i=0;i<picnum;i++)
+	{
+		if(picobj[i].width>200)
+		{
+			picobj[i].width=200;
+		}
+		if(picobj[i].height>200)
+		{
+			picobj[i].height=200;
+		}
+	}
+    try{document.getElementById("btn_ok").disabled = "";}catch(e){}
+}
+
+function addToFavor(){
+var blogTitle='Linux上配置Apache，支持中文名称文件下载的方法'.replace(/&#39;/g,'\'');
+window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(blogTitle+'_百度空间')+'&iu='+encodeURIComponent(location.href)+'&fr=sp#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes');
+return false;
+}
+
+var isIE = /*@cc_on!@*/false;
+function tracker(did,a){
+	return function(){
+		var t=new Date().getTime();
+		var href=a.href;
+        if(isIE){
+            var r = /href\s*=\s*("|')?([^\s]*)\1/gi;
+            if(r.test(a.outerHTML))
+                href = RegExp.$2;
+        }
+        new Image().src = "http://hi.baidu.com/sys/statlog/1.gif?m=" + did + "&v=" + encodeURIComponent(href) + "&c=" + encodeURIComponent(location.href) + "&t="+t;
+	}
+}
+
+function tracker_init(did){
+	var _s=document.getElementById(did);
+	var as = _s.getElementsByTagName('A');
+	for(var i = 0, j = as.length; i < j; i ++){
+		var a = as[i];
+		if(isIE){
+			a.attachEvent("onclick", tracker(did,a));
+		}else{
+			a.addEventListener("click", tracker(did,a), false);
+		}
+	}
+}
+
+
+/* some functions for cmt-reply */
+		function cmtreply(cmtName,cmtPorID)
+		{
+			window.location.hash="#send";
+			var cmtForm=document.form1;
+			cmtForm.cm.value="3";
+			if(!cmtForm.spReferTarget)
+			{
+				var ipt=document.createElement("input");
+				ipt.type="hidden";
+				ipt.name="spReferTarget";
+				ipt.value=cmtPorID;
+				cmtForm.appendChild(ipt);
+			}else cmtForm.spReferTarget.value=cmtPorID;
+
+
+			 //G("reTitle").innerHTML="回复"+cmtName+"：";
+			 G("cancleReLink").style.display="";
+			 cmtForm.btn_ok.value="回复评论";
+
+
+			 try{
+				editor.window.focus();
+                editor.window.document.body.innerHTML="回复"+cmtName+"：";
+
+                var w = editor.window;
+				if(w.getSelection){
+					var d = w.document;
+					var s = w.getSelection();
+					var r = d.createRange();
+					r.setStartAfter(d.body.firstChild);
+					r.setEndAfter(d.body.lastChild);
+					s.removeAllRanges();
+					s.addRange(r);
+				}
+			}catch(e){
+			 		try{
+				 		cmtForm.getElementsByTagName("textarea")[0].focus();
+				 		cmtForm.getElementsByTagName("textarea")[0].value="回复"+cmtName+"：";
+				 	}catch(e){}
+			}
+		}
+
+		function canclereply()
+		{
+			var cmtForm=document.form1;
+			cmtForm.cm.value="1";
+			try{cmtForm.removeChild(cmtForm.spReferTarget);}catch(e){}
+			/*
+			try{
+					var cmt=cmtForm.getElementsByTagName("textarea")[0]
+					cmt.value="";
+					cmt.focus();
+			}catch(e){}
+			*/
+
+			try{
+					var ed=editor.window.document.body;
+					ed.innerHTML="";
+					editor.window.focus();
+				}catch(e){
+					var cmt=cmtForm.getElementsByTagName("textarea")[0];
+					cmt.value="";
+					cmt.focus();
+			}
+
+			G("cancleReLink").style.display="none";
+			cmtForm.btn_ok.value="发表评论";
+		}
+
+		function gotoreply()
+		{//to checking whether reply cmt
+			if( window.location.hash.indexOf("&re=1")<0) return;
+			var cmtID=window.location.hash.split("&")[0].replace("#","");
+			var cmtlinks=document.getElementsByTagName("a");
+			for(var i=0,n=cmtlinks.length;i<n;i++)
+			{
+				if(cmtlinks[i].name==cmtID){ var rename=cmtlinks[i].getAttribute("rename");  repid=cmtlinks[i].getAttribute("repid"); break;}
+			}
+			if(typeof(rename)!="undefined"){
+				cmtreply(rename, repid);
+			}
+		}
+
+//-->
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+    /*<![CDATA[*/
+
+window.onerror=function(){return true;}
+
+var RelatedDocData = null, GetAndEval = false;
+(function(){
+	var xhr = BdAjax.getXHR();
+	if(xhr == null){
+		RelatedDocData = -1;
+		return;
+	}
+
+	xhr.open("GET", "/sys/search?type=8&word=Linux%C9%CF%C5%E4%D6%C3Apache%A3%AC%D6%A7%B3%D6%D6%D0%CE%C4%C3%FB%B3%C6%CE%C4%BC%FE%CF%C2%D4%D8%B5%C4%B7%BD%B7%A8&item=1c34bea1c6f9818b46106479&t=" + new Date().getTime(), true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 0 || xhr.status == 200){
+				if(GetAndEval){
+					eval(xhr.responseText);
+				}else{
+					RelatedDocData = xhr.responseText;
+				}
+			}
+		}
+	}
+	xhr.send(null);
+})();
+/*]]>*/
+</SCRIPT>
+
+<META content="MSHTML 6.00.3790.4426" name=GENERATOR></HEAD>
+<BODY onload=formatonlinpic();>
+<CENTER>
+<SCRIPT type=text/javascript>
+/*<![CDATA[*/
+if(top.location != self.location){
+	top.location = self.location;
+}
+var myref = encodeURIComponent("http://hi.baidu.com/%CD%D1%CD%CF%D0%AC/blog/item/1c34bea1c6f9818b46106479%2Ehtml");
+/*]]>*/
+</SCRIPT>
+<LINK href="/ui/css/mods.css" type=text/css rel=stylesheet><LINK 
+href="Linux上配置Apache，支持中文名称文件下载的方法_files/740c9f50d2d1f4628535242c.css" 
+type=text/css rel=stylesheet><LINK href="/space.css" type=text/css 
+rel=stylesheet>
+<STYLE type=text/css>#usrbar {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FONT-SIZE: 12px; BACKGROUND: #ffffff; FILTER: alpha(opacity=65); PADDING-BOTTOM: 3px; WIDTH: 100%; COLOR: #000000; LINE-HEIGHT: 19px; PADDING-TOP: 4px; FONT-FAMILY: Arial; LETTER-SPACING: normal; HEIGHT: 19px; TEXT-ALIGN: right; moz-opacity: 0.5
+}
+#usrbar A {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#usrbar A:link {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#usrbar A:visited {
+	COLOR: #0000cc; TEXT-DECORATION: underline
+}
+#ft {
+	CLEAR: both; FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 20px; FONT-FAMILY: Arial; HEIGHT: 20px; TEXT-ALIGN: center
+}
+#ft A {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#ft A:link {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#ft A:visited {
+	COLOR: #7777cc; TEXT-DECORATION: underline
+}
+#usrbar {
+	LETTER-SPACING: normal
+}
+#usrbar A {
+	LETTER-SPACING: normal
+}
+#usrbar A:link {
+	LETTER-SPACING: normal
+}
+#usrbar A:visited {
+	LETTER-SPACING: normal
+}
+#ft {
+	LETTER-SPACING: normal
+}
+#ft A {
+	LETTER-SPACING: normal
+}
+#ft A:link {
+	LETTER-SPACING: normal
+}
+#ft A:visited {
+	LETTER-SPACING: normal
+}
+</STYLE>
+
+<STYLE type=text/css>.lka {
+	CURSOR: pointer; COLOR: #00c
+}
+IMG.down-arrow {
+	BORDER-RIGHT: #ffffff 1px solid; BORDER-TOP: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid; CURSOR: pointer; BORDER-BOTTOM: #ffffff 1px solid
+}
+IMG.down-arrow-hover {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; CURSOR: pointer; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #f7f7f7
+}
+#nav_extra {
+	FONT-SIZE: 12px; Z-INDEX: 65535; WIDTH: 100px; POSITION: absolute; TEXT-ALIGN: left
+}
+#nav_extra A {
+	CURSOR: pointer; COLOR: #0000cc! important; POSITION: static; TEXT-DECORATION: underline! important
+}
+#nav_extra .top {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 5px; Z-INDEX: 65531; PADDING-BOTTOM: 2px; BORDER-LEFT: #999 1px solid; BORDER-BOTTOM: #ffffff 1px solid; POSITION: absolute; HEIGHT: 17px; BACKGROUND-COLOR: #ffffff
+}
+#nav_extra .body {
+	BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; Z-INDEX: 65530; BORDER-LEFT: #999 1px solid; WIDTH: 112px; BORDER-BOTTOM: #999 1px solid; POSITION: absolute; TOP: 20px; BACKGROUND-COLOR: #ffffff
+}
+#nav_extra .body A {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-SIZE: 12px! important; PADDING-BOTTOM: 3px; PADDING-TOP: 3px
+}
+#nav_extra .body A:hover {
+	BACKGROUND-COLOR: #e4e4e4
+}
+#usrbar #my_home_container {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px
+}
+</STYLE>
+<!--[if IE]>
+<STYLE type=text/css>#nav_extra .body {
+	TOP: 19px
+}
+</STYLE>
+<![endif]-->
+<SCRIPT type=text/javascript>
+/*<![CDATA[*/
+var G_HIBAR = (function(){
+	var d = document, usrbar, nav_extra, is_show, top_offset = BdBrowser.isIE ? 5 : 3;
+
+	function toggle(el, l, t){
+		el.style.display = is_show ? 'none' : 'block';
+		el.style.left	 = l + 'px';
+		el.style.top	 = t + 'px';
+	}
+
+	function hide_or_show(e){ is_show && G_HIBAR(e); }
+
+	function gc(){
+		usrbar = null;
+		nav_extra = null;
+
+		BdEvent.removeEvent(window, "unload", gc);
+	}
+
+	BdEvent.addEvent(window, "resize", hide_or_show);
+	BdEvent.addEvent(document, "click", hide_or_show);
+	BdEvent.addEvent(window, "unload", gc);
+
+	var is_tracker_attached = false;
+	return function(e){
+		if(!is_tracker_attached){
+			BdUtil.hi_tracker("nav_extra", "m_space_menu");
+			is_tracker_attached = true;
+		}
+		(e || window.event).cancelBubble = true;
+
+		usrbar		        = usrbar	|| d.getElementById('usrbar');
+		nav_extra	        = nav_extra || d.getElementById('nav_extra');
+
+		var my_home			= d.getElementById('my_home'),
+			usrbar_height	= usrbar.scrollHeight,
+			left_offset		= 0;
+		do{
+			left_offset += my_home.offsetLeft;
+		}while(my_home = my_home.offsetParent);
+
+
+		left_offset = left_offset - 6;
+		toggle(nav_extra, left_offset, top_offset);
+		is_show = !is_show;
+	}
+})();
+/*]]>*/
+</SCRIPT>
+
+<DIV id=nav_extra style="DISPLAY: none">
+<DIV class=top><A href="http://hi.baidu.com/i_am_maidou/space" 
+target=_blank>我的空间</A>&nbsp;<IMG class=down-arrow onclick=G_HIBAR(event); 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/my_ico.gif" align=absMiddle></DIV>
+<DIV class=body>
+<DIV><A href="http://hi.baidu.com/i_am_maidou" target=_blank><B>主页</B></A>|<A 
+href="http://hi.baidu.com/i_am_maidou/modify/spmodules/0" 
+target=_blank>空间装扮</A></DIV>
+<DIV><A href="http://hi.baidu.com/i_am_maidou/blog/" 
+target=_blank><B>博客</B></A>|<A 
+href="http://hi.baidu.com/i_am_maidou/creat/blog/" target=_blank>写新文章</A></DIV>
+<DIV><A href="http://hi.baidu.com/i_am_maidou/album" 
+target=_blank><B>相册</B></A>|<A 
+href="http://hi.baidu.com/i_am_maidou/creat/picture/album" 
+target=_blank>上传照片</A></DIV>
+<DIV><A href="http://hi.baidu.com/i_am_maidou/friends" 
+target=_blank><B>好友</B></A>|<A href="http://ren.baidu.com/uquery/" 
+target=_blank>找新朋友</A></DIV>
+<DIV><A href="http://hi.baidu.com/i_am_maidou/profile" 
+target=_blank><B>档案</B></A>|<A href="http://hi.baidu.com/i_am_maidou/board" 
+target=_blank>留言板</A></DIV></DIV></DIV>
+<DIV id=usrbar><NOBR>
+<STYLE>#hi {
+	ZOOM: 1; POSITION: relative
+}
+#hiMsg {
+	DISPLAY: none; RIGHT: -16px; BACKGROUND: url(http://img.baidu.com/hi/img/baiduhi/popright.gif) no-repeat right top; POSITION: absolute; TOP: 2px; HEIGHT: 17px
+}
+#msgRight {
+	PADDING-RIGHT: 4px; DISPLAY: block; PADDING-LEFT: 4px; BACKGROUND: url(http://img.baidu.com/hi/img/baiduhi/pop.gif) no-repeat left top; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: auto; COLOR: #ffffff; LINE-HEIGHT: 12px; PADDING-TOP: 0px; HEIGHT: 17px
+}
+#hiImg {
+	LEFT: -3px; WIDTH: 16px; POSITION: relative; TOP: 3px; HEIGHT: 12px
+}
+#msgPos {
+	BACKGROUND: url(http://img.baidu.com/hi/img/baiduhi/hiIcon.gif) no-repeat left -1px; PADDING-BOTTOM: 7px; CURSOR: pointer; POSITION: relative; TOP: 1px
+}
+</STYLE>
+<SPAN id=hi><STRONG><A href="https://passport.baidu.com/" 
+target=_blank>lym6520</A></STRONG> <SPAN id=msgPos title=发起即时会话 
+onclick="jumpToWebIM('message','lym6520','',0);"><IMG id=hiImg 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/0.gif"></SPAN> <SPAN id=hiMsg 
+title=发起即时会话 style="DISPLAY: none; CURSOR: pointer; opacity: 1" 
+onclick="jumpToWebIM('message','lym6520','',0);"><SPAN id=msgRight>0</SPAN> 
+</SPAN></SPAN>|&nbsp;<SPAN id=mnum></SPAN>&nbsp;|&nbsp;<SPAN class=is_hide 
+id=my_home_container><A id=my_home href="http://hi.baidu.com/i_am_maidou/space" 
+target=_blank>我的空间</A>&nbsp;<IMG class=down-arrow 
+onmouseover="this.className='down-arrow-hover'" onclick=G_HIBAR(event); 
+onmouseout="this.className='down-arrow'" 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/my_ico.gif" 
+align=absMiddle></SPAN>&nbsp;|&nbsp;<A id=hi_index href="http://hi.baidu.com/" 
+target=_blank>百度空间</A>&nbsp;|&nbsp;<A href="http://www.baidu.com/" 
+target=_blank>百度首页</A>
+<SCRIPT type=text/javascript>
+		
+		document.write('| <a href="https://passport.baidu.com/?logout&u=http://hi.baidu.com' + encodeURI('/%CD%D1%CD%CF%D0%AC/blog/item/1c34bea1c6f9818b46106479%2Ehtml') + '">退出</a>');
+		
+		</SCRIPT>
+
+<SCRIPT language=javascript src="Linux上配置Apache，支持中文名称文件下载的方法_files/webImTip.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript>
+			function onimFunc(){
+				//closeTip();
+				IMOld.reset();
+			}
+			var jsonFunction={onim:onimFunc};
+			function jumpToWebIM(arge1,arge2,arge3,arge4){
+				clearInterval(webHi.eventHandler);
+				webHi.eventHandler=null;
+				window.startBaiduHi(arge1,arge2,arge3,jsonFunction);
+			}
+			window.IMOld.url+="&un="+"lym6520";
+		</SCRIPT>
+ </NOBR></DIV>
+<STYLE type=text/css>#tip {
+	Z-INDEX: 65534; WIDTH: 240px; PADDING-TOP: 12px; POSITION: absolute
+}
+#tip #arrow {
+	RIGHT: 50px; POSITION: absolute; TOP: 7px
+}
+#tip #container .header {
+	BACKGROUND-IMAGE: url(http://img.baidu.com/hi/img/mfu/tip-bg.gif)
+}
+#tip #container .wrapper {
+	BACKGROUND-IMAGE: url(http://img.baidu.com/hi/img/mfu/tip-bg.gif)
+}
+#tip #container .header {
+	BACKGROUND-POSITION: center top; FONT-SIZE: 1px; LINE-HEIGHT: 8px; HEIGHT: 8px
+}
+#tip #container .wrapper {
+	BACKGROUND-POSITION: center bottom; POSITION: relative
+}
+#tip #container .close {
+	RIGHT: 16px; CURSOR: pointer; POSITION: absolute; TOP: 6px
+}
+#tip #container .main {
+	PADDING-RIGHT: 10px; BACKGROUND-POSITION: 15px 5px; PADDING-LEFT: 60px; BACKGROUND-IMAGE: url(http://img.baidu.com/hi/img/mfu/tip-logo.gif); PADDING-BOTTOM: 10px; PADDING-TOP: 10px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: left
+}
+#tip #container .title {
+	FONT-WEIGHT: bold; OVERFLOW: hidden; COLOR: #000; PADDING-TOP: 0px
+}
+#tip #container .content {
+	COLOR: #000
+}
+#tip #container .more-action {
+	PADDING-RIGHT: 5px; PADDING-BOTTOM: 3px; TEXT-ALIGN: right
+}
+#tip #container .more-action A {
+	COLOR: #0000cc! important; TEXT-DECORATION: underline! important
+}
+</STYLE>
+
+<SCRIPT type=text/javascript>
+/*<![CDATA[*/
+var close_tip = (function(){
+	var tip, tip_is_closed = false;
+	var is_tracker_attached = false;
+	function showTip(){
+		if(tip_is_closed){
+			BdEvent.removeEvent(window, "resize", showTip);
+			return false;
+		}
+		if(!is_tracker_attached){
+			BdUtil.hi_tracker("tip", "m_promotion_tip");
+			is_tracker_attached = true;
+		}
+		var hi_index = document.getElementById('hi_index'),
+			left_offset = 0;
+		tip = tip || document.getElementById('tip');
+		do{
+			left_offset += hi_index.offsetLeft;
+		}while(hi_index = hi_index.offsetParent);
+
+		tip.style.left = (left_offset - 160 /* 240(width) - 50 - 17 - 13(right) */)+ "px";
+		tip.style.top = '15px';
+		tip.style.display = 'block';
+	}
+	BdEvent.addEvent(window, "load", showTip);
+	BdEvent.addEvent(window, "resize", showTip);
+
+
+
+	return function(e){
+		// console.log(e);
+		var e = window.event || e;
+
+		// e.returnValue = false;
+		e.cancelBubble = true;
+		if(e.stopPropagation)
+			e.stopPropagation();
+
+		set_cookie_4_bdtip(1, String(parseInt("1245397480") + 10));
+		tip.style.display = 'none';
+		tip_is_closed = true;
+	}
+})();
+/*]]>*/
+</SCRIPT>
+
+<DIV id=tip style="DISPLAY: none"><IMG id=arrow 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/arrow.gif"> 
+<DIV id=container>
+<DIV class=header></DIV>
+<DIV class=wrapper><IMG class=close onclick=close_tip(event) 
+src="Linux上配置Apache，支持中文名称文件下载的方法_files/close.gif"> 
+<DIV class=main>
+<DIV class=title>送爱心礼物，赢千元大奖！</DIV>
+<DIV class=content>爱的小心意，你我来传递，<BR>快去给朋友们送礼物吧！</DIV>
+<DIV class=more-action>&nbsp;<A onclick=close_tip(event) 
+href="http://act.hi.baidu.com/loreal100/intro.html" 
+target=_blank>马上参加&gt;&gt;</A>&nbsp; </DIV></DIV></DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+
+function set_cookie_4_bdtip(index/* start from one */, value){
+	var bdtip = document.cookie.match(/(^| )BDTIP=([^;]*)(;|$)/);
+	if(!bdtip){
+		bdtip=new Array(index);
+		for(var i=0,n=bdtip.length;i<n;i++)
+		{
+			if(bdtip[i]=="" || bdtip[i]==null)  bdtip[i]=0;
+			if(i == index - 1){
+				bdtip[i] = value;
+			}
+		}
+	}else{
+	bdtip = bdtip[2].split('-');
+	if(index > bdtip.length)  bdtip.length= index;
+	for(var i = 0, j = bdtip.length; i < j; i ++){
+		if(bdtip[i]=="" || bdtip[i]==null) bdtip[i]=0;
+		if(i == index - 1){
+			bdtip[i] = value;
+		}
+	}
+	}
+	bdtip = bdtip.join('-');
+	document.cookie = "BDTIP=" + bdtip+ ";expires=Wed, 28-Nov-37 01:45:46 GMT;path=/;";
+}
+</SCRIPT>
+
+<DIV id=main align=left><!--[if IE]>
+<SCRIPT>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</SCRIPT>
+<![endif]-->
+<DIV id=header>
+<DIV class=lc>
+<DIV class=rc></DIV></DIV>
+<DIV class=tit><A class=titlink title="ka275048154的空间 http://hi.baidu.com/脱拖鞋" 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;">ゞ脱拖鞋︶ㄣＴTUO</A></DIV>
+<DIV class=desc>我这是大多都是从别人那搞来的。啊哈哈。大家只看不用回复。那个麻烦 偶尔有我写的</DIV>
+<DIV id=tabline>&nbsp;</DIV>
+<DIV id=tab><A href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;">主页</A><A class=on 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog">博客</A><A 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/album">相册</A><SPAN>|</SPAN><A 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/profile">个人档案</A> <SPAN>|</SPAN><A 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/friends">好友</A> </DIV></DIV>
+<DIV class=stage>
+<DIV class=stagepad>
+<DIV style="WIDTH: 100%">
+<TABLE class=modth cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=modtl width=7>&nbsp;</TD>
+    <TD class=modtc noWrap>
+      <DIV class=modhead><SPAN class=modtit>查看文章</SPAN></DIV></TD>
+    <TD class=modtc noWrap align=right></TD>
+    <TD class=modtr width=7>&nbsp;</TD></TR></TBODY></TABLE>
+<DIV class=modbox id=m_blog>
+<DIV class=tit>Linux上配置Apache，支持中文名称文件下载的方法</DIV>
+<DIV class=date>2007-03-05 21:38</DIV>
+<TABLE style="TABLE-LAYOUT: fixed">
+  <TBODY>
+  <TR>
+    <TD>
+      <DIV class=cnt id=blog_text>
+      <P><SPAN class=bold><FONT color=#000080 
+      size=5>Linux上配置Apache，支持中文名称文件下载的方法</FONT></SPAN></P>
+      <P><SPAN class=bold></SPAN><BR><A 
+      href="http://www.linuxdiyf.com/bbs/viewthread.php?tid=24655">http://www.linuxdiyf.com/bbs/viewthread.php?tid=24655</A><BR></P>
+      <DIV 
+      style="FONT-SIZE: 13px">Linux上的Apache默认不支持中文名的文件下载，有一段时间让我很郁闷，因为一个项目中，客户要求能够下载中文名的文件，后来不得已在程序里面做处理得以解决，但一直有点不甘心，觉得Apache肯定可以支持的，刚好最近在网上看到了mod_encoding这个模块，MS这是个日本人写的（先Bs一下日本，然后把他们的好东西拿来用&nbsp;:)）。&nbsp;<BR><BR>&nbsp;&nbsp;&nbsp;首先从这里下载文件:mod_encoding-20021209.tar.gz&nbsp;这个模块包，这个包默认是支持Apache&nbsp;1.3.X的，如果想在Apache2上使用的话，需要在下载另外一个文件文件，在这里下载<BR><BR>&nbsp;&nbsp;&nbsp;配置步骤如下：&nbsp;<BR><BR>#cp&nbsp;mod_encoding-20021209.tar.gz&nbsp;/usr/local/&nbsp;<BR><BR>#cd&nbsp;/usr/local/&nbsp;<BR><BR>#tar&nbsp;-zxvf&nbsp;mod_encoding-20021209.tar.gz&nbsp;<BR><BR>如果是Apache2&nbsp;<BR><BR>#cp&nbsp;mod_encoding.c.apache2.20020616&nbsp;/usr/local/mod_encoding-20021209/mod_encoding.c&nbsp;<BR><BR>#&nbsp;cd&nbsp;mod_encoding-20021209/lib&nbsp;<BR><BR>#&nbsp;./configure&nbsp;<BR><BR>#&nbsp;make&nbsp;<BR><BR>#&nbsp;make&nbsp;install&nbsp;<BR><BR>#&nbsp;vi&nbsp;/etc/ld.so.conf&nbsp;<BR><BR>在最下面添加/usr/local/lib&nbsp;保存退出。&nbsp;<BR><BR>#PATH="$PATH:/sbin"&nbsp;<BR><BR>#ldconfig&nbsp;<BR><BR>#cd&nbsp;/usr/local/mod_encoding-20021209&nbsp;<BR><BR>#./configure&nbsp;--with-apxs=/www/bin/apxs&nbsp;--with-iconv-hook=/usr/local/include&nbsp;<BR><BR>上面的/www修改为你的Apache安装目录&nbsp;<BR><BR>#make&nbsp;<BR><BR>#ls&nbsp;–l&nbsp;<BR><BR>查看是否已经生成了mod_encoding.o文件，如果有，则make成功继续下边的操作。&nbsp;<BR><BR>#gcc&nbsp;-shared&nbsp;-o&nbsp;mod_encoding.so&nbsp;mod_encoding.o&nbsp;-Wc,-Wall&nbsp;-L/usr/local/lib&nbsp;-Llib&nbsp;-liconv_hook&nbsp;<BR><BR>#cp&nbsp;mod_encoding.so&nbsp;/usr/lib/httpd/modules/mod_encoding.so&nbsp;<BR><BR>在配制Apache配置文件&nbsp;<BR><BR>#vi&nbsp;/www/conf/httpd.conf&nbsp;<BR><BR>在文件最后添加：&nbsp;<BR><BR>LoadModule&nbsp;encoding_module&nbsp;/usr/lib/httpd/modules/mod_encoding.so<BR><BR>&lt;IfModule&nbsp;mod_headers.c&gt;<BR><BR>Header&nbsp;add&nbsp;MS-Author-Via&nbsp;"DAV"<BR><BR>&lt;/IfModule&gt;<BR><BR><BR><BR>&lt;IfModule&nbsp;mod_encoding.c&gt;<BR><BR>EncodingEngine&nbsp;on<BR><BR>NormalizeUsername&nbsp;on<BR><BR>SetServerEncoding&nbsp;GBK<BR><BR>DefaultClientEncoding&nbsp;UTF-8&nbsp;GBK&nbsp;GB2312<BR><BR>AddClientEncoding&nbsp;"(Microsoft&nbsp;.*&nbsp;DAV&nbsp;$)"&nbsp;UTF-8&nbsp;GBK&nbsp;GB2312<BR><BR>AddClientEncoding&nbsp;"Microsoft&nbsp;.*&nbsp;DAV"&nbsp;UTF-8&nbsp;GBK&nbsp;GB2312<BR><BR>AddClientEncoding&nbsp;"Microsoft-WebDAV*"&nbsp;UTF-8&nbsp;GBK&nbsp;GB2312<BR><BR>&lt;/IfModule&gt;<BR><BR>大功告成，重启Apache之后，怎么样？以上方法在RedHat&nbsp;9上测试通过。</DIV></DIV></TD></TR></TBODY></TABLE><BR>
+<DIV class=opt><A title=查看该分类中所有文章 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog/category/&Auml;&not;&Egrave;&Iuml;·&Ouml;&Agrave;à">类别：默认分类</A> | <A 
+title=将此文章添加到百度搜藏 onclick="return addToFavor();" 
+href="http://cang.baidu.com/do/add" target=_blank>添加到搜藏</A> | 浏览(<SPAN 
+id=result></SPAN>) | <A 
+href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog/item/1c34bea1c6f9818b46106479.html#send">评论</A>&nbsp;(1)
+<SCRIPT language=javascript>
+/*<![CDATA[*/
+var pre = [true,'linux下转换文件命名编码的 工具一点原理', 'linux下转换文件命名编码的 工具...','/%CD%D1%CD%CF%D0%AC/blog/item/5411b831bdc9c7a85edf0ebb.html'];
+var post = [true,'linux下apache支持中文名的解决方法！【原创】 不是我创的。是人家的','linux下apache支持中文名的解决...', '/%CD%D1%CD%CF%D0%AC/blog/item/36c6b61138e3437ecb80c442.html'];
+if(pre[0] || post[0]){
+	document.write('<div style="height:5px;line-height:5px;">&nbsp;</div><div id="in_nav">');
+	if(pre[0]){
+		document.write('上一篇：<a href="' + pre[3] + '" title="' + pre[1] + '">' +  pre[2] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+	}
+	if(post[0]){
+		document.write('下一篇：<a href="' + post[3] + '" title="' + post[1] + '">' +  post[2] + '</a>');
+	}
+	document.write('</div>');
+}
+/*]]>*/
+</SCRIPT>
+ </DIV>
+<DIV class=line>&nbsp;</DIV>
+<STYLE type=text/css>#in_related_doc A {
+	TEXT-DECORATION: none
+}
+</STYLE>
+
+<DIV id=in_related_tmp></DIV>
+<SCRIPT language=javascript type=text/javascript>
+/*<![CDATA[*/
+function HI_MOD_IN_RELATED_DOC_CALLBACK(arg){
+    if(arg.length <= 1) return false;
+    var hasMore = arg[0];
+    var D=function(A,B){A[A.length]=B;}
+    if(arg.length % 2 == 0) D(arg, ["","","",""]);
+
+    var html = ['<div id="in_related_doc"><div class="tit">相关文章：</div>'];
+    D(html, '<table cellpadding="0" cellspacing="3" border="0">');
+    for(var i = 1, j = arg.length; i < j; i += 2){
+        D(html, '<tr>');
+        D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i][3] + '/blog/item/' + arg[i][2] + '.html" target="_blank" title="' + arg[i][0] + '">' + arg[i][1] + '</a>');
+        D(html, new Array(10).join('\u3000'));
+        D(html, '</td>');
+        if(arg[i + 1][0] != "")
+            D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i + 1][3] + '/blog/item/' + arg[i + 1][2] + '.html" target="_blank" title="' + arg[i + 1][0] + '">' + arg[i + 1][1] + '</a></td>');
+        else
+            D(html, '<td>&nbsp;</td><td>&nbsp;</td>');
+        D(html, '</tr>');
+    }
+    if(hasMore) D(html, '<tr><td colspan="4"><a target="_blank" href="/sys/search?pageno=1&type=7&sort=1&word=Linux%C9%CF%C5%E4%D6%C3Apache%A3%AC%D6%A7%B3%D6%D6%D0%CE%C4%C3%FB%B3%C6%CE%C4%BC%FE%CF%C2%D4%D8%B5%C4%B7%BD%B7%A8&item=1c34bea1c6f9818b46106479">更多&gt;&gt;</a></td></tr>');
+    D(html, '</table></div><div class="line">&nbsp;</div>');
+
+    var div = document.getElementById('in_related_tmp');
+    if(div){
+        div.innerHTML = html.join('');
+        while(div.firstChild){
+            div.parentNode.insertBefore(div.firstChild, div);
+        }
+        div.parentNode.removeChild(div);
+    }
+	window.setTimeout("tracker_init('in_related_doc')",100);
+}
+
+if(RelatedDocData == -1){	// not supported xhr
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '/sys/search?type=8&word=Linux%C9%CF%C5%E4%D6%C3Apache%A3%AC%D6%A7%B3%D6%D6%D0%CE%C4%C3%FB%B3%C6%CE%C4%BC%FE%CF%C2%D4%D8%B5%C4%B7%BD%B7%A8&item=1c34bea1c6f9818b46106479&t=' + new Date().getTime();
+    document.getElementsByTagName('HEAD')[0].appendChild(script);
+}else if(RelatedDocData == null){
+	GetAndEval = true;
+}else{
+	eval(RelatedDocData);
+}
+
+/*]]>*/
+</SCRIPT>
+
+<DIV id=in_reader>
+<DIV class=tit>最近读者：</DIV>
+<SCRIPT>
+
+	var g_spAnnony=false;
+
+
+var g_read=[
+
+["kulool","b3f06b756c6f6f6cef01","kulool"],
+
+["wnv%5Fgaming","1732774e765f47616d696e670c01","wNv_Gaming"],
+
+["shixz","bb5eb7e7d3ead6d0d6aebaa3d1e03104","风雨中之海燕"],
+
+["qilin088","472871696c696e303838fe00","qilin088"],
+
+["limingdai","d9646c696d696e67646169d702","limingdai"],
+
+["duannanhua","b1add1a7cfb0d3ced3beb5c4c8cb3502","学习游泳的人"],
+
+["libk","cac86c69626b0401","libk"],
+
+["onhour","51fa6f6e686f75721301","onhour"],
+
+{}
+];
+g_read.length=g_read.length-1;
+
+var _rh1="";
+var _rh2="";
+
+function wrreader(){
+	_rh1 += '<table width="100%" ><tr>';
+	_rh2+='<tr>';
+	if(g_spAnnony){
+		_rh1+='<td align="center" width="10%" ><img border="0" width="55" height="55" src="http://img.baidu.com/hi/img/portraitn.jpg"></td>';
+		_rh2+='<td>&nbsp;</td>';
+		if(g_read.length>0){
+			_rh1+='<td align="left" width="12%">';
+		}else{
+			_rh1+='<td align="left" width="100%">';
+		}
+		_rh1+='<a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'" target="_self">登录</a>后，您就出现在这里。</td>';
+		_rh2+='<td>&nbsp;</td>'
+	}
+	if(g_read.length==0){
+		if(!g_spAnnony){
+			_rh1+='<td align=left width="100%">最近还没有登录用户看过这篇文章……</td>';
+			_rh2+='<td>&nbsp;</td>';
+		}
+	}else{
+		for(i=0,len=g_read.length;i<len;i++){
+			_rh1+='<td align="center" valign="bottom" width="10%" class="user"><a href="/'+g_read[i][0]+'" target="_blank"><img border="0" src="http://himg.baidu.com/sys/portraitn/item/'+g_read[i][1]+'.jpg"></a></td>';
+			_rh2+='<td align="center" valign="top" class="user"><a href="/'+g_read[i][0]+'" target="_blank">'+g_read[i][2]+'</a></td>';
+		}
+	}
+	_rh1+='<td width="100%"></td></tr>';
+	_rh2+='<td></td></tr></table>';
+	document.write(_rh1+_rh2);
+}
+
+wrreader();
+</SCRIPT>
+</DIV>
+<DIV class=line>&nbsp;</DIV>
+<SCRIPT language=JavaScript>
+allkey=allkey+"f71d29f52dca9d25bc31090d_1c34bea1c6f9818b46106479_";
+</SCRIPT>
+
+<DIV id=in_comment><A name=comment></A>
+<DIV class=tit>网友评论：</DIV>
+<SCRIPT>
+function writecmt(type,id,cmtname,cmturl,portraitId){
+	var html1="";
+	cmturl=cmturl.replace("https://","http://");
+	if(type==1){
+			html1="<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'><img  border='0' src='http://himg.baidu.com/sys/portraitn/item/"+portraitId+".jpg'><br>"+cmtname+"</a>";
+	}else{
+		if(cmtname=="" || cmtname=="匿名网友"){
+			if(cmturl==""){
+				html1="<a>匿名网友</a>";
+			}else{
+				html1="<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a>";
+			}
+		}else{
+			if(cmturl==""){
+				html1="<div class='f14' style='display:inline'>网友:<a>"+cmtname+"</a></div>";
+			}else{
+				html1="<div class='f14' style='display:inline'>网友:<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a></div>";
+			}
+		}
+	}
+	document.write(html1);
+}
+function filterCmtContent(n){
+	if(!BdBrowser.isIE){
+		var defaultfilter1='<span style="filter:glow(color=#000000,strength=2);height:0px;color:#000000">';
+		var defaultfilter2='<span style="height: 0px; color: rgb(0, 0, 0);">';
+		var commentDiv=document.getElementById(n);
+		var divs=commentDiv.getElementsByTagName('div');
+		var d,tmp;
+		for( var i=0,len=divs.length;i<len;i++){
+			d=divs[i];
+			if(d.getAttribute('name')=='cmtcontent'){
+				tmp=d.innerHTML;
+				tmp=tmp.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,defaultfilter1);
+				tmp=tmp.replace('<span style="height: 0px; color: rgb(255, 255, 255);">',defaultfilter2);
+				d.innerHTML=tmp;
+			}
+		}
+	}
+}
+
+</SCRIPT>
+<A name=5f6cd509e15a1184d1581bdb repid="b1add1a7cfb0d3ced3beb5c4c8cb3502" 
+rename="学习游泳的人"></A>
+<TABLE class=item 
+style="TABLE-LAYOUT: fixed; OVERFLOW: hidden; WORD-WRAP: break-word" 
+cellSpacing=0 cellPadding=0 width="100%" border=0 ;>
+  <TBODY>
+  <TR>
+    <TD class=index vAlign=top width="5%">1</TD>
+    <TD vAlign=top align=middle width="10%">
+      <DIV class=user style="OVERFLOW: hidden">
+      <SCRIPT>
+writecmt(1,"5f6cd509e15a1184d1581bdb","学习游泳的人","http://hi.baidu.com/duannanhua","b1add1a7cfb0d3ced3beb5c4c8cb3502");
+</SCRIPT>
+      </DIV></TD>
+    <TD class=cnt style="PADDING-LEFT: 20px"><SPAN class=date>2008-06-10 11:47 
+      | <A 
+      onclick='cmtreply("学习游泳的人","b1add1a7cfb0d3ced3beb5c4c8cb3502");return false;' 
+      href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog/item/1c34bea1c6f9818b46106479.html#">回复</A> 
+      </SPAN>
+      <DIV class=desc style="OVERFLOW: hidden; WORD-BREAK: normal" 
+      name="cmtcontent">挺好的,解决了我客户的麻烦 </DIV></TD></TR></TBODY></TABLE>
+<DIV class=line>&nbsp;</DIV>
+<DIV id=page></DIV></DIV>
+<SCRIPT>filterCmtContent('in_comment');</SCRIPT>
+
+<DIV id=in_send><A name=send></A>
+<FORM id=popFormSubmit name=form1 onsubmit="return checkcmtform()" 
+action=/%CD%D1%CD%CF%D0%AC/commit method=post><INPUT type=hidden value=8 
+name=ct> <INPUT type=hidden value=1 name=cm> <INPUT type=hidden 
+value=1c34bea1c6f9818b46106479 name=spBlogID> <INPUT id=spRefURL type=hidden 
+name=spRefURL>
+<SCRIPT>
+    document.getElementById("spRefURL").value = window.location.href;
+</SCRIPT>
+ 
+<DIV class=tit>发表评论：</DIV>
+<TABLE cellSpacing=5 cellPadding=0 width=620 border=0>
+  <TBODY>
+  <TR>
+    <TD class=f14>姓　名：</TD>
+    <TD>lym6520 <INPUT id=spBlogCmtor style="DISPLAY: none" maxLength=50 
+      value=lym6520 name=spBlogCmtor>
+      <DIV id=nmerror style="DISPLAY: none">*姓名最长为50字节</DIV></TD><INPUT 
+    id=spBlogCmtURL style="WIDTH: 360px" type=hidden maxLength=128 
+    onchange='checkeandu("spBlogCmtURL")' 
+    value=http://hi.baidu.com/i%5Fam%5Fmaidou name=spBlogCmtURL> </TR>
+  <TR id=2_err style="DISPLAY: none">
+    <TD>&nbsp;</TD>
+    <TD>
+      <DIV class=error id=2_err_con></DIV></TD></TR>
+  <TR>
+    <TD class=f14 id=reTitle vAlign=top>内　容：</TD>
+    <TD><TEXTAREA id=spBlogCmtText style="WIDTH: 520px; HEIGHT: 155px" onfocus=hidErr(3); name=spBlogCmtText></TEXTAREA>
+      <SCRIPT>
+	var editor=null;
+	try{
+		editor=new BdEditor("spBlogCmtText",{width:"100%",height:"155px"});
+		editor.onfocus = function(){hidErr(3);}
+		editor.render();
+	}catch(e){
+		var spBlogCmtText = document.getElementById("spBlogCmtText");
+		var p = spBlogCmtText.previousSibling;
+		while(p && p.nodeType != 1) p = p.previousSibling;
+		if(p && /bdeditor_container/.test(p.id)){
+			p.parentNode.removeChild(p);
+		}
+		spBlogCmtText.style.display = '';
+		editor=null;
+	}
+</SCRIPT>
+
+      <SCRIPT>
+G("spBlogCmtor").value=G("spBlogCmtor").defaultValue;
+G("spBlogCmtText").value="";
+</SCRIPT>
+       </TD></TR>
+  <TR id=3_err style="DISPLAY: none">
+    <TD>&nbsp;</TD>
+    <TD>
+      <DIV class=error id=3_err_con></DIV></TD></TR>
+  <TR id=vercode>
+    <TD class=f14 vAlign=top>验证码：</TD>
+    <TD vAlign=top><INPUT type=hidden name=spVcode> <INPUT id=spVerifyKey 
+      onfocus=f_focus() tabIndex=4 maxLength=4 size=6 name=spVerifyKey 
+      autocomplete="off"> 请点击后输入四位验证码，字母不区分大小写<BR>
+      <SCRIPT type=text/javascript>
+/*<![CDATA[*/
+
+function f_focus(){
+	getVcode();
+}
+function getVcode(){
+	var url="http://hi.baidu.com/sys/file/getvcode?echoback=getVcodeDone&t="+(new Date().getTime());
+	BdAjax.loadJS(url)
+}
+
+function getVcodeDone(vcode){
+	document.form1.spVcode.value=vcode;
+	var imgsrc="http://hiup.baidu.com/cgi-bin/genimg?"+vcode;
+	G('verifypic').src=imgsrc;
+	G('yanzheng').style.display="block";
+}
+function newverifypic(){
+	getVcode();
+	return false;
+}
+/*]]>*/
+</SCRIPT>
+
+      <DIV id=yanzheng style="DISPLAY: none"><IMG id=verifypic height=40 
+      width=120><WBR><A title=看不清左边的字符 onfocus=this.blur(); 
+      onclick="return newverifypic();" 
+      href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog/item/1c34bea1c6f9818b46106479.html#">看不清?</A> 
+      </DIV></TD></TR>
+  <TR>
+    <TD class=f14 vAlign=top>&nbsp;</TD>
+    <TD class=f14 vAlign=top><INPUT id=btn_ok tabIndex=5 type=submit value=发表评论 name=btn_ok>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+      id=cancleReLink style="DISPLAY: none; FONT-SIZE: 12px; COLOR: #666" 
+      onclick="canclereply(); return false;" 
+      href="http://hi.baidu.com/&Iacute;&Ntilde;&Iacute;&Iuml;&ETH;&not;/blog/item/1c34bea1c6f9818b46106479.html#">取消回复</A></TD></TR></TBODY></TABLE></FORM></DIV><BR></DIV>
+<TABLE height=8 cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=modbl width=7>&nbsp;</TD>
+    <TD class=modbc>&nbsp;</TD>
+    <TD class=modbr width=7>&nbsp;</TD></TR></TBODY></TABLE></DIV></DIV></DIV></DIV>
+<SCRIPT language=javascript>
+<!--
+var hstr="/%CD%D1%CD%CF%D0%AC/brwstat?key1=1";
+document.write("<script src='"+hstr+"&key2="+allkey+"'><\/script>");
+//-->
+</SCRIPT>
+<BR>
+<CENTER>
+<DIV id=ft>&copy;2009 Baidu</DIV></CENTER>
+<SCRIPT>
+if(document.getElementById("m_blog"))
+{
+	var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+	var imgw = document.getElementById("m_blog").offsetWidth;
+	imgw =imgw-40;
+	for(var i=0; i<imgarray.length; i++){
+	if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) imgarray[i].width=imgw;
+	}
+}
+
+// Fix ff bugs
+var blog_text = document.getElementById('blog_text');
+blog_text.innerHTML = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+
+gotoreply();
+</SCRIPT>
+</CENTER>
+<SCRIPT language=JavaScript>
+var Msg_loopNum = 5;
+function showMsg()
+{
+	if(typeof redmsg != 'undefined') {
+		if (!redmsg || redmsg.length < 1) return;
+		document.getElementById('mnum').innerHTML = redmsg;
+ 		
+
+	}else{
+		if(Msg_loopNum > 0) {setTimeout(function(){showMsg();},100);Msg_loopNum--;}
+	}
+}
+</SCRIPT>
+
+<SCRIPT src="Linux上配置Apache，支持中文名称文件下载的方法_files/ms.htm"></SCRIPT>
+
+<SCRIPT>showMsg();</SCRIPT>
+
+<SCRIPT>try{IMOld.fetch();}catch(e){}</SCRIPT>
+<IMG style="DISPLAY: none" src=""> </BODY></HTML>

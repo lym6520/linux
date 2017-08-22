@@ -1,0 +1,542 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0049)http://docs.google.com/Doc?id=dpr7rxj_266dt5f7tcz -->
+<HTML lang=zh-CN><HEAD><TITLE>CentOS 5.3圖解安裝示範</TITLE>
+<SCRIPT>function a(c){this.t={};this.tick=function(d,e,b){var f=b?b:(new Date).getTime();this.t[d]=[f,e]};this.tick("start",null,c)}var g=new a;window.jstiming={Timer:a,load:g};try{window.jstiming.pt=window.gtbExternal&&window.gtbExternal.pageT()||window.external&&window.external.pageT}catch(h){};
+</SCRIPT>
+
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<STYLE type=text/css>TABLE {
+	FONT-SIZE: 1em; BORDER-COLLAPSE: collapse
+}
+TR {
+	TEXT-ALIGN: left
+}
+DIV {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+ADDRESS {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+OL {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+UL {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+LI {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+OPTION {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+SELECT {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+P {
+	MARGIN: 0px
+}
+PRE {
+	MARGIN: 0px; FONT-FAMILY: Courier New
+}
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 10pt; PADDING-BOTTOM: 0px; MARGIN: 6px; PADDING-TOP: 0px; FONT-FAMILY: Verdana, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+IMG {
+	moz-force-broken-image-icon: 1
+}
+
+@media Screen    
+{
+HTML.pageview {
+	BACKGROUND-COLOR: #f3f3f3! important
+}
+BODY {
+	MIN-HEIGHT: 1100px; counter-reset: __goog_page__
+}
+ HTML BODY {
+	HEIGHT: 1100px
+}
+.pageview BODY {
+	BORDER-RIGHT: #bbb 2px solid; PADDING-RIGHT: 50px; BORDER-TOP: #ccc 1px solid; PADDING-LEFT: 50px; PADDING-BOTTOM: 40px; MARGIN: 15px auto 25px; BORDER-LEFT: #ccc 1px solid; WIDTH: 648px! important; PADDING-TOP: 40px; BORDER-BOTTOM: #bbb 2px solid
+}
+ HTML {
+	OVERFLOW-Y: scroll
+}
+ HTML.pageview BODY {
+	OVERFLOW-X: auto
+}
+HTML #wys_frame:unknown {
+	LEFT: 0px; OVERFLOW: hidden; WIDTH: 0px; POSITION: fixed; TOP: 0px; HEIGHT: 0px; content:  
+}
+.writely-callout-data {
+	DISPLAY: inline-block; OVERFLOW: hidden; WIDTH: 0px; HEIGHT: 0px
+}
+.writely-footnote-marker {
+	BACKGROUND-IMAGE: url(images/footnote_doc_icon.gif); VERTICAL-ALIGN: top; OVERFLOW: hidden; WIDTH: 7px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 16px; BACKGROUND-COLOR: transparent; moz-user-select: none
+}
+.editor .writely-footnote-marker {
+	CURSOR: move
+}
+.writely-footnote-marker-highlight {
+	BACKGROUND-POSITION: -15px 0px; moz-user-select: text
+}
+UNKNOWN {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.writely-footnote-hide-selection :unknown {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.writely-footnote-hide-selection:unknown {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.writely-footnote-hide-selection {
+	CURSOR: move
+}
+.editor .writely-comment-yellow {
+	BACKGROUND-POSITION: -240px 0px; BACKGROUND-COLOR: #ff9
+}
+.editor .writely-comment-yellow-hover {
+	BACKGROUND-POSITION: -224px 0px; BACKGROUND-COLOR: #ff0
+}
+.editor .writely-comment-blue {
+	BACKGROUND-POSITION: -16px 0px; BACKGROUND-COLOR: #c0d3ff
+}
+.editor .writely-comment-blue-hover {
+	BACKGROUND-POSITION: 0px 0px; BACKGROUND-COLOR: #6292fe
+}
+.editor .writely-comment-orange {
+	BACKGROUND-POSITION: -80px 0px; BACKGROUND-COLOR: #ffdead
+}
+.editor .writely-comment-orange-hover {
+	BACKGROUND-POSITION: -64px 0px; BACKGROUND-COLOR: #f90
+}
+.editor .writely-comment-green {
+	BACKGROUND-POSITION: -48px 0px; BACKGROUND-COLOR: #99fbb3
+}
+.editor .writely-comment-green-hover {
+	BACKGROUND-POSITION: -32px 0px; BACKGROUND-COLOR: #00f442
+}
+.editor .writely-comment-cyan {
+	BACKGROUND-POSITION: -208px 0px; BACKGROUND-COLOR: #cff
+}
+.editor .writely-comment-cyan-hover {
+	BACKGROUND-POSITION: -192px 0px; BACKGROUND-COLOR: #0ff
+}
+.editor .writely-comment-purple {
+	BACKGROUND-POSITION: -144px 0px; BACKGROUND-COLOR: #ebccff
+}
+.editor .writely-comment-purple-hover {
+	BACKGROUND-POSITION: -128px 0px; BACKGROUND-COLOR: #90f
+}
+.editor .writely-comment-magenta {
+	BACKGROUND-POSITION: -112px 0px; BACKGROUND-COLOR: #fcf
+}
+.editor .writely-comment-magenta-hover {
+	BACKGROUND-POSITION: -96px 0px; BACKGROUND-COLOR: #f0f
+}
+.editor .writely-comment-red {
+	BACKGROUND-POSITION: -176px 0px; BACKGROUND-COLOR: #ffcaca
+}
+.editor .writely-comment-red-hover {
+	BACKGROUND-POSITION: -160px 0px; BACKGROUND-COLOR: #ff7a7a
+}
+.editor .writely-comment-marker {
+	PADDING-RIGHT: 11px; BACKGROUND-IMAGE: url(images/markericons_horiz.gif); WIDTH: 16px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 16px; BACKGROUND-COLOR: transparent; moz-user-select: none
+}
+.editor .writely-comment-hidden {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.editor .writely-comment-marker-hidden {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; WIDTH: 0px; PADDING-TOP: 0px
+}
+.editor .writely-comment-none {
+	FILTER: progid:DXImageTransform.Microsoft.Alpha(opacity=20); opacity: .2; moz-opacity: .2
+}
+.editor .writely-comment-none-hover {
+	FILTER: progid:DXImageTransform.Microsoft.Alpha(opacity=20); opacity: .2; moz-opacity: .2
+}
+UNKNOWN {
+	LEFT: -1ex; POSITION: relative
+}
+#cb-p-tgt {
+	PADDING-RIGHT: 0.4em; PADDING-LEFT: 0.4em; FONT-SIZE: 8pt; PADDING-BOTTOM: 0.4em; COLOR: #333; PADDING-TOP: 0.4em; BACKGROUND-COLOR: #ddd
+}
+#cb-p-tgt-can {
+	FONT-WEIGHT: bold; MARGIN-LEFT: 2em; COLOR: #36c; TEXT-DECORATION: underline
+}
+#cb-p-tgt .spin {
+	BACKGROUND: url(//ssl.gstatic.com/docs/clipboard/spin_16o.gif) no-repeat; WIDTH: 16px; HEIGHT: 16px
+}
+    }
+H6 {
+	FONT-SIZE: 8pt
+}
+H5 {
+	FONT-SIZE: 8pt
+}
+H4 {
+	FONT-SIZE: 10pt
+}
+H3 {
+	FONT-SIZE: 12pt
+}
+H2 {
+	FONT-SIZE: 14pt
+}
+H1 {
+	FONT-SIZE: 18pt
+}
+BLOCKQUOTE {
+	BORDER-RIGHT: #ddd 1px dashed; PADDING-RIGHT: 10px; BORDER-TOP: #ddd 1px dashed; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: #ddd 1px dashed; PADDING-TOP: 10px; BORDER-BOTTOM: #ddd 1px dashed
+}
+.webkit-indent-blockquote {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+A IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.pb {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; PAGE-BREAK-AFTER: always; WIDTH: 100%! important; HEIGHT: 1px! important; BORDER-RIGHT-WIDTH: 0px
+}
+.editor .pb {
+	BORDER-TOP: #c0c0c0 1px dashed; BORDER-BOTTOM: #c0c0c0 1px dashed
+}
+DIV.google_header {
+	MARGIN-TOP: 1em; MARGIN-BOTTOM: 1em; POSITION: relative
+}
+DIV.google_footer {
+	MARGIN-TOP: 1em; MARGIN-BOTTOM: 1em; POSITION: relative
+}
+.editor DIV.writely-toc {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid; BACKGROUND-COLOR: #f3f3f3
+}
+UNKNOWN {
+	PADDING-LEFT: 3em; FONT-WEIGHT: bold
+}
+OL.writely-toc-subheading {
+	PADDING-LEFT: 1em; FONT-WEIGHT: normal
+}
+ HTML writely-toc OL {
+	LIST-STYLE-POSITION: inside
+}
+.writely-toc-none {
+	LIST-STYLE-TYPE: none
+}
+.writely-toc-decimal {
+	LIST-STYLE-TYPE: decimal
+}
+.writely-toc-upper-alpha {
+	LIST-STYLE-TYPE: upper-alpha
+}
+.writely-toc-lower-alpha {
+	LIST-STYLE-TYPE: lower-alpha
+}
+.writely-toc-upper-roman {
+	LIST-STYLE-TYPE: upper-roman
+}
+.writely-toc-lower-roman {
+	LIST-STYLE-TYPE: lower-roman
+}
+.writely-toc-disc {
+	LIST-STYLE-TYPE: disc
+}
+UNKNOWN {
+	LIST-STYLE-TYPE: disc
+}
+UNKNOWN {
+	LIST-STYLE-TYPE: decimal
+}
+BODY {
+	FONT-SIZE: 10pt; LINE-HEIGHT: normal; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #ffffff
+}
+.editor A:visited {
+	COLOR: #551a8b
+}
+.editor TABLE.zeroBorder {
+	BORDER-RIGHT: gray 1px dotted; BORDER-TOP: gray 1px dotted; BORDER-LEFT: gray 1px dotted; BORDER-BOTTOM: gray 1px dotted
+}
+.editor TABLE.zeroBorder TD {
+	BORDER-RIGHT: gray 1px dotted; BORDER-TOP: gray 1px dotted; BORDER-LEFT: gray 1px dotted; BORDER-BOTTOM: gray 1px dotted
+}
+.editor TABLE.zeroBorder TH {
+	BORDER-RIGHT: gray 1px dotted; BORDER-TOP: gray 1px dotted; BORDER-LEFT: gray 1px dotted; BORDER-BOTTOM: gray 1px dotted
+}
+.editor DIV.google_header {
+	BORDER-RIGHT: #dddddd 2px dashed; BORDER-TOP: #dddddd 2px dashed; MIN-HEIGHT: 2em; BORDER-LEFT: #dddddd 2px dashed; WIDTH: 100%; BORDER-BOTTOM: #dddddd 2px dashed; POSITION: static
+}
+.editor DIV.google_footer {
+	BORDER-RIGHT: #dddddd 2px dashed; BORDER-TOP: #dddddd 2px dashed; MIN-HEIGHT: 2em; BORDER-LEFT: #dddddd 2px dashed; WIDTH: 100%; BORDER-BOTTOM: #dddddd 2px dashed; POSITION: static
+}
+.editor .misspell {
+	BACKGROUND-COLOR: yellow
+}
+.editor .writely-comment {
+	BORDER-RIGHT: #c0c0c0 1px dashed; PADDING-RIGHT: 1px; BORDER-TOP: #c0c0c0 1px dashed; PADDING-LEFT: 1px; FONT-SIZE: 9pt; PADDING-BOTTOM: 1px; BORDER-LEFT: #c0c0c0 1px dashed; LINE-HEIGHT: 1.4; PADDING-TOP: 1px; BORDER-BOTTOM: #c0c0c0 1px dashed
+}
+</STYLE>
+
+<STYLE>BODY {
+	MARGIN: 0px
+}
+#doc-contents {
+	MARGIN: 6px
+}
+#google-view-footer {
+	CLEAR: both; BORDER-TOP: thin solid; PADDING-BOTTOM: 0.3em; PADDING-TOP: 0.3em
+}
+A.google-small-link:link {
+	FONT-SIZE: 11px! important; COLOR: #112abb; FONT-FAMILY: Arial,Sans-serif
+}
+A.google-small-link:visited {
+	FONT-SIZE: 11px! important; COLOR: #112abb; FONT-FAMILY: Arial,Sans-serif
+}
+BODY {
+	DIRECTION: inherit
+}
+P {
+	DIRECTION: inherit
+}
+DIV {
+	DIRECTION: inherit
+}
+TD {
+	DIRECTION: inherit
+}
+
+@media Print    
+{
+#google-view-footer {
+	DISPLAY: none
+}
+
+}
+</STYLE>
+
+<SCRIPT>
+function viewOnLoad() {
+if (document.location.href.indexOf('spi=1') != -1) {
+if (navigator.userAgent.toLowerCase().indexOf('msie') != -1) {
+window.print();
+} else {
+window.setTimeout(window.print, 10);
+}
+}
+if (document.location.href.indexOf('hgd=1') != -1) {
+var footer = document.getElementById("google-view-footer");
+if (footer) {
+footer.style.display = 'none';
+}
+}
+}
+</SCRIPT>
+
+<META content="MSHTML 6.00.3790.4555" name=GENERATOR></HEAD>
+<BODY 
+onload="window.jstiming.load.tick('ol'); window.jstiming.report(window.jstiming.load, null, document.location.protocol == 'https:' ? 'https://gg.google.com/csi' : null);">
+<DIV id=doc-contents>
+<H3>前言</H3>CentOS與目前企業界常用的RedHat Enterprise 
+Linux系出同源，其發展的目的就是為了提供所有人一個免費的企業級Linux作業系統平台，兼具高效能與穩定性佳的良好特性。簡單地說，CentOS 
+就是支持開放原碼的社群將 RHEL 裡非開放的套件自行撰寫換成開放的套件，然後重新取的名字，效能上幾乎沒有差別。我們可以把 Fedora 
+當成開發測試版(Alpha~RC)，RHEL當成是(收費)穩定版，而 CentOS 則是免費開源的穩定版。<BR><BR>
+<H3>前置作業</H3>請先至 CentOS 的發布站下載最新版(目前為5.3)的映像檔並自行燒成光碟。<BR>&nbsp;&nbsp; 
+&nbsp;Release Notes: <A 
+href="http://wiki.centos.org/Manuals/ReleaseNotes/CentOS5.3" 
+target=_blank>CentOS</A> | <A 
+href="http://www.centos.org/docs/5/html/release-notes/as-x86/RELEASE-NOTES-U2-x86-en.html" 
+target=_blank>Upstream</A><BR>&nbsp;&nbsp; &nbsp;Download: <A 
+href="http://mirror.centos.org/centos/5/isos/i386/" target=_blank>i386</A> | <A 
+href="http://mirror.centos.org/centos/5/isos/x86_64/" 
+target=_blank>x86_64</A><BR><BR>
+<H3>開始安裝</H3><BR>每台電腦的BIOS設定有異，但記得必須設定為光碟開機，接著將你事前燒好的CentOS 5.3 
+光碟放入！<BR><BR>開機後進入安裝畫面後，請依據畫面進行安裝作業：<BR><BR>1.在此畫面按下鍵盤的 [ enter ] 鍵。
+<DIV id=kdab style="TEXT-ALIGN: left"><IMG style="WIDTH: 641px; HEIGHT: 480px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_267fdr5rbc8_b"></DIV>接著會出現此畫面(硬體偵測中)
+<DIV id=kleu style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 360px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_268d9vn9q7q_b"></DIV><BR>2.系統詢問是否要掃瞄，由於掃瞄會花費過多的時間，故我們不進行此動作，這裡用鍵盤方向鍵，按 
+[ Skip ] 跳過掃瞄。
+<DIV id=hk0i style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 360px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_269cv7sd2dq_b"><BR><BR>3.直接按 [ Next ]。
+<DIV id=hcpr style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_271cpfs5sds_b"></DIV><BR>4.選擇安裝畫面時的語言，注意!!此語言也將會成為你操作介面上的主要語言，接著按 
+[ 下一步 ] 。
+<DIV id=klqa style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_272gj55jdf6_b"></DIV><BR><BR>5.選擇鍵盤對應語系，接著按 
+[ 下一步 ] 。
+<DIV id=y8rx style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_274f3wjkhcb_b"></DIV><BR><BR>6.出現緊告訊息接著按下 [ 
+是 ] ，接著再次按 [ 下一步 ] 。(此步驟不一定會有)
+<DIV id=r6od style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_276c6cqw7fw_b"></DIV><BR>7.選擇磁碟分割方式，為了系統的管理方便這裡我們自己設定、切割磁碟區。打開下拉式選單，選擇到最後一項「建立自訂的分割模式」，接著按 
+[ 下一步 ] 。
+<DIV id=m1ms style="TEXT-ALIGN: left">
+<DIV id=v_dp style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_278d4b4dvc4_b"></DIV></DIV><BR>8.進入磁碟分割畫面，接著按 
+[ 新增 ] 即可創建新的分割區。
+<DIV id=t7lc style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_279hn3zw4cz_b"></DIV><BR><BR>9.依序建立/、/home 及 
+swap ，完成後如圖。確認切割後的分割區，接著按 [ 下一步 ] 。
+<DIV id=id2c style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_280gpvxxhcs_b"></DIV><BR><BR>10.設定 GRUB 
+開機管理程式(此步驟不一定會有)，安全起見可勾選「使用開機管理程式密碼」，設定完後按 [ 下一步 ] 。
+<DIV id=z_on style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_281cth6hdzr_b"></DIV><BR><BR>11.設定網路連線方式，接著按 
+[ 下一步 ] 。
+<DIV id=wz_j style="TEXT-ALIGN: left">
+<DIV id=ggjf style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_283gkx6gwgg_b"></DIV></DIV><BR><BR>12.選擇所在時區(若之前選擇繁體中文，則此處預設即為亞洲/台北)，接著按 
+[ 下一步 ]。
+<DIV id=kab9 style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_2843kfpjzdn_b"></DIV><BR><BR>13.設定管理員root密碼，接著按 
+[ 下一步 ] 。
+<DIV id=bvak style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_285dhbpf2fb_b"></DIV><BR><BR>14.選擇系統所要安裝的套件，若要進行細部設定則選取「立即自訂」，接著按 
+[ 下一步 ] 。
+<DIV id=pgqu style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_286cdkhzbdd_b"></DIV><BR>15.此處可依個人需求進行自定，若希望為最小安裝，則僅選擇「基礎系統」內的元件進行安裝即可。
+<DIV id=j9i_ style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_287fgshd2dh_b"></DIV><BR><BR>16.在元件上按右鍵可以一次選擇「所有所選套件」，就不用先勾選後，再點選「選用套件」去一個一個慢慢勾選。
+<DIV id=t8vd style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_288rrcpc2gv_b"></DIV><BR>17.都選擇好之後按 [ 下一步 ] 
+，系統會開始自動檢查套件的相依性，檢查完後再按一次 [ 下一步 ] 。
+<DIV id=h1si style="TEXT-ALIGN: left">
+<DIV id=qflc style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_290hph9grc3_b"></DIV></DIV><BR>18.開始安裝系統，需等待一段時間。
+<DIV id=l_7v style="TEXT-ALIGN: left">
+<DIV id=g:sp style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_293gjd3xjf2_b"></DIV></DIV><BR><BR>19.系統要求重新開機，接著按 
+[ Reboot ] 。
+<DIV id=z_v2 style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_294drqwn2gz_b"></DIV>按下 [ Reboot ] 之後的畫面。
+<DIV id=fcmu style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 360px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_295cd8gg6fx_b"></DIV><BR>20.重開機並經過一段硬體偵測後，開始進行其他設定，接著按 
+[ 下一頁 ] 。
+<DIV id=s7db style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_296fc6bhfgc_b"></DIV><BR>21.防火牆選項，請示使用者情況選擇狀態，接著按 
+[ 下一頁 ] 。
+<DIV id=c88n style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_297f4nk7g24_b"><BR>出現警告訊息請按下「是」。
+<DIV id=jgqo style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_298djrpnmf9_b"><BR><BR></DIV></DIV>22.選擇SELinux是否開啟，預設是「強制」(開啟)，這裡為了日後設定方便，將其改為「停用」，日後也可使用指令調整，接著按 
+[ 下一頁 ]。
+<DIV id=le10 style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_299dbnwn9g2_b"><BR>出現警告訊息請按下「是」。</DIV>
+<DIV id=dy2_ style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_300nd3qsbgm_b"></DIV><BR>23.為了節省記憶體，在此選擇不啟動 
+Kdump。
+<DIV id=qdvl style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_301fzxznpf2_b"></DIV><BR>24.選擇時間形式，這裡可選擇網路對時，也可以以後再用 
+ntpdate 指令對時，接著按 [ 下一頁 ] 。
+<DIV id=yww. style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_302dkdsn3ht_b"><BR><BR>25.新增一非管理員使用者，輸入完畢資料之後，接著按 
+[ 下一頁 ] 。
+<DIV id=q7yb style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_303f5mj33d3_b"><BR><BR>26.此處會自動偵測音效卡，一般來說不用再做任何設定，按下 
+[ 下一頁 ] 。<BR></DIV></DIV>
+<DIV id=f3rh style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_304dggpdthg_b"><BR><BR>27.由於可以事後使用yum工具，所以這裡的操作也是直接按 
+[ 完成 ] 。此時會提示要重新開機，選「是」即可。
+<DIV id=mban style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_306crrw9vcx_b"><BR><BR>28.安裝完畢，進入登入畫面。
+<DIV id=nwep style="TEXT-ALIGN: left"><IMG style="WIDTH: 648px; HEIGHT: 486px" 
+src="CentOS 5_3圖解安裝示範_files/dpr7rxj_307g6cg6jx8_b"></DIV></DIV><BR>以上安裝過程教學完畢。<BR></DIV></DIV><BR>Reference 
+Page: <BR>&nbsp;&nbsp; &nbsp;<A title=centos 
+href="http://linux.vbird.org/linux_basic/0157installcentos5.php#centos5">http://linux.vbird.org/linux_basic/0157installcentos5.php#centos5</A><BR>&nbsp;&nbsp; 
+&nbsp;<A id=f_jc 
+title=http://apt.nc.hcc.edu.tw/web/student_server_centos/student_server_centos.html 
+href="http://apt.nc.hcc.edu.tw/web/student_server_centos/student_server_centos.html" 
+target=_blank>http://apt.nc.hcc.edu.tw/web/student_server_centos/student_server_centos.html</A> 
+<BR><BR><BR clear=all></DIV>
+<DIV id=google-view-footer>
+<DIV id=maybecanedit style="FLOAT: right"><A class=google-small-link 
+id=editpermissionlink title=编辑此页 
+href="http://docs.google.com/Doc?tab=edit&amp;dr=true&amp;id=dpr7rxj_266dt5f7tcz">编辑此页面（如果您有权限）</A> 
+<SPAN style="COLOR: #676767">|</SPAN> <INPUT id=report-abuse-button onclick=reportAbuse(); type=button value=报告滥用行为></DIV>
+<DIV style="FLOAT: left"><A class=google-small-link title="了解“Google 文档”的详细信息" 
+href="http://docs.google.com/">Google 文档 － 网络文字处理、演示文稿和电子表格。</A> </DIV>
+<P> </P></DIV>
+<SCRIPT><!--
+    viewOnLoad();
+    if(window.jstiming){window.jstiming.a={};window.jstiming.c=1;function k(b,d,f){var a=b.t[d];if(!a)return undefined;a=b.t[d][0];if(f!=undefined)var h=f;else h=b.t.start[0];return a-h}window.jstiming.report=function(b,d,f){var a="";if(window.jstiming.pt){a+="&srt="+window.jstiming.pt;delete window.jstiming.pt}try{if(window.external&&window.external.tran)a+="&tran="+window.external.tran;else if(window.gtbExternal&&window.gtbExternal.tran)a+="&tran="+window.gtbExternal.tran()}catch(h){}if(b.b)a+="&"+
+b.b;var e=b.t,p=e.start,l=[],i=[];for(var c in e)if(!(c=="start"))if(!(c.indexOf("_")==0)){var j=e[c][1];if(j)e[j]&&i.push(c+"."+k(b,c,e[j][0]));else p&&l.push(c+"."+k(b,c))}delete e.start;if(d)for(var m in d)a+="&"+m+"="+d[m];var n=[f?f:"http://csi.gstatic.com/csi","?v=3","&s="+(window.jstiming.sn?window.jstiming.sn:"writely")+"&action=",b.name,i.length?"&it="+i.join(",")+a:a,"&rt=",l.join(",")].join(""),g=new Image,o=window.jstiming.c++;window.jstiming.a[o]=g;g.onload=g.onerror=function(){delete window.jstiming.a[o]};
+g.src=n;g=null;return n}};
+
+    window.jstiming.load.name = 'published';
+    
+    
+    var urchinPage = "/View";
+
+    
+    function getXHR() {
+      if (typeof XMLHttpRequest != "undefined") {
+        return new XMLHttpRequest();
+      }
+      try { return new ActiveXObject("Msxml2.XMLHTTP.6.0") } catch(e) {}
+      try { return new ActiveXObject("Msxml2.XMLHTTP.3.0") } catch(e) {}
+      try { return new ActiveXObject("Msxml2.XMLHTTP") } catch(e) {}
+      try { return new ActiveXObject("Microsoft.XMLHTTP") } catch(e) {}
+      return null;
+    }
+
+    function reportAbuse() {
+      var req = getXHR();
+      if (req) {
+        
+          var docid = 'dpr7rxj_266dt5f7tcz';
+          var posttoken = '';
+        
+        req.onreadystatechange = function() {
+          try {
+            if (req.readyState == 4 && req.status == 200) {
+              var button = document.getElementById("report-abuse-button");
+              button.value = '谢谢您！';
+              button.disabled = true;
+            }
+          } catch (ex) {
+            
+          }
+        }
+        try {
+          req.open('POST', 'MiscCommands', true);
+          req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+          req.send('command=report_abuse&abuseDoc=' + encodeURIComponent(docid) +
+                   '&POST_TOKEN=' + encodeURIComponent(posttoken));
+        } catch (ex) {
+          
+        }
+      }
+    }
+  --></SCRIPT>
+
+<SCRIPT type=text/javascript>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var page = typeof urchinPage != 'undefined' ? urchinPage : window.location.href;
+var account = 'UA-18065-1';
+if (typeof _gat != 'undefined') {
+var pageTracker = _gat._getTracker(account);
+pageTracker._setAllowAnchor(true);
+pageTracker._trackPageview(page);
+}
+</SCRIPT>
+
+<SCRIPT><!--
+      if (typeof _gat != 'undefined') {
+        
+          var docid = 'dpr7rxj_266dt5f7tcz';
+          var doctitle = 'CentOS 5.3圖解安裝示範';
+          var useranalyticsid = 'UA-6740765-2';
+        
+        if (useranalyticsid) {
+          doctitle = doctitle.replace(/\s+/g, '_');
+          var userPageTracker = _gat._getTracker(useranalyticsid);
+          userPageTracker._setAllowAnchor(true);
+          // Use the analytics id as a unique cookie path for this user.
+          userPageTracker._setCookiePath('/u/' + useranalyticsid);
+          userPageTracker._trackPageview(doctitle);
+        }
+      }
+    --></SCRIPT>
+</BODY></HTML>

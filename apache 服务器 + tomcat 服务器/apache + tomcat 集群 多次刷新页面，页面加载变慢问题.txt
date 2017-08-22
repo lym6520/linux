@@ -1,0 +1,24 @@
+apache + tomcat 集群 多次刷新页面，页面加载变慢问题
+先看下一段配置：（我的apache用的是prefork工作模式）
+
+<IfModule prefork.c>
+StartServers       8
+MinSpareServers    5
+MaxSpareServers   20
+ServerLimit      1200
+MaxClients       1200
+MaxRequestsPerChild  100
+</IfModule>
+
+这个问题可能是由于MaxRequestsPerChild设置过大引起的，通常情况下你可以在进程里看到两个apache进程，一个是父进程，一个是子进程。当父进程接到访问请求后，将请求交给子进程进行处理。MaxRequestsPerChild这个指令设定一个独立的子进程将能处理的请求数量，当子进程数到达指定的请求数时，父进程将会产生新的子进程进行处理。
+
+在设置MaxRequestsPerChild设置成非零值有两个好处：
+1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。
+2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。
+
+建议在设置MaxRequestsPerChild值时不要设置过大，也不要设置为0.
+
+
+资料：
+
+通常在“Windows任务管理器－进程”中可以看到两个apache.exe进程，一个是父进程、一个是子进程，父进程接到访问请求 后，将请求交由子进程处理。MaxRequestsPerChild这个指令设定一个独立的子进程将能处理的请求数量。在处理 “MaxRequestsPerChild 数字”个请求之后，子进程将会被父进程终止，这时候子进程占用的内存就会释放，如果再有访问请求，父进程会重新产生子进程进行处理。　　如果 MaxRequestsPerChild缺省设为0(无限)或较大的数字(例如10000以上)可以使每个子进程处理更多的请求，不会因为不断终止、启动 子进程降低访问效率，但MaxRequestsPerChild设置为0时，如果占用了200～300M内存，即使负载下来时占用的内存也不会减少。内存 较大的服务器可以设置为0或较大的数字。内存较小的服务器不妨设置成30、50、100，以防内存溢出。

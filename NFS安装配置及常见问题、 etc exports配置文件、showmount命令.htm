@@ -1,0 +1,599 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://desert3.iteye.com/blog/1675522 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>NFS安装配置及常见问题、/etc/exports配置文件、showmount命令 - 如果你真的想做一件事，你一定会找到方法； 如果你不想做一件事，你一定会找到借口。 - ITeye技术网站</title>
+    <meta name="description" content="1，服务器端软件：安装nfs-utils和portmap（rpcbind） nfs-utils： 提供rpc.nfsd 及 rpc.mountd这两个NFS DAEMONS的套件 portmap: NFS其实可以被看作是一个RPC SERVER PROGRAM,而要启动一个RPC SERVER PROGRAM，都要做好PORT的对应工作，而且这样的任务就是由PORTMAP来完成的。通俗的说PortM ...">
+    <meta name="keywords" content=" NFS安装配置及常见问题、/etc/exports配置文件、showmount命令">
+    <link rel="shortcut icon" href="http://desert3.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://desert3.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://desert3.iteye.com/rss" rel="alternate" title="如果你真的想做一件事，你一定会找到方法； 如果你不想做一件事，你一定会找到借口。" type="application/rss+xml">
+    <link href="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/ga.js"></script><script type="text/javascript" async="" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/ga.js"></script><script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/hotkey.js" type="text/javascript"></script>
+  <script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/code_favorites.js" type="text/javascript"></script>
+<script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-xml .cdata { color: #ff1493; }.dp-xml .tag, .dp-xml .tag-name { color: #069; font-weight: bold; }.dp-xml .attribute { color: red; }.dp-xml .attribute-value { color: blue; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://desert3.iteye.com/blog/1675522#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://desert3.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://desert3.iteye.com/login">登录</a>
+    <a href="http://desert3.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://desert3.iteye.com/">如果你真的想做一件事，你一定会找到方法； 如果你不想做一件事，你一定会找到借口。</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://desert3.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://desert3.iteye.com/weibo">微博</a></li>
+            <li><a href="http://desert3.iteye.com/album">相册</a></li>
+            <li><a href="http://desert3.iteye.com/link">收藏</a></li>
+            <li><a href="http://desert3.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://desert3.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://desert3.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://desert3.iteye.com/" class="p-author" target="_blank">desert3</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/NFS安装配置及常见问题、 etc exports配置文件、showmount命令.htm">NFS安装配置及常见问题、/etc/exports配置文件、showmount命令</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://desert3.iteye.com/category/121454">OS.Linux</a></li> </ul>
+        <div class="news_tag">&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <strong>1，服务器端软件：</strong>安装nfs-utils和portmap（rpcbind）
+<br>nfs-utils： 提供rpc.nfsd 及 rpc.mountd这两个NFS DAEMONS的套件
+<br>portmap: NFS其实可以被看作是一个RPC SERVER PROGRAM,而要启动一个RPC SERVER PROGRAM，都要做好PORT的对应工作，而且这样的任务就是由PORTMAP来完成的。通俗的说PortMap就是用来做PORT的mapping的。 
+<br><strong>NFS需要启动的DAEMONS</strong>：参考<a target="_blank" href="http://pic.dhe.ibm.com/infocenter/aix/v7r1/topic/com.ibm.aix.commadmn/doc/commadmndita/nfs_listdaemons.htm">NFS daemons</a>
+<br><ul>
+<li>pc.nfsd:主要复杂登陆权限检测等 <span style="color: red;">必须</span>
+</li><li>portmap：处理RPC程序客户端和服务器端的端口对应 <span style="color: red;">必须</span>
+</li><li>rpc.mountd：负责NFS的档案系统，当CLIENT端通过rpc.nfsd登陆SERVER后，对clinet存取server的文件进行一系列的管理 <span style="color: red;">必须</span>
+</li><li>lockd：处理通过RPC包的锁定请求
+</li><li>statd：为nfs锁定服务提供crash恢复功能
+</li><li>rquotad：处理当用户通过nfsmount到远程服务器时的配额
+</li><li><span style="color: red;">守护进程启动顺序：</span>rpc.portmap, rpc.mountd, rpc.nfsd, rpc.statd, rpc.lockd (新版本会自动跟着nfsd启动起来), rpc.rquotad
+</li></ul>
+<br><strong>NF服务器端命令</strong>：
+<br><ul>
+<li>yum&nbsp; install&nbsp; nfs-utils&nbsp; portmap
+</li><li>chkconfig rpcbind on #<span style="color: red;">chkconfig：更新和查询各运行级别的系统服务</span>
+</li><li>chkconfig nfs on
+</li><li>service rpcbind start
+</li><li>service nfs start
+</li></ul>
+<br><strong>2，服务器端配置文件/etc/exports：</strong>指定要共享的目录及权限&nbsp; <span style="color: blue;">man exports</span>
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Html代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%23%EF%BC%9A%E5%85%81%E8%AE%B8ip%E5%9C%B0%E5%9D%80%E8%8C%83%E5%9B%B4%E5%9C%A8192.168.0.*%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%A5%E8%AF%BB%E5%86%99%E7%9A%84%E6%9D%83%E9%99%90%E6%9D%A5%E8%AE%BF%E9%97%AE%2Fhome%2Fwork%20%E7%9B%AE%E5%BD%95%E3%80%82%0A%2Fhome%2Fwork%20192.168.0.*%EF%BC%88rw%2Csync%2Croot_squash%EF%BC%89%0A%2Fhome%20%20192.168.1.105%20(rw%2Csync)%0A%2Fpublic%20%20*%20(rw%2Csync)%0A%0A%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%AF%8F%E8%A1%8C%E5%88%86%E4%B8%BA%E4%B8%A4%E6%AE%B5%EF%BC%9A%E7%AC%AC%E4%B8%80%E6%AE%B5%E4%B8%BA%E5%85%B1%E4%BA%AB%E7%9A%84%E7%9B%AE%E5%BD%95%EF%BC%8C%E4%BD%BF%E7%94%A8%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%8C%E7%AC%AC%E4%BA%8C%E6%AE%B5%E4%B8%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%9C%B0%E5%9D%80%E5%8F%8A%E6%9D%83%E9%99%90%E3%80%82%0A%E5%9C%B0%E5%9D%80%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%AE%8C%E6%95%B4IP%E6%88%96%E7%BD%91%E6%AE%B5%EF%BC%8C%E4%BE%8B%E5%A6%8210.0.0.8%E6%88%9610.0.0.0%2F24%EF%BC%8C10.0.0.0%2F255.255.255.0%E5%BD%93%E7%84%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%9C%B0%E5%9D%80%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E4%B8%BB%E6%9C%BA%E5%90%8D%EF%BC%8CDNS%E8%A7%A3%E6%9E%90%E7%9A%84%E5%92%8C%E6%9C%AC%E5%9C%B0%2Fetc%2Fhosts%E8%A7%A3%E6%9E%90%E7%9A%84%E9%83%BD%E8%A1%8C%EF%BC%8C%E6%94%AF%E6%8C%81%E9%80%9A%E9%85%8D%E7%AC%A6%EF%BC%8C%E4%BE%8B%E5%A6%82%EF%BC%9A*.chengyongxu.com%0A%0A%E6%9D%83%E9%99%90%E6%9C%89%EF%BC%9A%0Arw%EF%BC%9Aread-write%EF%BC%8C%E5%8F%AF%E8%AF%BB%E5%86%99%EF%BC%9B%20%20%20%20%E6%B3%A8%E6%84%8F%EF%BC%8C%E4%BB%85%E4%BB%85%E8%BF%99%E9%87%8C%E8%AE%BE%E7%BD%AE%E6%88%90%E8%AF%BB%E5%86%99%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%98%E6%98%AF%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E5%86%99%E5%85%A5%EF%BC%8C%E8%BF%98%E8%A6%81%E6%AD%A3%E7%A1%AE%E5%9C%B0%E8%AE%BE%E7%BD%AE%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95%E7%9A%84%E6%9D%83%E9%99%90%EF%BC%8C%E5%8F%82%E8%80%83%E9%97%AE%E9%A2%987%0Aro%EF%BC%9Aread-only%EF%BC%8C%E5%8F%AA%E8%AF%BB%EF%BC%9B%0Async%EF%BC%9A%E6%96%87%E4%BB%B6%E5%90%8C%E6%97%B6%E5%86%99%E5%85%A5%E7%A1%AC%E7%9B%98%E5%92%8C%E5%86%85%E5%AD%98%EF%BC%9B%0Aasync%EF%BC%9A%E6%96%87%E4%BB%B6%E6%9A%82%E5%AD%98%E4%BA%8E%E5%86%85%E5%AD%98%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E7%9B%B4%E6%8E%A5%E5%86%99%E5%85%A5%E5%86%85%E5%AD%98%EF%BC%9B%0Ano_root_squash%EF%BC%9ANFS%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%97%B6%E5%A6%82%E6%9E%9C%E4%BD%BF%E7%94%A8%E7%9A%84%E6%98%AFroot%E7%9A%84%E8%AF%9D%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AF%B9%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%88%86%E4%BA%AB%E7%9A%84%E7%9B%AE%E5%BD%95%E6%9D%A5%E8%AF%B4%EF%BC%8C%E4%B9%9F%E6%8B%A5%E6%9C%89root%E6%9D%83%E9%99%90%E3%80%82%E6%98%BE%E7%84%B6%E5%BC%80%E5%90%AF%E8%BF%99%E9%A1%B9%E6%98%AF%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E3%80%82%0Aroot_squash%EF%BC%9ANFS%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%97%B6%E5%A6%82%E6%9E%9C%E4%BD%BF%E7%94%A8%E7%9A%84%E6%98%AFroot%E7%9A%84%E8%AF%9D%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AF%B9%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%88%86%E4%BA%AB%E7%9A%84%E7%9B%AE%E5%BD%95%E6%9D%A5%E8%AF%B4%EF%BC%8C%E6%8B%A5%E6%9C%89%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%EF%BC%8C%E9%80%9A%E5%B8%B8%E4%BB%96%E5%B0%86%E4%BD%BF%E7%94%A8nobody%E6%88%96nfsnobody%E8%BA%AB%E4%BB%BD%EF%BC%9B%0Aall_squash%EF%BC%9A%E4%B8%8D%E8%AE%BANFS%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%97%B6%E4%BD%BF%E7%94%A8%E4%BB%80%E4%B9%88%E7%94%A8%E6%88%B7%EF%BC%8C%E5%AF%B9%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%88%86%E4%BA%AB%E7%9A%84%E7%9B%AE%E5%BD%95%E6%9D%A5%E8%AF%B4%E9%83%BD%E6%98%AF%E6%8B%A5%E6%9C%89%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%EF%BC%9B%0Aanonuid%EF%BC%9A%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E7%9A%84UID%E5%80%BC%EF%BC%8C%E9%80%9A%E5%B8%B8%E6%98%AFnobody%E6%88%96nfsnobody%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E6%AD%A4%E5%A4%84%E8%87%AA%E8%A1%8C%E8%AE%BE%E5%AE%9A%EF%BC%9B%0Aanongid%EF%BC%9A%E5%8C%BF%E5%90%8D%E7%94%A8%E6%88%B7%E7%9A%84GID%E5%80%BC%E3%80%82%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-xml"><li><span><span>#：允许ip地址范围在192.168.0.*的计算机以读写的权限来访问/home/work&nbsp;目录。&nbsp;&nbsp;</span></span></li><li><span>/home/work&nbsp;192.168.0.*（rw,sync,root_squash）&nbsp;&nbsp;</span></li><li><span>/home&nbsp;&nbsp;192.168.1.105&nbsp;(rw,sync)&nbsp;&nbsp;</span></li><li><span>/public&nbsp;&nbsp;*&nbsp;(rw,sync)&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>配置文件每行分为两段：第一段为共享的目录，使用绝对路径，第二段为客户端地址及权限。&nbsp;&nbsp;</span></li><li><span>地址可以使用完整IP或网段，例如10.0.0.8或10.0.0.0/24，10.0.0.0/255.255.255.0当然也可以地址可以使用主机名，DNS解析的和本地/etc/hosts解析的都行，支持通配符，例如：*.chengyongxu.com&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>权限有：&nbsp;&nbsp;</span></li><li><span>rw：read-write，可读写；&nbsp;&nbsp;&nbsp;&nbsp;注意，仅仅这里设置成读写客户端还是不能正常写入，还要正确地设置共享目录的权限，参考问题7&nbsp;&nbsp;</span></li><li><span>ro：read-only，只读；&nbsp;&nbsp;</span></li><li><span>sync：文件同时写入硬盘和内存；&nbsp;&nbsp;</span></li><li><span>async：文件暂存于内存，而不是直接写入内存；&nbsp;&nbsp;</span></li><li><span>no_root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，也拥有root权限。显然开启这项是不安全的。&nbsp;&nbsp;</span></li><li><span>root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，拥有匿名用户权限，通常他将使用nobody或nfsnobody身份；&nbsp;&nbsp;</span></li><li><span>all_squash：不论NFS客户端连接服务端时使用什么用户，对服务端分享的目录来说都是拥有匿名用户权限；&nbsp;&nbsp;</span></li><li><span>anonuid：匿名用户的UID值，通常是nobody或nfsnobody，可以在此处自行设定；&nbsp;&nbsp;</span></li><li><span>anongid：匿名用户的GID值。&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="html" codeable_id="1675522" codeable_type="Blog" source_url="http://desert3.iteye.com/blog/1675522" pre_index="0" title="NFS安装配置及常见问题、/etc/exports配置文件、showmount命令" style="display: none;">#：允许ip地址范围在192.168.0.*的计算机以读写的权限来访问/home/work 目录。
+/home/work 192.168.0.*（rw,sync,root_squash）
+/home  192.168.1.105 (rw,sync)
+/public  * (rw,sync)
+
+配置文件每行分为两段：第一段为共享的目录，使用绝对路径，第二段为客户端地址及权限。
+地址可以使用完整IP或网段，例如10.0.0.8或10.0.0.0/24，10.0.0.0/255.255.255.0当然也可以地址可以使用主机名，DNS解析的和本地/etc/hosts解析的都行，支持通配符，例如：*.chengyongxu.com
+
+权限有：
+rw：read-write，可读写；    注意，仅仅这里设置成读写客户端还是不能正常写入，还要正确地设置共享目录的权限，参考问题7
+ro：read-only，只读；
+sync：文件同时写入硬盘和内存；
+async：文件暂存于内存，而不是直接写入内存；
+no_root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，也拥有root权限。显然开启这项是不安全的。
+root_squash：NFS客户端连接服务端时如果使用的是root的话，那么对服务端分享的目录来说，拥有匿名用户权限，通常他将使用nobody或nfsnobody身份；
+all_squash：不论NFS客户端连接服务端时使用什么用户，对服务端分享的目录来说都是拥有匿名用户权限；
+anonuid：匿名用户的UID值，通常是nobody或nfsnobody，可以在此处自行设定；
+anongid：匿名用户的GID值。
+</pre>
+<br><strong>NFS客户端用户映射：</strong>客户端登陆用户为root或者其他用户，然后根据服务器端nfs server配置，相应客户端连接映射到nfs服务器端的用户为root或者指定用户（通过anonuid或者anongid来设定）、nfsnobody等。最后这个<span style="color: red;">映射用户和共享目录的权限共同影响该客户端连接是否有读写权限</span>。
+<br>手动设定客户端、服务器端用户映射，参数：map_static=/etc/nfs.map
+<br>/etc/nfs.map文件映射内容如下：
+<br># remote local
+<br>gid 500 1000
+<br>uid 500 2003
+<br>参考：<a target="_blank" href="http://blog.sina.com.cn/s/blog_7fa1d85d0100v84t.html">NFS 学习笔记</a>中关于nfs客户连接用户身份的描述，没有验证过下述的描述：
+<br><ul>
+<li>客户端连接时候，对普通用户的检查，NO.1如果明确设定了普通用户被压缩的身份，那么此时客户端用户的身份转换为指定用户，NO.2如果NFS server上面有同名用户，那么此时客户端登录账户的身份转换为NFS server上面的同名用户，NO.3如果没有明确指定，也没有同名用户，那么此时 用户身份被压缩成nfsnobody
+</li><li>客户端连接的时候，对root的检查，NO.1如果设置no_root_squash，那么此时root用户的身份被压缩为NFS server上面的root，NO.2如果设置了all_squash、anonuid、anongid，此时root 身份被压缩为指定用户，NO.3如果没有明确指定，此时root用户被压缩为nfsnobody，NO.4如果同时指定no_root_squash与all_squash 用户将被压缩为 nfsnobody，如果设置了anonuid、anongid将被压缩到所指定的用户与组
+</li></ul>
+<br>
+<br><strong>3，防火墙设置修改</strong>
+<br>默认情况下，CentOS6服务器版安装完成后，防火墙iptables配置中只放开了22端口。
+<br>在<span style="color: blue;">nfs配置文件/etc/sysconfig/nfs</span>中指定nfs服务相关端口，并修改防火墙放开相应端口
+<br><div class="dp-highlighter" id=""><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="/javascripts/syntaxhighlighter/clipboard_new.swf" width="14" height="15" flashvars="clipboard=%23Port%20rpc.mountd%20should%20listen%20on.%20%20%0A%23MOUNTD_PORT%3D892%20%20%0A%20%20%0A%23Port%20rpc.statd%20should%20listen%20on.%20%20%0A%23STATD_PORT%3D662%20%20%0A%20%20%0A%23%2Fusr%2Fsbin%2Frpc.rquotad%20Port%20rquotad%20should%20listen%20on.%20%20%0A%23RQUOTAD_PORT%3D875%20%20%0A%20%20%0A%23TCP%20port%20rpc.lockd%20should%20listen%20on.%20%20%0A%23LOCKD_TCPPORT%3D32803%20%20%0A%20%20%0A%23UDP%20port%20rpc.lockd%20should%20listen%20on.%20%20%0A%23LOCKD_UDPPORT%3D32769%20%20%20%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/icon_star.png" alt="收藏代码"><img class="spinner" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/spinner.gif" style="display:none"></a></div></div><ol start="1" class="dp-j"><li><span><span>#Port&nbsp;rpc.mountd&nbsp;should&nbsp;listen&nbsp;on.&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>#MOUNTD_PORT=<span class="number">892</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#Port&nbsp;rpc.statd&nbsp;should&nbsp;listen&nbsp;on.&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#STATD_PORT=<span class="number">662</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#/usr/sbin/rpc.rquotad&nbsp;Port&nbsp;rquotad&nbsp;should&nbsp;listen&nbsp;on.&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#RQUOTAD_PORT=<span class="number">875</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#TCP&nbsp;port&nbsp;rpc.lockd&nbsp;should&nbsp;listen&nbsp;on.&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#LOCKD_TCPPORT=<span class="number">32803</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#UDP&nbsp;port&nbsp;rpc.lockd&nbsp;should&nbsp;listen&nbsp;on.&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li><span>#LOCKD_UDPPORT=<span class="number">32769</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="java" codeable_id="1675522" codeable_type="Blog" source_url="http://desert3.iteye.com/blog/1675522" pre_index="1" title="NFS安装配置及常见问题、/etc/exports配置文件、showmount命令" style="display: none;">#Port rpc.mountd should listen on.  
+#MOUNTD_PORT=892  
+  
+#Port rpc.statd should listen on.  
+#STATD_PORT=662  
+  
+#/usr/sbin/rpc.rquotad Port rquotad should listen on.  
+#RQUOTAD_PORT=875  
+  
+#TCP port rpc.lockd should listen on.  
+#LOCKD_TCPPORT=32803  
+  
+#UDP port rpc.lockd should listen on.  
+#LOCKD_UDPPORT=32769   
+</pre>
+<br>修改iptables配置文件/etc/sysconfig/iptables，放开111（portmap服务端口），2049（nfs服务端口）
+<br>
+<br><strong>4，/etc/hosts.allow配置修改</strong>
+<br>/etc/hosts.allow，/etc/hosts.deny 描述哪些主机允许使用本地的INET服务。
+<br>默认这里好像可以不需要修改，不过最好设置成只允许需要的客户端机器连接，然后其他机器的连接都deny
+<br>#服务进程名:主机列表:当规则匹配时可选的命令操作
+<br>server_name:hosts-list[:command]
+<br>在/etc/hosts.allow中添加允许客户端访问的规则
+<br>ALL:127.0.0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #允许本机访问本机所有服务进程
+<br>ALL:192.168.0.135&nbsp;&nbsp;&nbsp;&nbsp; #允许192.168.0.135客户端机器访问本机所有服务进程
+<br>smbd:192.168.0.0/255.255.255.0&nbsp;&nbsp;&nbsp; #允许网段的IP访问smbd服务
+<br>sshd:192.168.100.0/255.255.255.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #允许192.168.100.网段的IP访问服务器上的sshd进程
+<br>sshd:60.28.160.244&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #允许外网的60.28.160.244访问这个服务器上的sshd进程
+<br>在/etc/hosts.deny中 <span style="color: red;">被禁制登陆的尝试连接信息也可以设置成记录下来并发到用户邮箱</span>
+<br>sshd:ALL&nbsp;&nbsp;&nbsp; #禁止所有
+<br>
+<br><strong>5，修改共享出去的目录权限为760，并修改目录所有组为nfsnobody</strong>
+<br>参考：问题7
+<br>
+<br><strong>6，客户端挂载：</strong>执行下面的指令就可以把NFS服务器(IP地址为192.168.1.45)共享出来的/home挂装到本地的/mnt/nfs/home目录下。
+<br><span style="color: blue;">showmount -e nfs-serverip</span>： 查看nfs服务器共享出来的资源
+<br><span style="color: blue;">mount -t nfs 192.168.1.45:/home /mnt/nfs/home</span>
+<br>
+<br><strong>7，NFS性能测试：</strong>
+<br><ul>
+<li>根据命令time dd if=/dev/zero of=/mnt/home bs=16k count=16384 来设置合理的WSIZE,RSIZE值
+</li><li>根据nfs客户端数，在/etc/sysconfig/nfs配置文件中设置合适的nfs服务器端进程数RPCNFSDCOUNT，默认为8
+</li></ul>
+<br><span style="color: blue;">exportfs命令</span>：如果我们在启动了NFS之后又修改了/etc/exports，是不是还要重新启动nfs呢？这个时候我们就可以用exportfs命令来使改动立刻生效，该命令格式如下：
+<br>exportfs [-aruv] -a ：全部mount或者unmount /etc/exports中的内容 -r ：重新mount /etc/exports中分享出来的目录 -u ：umount 目录 -v ：在 export 的時候，将详细的信息输出到屏幕上。
+<br><span style="color: blue;">showmount命令</span>：显示NFS服务器的挂载信息。
+<br><span style="color: red;">showmount -e [nfs-server]：显示指定的NFS SERVER上export出来的目录，不指定后面IP时查看的是本机作为NFS Server时，对外共享的目录。</span>。
+<br><span style="color: blue;">rpcinfo -p命令</span>：显示RPC信息&nbsp; -p参数：用rpc协议来探测主机host上使用的rpcbind，并<span style="color: red;">显示所有已注册的RPC程序</span>。
+<br><span style="color: blue;">nfsstat命令</span>：查看NFS的运行状态，对于调整NFS的运行有很大帮助 
+<br>
+<br><strong>过程中出现的问题解决：</strong>
+<br>1， 通过yum或者rpm安装完portmap后，发现执行命令service portmap start时报如下<span style="color: red;">错误：portmap: unrecognized service</span>。 
+<br>CentOS6（Linux Kernel 2.6.32）中，<span style="color: red;">portmap已经被rpcbind代替了</span>，仔细查看安装信息就会发现，执行命令yum install portmap时安装的就是rpcbind。安装完成后也可以通过命令：yum whatprovides portmap来查看详细信息。
+<br>
+<br>2， 客户端挂载时，报错误mount clntudp_create: RPC: Port mapper failure - RPC: Unable to receive。
+<br><ul>
+<li>1，通过命令rpcinfo -p来查看portmap服务时候正常启动以及相应的端口(默认111)
+</li><li>2，检查/etc/sysconfig/iptables防火墙设置，允许tcp，udp的111端口访问，然后service iptables restart
+</li><li>3，检查/etc/hosts.deny，/etc/hosts.allow看客户端连接是否被阻止了
+</li></ul>
+<br>3， 客户端执行命令showmount -e nfs-server时，报错误：mount clntudp_create: RPC: Program not registered。
+<br>nfs、rpcbind服务没有启动，使用chkconfig把nfs、rpcbind加到系统服务中并用service来启动
+<br>或者在/etc/hosts.allow中添加允许客户端访问的规则 ALL:192.168.0.135
+<br>
+<br>4， 客户端执行命令showmount -e nfs-server时，报错误：rpc mount export: RPC: Unable to receive; errno = No route to host
+<br><strong>配置文件：/etc/sysconfig/nfs</strong>
+<br>找到nfs服务相关端口设置的地方，并移除注释后，在iptables防火墙设置中指定允许相应端口的Udp，tcp流通过。
+<br>#MOUNTD_PORT=892
+<br>#STATD_PORT=662
+<br>#LOCKD_TCPPORT=32803
+<br>#LOCKD_UDPPORT=32769
+<br>iptables -A INPUT -p TCP --dport 662 -m state --state NEW -j ACCEPT
+<br>iptables -A INPUT -p UDP --dport 661 -m state --state NEW -j ACCEPT
+<br>
+<br>5, showmount -e nfs-server成功，正式挂载时报错：mount: mount to NFS server '192.168.1.5' failed: System Error: No route to host.这是由于nfs服务的默认端口2049被防火墙阻塞了，和上面类似修改iptables允许2049端口通过
+<br>
+<br>6, showmount -e nfs-server成功，正式挂载时报错：mount: mount to NFS server '192.168.1.5' failed: timed out (retrying). 
+<br>编辑/etc/sysconfig/iptables时，相关端口的tcp端口允许通过，而udp不允许。其他可能的原因参考：<a target="_blank" href="https://access.redhat.com/knowledge/docs/en-US/Red_Hat_Storage_Software_Appliance/3.2/html/User_Guide/ch14s04s06.html">mount command fails with NFS server failed error. </a>
+<br>Disable name lookup requests from NFS server to a DNS server.&nbsp; 
+<br>or&nbsp; NFS version used by the NFS client is other than version 3. 
+<br>
+<br>7，exports配置文件中目录权限属性设置为rw(默认为root_squash)，但是在客户端mount目录执行touch命令时报错误：touch: cannot touch `a': Permission denied。解决：
+<br><ul>
+<li>服务器端共享目录权限查看ll -d /home
+</li><li>修改服务器端共享目录权限chown 760 /home(<span style="color: red;">文件所有者root有全权限、文件所有组用户有读写权限、其他用户无权限，然后把目录的组设置为nfsnobody</span>)
+</li><li>修改服务器端共享目录权限组拥有者为nfsnobody(cat /etc/passwd | grep nob)
+</li><li>chgrp nfsnobody /home
+</li><li>成功在客户端创建新的文件！
+</li></ul>
+<br>
+<br><a target="_blank" href="http://www.cnblogs.com/yuepeng/archive/2010/12/08/1900604.html">CentOS NFS配置</a>
+<br><a target="_blank" href="http://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">维基百科 - 网络文件系统</a>
+  </div>
+
+  
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://desert3.iteye.com/blog/1676633" class="next" title="Linux time命令、dd命令、测试硬盘读写速度、磁盘备份恢复">Linux time命令、dd命令、测试硬盘读写速度 ...</a>
+      |
+      <a href="http://desert3.iteye.com/blog/1675028" class="pre" title="网络文件系统（Network File System，NFS）、NFS安全配置相关、NFS相关端口及防火墙设置">网络文件系统（Network File System，NFS ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-09-11 09:25</li>
+      <li>浏览 14174</li>
+      <li><a href="http://desert3.iteye.com/blog/1675522#comments">评论(1)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/os">操作系统</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/1675522" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2334291">
+  <div class="comment_title">
+    1 楼
+    <a href="http://fushaogao-126-com.iteye.com/" target="_blank" title="付绍高">付绍高</a>
+    2013-12-12&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">非常感谢！！<img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/icon_biggrin.gif"> </div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://desert3.iteye.com/login" style="background-color:white;"> <img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://desert3.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1675522;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'NFS安装配置及常见问题、/etc/exports配置文件、showmount命令');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'NFS安装配置及常见问题、/etc/exports配置文件、showmount命令');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://desert3.iteye.com/"><img alt="desert3的博客" class="logo" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/0554323a-3426-3d8c-91f4-8d6d04960b82.jpg" title="desert3的博客: 如果你真的想做一件事，你一定会找到方法； 如果你不想做一件事，你一定会找到借口。" width=""></a></div>
+  <div id="blog_owner_name">desert3</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 451123 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 合肥</li>
+              <li><img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://desert3.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://bitcarter.iteye.com/" target="_blank"><img alt="bitcarter的博客" class="logo" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/2b5828dc-eec7-3de7-bcd7-95196c0ff947-thumb.jpg" title="bitcarter的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://bitcarter.iteye.com/" target="_blank" title="bitcarter">bitcarter</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://alextech.iteye.com/" target="_blank"><img alt="AlexTech的博客" class="logo" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/user-logo-thumb.gif" title="AlexTech的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://alextech.iteye.com/" target="_blank" title="AlexTech">AlexTech</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://wsjvsrqs.iteye.com/" target="_blank"><img alt="wsjvsrqs的博客" class="logo" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/user-logo-thumb.gif" title="wsjvsrqs的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://wsjvsrqs.iteye.com/" target="_blank" title="wsjvsrqs">wsjvsrqs</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://renyaning.iteye.com/" target="_blank"><img alt="renyaning的博客" class="logo" src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/user-logo-thumb.gif" title="renyaning的博客: " width="48px"></a></div>
+                <div class="left"><a href="http://renyaning.iteye.com/" target="_blank" title="renyaning">renyaning</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://desert3.iteye.com/">全部博客 (401)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/249994">Agile (16)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/197406">Apache Commons (3)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/175100">Architecture (8)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/138063">DB.MongoDB (5)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/125523">DB.Mysql (3)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117557">DB.Oracle (34)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/221607">DirectoryService (1)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117549">DotNet (1)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/188108">English (3)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/159331">Groovy (0)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/154849">Html (28)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117548">Java (67)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/129082">Java.Aixs (7)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/132003">Java.Cache (2)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/139216">Java.jPBM (1)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/123565">Java.Resin (6)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117571">Java.Spring (4)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/149230">Java.Struts2 (5)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/131101">Java.Tomcat (16)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/120016">Javascript (45)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/118151">Javascript.Google Map (2)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117570">Javascript.Jquery (8)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117550">Life (15)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/197285">Maven&amp;Ant (4)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/124082">Network (5)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/121454">OS.Linux (45)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/120525">OS.Windows (10)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117551">OS.Windows.Office (1)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/217645">PlayFramework (15)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117553">Python (28)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/188106">Reading notes (11)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/120066">Security (13)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/205250">Server.Apache (3)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/176962">Server.Nginx (7)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/121290">Test (6)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/117554">Tool (15)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/177207">Work.Solution (15)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/129496">Other (20)</a></li>
+                
+                  <li><a href="http://desert3.iteye.com/category/251692">SSO&amp;CAS&amp;Identity (13)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://desert3.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://desert3.iteye.com/blog/post">我的论坛</a> (16)
+                </li>
+                <li><a href="http://desert3.iteye.com/blog/answered_problems">我的问答</a> (1)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://desert3.iteye.com/blog/monthblog/2013-01">2013-01</a> (1)</li>
+                
+                  <li><a href="http://desert3.iteye.com/blog/monthblog/2012-11">2012-11</a> (5)</li>
+                
+                  <li><a href="http://desert3.iteye.com/blog/monthblog/2012-10">2012-10</a> (30)</li>
+                
+                <li><a href="http://desert3.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://di1984hit.iteye.com/" target="_blank" title="di1984HIT">di1984HIT</a>： 
+                  谢谢，学习了<br>
+                  <a href="http://desert3.iteye.com/blog/1665300#bc2349885">Yum install man、Yum仓库（CentOS-Base.repo）、本地yum仓库</a>
+                </li>
+                
+                <li>
+                  <a href="http://qqxiaodi.iteye.com/" target="_blank" title="qqxiaodi">qqxiaodi</a>： 
+                  我也遇到同样的问题javax.mail.MessagingEx ...<br>
+                  <a href="http://desert3.iteye.com/blog/1354422#bc2342431">javax.mail.MessagingException: [EOF]处理</a>
+                </li>
+                
+                <li>
+                  <a href="http://qq359907964.iteye.com/" target="_blank" title="qq359907964">qq359907964</a>： 
+                  qq359907964 写道刚开始尝试play，感觉不错，但是 ...<br>
+                  <a href="http://desert3.iteye.com/blog/1489394#bc2342348">play 2.x &amp; 1.xIDE &amp; debug</a>
+                </li>
+                
+                <li>
+                  <a href="http://qq359907964.iteye.com/" target="_blank" title="qq359907964">qq359907964</a>： 
+                  刚开始尝试play，感觉不错，但是调试模式，eclipse选择 ...<br>
+                  <a href="http://desert3.iteye.com/blog/1489394#bc2342347">play 2.x &amp; 1.xIDE &amp; debug</a>
+                </li>
+                
+                <li>
+                  <a href="http://ueu2715.iteye.com/" target="_blank" title="ueu2715">ueu2715</a>： 
+                  这个版本的client里面没有edu.yale开头的包，那个好 ...<br>
+                  <a href="http://desert3.iteye.com/blog/1700335#bc2340476">CAS_SSO单点登录实例详细步骤(转)、Tomcat ssl(https) 配置</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2014 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/saved_resource" width="0" height="0">
+
+<script src="./NFS安装配置及常见问题、 etc exports配置文件、showmount命令_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16771354-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  
+
+</body></html>

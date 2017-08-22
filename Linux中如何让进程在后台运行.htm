@@ -1,0 +1,296 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0080)http://www.ningoo.net/html/2008/how_to_run_processes_on_background_in_linux.html -->
+<HTML><HEAD><META content="IE=5.0000" http-equiv="X-UA-Compatible">
+<TITLE>Linux中如何让进程在后台运行</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META name=GENERATOR content="MSHTML 9.00.8112.16430"></HEAD>
+<BODY>﻿ <LINK rel="Shortcut Icon" href="favicon.ico"><LINK rel=stylesheet 
+type=text/css href="Linux中如何让进程在后台运行_files/style.css" media=screen><LINK 
+title="江边潮未尽，枫红一季秋 RSS Feed" rel=alternate type=application/rss+xml 
+href="http://www.ningoo.net/feed"><LINK rel=stylesheet type=text/css 
+href="Linux中如何让进程在后台运行_files/comment.css" media=screen>
+<DIV id=topbar>
+<DIV class=w1002>
+<DIV id=desc>NinGoo's blog </DIV>
+<UL>
+  <LI><A href="http://www.ningoo.net/archives">所有文章</A> </LI>
+  <LI><A 
+  href="http://www.google.com/ig/add?feedurl=http://rss.ningoo.net">GRead</A> 
+  </LI>
+  <LI><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://rss.ningoo.net">鲜果</A> 
+  </LI>
+  <LI><A href="http://twitter.com/NinGoo">Twitter</A> </LI>
+  <LI><A href="http://www.douban.com/people/ningoo/">豆瓣</A> </LI>
+  <LI><A title=AskDBA href="http://www.askdba.net/">AskDBA</A> </LI>
+  <LI><A title=admin href="http://www.ningoo.net/wp-admin">管理</A> </LI>
+  <LI><A title=About href="http://www.ningoo.net/about_me">关于</A> 
+</LI></UL></DIV></DIV>
+<DIV id=header>
+<DIV class=w1002>
+<H1><A href="http://www.ningoo.net/">江边潮未尽，枫红一季秋</A></H1>
+<UL id=navbar>
+  <LI class="cat-item cat-item-3"><A title="查看 技术 下的所有文章" 
+  href="http://www.ningoo.net/html/category/tech">技术</A> </LI>
+  <LI class="cat-item cat-item-4"><A title="查看 生活 下的所有文章" 
+  href="http://www.ningoo.net/html/category/life">生活</A> </LI>
+  <LI class="cat-item cat-item-5"><A title="查看 杂记 下的所有文章" 
+  href="http://www.ningoo.net/html/category/misc">杂记</A> </LI>
+  <LI class="cat-item cat-item-292"><A title=tools 
+  href="http://www.ningoo.net/html/category/tools">工具</A> </LI>
+  <LI class="cat-item cat-item-440"><A title="查看 旅行 下的所有文章" 
+  href="http://www.ningoo.net/html/category/travel">旅行</A> </LI></UL></DIV></DIV>
+<DIV></DIV>
+<DIV id=main>
+<DIV class=w1002>
+<DIV id=content>
+<H2><A title="Permanent Link: Linux中如何让进程在后台运行" 
+href="http://www.ningoo.net/html/2008/how_to_run_processes_on_background_in_linux.html" 
+rel=bookmark>Linux中如何让进程在后台运行</A></H2>
+<DIV id=copyright>作者：NinGoo | 【转载须以超链接形式标明文章原始出处和作者信息】 </DIV>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-5453951276515381";
+/* 728x90, 创建于 08-8-4 */
+google_ad_slot = "6748094299";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</SCRIPT>
+
+<SCRIPT type=text/javascript src="Linux中如何让进程在后台运行_files/show_ads.js">
+</SCRIPT>
+
+<DIV class=entry>
+<P>在Linux中，如果要让进程在后台运行，一般情况下，我们在命令后面加上&amp;即可，实际上，这样是将命令放入到一个作业队列中了：</P><PRE>$ ./test.sh &amp;
+[1] 17208
+
+$ jobs -l
+[1]+ 17208 Running                 ./test.sh &amp;
+</PRE>
+<P>对于已经在前台执行的命令，也可以重新放到后台执行，首先按<STRONG>ctrl+z</STRONG>暂停已经运行的进程，然后使用<STRONG>bg</STRONG>命令将停止的作业放到后台运行：</P><PRE>$ ./test.sh
+[1]+  Stopped                 ./test.sh
+
+$ bg %1
+[1]+ ./test.sh &amp;
+
+$ jobs -l
+[1]+ 22794 Running                 ./test.sh &amp;
+</PRE>
+<P><SPAN id=more-403></SPAN></P>
+<P>但是如上方到后台执行的进程，其父进程还是当前终端shell的进程，而一旦父进程退出，则会发送hangup信号给所有子进程，子进程收到hangup以后也会退出。如果我们要在退出shell的时候继续运行进程，则需要使用<STRONG>nohup</STRONG>忽略hangup信号，或者<STRONG>setsid</STRONG>将将父进程设为init进程(进程号为1)</P><PRE>$ echo $$
+21734
+
+$ nohup ./test.sh &amp;
+[1] 29016
+
+$ ps -ef | grep test
+515      29710 21734  0 11:47 pts/12   00:00:00 /bin/sh ./test.sh
+515      29713 21734  0 11:47 pts/12   00:00:00 grep test
+</PRE><PRE>$ setsid ./test.sh &amp;
+[1] 409
+
+$ ps -ef | grep test
+515        410     1  0 11:49 ?        00:00:00 /bin/sh ./test.sh
+515        413 21734  0 11:49 pts/12   00:00:00 grep test
+</PRE>
+<P>上面的试验演示了使用nohup/setsid加上&amp;使进程在后台运行，同时不受当前shell退出的影响。那么对于已经在后台运行的进程，该怎么办呢？可以使用<STRONG>disown</STRONG>命令：</P><PRE>$ ./test.sh &amp;
+[1] 2539
+
+$ jobs -l
+[1]+  2539 Running                 ./test.sh &amp;
+
+$ disown -h %1
+
+$ ps -ef | grep test
+515        410     1  0 11:49 ?        00:00:00 /bin/sh ./test.sh
+515       2542 21734  0 11:52 pts/12   00:00:00 grep test
+</PRE>
+<P>另外还有一种方法，即使将进程在一个subshell中执行，其实这和setsid异曲同工。方法很简单，将命令用括号() 括起来即可：</P><PRE>$ (./test.sh &amp;)
+
+$ ps -ef | grep test
+515        410     1  0 11:49 ?        00:00:00 /bin/sh ./test.sh
+515      12483 21734  0 11:59 pts/12   00:00:00 grep test
+</PRE>
+<P>注：本文试验环境为Red Hat Enterprise Linux AS release 4 (Nahant Update 
+5),shell为/bin/bash，不同的OS和shell可能命令有些不一样。例如AIX的ksh，没有disown，但是可以使用<STRONG>nohup 
+-p <EM>PID</EM></STRONG>来获得disown同样的效果。</P>
+<P>还有一种更加强大的方式是使用<STRONG>screen</STRONG>，首先创建一个断开模式的虚拟终端，然后用-r选项重新连接这个虚拟终端，在其中执行的任何命令，都能达到nohup的效果，这在有多个命令需要在后台连续执行的时候比较方便：</P><PRE>$ screen -dmS screen_test
+
+$ screen -list
+There is a screen on:
+        27963.screen_test       (Detached)
+1 Socket in /tmp/uscreens/S-jiangfeng.
+
+$ screen -r screen_test
+</PRE>
+<DIV class=wumii-hook><INPUT name=wurl 
+value=http://www.ningoo.net/html/2008/how_to_run_processes_on_background_in_linux.html 
+type=hidden> <INPUT name=wtitle value=Linux中如何让进程在后台运行 type=hidden> <INPUT 
+name=wpic type=hidden> </DIV>
+<P 
+style="PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; HEIGHT: 1px; OVERFLOW: hidden; PADDING-TOP: 0px">
+<SCRIPT type=text/javascript><!--
+        var wumiiSitePrefix = "http://www.ningoo.net";
+        var wumiiEnableCustomPos = false;
+        var wumiiParams = "&#038;num=6&#038;mode=3&#038;displayInFeed=1&#038;version=1.0.5.3&#038;pf=WordPress3.2";
+    //--></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Linux中如何让进程在后台运行_files/relatedItemsWidget.js"></SCRIPT>
+<A 
+style="BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px" 
+href="http://www.wumii.com/widget/relatedItems.htm"><IMG 
+style="BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px" 
+alt=无觅相关文章插件，快速提升流量 src="Linux中如何让进程在后台运行_files/pixel.png"></A></P></DIV>
+<P><B>本文网址：</B><A 
+href="http://www.ningoo.net/html/2008/how_to_run_processes_on_background_in_linux.html">http://www.ningoo.net/html/2008/how_to_run_processes_on_background_in_linux.html</A></P>
+<P><A href="http://rss.ningoo.net/"><IMG align=middle 
+src="Linux中如何让进程在后台运行_files/gif.gif"></IMG></A> <A 
+href="http://www.google.com/ig/add?feedurl=http://rss.ningoo.net">订阅到Google</A> 
+| <A 
+onclick="window.open('http://del.icio.us/post?v=4&amp;noui&amp;jump=close&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title),'delicious', 'toolbar=no,width=700,height=400'); return false;" 
+href="http://del.icio.us/post">收藏到Del.icio.us</A> | <A title=推荐到鲜果热文 
+href="http://www.xianguo.com/api/submitdigg/?feed=http://rss.ningoo.net&amp;link=WEB_URL">推荐到鲜果</A> 
+</P>
+<P class=postmetadata>Posted by <A href="http://www.ningoo.net/">NinGoo</A> 
+2008-08-24 12:15 星期日 </P>
+<TABLE 
+style="BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px" 
+width="100%">
+  <TBODY>
+  <TR colspan="2">
+    <TD width="50%">上一篇：<A 
+      href="http://www.ningoo.net/html/2008/change_db_name_using_nid_on_data_guard.html" 
+      rel=prev>Data Guard与nid</A> </TD>
+    <TD width="50%" align=right>下一篇：<A 
+      href="http://www.ningoo.net/html/2008/mysql_51_new_feather_1_log_output.html" 
+      rel=next>MySQL5.1新特性（一）日志的增强</A> </TD></TR></TBODY></TABLE>
+<P><B>本文Tags: <A href="http://www.ningoo.net/html/tag/aix" rel=tag>AIX</A>, <A 
+href="http://www.ningoo.net/html/tag/nohup" rel=tag>nohup</A></B></P>
+<DIV class=clear></DIV>
+<SCRIPT type=text/javascript> 
+var blogurl="http://www.ningoo.net"; 
+var needemail="1";
+var nowurl="http://www.ningoo.net/wp-content/themes/yuewei/jscript/getpost.php?id=403";
+var md5 = "73e53a364294a226b28f8e620698a17e";
+</SCRIPT>
+
+<H3>没有评论</H3>
+<UL id=comments class=commentslist></UL>
+<DIV id=cmtForm>
+<FORM id=commentform onsubmit="AjaxSendComment();return false;" method=post 
+action=http://www.ningoo.net/wp-comments-post.php>
+<DIV id=caie><BR><INPUT id=author tabIndex=11 onclick=this.select(); 
+name=author><LABEL for=author>姓名</LABEL><SPAN id=authorrequire> 
+(Required)</SPAN><BR><INPUT id=email tabIndex=12 onclick=this.select(); 
+name=email><LABEL for=email>Mail</LABEL><SPAN id=emailrequire> (Required, will 
+not be published)</SPAN><BR><INPUT id=url tabIndex=13 onclick=this.select(); 
+name=url><LABEL for=url>站点</LABEL> </DIV>
+<DIV id=commentarea>
+<DIV id=commentdiv><TEXTAREA id=comment tabIndex=14 cols=70 rows=6 name=comment></TEXTAREA></DIV>
+<DIV id=copreview ondblclick=comment_preview();></DIV>
+<DIV id=comoper><INPUT tabIndex=15 name=submit value="Say it!" type=submit> <INPUT id=prectr tabIndex=16 onclick=javascript:comment_preview(); name=preview value=Preview type=button> 
+<INPUT style="DISPLAY: none" id=reRoot tabIndex=17 onclick=javascript:moveForm(0) value=Cancel type=button> 
+<INPUT name=comment_post_ID value=403 type=hidden> <INPUT id=comment_reply_ID 
+name=comment_reply_ID value=0 type=hidden></DIV></DIV>
+<P style="DISPLAY: none"><INPUT id=akismet_comment_nonce 
+name=akismet_comment_nonce value=c8c289c323 type=hidden></P></FORM></DIV>
+<SCRIPT type=text/javascript src="Linux中如何让进程在后台运行_files/comment.js"></SCRIPT>
+</DIV>﻿
+<DIV id=sidebar>
+<DIV class=sidecontent>
+<DIV id=search><!-- SiteSearch Google -->
+<FORM id=cse-search-box action=http://www.ningoo.net/search><INPUT name=cx 
+value=partner-pub-5453951276515381:ha1jabup4rw type=hidden> <INPUT name=cof 
+value=FORID:11 type=hidden> <INPUT name=ie value=UTF-8 type=hidden> <INPUT 
+name=q> <INPUT name=sa value=搜索 type=submit> </FORM>
+<SCRIPT type=text/javascript src="Linux中如何让进程在后台运行_files/brand.js"></SCRIPT>
+<!-- SiteSearch Google --></DIV><A href="http://rss.ningoo.net/"><IMG 
+align=middle src="Linux中如何让进程在后台运行_files/gif.gif"> </A>&nbsp; <A 
+href="http://feeds2.feedburner.com/NinGoo"><IMG 
+style="BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px" 
+alt="" align=middle src="Linux中如何让进程在后台运行_files/NinGoo.gif" width=88 
+height=26></A> <BR><A href="http://acoug.org/"><IMG 
+src="Linux中如何让进程在后台运行_files/acoug.png"></A> </DIV>
+<H2>最近文章 | Recent posts</H2>
+<DIV class=sidecontent>
+<UL>
+  <LI><A title="Permanent Link: 东南亚之旅：越南与柬埔寨（四）" 
+  href="http://www.ningoo.net/html/2011/southeast_of_asia_viet_nam_and_combodia_4.html" 
+  rel=bookmark>东南亚之旅：越南与柬埔寨（四）</A>
+  <LI><A title="Permanent Link: 东南亚之旅：越南与柬埔寨（三）" 
+  href="http://www.ningoo.net/html/2011/southeast_of_asia_viet_nam_and_combodia_3.html" 
+  rel=bookmark>东南亚之旅：越南与柬埔寨（三）</A>
+  <LI><A title="Permanent Link: 东南亚之旅：越南与柬埔寨（二）" 
+  href="http://www.ningoo.net/html/2011/southeast_of_asia_viet_nam_and_combodia_2.html" 
+  rel=bookmark>东南亚之旅：越南与柬埔寨（二）</A>
+  <LI><A title="Permanent Link: 东南亚之旅：越南与柬埔寨（一）" 
+  href="http://www.ningoo.net/html/2011/southeast_of_asia_viet_nam_and_combodia_1.html" 
+  rel=bookmark>东南亚之旅：越南与柬埔寨（一）</A>
+  <LI><A title="Permanent Link: 白话MongoDB（三）" 
+  href="http://www.ningoo.net/html/2011/mongodb_in_a_nutshell_3.html" 
+  rel=bookmark>白话MongoDB（三）</A>
+  <LI><A title="Permanent Link: 南浔古镇" 
+  href="http://www.ningoo.net/html/2011/old_town_nanxun.html" 
+  rel=bookmark>南浔古镇</A>
+  <LI><A title="Permanent Link: 白话MongoDB（二）" 
+  href="http://www.ningoo.net/html/2011/mongodb_in_a_nutshell_2.html" 
+  rel=bookmark>白话MongoDB（二）</A>
+  <LI><A title="Permanent Link: 白话MongoDB（一）" 
+  href="http://www.ningoo.net/html/2011/mongodb_in_a_nutshell_1.html" 
+  rel=bookmark>白话MongoDB（一）</A>
+  <LI><A title="Permanent Link: InnoDB的多版本一致性读的实现" 
+  href="http://www.ningoo.net/html/2011/innodb_mvcc_consistency_read.html" 
+  rel=bookmark>InnoDB的多版本一致性读的实现</A>
+  <LI><A title="Permanent Link: 使用smartmontools监控磁盘状况" 
+  href="http://www.ningoo.net/html/2011/use_smartmontools_monitor_disk_stats.html" 
+  rel=bookmark>使用smartmontools监控磁盘状况</A>
+  <LI><A title="Permanent Link: 2011，快乐生活" 
+  href="http://www.ningoo.net/html/2011/2011_happy_life.html" 
+  rel=bookmark>2011，快乐生活</A>
+  <LI><A title="Permanent Link: MySQL 5.5.8 GA版本发布" 
+  href="http://www.ningoo.net/html/2010/mysql-5-5-8-ga_release.html" 
+  rel=bookmark>MySQL 5.5.8 GA版本发布</A> </LI></UL></DIV>
+<H2>站点信息 | Statistics</H2>
+<DIV class=sidecontent>
+<UL>
+  <LI>文章总数：448 
+  <LI>评论总数：1142 
+  <LI>Start@2007-05-19 </LI></UL><BR>
+<UL>
+  <LI>Powered by <A href="http://www.wordpress.com/">WordPress</A> 
+  <LI>Hosted by <A href="http://www.dreamhost.com/r.cgi?287455">DreamHost</A> 
+  <LI>Theme by <A href="http://www.ningoo.net/">NinGoo</A> </LI></UL>
+<P><A href="http://rss.ningoo.net/"><IMG alt=通过Feedsky订阅 align=middle 
+src="Linux中如何让进程在后台运行_files/gif.gif"></A></P>
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-5453951276515381";
+/* 200x200, 创建于 10-9-11 */
+google_ad_slot = "6585846981";
+google_ad_width = 200;
+google_ad_height = 200;
+//-->
+</SCRIPT>
+
+<SCRIPT type=text/javascript src="Linux中如何让进程在后台运行_files/show_ads.js">
+</SCRIPT>
+</DIV></DIV></DIV></DIV>﻿ 
+<DIV id=footer>© 版权所有 2007 - 2011 <A 
+href="http://www.ningoo.net/">http://www.ningoo.net/</A> 本Blog内容仅代表个人观点, 
+与其他任何组织或公司无关
+<SCRIPT type=text/javascript src="Linux中如何让进程在后台运行_files/tongji.js"></SCRIPT>
+ <NOSCRIPT></NOSCRIPT>
+<SCRIPT type=text/javascript>
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1900392-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</SCRIPT>
+</DIV></BODY></HTML>

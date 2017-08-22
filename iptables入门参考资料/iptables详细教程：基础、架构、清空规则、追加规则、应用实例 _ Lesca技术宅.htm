@@ -1,0 +1,795 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11"><script async="" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/cbgapi.loaded_1"></script><script async="" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/plusone.js" async="" type="text/javascript"></script><script async="" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/ex"></script><script mod_name="tanxssp-main" async="" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/main_002.js"></script><script charset="utf-8" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/a"></script><script src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/tanxssp.js" async="" charset="gbk"></script><script src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/ex.js" charset="gbk"></script><script src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/ga.js" async="" type="text/javascript"></script><script mod_name="inf-main" async="" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/main.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="iptables详细教程：基础、架构、清空规则、追加规则、应用实例"><!--End of meta description-->
+	<meta name="author" content="Lesca">
+	<meta property="wb:webmaster" content="45f2467dde5f26dd">
+	<meta name="keywords" content="chain,iptables,rule,structure,table,"><!--End of meta keywords-->
+                    <title>  iptables详细教程：基础、架构、清空规则、追加规则、应用实例 | Lesca技术宅</title>
+                        <link rel="stylesheet" type="text/css" media="all" href="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/style.css">
+        <link rel="pingback" href="http://lesca.me/xmlrpc.php">
+        <link rel="alternate" type="application/rss+xml" title="Lesca技术宅 » Feed" href="http://lesca.me/feed">
+<link rel="alternate" type="application/rss+xml" title="Lesca技术宅 » Comments Feed" href="http://lesca.me/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Lesca技术宅 » iptables详细教程：基础、架构、清空规则、追加规则、应用实例 Comments Feed" href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html/feed">
+<script type="text/javascript" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/comment-reply.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://lesca.me/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://lesca.me/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Linux文件权限：Sticky bit, SUID, SGID" href="http://lesca.me/archives/linux-file-permission-sticky-bit-suid-sgid.html">
+<link rel="next" title="iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链" href="http://lesca.me/archives/iptables-examples.html">
+<meta name="generator" content="WordPress 3.5.1">
+<link rel="canonical" href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html">
+<link rel="shortlink" href="http://lesca.me/?p=937">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.3">
+    </head>
+    <body class="single single-post postid-937 single-format-standard"><iframe src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/acbeacon2.htm" style="width: 0px; height: 0px; display: none;"></iframe>
+	<div id="banner">
+		<div id="banner-img">
+		<img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/lesca.png" alt="lesca is thinking, all about novel ideas!">
+		</div>
+	</div>
+        <div id="nav">
+            <div id="menus">
+                <ul><li><a href="http://lesca.me/">Home</a></li></ul>
+                    <ul id="menu-main" class="menu"><li id="menu-item-356" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-356"><a href="http://lesca.me/topics/tutorial">教程 Tutorials</a></li>
+<li id="menu-item-1055" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1055"><a href="http://lesca.me/topics/projects">项目 Projects</a>
+<ul class="sub-menu">
+	<li id="menu-item-992" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-992"><a href="http://lesca.me/topics/projects/ovm">VPN</a></li>
+	<li id="menu-item-580" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-580"><a href="http://lesca.me/topics/projects/websh">Websh</a></li>
+	<li id="menu-item-23" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23"><a href="http://man.lesca.me/">Docs</a></li>
+</ul>
+</li>
+<li id="menu-item-1078" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-1078"><a title="Operating System" href="http://lesca.me/topics/os">操作系统OS</a>
+<ul class="sub-menu">
+	<li id="menu-item-995" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-995"><a href="http://lesca.me/topics/os/ubuntu-2">Ubuntu</a>
+	<ul class="sub-menu">
+		<li id="menu-item-998" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-998"><a href="http://lesca.me/topics/os/kernel">Kernel</a></li>
+		<li id="menu-item-997" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-997"><a href="http://lesca.me/topics/os/grub2">GRUB2</a></li>
+		<li id="menu-item-996" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-996"><a href="http://lesca.me/topics/os/gdb">GDB</a></li>
+	</ul>
+</li>
+	<li id="menu-item-1010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1010"><a href="http://lesca.me/topics/os/windows">Windows</a></li>
+</ul>
+</li>
+<li id="menu-item-1079" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-1079"><a title="Network" href="http://lesca.me/topics/network">网络Network</a>
+<ul class="sub-menu">
+	<li id="menu-item-1301" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1301"><a href="http://lesca.me/topics/network/ipv6">IPv6</a></li>
+	<li id="menu-item-1080" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1080"><a href="http://lesca.me/topics/network/apache">Apache</a></li>
+	<li id="menu-item-1083" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1083"><a href="http://lesca.me/topics/network/php">PHP</a></li>
+	<li id="menu-item-1081" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1081"><a href="http://lesca.me/topics/network/http">HTTP</a></li>
+	<li id="menu-item-1085" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1085"><a href="http://lesca.me/topics/network/web">Web</a></li>
+	<li id="menu-item-1084" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1084"><a href="http://lesca.me/topics/network/socket">SOCKET</a></li>
+	<li id="menu-item-1082" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1082"><a href="http://lesca.me/topics/network/iptables">iptables</a></li>
+</ul>
+</li>
+<li id="menu-item-25" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25"><a href="http://download.lesca.me/">下载 Downloads</a></li>
+<li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24"><a href="http://lesca.me/about">留言 Guestbook</a></li>
+<li id="menu-item-1019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1019"><a title="搜索本站" href="http://lesca.me/search">搜索本站 Search</a></li>
+</ul>            </div>
+            <!--            <div id="search">
+            <form id="searchform" method="get" action="http://lesca.me/">
+<input type="text" value="Search: type, hit enter" onfocus="if (this.value == 'Search: type, hit enter') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search: type, hit enter';}" size="35" maxlength="50" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="SEARCH" />
+</form>                        </div>-->
+        </div>
+        <div id="wrapper">
+
+<!--Custom header-->
+<div class="custom-header">
+<div class="page-top-ad" style="width:640px;float:left;margin-top:30px;">
+<!--Baidu ads-->
+<script type="text/javascript">/*in_header*/ var cpro_id = 'u880256';</script>
+</div><!--End page-top-ad-->
+<div id="linode-ad" style="width:290px;float:right;margin:5px">
+<a href="http://www.linode.com/?r=cc28b89d2290815b7c3a2738c6696c3c89204a57" ref="nofollow"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/linode.PNG" alt="邀请链接——最好用的Linux VPS"></a>
+</div><!--End linode-->
+</div><!--End custom_header--><div id="content">
+	    <div class="post-937 post type-post status-publish format-standard hentry category-iptables category-tutorial category-ubuntu-2 tag-chain tag-iptables tag-rule tag-structure tag-table post-single" id="post-937"><!-- post div -->
+        <h2 class="title title-single">iptables详细教程：基础、架构、清空规则、追加规则、应用实例</h2>
+        <div class="post-info-top">
+            <span class="post-info-date">Posted by lesca on 2012/03/23 </span>
+							<span id="addcomment"><a href="#respond" rel="nofollow" title="Leave a comment ?">Leave a comment</a> (1)</span>
+				<span id="gotocomments"><a href="#comments" rel="nofollow" title="Go to comments ?">Go to comments</a></span>
+			        </div>
+       <div class="clear"></div>
+<!--Social top-->
+<div class="social-single-top">
+<div class="sharebutton" style="padding-top:1px;">分享到：</div>
+
+<div class="sharebutton">
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 70 , _h = 24;
+  var param = {
+    url:location.href,
+    type:'2',
+    count:'1',
+    title:'',
+    pic:'',
+    ralateUid:'1727669924',
+	language:'zh_cn',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script><iframe allowtransparency="true" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/weiboshare.htm" frameborder="0" height="24" scrolling="no" width="70"></iframe>
+</div>
+
+
+<div class="sharebutton" style="width:50px; height:20px;">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/fastbutton.htm" name="I0_1377584297390" id="I0_1377584297390" vspace="0" tabindex="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+</div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-qzone.png" alt="分享到QQ空间" title="分享到QQ空间"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://v.t.qq.com/share/share.php?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-qqweibo.png" alt="分享到腾讯微博" title="分享到腾讯微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://share.renren.com/share/buttonshare.do?link=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-renren.png" alt="分享到人人网" title="分享到人人网"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.facebook.com/share.php?u=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;t=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-facebook.png" alt="分享到Facebook" title="分享到Facebook"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://t.sohu.com/third/post.jsp?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-sohuweibo.png" alt="分享到搜狐微博" title="分享到搜狐微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://t.163.com/article/user/checkLogin.do?info=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B%20http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-163weibo.png" alt="分享到网易微博" title="分享到网易微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.douban.com/recommend/?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-douban.png" alt="分享到豆瓣" title="分享到豆瓣"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.kaixin001.com/repaste/share.php?rtitle=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B&amp;rurl=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-kaixin001.png" alt="分享到开心网" title="分享到开心网"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://cang.baidu.com/do/add?iu=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;it=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B&amp;dc=&amp;fr=ien#nw=1"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-baidu.png" alt="分享到百度" title="分享到百度"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://twitter.com/home?status=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B%20-%20http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-twitter.png" alt="分享到Twitter" title="分享到Twitter"></a></div>
+
+</div>
+<!--End Social top-->
+        <div class="clear"></div>
+
+<!--Ads-->
+<!--Single Post top ads-->
+<div class="post-top-ad"><div class="ggad">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1067160010479494";
+/* post-top */
+google_ad_slot = "6299197389";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px"><ins id="aswift_0_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" frameborder="0" height="280" scrolling="no" width="336"></iframe></ins></ins>
+</div></div><!-- Post-top-ad end-->
+
+        <div class="entry">
+			<p>iptables防火墙可以用于创建过滤(filter)与NAT规则。所有Linux发行版都能使用iptables，因此理解如何配置
+iptables将会帮助你更有效地管理Linux防火墙。如果你是第一次接触iptables，你会觉得它很复杂，但是一旦你理解iptables的工
+作原理，你会发现其实它很简单。</p>
+<p>首先介绍iptables的结构：iptables -&gt; Tables -&gt; Chains -&gt; Rules. 简单地讲，tables由chains组成，而chains又由rules组成。如下图所示。<br>
+<span id="more-937"></span><br>
+<a href="http://lesca.me/wp-content/uploads/2012/03/iptables-table-chain-rule-structure.png"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/iptables-table-chain-rule-structure.png" alt="" title="iptables-table-chain-rule-structure" class="alignnone size-full wp-image-941" height="400" width="540"></a><br>
+图: IPTables Table, Chain, and Rule Structure</p>
+<h2>一、iptables的表与链</h2>
+<p>iptables具有Filter, NAT, Mangle, Raw四种内建表：</p>
+<h3>1. Filter表</h3>
+<p>Filter表示iptables的默认表，因此如果你没有自定义表，那么就默认使用filter表，它具有以下三种内建链：</p>
+<ul>
+<li><strong>INPUT链</strong> – 处理来自外部的数据。</li>
+<li><strong>OUTPUT链</strong> – 处理向外发送的数据。</li>
+<li><strong>FORWARD链</strong> – 将数据转发到本机的其他网卡设备上。</li>
+</ul>
+<h3>2. NAT表</h3>
+<p>NAT表有三种内建链：</p>
+<ul>
+<li><strong>PREROUTING链</strong> – 处理刚到达本机并在路由转发前的数据包。它会转换数据包中的目标IP地址（destination ip address），通常用于DNAT(destination NAT)。</li>
+<li><strong>POSTROUTING链</strong> – 处理即将离开本机的数据包。它会转换数据包中的源IP地址（source ip address），通常用于SNAT（source NAT）。</li>
+<li><strong>OUTPUT链</strong> – 处理本机产生的数据包。</li>
+</ul>
+<h3>3. Mangle表</h3>
+<p>Mangle表用于指定如何处理数据包。它能改变TCP头中的QoS位。Mangle表具有5个内建链：</p>
+<ul>
+<li>PREROUTING</li>
+<li>OUTPUT</li>
+<li>FORWARD</li>
+<li>INPUT</li>
+<li>POSTROUTING</li>
+</ul>
+<h3>4. Raw表</h3>
+<p>Raw表用于处理异常，它具有2个内建链：</p>
+<ul>
+<li>PREROUTING chain</li>
+<li>OUTPUT chain</li>
+</ul>
+<h3>5.小结</h3>
+<p>下图展示了iptables的三个内建表：<br>
+<a href="http://lesca.me/wp-content/uploads/2012/03/iptables-filter-nat-mangle-tables.png"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/iptables-filter-nat-mangle-tables.png" alt="" title="iptables-filter-nat-mangle-tables" class="alignnone size-full wp-image-942" height="279" width="540"></a><br>
+图: IPTables 内建表</p>
+<h2>二、IPTABLES 规则(Rules)</h2>
+<p>牢记以下三点式理解iptables规则的关键：</p>
+<ul>
+<li>Rules包括一个条件和一个目标(target)</li>
+<li>如果满足条件，就执行目标(target)中的规则或者特定值。</li>
+<li>如果不满足条件，就判断下一条Rules。</li>
+</ul>
+<h3>目标值（Target Values）</h3>
+<p>下面是你可以在target里指定的特殊值：</p>
+<ul>
+<li><strong>ACCEPT</strong> – 允许防火墙接收数据包</li>
+<li><strong>DROP</strong> – 防火墙丢弃包</li>
+<li><strong>QUEUE</strong> – 防火墙将数据包移交到用户空间</li>
+<li><strong>RETURN</strong> – 防火墙停止执行当前链中的后续Rules，并返回到调用链(the calling chain)中。</li>
+</ul>
+<p>如果你执行<code>iptables --list</code>你将看到防火墙上的可用规则。下例说明当前系统没有定义防火墙，你可以看到，它显示了默认的filter表，以及表内默认的input链, forward链, output链。</p>
+<pre># iptables -t filter --list
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+</pre>
+<p>查看mangle表：</p>
+<pre># iptables -t mangle --list
+</pre>
+<p>查看NAT表：</p>
+<pre># iptables -t nat --list
+</pre>
+<p>查看RAW表：</p>
+<pre># iptables -t raw --list
+</pre>
+<p>/!\注意：如果不指定<strong>-t</strong>选项，就只会显示默认的<strong>filter</strong>表。因此，以下两种命令形式是一个意思：</p>
+<pre># iptables -t filter --list
+(or)
+# iptables --list
+</pre>
+<p>以下例子表明在filter表的input链, forward链, output链中存在规则：</p>
+<pre># iptables --list
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination
+1    RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination
+1    RH-Firewall-1-INPUT  all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination
+
+Chain RH-Firewall-1-INPUT (2 references)
+num  target     prot opt source               destination
+1    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0
+2    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           icmp type 255
+3    ACCEPT     esp  --  0.0.0.0/0            0.0.0.0/0
+4    ACCEPT     ah   --  0.0.0.0/0            0.0.0.0/0
+5    ACCEPT     udp  --  0.0.0.0/0            224.0.0.251         udp dpt:5353
+6    ACCEPT     udp  --  0.0.0.0/0            0.0.0.0/0           udp dpt:631
+7    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:631
+8    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED
+9    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           state NEW tcp dpt:22
+10   REJECT     all  --  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited
+</pre>
+<p>以上输出包含下列字段：</p>
+<ul>
+num – 指定链中的规则编号<br>
+target – 前面提到的target的特殊值<br>
+prot – 协议：tcp, udp, icmp等<br>
+source – 数据包的源IP地址<br>
+destination – 数据包的目标IP地址
+</ul>
+<h2>三、清空所有iptables规则</h2>
+<p>在配置iptables之前，你通常需要用<code>iptables --list</code>命令或者<code>iptables-save</code>命令查看有无现存规则，因为有时需要删除现有的iptables规则：</p>
+<pre>iptables --flush
+或者
+iptables -F
+</pre>
+<p>这两条命令是等效的。但是并非执行后就万事大吉了。你仍然需要检查规则是不是真的清空了，因为有的linux发行版上这个命令不会清除NAT表中的规则，此时只能手动清除：</p>
+<pre>iptables -t NAT -F
+</pre>
+<h2>四、永久生效</h2>
+<p>当你删除、添加规则后，这些更改并不能永久生效，这些规则很有可能在系统重启后恢复原样。为了让配置永久生效，根据平台的不同，具体操作也不同。下面进行简单介绍：</p>
+<h3>1.Ubuntu</h3>
+<p>首先，保存现有的规则：</p>
+<pre>iptables-save &gt; /etc/iptables.rules
+</pre>
+<p>然后新建一个bash脚本，并保存到<var>/etc/network/if-pre-up.d/</var>目录下：</p>
+<pre>#!/bin/bash
+iptables-restore &lt; /etc/iptables.rules
+</pre>
+<p>这样，每次系统重启后iptables规则都会被自动加载。<br>
+/!\注意：不要尝试在.bashrc或者.profile中执行以上命令，因为用户通常不是root，而且这只能在登录时加载iptables规则。</p>
+<h3>2.CentOS, RedHat</h3>
+<pre># 保存iptables规则
+service iptables save
+
+# 重启iptables服务
+service iptables stop
+service iptables start
+</pre>
+<p>查看当前规则：</p>
+<pre>cat  /etc/sysconfig/iptables
+</pre>
+<h2>五、追加iptables规则</h2>
+<p>可以使用<code>iptables -A</code>命令追加新规则，其中<strong>-A</strong>表示<strong>Append</strong>。因此，<strong>新的规则将追加到链尾。</strong><br>
+一般而言，最后一条规则用于丢弃(DROP)所有数据包。如果你已经有这样的规则了，并且使用<strong>-A</strong>参数添加新规则，那么就是无用功。</p>
+<h3>1.语法</h3>
+<pre>iptables -A chain firewall-rule
+</pre>
+<ul>
+<li>-A chain – 指定要追加规则的链</li>
+<li>firewall-rule – 具体的规则参数</li>
+</ul>
+<h3>2.描述规则的基本参数</h3>
+<p>以下这些规则参数用于描述数据包的协议、源地址、目的地址、允许经过的网络接口，以及如何处理这些数据包。这些描述是对规则的基本描述。</p>
+<h3>-p 协议（protocol）</h3>
+<ul>
+<li>指定规则的协议，如tcp, udp, icmp等，可以使用<strong>all</strong>来指定所有协议。</li>
+<li>如果不指定<strong>-p</strong>参数，则默认是<strong>all</strong>值。这并不明智，请总是明确指定协议名称。</li>
+<li>可以使用协议名(如tcp)，或者是协议值（比如6代表tcp）来指定协议。映射关系请查看<var>/etc/protocols</var></li>
+<li>还可以使用<strong>–protocol</strong>参数代替<strong>-p</strong>参数</li>
+</ul>
+<h3>-s 源地址（source）</h3>
+<ul>
+<li>指定数据包的源地址</li>
+<li>参数可以使IP地址、网络地址、主机名</li>
+<li>例如：-s 192.168.1.101指定IP地址</li>
+<li>例如：-s 192.168.1.10/24指定网络地址</li>
+<li>如果不指定-s参数，就代表所有地址</li>
+<li>还可以使用<strong>–src</strong>或者<strong>–source</strong></li>
+</ul>
+<h3>-d 目的地址（destination）</h3>
+<ul>
+<li>指定目的地址</li>
+<li>参数和<strong>-s</strong>相同</li>
+<li>还可以使用<strong>–dst</strong>或者<strong>–destination</strong></li>
+</ul>
+<h3>-j 执行目标（jump to target）</h3>
+<ul>
+<li><strong>-j</strong>代表”jump to target”</li>
+<li><strong>-j</strong>指定了当与规则(Rule)匹配时如何处理数据包</li>
+<li>可能的值是ACCEPT, DROP, QUEUE, RETURN</li>
+<li>还可以指定其他链（Chain）作为目标</li>
+</ul>
+<h3>-i 输入接口（input interface）</h3>
+<ul>
+<li><strong>-i</strong>代表输入接口(input interface)</li>
+<li><strong>-i</strong>指定了要处理来自哪个接口的数据包</li>
+<li>这些数据包即将进入INPUT, FORWARD, PREROUTE链</li>
+<li>例如：<strong>-i eth0</strong>指定了要处理经由eth0进入的数据包</li>
+<li>如果不指定<strong>-i</strong>参数，那么将处理进入所有接口的数据包</li>
+<li>如果出现<strong>!</strong> -i eth0，那么将处理所有经由<strong>eth0以外的接口</strong>进入的数据包</li>
+<li>如果出现-i eth<strong>+</strong>，那么将处理所有经由<strong>eth开头的接口</strong>进入的数据包</li>
+<li>还可以使用<strong>–in-interface</strong>参数</li>
+</ul>
+<h3>-o 输出（out interface）</h3>
+<ul>
+<li><strong>-o</strong>代表”output interface”</li>
+<li><strong>-o</strong>指定了数据包由哪个接口输出</li>
+<li>这些数据包即将进入FORWARD, OUTPUT, POSTROUTING链</li>
+<li>如果不指定<strong>-o</strong>选项，那么系统上的所有接口都可以作为输出接口</li>
+<li>如果出现<strong>!</strong> -o eth0，那么将从<strong>eth0以外的接口</strong>输出</li>
+<li>如果出现-i eth<strong>+</strong>，那么将仅从<strong>eth开头的接口</strong>输出</li>
+<li>还可以使用<strong>–out-interface</strong>参数</li>
+</ul>
+<h3>3.描述规则的扩展参数</h3>
+<p>对规则有了一个基本描述之后，有时候我们还希望指定端口、TCP标志、ICMP类型等内容。</p>
+<h3>–sport 源端口（source port）针对 -p tcp 或者 -p udp</h3>
+<ul>
+<li>缺省情况下，将匹配所有端口</li>
+<li>可以指定端口号或者端口名称，例如”–sport 22″与”–sport ssh”。</li>
+<li><var>/etc/services</var>文件描述了上述映射关系。</li>
+<li>从性能上讲，使用端口号更好</li>
+<li>使用冒号可以匹配端口范围，如”–sport 22:100″</li>
+<li>还可以使用”–source-port”</li>
+</ul>
+<h3>–-dport 目的端口（destination port）针对-p tcp 或者 -p udp</h3>
+<ul>
+<li>参数和–sport类似</li>
+<li>还可以使用”–destination-port”</li>
+</ul>
+<h3>-–tcp-flags TCP标志 针对-p tcp</h3>
+<ul>
+<li>可以指定由逗号分隔的多个参数</li>
+<li>有效值可以是：SYN, ACK, FIN, RST, URG, PSH</li>
+<li>可以使用<strong>ALL</strong>或者<strong>NONE</strong></li>
+</ul>
+<h3>-–icmp-type ICMP类型 针对-p icmp</h3>
+<ul>
+<li>–icmp-type 0 表示Echo Reply</li>
+<li>–icmp-type 8 表示Echo</li>
+</ul>
+<h3>4.追加规则的完整实例：仅允许SSH服务</h3>
+<p>本例实现的规则将仅允许SSH数据包通过本地计算机，其他一切连接（包括ping）都将被拒绝。</p>
+<pre># 1.清空所有iptables规则
+iptables -F
+
+# 2.接收目标端口为22的数据包
+iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+
+# 3.拒绝所有其他数据包
+iptables -A INPUT -j DROP
+</pre>
+<h2>六、更改默认策略</h2>
+<p>上例的例子仅对接收的数据包过滤，而对于要发送出去的数据包却没有任何限制。本节主要介绍如何更改链策略，以改变链的行为。</p>
+<h3>1. 默认链策略</h3>
+<p><strong>/!\警告</strong>：请勿在远程连接的服务器、虚拟机上测试！<br>
+当我们使用-L选项验证当前规则是发现，所有的链旁边都有<strong>policy ACCEPT</strong>标注，这表明当前链的默认策略为ACCEPT：</p>
+<pre># iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:ssh
+DROP       all  --  anywhere             anywhere            
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+</pre>
+<p>这种情况下，如果没有明确添加DROP规则，那么默认情况下将采用ACCEPT策略进行过滤。除非：<br>
+<strong>a)为以上三个链单独添加DROP规则：</strong></p>
+<pre>iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
+iptables -A FORWARD -j DROP
+</pre>
+<p><strong>b)更改默认策略：</strong></p>
+<pre>iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+</pre>
+<p>糟糕！！如果你严格按照上一节的例子配置了iptables，并且现在使用的是SSH进行连接的，那么会话恐怕已经被迫终止了！<br>
+为什么呢？因为我们已经把OUTPUT链策略更改为DROP了。此时虽然服务器能接收数据，但是无法发送数据：</p>
+<pre># iptables -L
+Chain INPUT <strong>(policy DROP)</strong>
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:ssh
+DROP       all  --  anywhere             anywhere            
+
+Chain FORWARD <strong>(policy DROP)</strong>
+target     prot opt source               destination         
+
+Chain OUTPUT <strong>(policy DROP)</strong>
+target     prot opt source               destination
+</pre>
+<h2>七、配置应用程序规则</h2>
+<p>尽管5.4节已经介绍了如何初步限制除SSH以外的其他连接，但是那是在链默认策略为ACCEPT的情况下实现的，并且没有对输出数据包进行限制。
+本节在上一节基础上，以SSH和HTTP所使用的端口为例，教大家如何在默认链策略为DROP的情况下，进行防火墙设置。在这里，我们将引进一种新的参数
+-m state，并检查数据包的状态字段。</p>
+<h3>1.SSH</h3>
+<pre># 1.允许接收远程主机的SSH请求
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 2.允许发送本地主机的SSH响应
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<ul>
+<li><strong>-m state:</strong> 启用状态匹配模块（state matching module）</li>
+<li><strong>–-state:</strong> 状态匹配模块的参数。当SSH客户端第一个数据包到达服务器时，状态字段为NEW；建立连接后数据包的状态字段都是ESTABLISHED</li>
+<li><strong>–sport 22:</strong> sshd监听22端口，同时也通过该端口和客户端建立连接、传送数据。因此对于SSH服务器而言，源端口就是22</li>
+<li><strong>–dport 22:</strong> ssh客户端程序可以从本机的随机端口与SSH服务器的22端口建立连接。因此对于SSH客户端而言，目的端口就是22</li>
+</ul>
+<p>如果服务器也需要使用SSH连接其他远程主机，则还需要增加以下配置：</p>
+<pre># 1.送出的数据包目的端口为22
+iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 2.接收的数据包源端口为22
+iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>2.HTTP</h3>
+<p>HTTP的配置与SSH类似：</p>
+<pre># 1.允许接收远程主机的HTTP请求
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 1.允许发送本地主机的HTTP响应
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>3.完整的配置</h3>
+<pre># 1.删除现有规则
+iptables -F
+
+# 2.配置默认链策略
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+
+# 3.允许远程主机进行SSH连接
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# 4.允许本地主机进行SSH连接
+iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# 5.允许HTTP请求
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h2>References</h2>
+<p>[1] <a href="http://www.thegeekstuff.com/2011/01/iptables-fundamentals/">Linux Firewall Tutorial: IPTables Tables, Chains, Rules Fundamentals</a><br>
+[2] <a href="http://www.thegeekstuff.com/2011/01/redhat-iptables-flush/">IPTables Flush: Delete / Remove All Rules On RedHat and CentOS Linux</a><br>
+[3] <a href="http://www.thegeekstuff.com/2011/02/iptables-add-rule/">Linux IPTables: How to Add Firewall Rules (With Allow SSH Example)</a><br>
+[4] <a href="http://www.thegeekstuff.com/2011/03/iptables-inbound-and-outbound-rules/">Linux IPTables: Incoming and Outgoing Rule Examples (SSH and HTTP)</a><br>
+[5] <a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a><br>
+[6] man 8 iptables </p>
+			<h3><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh_HK" rel="nofollow" target="_blank">版权声明</a> <a href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"> » iptables详细教程：基础、架构、清空规则、追加规则、应用实例</a></h3>
+<ul>
+<li>作者：lesca　　最后更新：March 23, 2012</li>
+<li>本博客所有内容均在<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh_HK" rel="nofollow" target="_blank">《“署名-非商业用途-保持一致”的创作共用协议》</a>下发布</li>
+<li><strong>全文转载，必须包含本版权信息</strong>；部分转载或引用，请注明<strong>作者署名与文章出处</strong></li>
+<li>本文链接：<a href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html">http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html</a></li>
+</ul>
+<!--Social bottom-->
+<div class="social-single">
+<div class="sharebutton" style="padding-top:1px;">分享到：</div>
+
+<div class="sharebutton">
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 70 , _h = 24;
+  var param = {
+    url:location.href,
+    type:'2',
+    count:'1',
+    title:'',
+    pic:'',
+    ralateUid:'1727669924',
+	language:'zh_cn',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script><iframe allowtransparency="true" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/weiboshare_002.htm" frameborder="0" height="24" scrolling="no" width="70"></iframe>
+</div>
+
+
+<div class="sharebutton" style="width:50px; height:20px;">
+<div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/fastbutton_002.htm" name="I1_1377584297394" id="I1_1377584297394" vspace="0" tabindex="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+</div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-qzone.png" alt="分享到QQ空间" title="分享到QQ空间"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://v.t.qq.com/share/share.php?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-qqweibo.png" alt="分享到腾讯微博" title="分享到腾讯微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://share.renren.com/share/buttonshare.do?link=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-renren.png" alt="分享到人人网" title="分享到人人网"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.facebook.com/share.php?u=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;t=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-facebook.png" alt="分享到Facebook" title="分享到Facebook"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://t.sohu.com/third/post.jsp?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-sohuweibo.png" alt="分享到搜狐微博" title="分享到搜狐微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://t.163.com/article/user/checkLogin.do?info=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B%20http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-163weibo.png" alt="分享到网易微博" title="分享到网易微博"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.douban.com/recommend/?url=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html;title=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-douban.png" alt="分享到豆瓣" title="分享到豆瓣"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://www.kaixin001.com/repaste/share.php?rtitle=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B&amp;rurl=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-kaixin001.png" alt="分享到开心网" title="分享到开心网"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://cang.baidu.com/do/add?iu=http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html&amp;it=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B&amp;dc=&amp;fr=ien#nw=1"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-baidu.png" alt="分享到百度" title="分享到百度"></a></div>
+
+<div class="sharebutton"><a rel="nofollow" target="_blank" href="http://twitter.com/home?status=%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E3%80%8Aiptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E3%80%8B%20-%20http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/32-twitter.png" alt="分享到Twitter" title="分享到Twitter"></a></div>
+
+</div>
+<!--End Social bottom-->
+<div class="ujian-hook"><div style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;background-color:#F7F7F7;"><div style="padding: 0; margin: 0; border: none; clear: both; display: block;"><div style="margin: 0; border: none; padding: 10px 0 5px 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold;color:#333333;">猜你喜欢：</div><div style="clear: both; border: none; margin: 0 0 0 -1px; padding: 0; overflow: hidden; _zoom: 1;"><a onmouseup="t=this; setTimeout(function() {t.href='http://lesca.me/archives/block-ssh-dictionary-attack-with-iptables.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?url=http%3A%2F%2Flesca.me%2Farchives%2Fblock-ssh-dictionary-attack-with-iptables.html&amp;from=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-tutorial-structures-configuratios-examples.html&amp;uid=1613230&amp;sid=131676&amp;ir=1'; return true;" href="http://lesca.me/archives/block-ssh-dictionary-attack-with-iptables.html" style="display: block; height: auto; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #dddddd !important;color:#333333;overflow:hidden;" onmouseover="this.style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="iptables：阻止SSH字典攻击" hidefocus="true"><div style="margin: 0;border-radius:5px; padding: 0; width: auto; height: 106px; border: 1px solid #DDDDDD;"></div><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" style="position: absolute;border-radius:5px;border: medium none; background: none repeat scroll 0% 0% transparent; visibility: visible; padding: 0px 0px 0px -3px;; margin: 0px 0px 0px -3px; width: 102px; height: 102px; clip: rect(0px, 99px, 102px, 3px); left: 8px; top: 8px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/30.jpg"><div style="color:#333333;height:60px; width: 100%; margin: 3px 2px 0 2px; padding: 0; text-indent: 0; border: none; font: 12px/15px 'Microsoft YaHei',arial,tahoma; overflow: hidden;">iptables：阻止SSH字典攻击</div></a><a onmouseup="t=this; setTimeout(function() {t.href='http://lesca.me/archives/connect-to-android-with-adb-over-tcp.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?url=http%3A%2F%2Flesca.me%2Farchives%2Fconnect-to-android-with-adb-over-tcp.html&amp;from=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-tutorial-structures-configuratios-examples.html&amp;uid=1613230&amp;sid=131676&amp;ir=1'; return true;" href="http://lesca.me/archives/connect-to-android-with-adb-over-tcp.html" style="display: block; height: auto; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #dddddd !important;color:#333333;overflow:hidden;" onmouseover="this.style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="通过网络使用ADB ( Connect to android with ADB over TCP )" hidefocus="true"><div style="margin: 0;border-radius:5px; padding: 0; width: auto; height: 106px; border: 1px solid #DDDDDD;"></div><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" style="position: absolute;border-radius:5px;border: medium none; background: none repeat scroll 0% 0% transparent; visibility: visible; padding: 0px 0px 0px -3px;; margin: 0px 0px 0px -3px; width: 102px; height: 102px; clip: rect(0px, 99px, 102px, 3px); left: 8px; top: 8px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/42.jpg"><div style="color:#333333;height:60px; width: 100%; margin: 3px 2px 0 2px; padding: 0; text-indent: 0; border: none; font: 12px/15px 'Microsoft YaHei',arial,tahoma; overflow: hidden;">通过网络使用ADB ( Connect to android with ADB over TCP )</div></a><a onmouseup="t=this; setTimeout(function() {t.href='http://lesca.me/archives/2012/05';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?url=http%3A%2F%2Flesca.me%2Farchives%2F2012%2F05&amp;from=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-tutorial-structures-configuratios-examples.html&amp;uid=1613230&amp;sid=131676&amp;ir=1'; return true;" href="http://lesca.me/archives/2012/05" style="display: block; height: auto; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #dddddd !important;color:#333333;overflow:hidden;" onmouseover="this.style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="2012 May" hidefocus="true"><div style="margin: 0;border-radius:5px; padding: 0; width: auto; height: 106px; border: 1px solid #DDDDDD;"></div><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" style="position: absolute;border-radius:5px;border: medium none; background: none repeat scroll 0% 0% transparent; visibility: visible; padding: 0px 0px 0px -3px;; margin: 0px 0px 0px -3px; width: 102px; height: 102px; clip: rect(0px, 99px, 102px, 3px); left: 8px; top: 8px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/mini_f1fd50dd8f3c33cc8298_120_120.jpg"><div style="color:#333333;height:60px; width: 100%; margin: 3px 2px 0 2px; padding: 0; text-indent: 0; border: none; font: 12px/15px 'Microsoft YaHei',arial,tahoma; overflow: hidden;">2012 May</div></a><a onmouseup="t=this; setTimeout(function() {t.href='http://bbs.002pc.com/thread-23341-1-16.html';}, 50); return true;" onmousedown="this.href='http://b.ujian.cc/?url=http%3A%2F%2Fbbs.002pc.com%2Fthread-23341-1-16.html&amp;from=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-tutorial-structures-configuratios-examples.html&amp;uid=1613230&amp;sid=131676&amp;ir=1'; return true;" href="http://bbs.002pc.com/thread-23341-1-16.html" style="display: block; height: auto; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #dddddd !important;color:#333333;overflow:hidden;" onmouseover="this.style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="双网卡两条2M宽带接入但两个连接不能同时收到数据包" hidefocus="true" target="_blank"><div style="margin: 0;border-radius:5px; padding: 0; width: auto; height: 106px; border: 1px solid #DDDDDD;"></div><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" style="position: absolute;border-radius:5px;border: medium none; background: none repeat scroll 0% 0% transparent; visibility: visible; padding: 0px 0px 0px -3px;; margin: 0px 0px 0px -3px; width: 102px; height: 102px; clip: rect(0px, 99px, 102px, 3px); left: 8px; top: 8px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/27.jpg"><div style="color:#333333;height:60px; width: 100%; margin: 3px 2px 0 2px; padding: 0; text-indent: 0; border: none; font: 12px/15px 'Microsoft YaHei',arial,tahoma; overflow: hidden;">双网卡两条2M宽带接入但两个连接不能同时收到数据包</div></a><a onmouseup="t=this; setTimeout(function() {t.href='http://bbs.002pc.com/thread-273-1-32.html';}, 50); return true;" onmousedown="this.href='http://b.ujian.cc/?url=http%3A%2F%2Fbbs.002pc.com%2Fthread-273-1-32.html&amp;from=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-tutorial-structures-configuratios-examples.html&amp;uid=1613230&amp;sid=131676&amp;ir=1'; return true;" href="http://bbs.002pc.com/thread-273-1-32.html" style="display: block; height: auto; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0; padding: 5px 5px; width: 102px; text-align: left; outline: none; background-image: none; border-left: 1px solid #dddddd !important;color:#333333;overflow:hidden;" onmouseover="this.style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="拍拍数据包CSV文件导入淘宝助理" hidefocus="true" target="_blank"><div style="margin: 0;border-radius:5px; padding: 0; width: auto; height: 106px; border: 1px solid #DDDDDD;"></div><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" style="position: absolute;border-radius:5px;border: medium none; background: none repeat scroll 0% 0% transparent; visibility: visible; padding: 0px 0px 0px -3px;; margin: 0px 0px 0px -3px; width: 102px; height: 102px; clip: rect(0px, 99px, 102px, 3px); left: 8px; top: 8px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/44.jpg"><div style="color:#333333;height:60px; width: 100%; margin: 3px 2px 0 2px; padding: 0; text-indent: 0; border: none; font: 12px/15px 'Microsoft YaHei',arial,tahoma; overflow: hidden;">拍拍数据包CSV文件导入淘宝助理</div></a></div><div style="margin: 0pt; border: medium none; padding: 5px 8px; clear: both; text-align: right;"><a href="http://www.ujian.cc/index2" style="text-decoration:none;font: 12px arial; color:#999; border-bottom: medium none; word-wrap: normal; display: inline;" title="友荐是什么？" target="_blank">友荐[?]</a></div></div></div></div>
+        </div><!-- END entry -->
+        <div class="post-info-bottom">
+            <span class="post-info-category"><a href="http://lesca.me/topics/network/iptables" title="View all posts in iptables" rel="category tag">iptables</a>, <a href="http://lesca.me/topics/tutorial" title="View all posts in Tutorials" rel="category tag">Tutorials</a>, <a href="http://lesca.me/topics/os/ubuntu-2" title="View all posts in Ubuntu" rel="category tag">Ubuntu</a></span><span class="post-info-tags"><a href="http://lesca.me/tags/chain" rel="tag">chain</a>, <a href="http://lesca.me/tags/iptables" rel="tag">iptables</a>, <a href="http://lesca.me/tags/rule" rel="tag">rule</a>, <a href="http://lesca.me/tags/structure" rel="tag">structure</a>, <a href="http://lesca.me/tags/table" rel="tag">table</a></span>
+        </div>
+        <div id="nav-below">
+            <div class="nav-next"><li><a href="http://lesca.me/archives/iptables-examples.html" rel="next">较新： iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链</a></li></div>
+            <div class="nav-previous"><li><a href="http://lesca.me/archives/linux-file-permission-sticky-bit-suid-sgid.html" rel="prev">较旧： Linux文件权限：Sticky bit, SUID, SGID</a></li></div>
+        </div><!-- #nav-below -->
+    </div><!-- END post -->
+	<div class="add-info"> 
+		<div class="related_post_title">相关日志&gt;&gt;</div><ul class="related_post"><li><a href="http://lesca.me/archives/block-ssh-dictionary-attack-with-iptables.html" title="iptables：阻止SSH字典攻击">iptables：阻止SSH字典攻击</a></li><li><a href="http://lesca.me/archives/iptables-examples.html" title="iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链">iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链</a></li><li><a href="http://lesca.me/archives/iptables-nat-mangle-clear-rules.html" title="iptables应用：NAT、数据报处理、清空iptables规则">iptables应用：NAT、数据报处理、清空iptables规则</a></li><li><a href="http://lesca.me/archives/iptables-architecture-commands-extensions.html" title="iptables入门：iptables构架、基本命令及扩展（功能）简介">iptables入门：iptables构架、基本命令及扩展（功能）简介</a></li><li><a href="http://lesca.me/archives/iptables-snat-dnat-masquerade.html" title="iptables: SNAT, DNAT, MASQUERADE的联系与区别">iptables: SNAT, DNAT, MASQUERADE的联系与区别</a></li></ul> 
+	</div>
+	<!-- You can start editing here. -->
+<h3>Please Donate Bitcoin: 1PivuLG7gf5kQcQPtP6KCEyn8otPjVEwc6</h3>
+				<div id="comments-div"><span id="comments-addcomment"><a href="#respond" rel="nofollow" title="Leave a comment ?">Leave a comment ?</a></span><h2 id="comments">1 Comments.</h2></div>
+			<ol class="commentlist" id="thecomments">
+								</ol>
+			<div class="navigation"></div>
+	
+<div class="weibocommets">
+</div><!--end weibocomments-->
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html#respond" style="display:none;"><small>Cancel reply</small></a></small></h3>
+									<form action="http://lesca.me/wp-comments-post.php" method="post" id="commentform">
+																										<p class="comment-form-author"><input id="author" name="author" size="30" type="text"> <label for="author"><small>NAME</small></label></p>
+<p class="comment-form-email"><input id="email" name="email" size="30" type="text"> <label for="email">EMAIL</label></p>
+<p class="comment-form-url"><input id="url" name="url" size="30" type="text"> <label for="url">Website URL</label></p>
+												<p class="comment-form-comment"><textarea aria-required="true" rows="8" cols="45" name="comment" id="comment" onkeydown="if(event.ctrlKey){if(event.keyCode==13){document.getElementById('submit').click();return false}};"></textarea></p>												<p class="form-submit">
+							<input name="submit" id="submit" value="SUBMIT" type="submit">
+							<input name="comment_post_ID" value="937" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="a173b9f06d" type="hidden"></p><input name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" style="margin-left:20px;" type="checkbox"><label for="comment_mail_notify">有人回复时邮件通知我</label>					</form>
+							</div><!-- #respond -->
+								<div class="trackbacks-pingbacks">
+			<h3>Trackbacks and Pingbacks:</h3>
+			<ul id="pinglist">
+				    <li id="comment-3366">
+        <a href="http://www.thinkfreesky.com/170.html" rel="external nofollow" class="url">Linux下iptables设置详解 | Think</a> - Pingback on 2012/11/16/ 18:16</li>
+			</ul>
+		</div>
+	</div><!--content-->
+<div id="sidebar-border">
+    <div id="nav-scroll">
+        <ul>
+			<li id="nav-top"><a href="#nav" title="回到顶部">Top</a></li>
+			<li id="nav-mesg"><a href="http://lesca.me/about" title="留言">Message</a></li>
+			<li id="nav-twitter"><a href="http://twitter.com/lesca4on" title="Twitter">Twitter</a></li>
+			<li id="nav-facebook"><a href="http://facebook.com/lesca4on" title="Facebook">Facebook</a></li>
+			<li id="nav-rss"><a href="http://lesca.me/feed" title="订阅博客">RSS</a></li>
+			<li id="nav-sina"><a href="http://weibo.com/lesca" title="新浪微博">Sina</a></li>
+			<li id="nav-bottom"><a href="#footer" title="到下面评论">Comment</a></li>
+        </ul>
+    </div>
+	
+    <!--	<div id="rss"><a href="http://lesca.me/feed" rel="nofollow" title="RSS Feed">RSS Feed</a></div>
+		    -->
+    <div id="sidebar">
+		<!--随机日志屏蔽
+		<div class="widget">
+			<h3>随机日志 Random Posts</h3>
+			<ul>
+									<li><a href="http://lesca.me/archives/ppasearch-search-the-ppa.html">ppasearch: search the ppa</a></li>
+									<li><a href="http://lesca.me/archives/how-to-import-and-export-wireless-profile-on-windows-7.html">Windows7：如何在Win7上导入导出无线接入点配置</a></li>
+									<li><a href="http://lesca.me/archives/connect-to-web-server-with-socket-on-ubuntu.html">[Socket][网络编程]程序范例：Linux下连接WEB服务器</a></li>
+									<li><a href="http://lesca.me/archives/pre-overflow-and-word-wrap.html">pre: 滚动条(overflow)与自动换行(word wrap)</a></li>
+									<li><a href="http://lesca.me/archives/manage-grub2-config-file.html">二、GRUB2配置详解：默认启动项，超时时间，隐藏引导菜单，配置文件详解，图形化配置</a></li>
+									<li><a href="http://lesca.me/archives/grub-basic-settings.html">GRUB basic settings</a></li>
+									<li><a href="http://lesca.me/archives/makefile-advanced.html">高级Makefile技巧</a></li>
+									<li><a href="http://lesca.me/archives/get-non-inherit-directory-entries.html">Powershell: 获取非继承的目录子项信息</a></li>
+							</ul>
+		</div>-->
+				<div id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widgettitle">近期发表 Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://lesca.me/archives/solved-sql-server-failed-to-work-after-remount-storage-disk.html" title="SQL Cluster移除存储设备后重新挂载无法使用的解决方法">SQL Cluster移除存储设备后重新挂载无法使用的解决方法</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/disable-usb-storage-devices-on-windows.html" title="Windows: 禁止安装U盘">Windows: 禁止安装U盘</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/disaster-recover-the-only-domain-controller-with-symantec-backup-exec.html" title="灾难恢复：使用Symantec Backup Exec恢复唯一一台域控制器的系统状态">灾难恢复：使用Symantec Backup Exec恢复唯一一台域控制器的系统状态</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/windows-remote-assistance-on-win7.html" title="Windows: 使用Win7自带的远程协助功能">Windows: 使用Win7自带的远程协助功能</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/directly-login-windows-without-typing-passwords.html" title="Windows: 跳过登录界面直接登录Windows">Windows: 跳过登录界面直接登录Windows</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/automatically-connect-to-ad-hoc-network-on-windows-7.html" title="Windows: 自动连接Ad-hoc网络">Windows: 自动连接Ad-hoc网络</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/separated-wds-and-dhcp-servers.html" title="Windows: WDS服务和DHCP服务分离">Windows: WDS服务和DHCP服务分离</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/powershell-tutorial-basics.html" title="Powershell基础教程：变量、循环、基本命令">Powershell基础教程：变量、循环、基本命令</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/get-acl-info-of-non-inherit-directories-to-specified-depth.html" title="Powershell: 获取指定深度的非继承目录的ACL信息">Powershell: 获取指定深度的非继承目录的ACL信息</a>
+						</li>
+					<li>
+				<a href="http://lesca.me/archives/get-non-inherit-directory-entries.html" title="Powershell: 获取非继承的目录子项信息">Powershell: 获取非继承的目录子项信息</a>
+						</li>
+				</ul>
+		</div><div id="text-10" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"> 
+alimama_pid="mm_29671092_2920291_11194364"; 
+alimama_width=250; 
+alimama_height=250; 
+</script> 
+<script src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/inf.js" type="text/javascript"> 
+</script><div id="tanxssp_con_mm_29671092_2920291_11194364" style="display:inline-block;position:relative;width:250px;height:250px;*display:inline;*zoom:1"><iframe marginheight="0" marginwidth="0" border="0" style="width:250px;height:250px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/250x250danpin0911.htm" frameborder="0" scrolling="no"></iframe><a id="iconmm_29671092_2920291_11194364" title="我也要申请橱窗推广" target="_blank" href="http://c.alimama.com/" style="width:26px;height:17px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_29671092_2920291_11194364" style="float:none;width:26px;display:block;height:17px;background-repeat:no-repeat;background-image: url('http://img02.taobaocdn.com/tps/i2/T1oY3VXmNbXXXb8qDc-26-18.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img02.taobaocdn.com/tps/i2/T1oY3VXmNbXXXb8qDc-26-18.png');"></span>   <span id="icon_bigmm_29671092_2920291_11194364" style="float:none;width:110px;height:17px;display: none;background-repeat:no-repeat;background-image: url('http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');"></span></a></div><iframe style="display:none" id="tanx-a-mm_29671092_2920291_11194364" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe></div>
+		</div><div id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widgettitle">近期评论 Recent Comments</h3><ul id="recentcomments"><li class="recentcomments">name on <a href="http://lesca.me/archives/auto-ssh-login.html/comment-page-1#comment-17952">自动ssh登录的几种方法</a></li><li class="recentcomments"><a href="https://xunan.me/" rel="external nofollow" class="url">xunandotme</a> on <a href="http://lesca.me/about/comment-page-2#comment-17756">Guestbook 留言</a></li><li class="recentcomments"><a href="https://xunan.me/" rel="external nofollow" class="url">xunandotme</a> on <a href="http://lesca.me/archives/quickly-deploy-vpn-on-ubuntu-with-ovm.html/comment-page-1#comment-17755">OVM：在Ubuntu上快速部署OpenVPN, L2TP, PPTP服务</a></li><li class="recentcomments"><a href="http://www.iamle.com/" rel="external nofollow" class="url">wwek</a> on <a href="http://lesca.me/about/comment-page-2#comment-17599">Guestbook 留言</a></li><li class="recentcomments"><a href="https://xunan.me/" rel="external nofollow" class="url">xunandotme</a> on <a href="http://lesca.me/archives/quickly-deploy-vpn-on-ubuntu-with-ovm.html/comment-page-1#comment-17551">OVM：在Ubuntu上快速部署OpenVPN, L2TP, PPTP服务</a></li><li class="recentcomments"><a href="http://qiaodahai.com/personal/article/2013/wordpress-modify-permalink-301-redirect.htm" rel="external nofollow" class="url">乔大海个人网站 » WordPress修改固定链接后301重定向</a> on <a href="http://lesca.me/archives/htaccess-rewrite.html/comment-page-1#comment-16045">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect)</a></li><li class="recentcomments">未知图腾 on <a href="http://lesca.me/about/comment-page-2#comment-14978">Guestbook 留言</a></li><li class="recentcomments"><a href="http://www.liwill.net/?p=94" rel="external nofollow" class="url">iptables入门：iptables构架、基本命令及扩展（功能）简介 - The Art of Virtualization</a> on <a href="http://lesca.me/archives/iptables-snat-dnat-masquerade.html/comment-page-1#comment-14521">iptables: SNAT, DNAT, MASQUERADE的联系与区别</a></li><li class="recentcomments"><a href="http://www.tedz.me/server-config/htaccess-tutorial-references" rel="external nofollow" class="url">.htaccess教程：简介、访问控制、验证、目录浏览控制 « Tedz.me</a> on <a href="http://lesca.me/archives/htaccess-appendix.html/comment-page-1#comment-13068">htaccess附录：正则表达式、重定向代码</a></li><li class="recentcomments"><a href="http://www.tedz.me/server-config/htaccess-tutorial" rel="external nofollow" class="url">.htaccess教程：简介、访问控制、验证、目录浏览控制 « Tedz.me</a> on <a href="http://lesca.me/archives/htaccess-rewrite.html/comment-page-1#comment-13067">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect)</a></li></ul></div><div id="archives-2" class="widget widget_archive"><h3 class="widgettitle">归档 Archives</h3>		<ul>
+			<li><a href="http://lesca.me/archives/2013/02" title="February 2013">February 2013</a>&nbsp;(1)</li>
+	<li><a href="http://lesca.me/archives/2013/01" title="January 2013">January 2013</a>&nbsp;(1)</li>
+	<li><a href="http://lesca.me/archives/2012/12" title="December 2012">December 2012</a>&nbsp;(3)</li>
+	<li><a href="http://lesca.me/archives/2012/11" title="November 2012">November 2012</a>&nbsp;(1)</li>
+	<li><a href="http://lesca.me/archives/2012/10" title="October 2012">October 2012</a>&nbsp;(8)</li>
+	<li><a href="http://lesca.me/archives/2012/08" title="August 2012">August 2012</a>&nbsp;(2)</li>
+	<li><a href="http://lesca.me/archives/2012/07" title="July 2012">July 2012</a>&nbsp;(10)</li>
+	<li><a href="http://lesca.me/archives/2012/06" title="June 2012">June 2012</a>&nbsp;(21)</li>
+	<li><a href="http://lesca.me/archives/2012/05" title="May 2012">May 2012</a>&nbsp;(24)</li>
+	<li><a href="http://lesca.me/archives/2012/04" title="April 2012">April 2012</a>&nbsp;(4)</li>
+	<li><a href="http://lesca.me/archives/2012/03" title="March 2012">March 2012</a>&nbsp;(5)</li>
+	<li><a href="http://lesca.me/archives/2012/02" title="February 2012">February 2012</a>&nbsp;(6)</li>
+	<li><a href="http://lesca.me/archives/2012/01" title="January 2012">January 2012</a>&nbsp;(1)</li>
+	<li><a href="http://lesca.me/archives/2011/11" title="November 2011">November 2011</a>&nbsp;(2)</li>
+	<li><a href="http://lesca.me/archives/2011/10" title="October 2011">October 2011</a>&nbsp;(4)</li>
+	<li><a href="http://lesca.me/archives/2011/08" title="August 2011">August 2011</a>&nbsp;(3)</li>
+	<li><a href="http://lesca.me/archives/2011/06" title="June 2011">June 2011</a>&nbsp;(9)</li>
+	<li><a href="http://lesca.me/archives/2011/05" title="May 2011">May 2011</a>&nbsp;(3)</li>
+	<li><a href="http://lesca.me/archives/2011/03" title="March 2011">March 2011</a>&nbsp;(10)</li>
+	<li><a href="http://lesca.me/archives/2011/02" title="February 2011">February 2011</a>&nbsp;(28)</li>
+	<li><a href="http://lesca.me/archives/2011/01" title="January 2011">January 2011</a>&nbsp;(2)</li>
+		</ul>
+</div><div id="text-9" class="widget widget_text"><h3 class="widgettitle">以下为谷歌提供的广告</h3>			<div class="textwidget"><!--in widget-->
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1067160010479494";
+/* in_widget */
+google_ad_slot = "4912116048";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" frameborder="0" height="250" scrolling="no" width="250"></iframe></ins></ins></div>
+		</div><div id="linkcat-11" class="widget widget_links"><h3 class="widgettitle">友情链接Favourites</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.jasonllinux.com/">Jasonllinux</a></li>
+<li><a href="http://myrice.me/">Myrice</a></li>
+<li><a href="http://thcdusman.com/">Thcdusman's Blog</a></li>
+<li><a href="http://xiaoxia.org/">Xiaoxia</a></li>
+<li><a href="http://lhcy.info/">以梦为马，奔向远方</a></li>
+<li><a href="http://sumosc.info/" title="Sandy Huang’s blog">素墨书场</a></li>
+<li><a href="http://bbs.ilync.cn/">联科教育</a></li>
+
+	</ul>
+</div>
+<div id="meta-2" class="widget widget_meta"><h3 class="widgettitle">Meta</h3>			<ul>
+						<li><a href="http://lesca.me/wp-login.php">Log in</a></li>
+			<li><a href="http://lesca.me/feed" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://lesca.me/comments/feed" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>
+						</ul>
+</div>						
+    </div><!-- end: #sidebar -->
+</div><!-- end: #sidebar-border --></div><!--wrapper-->
+<div class="clear"></div>
+<div id="footer">
+    <div id="footer-inside">
+        <p>
+            Copyright&nbsp;©&nbsp;2010 - 2013&nbsp;Lesca is thinking...
+            &nbsp;|&nbsp;Theme <a href="http://zww.me/" title="designed by zwwooooo">zBench</a>
+            modified by <a href="http://lesca.me/">lesca</a>
+            &nbsp;|&nbsp;Powered by <a href="http://wordpress.org/">WordPress</a> 
+        </p>
+        <p>
+			本站采用创作共用版权协议, 要求署名、非商业用途和保持一致. <br>
+			转载本站内容必须也遵循“署名-非商业用途-保持一致”的创作共用协议.<br>
+			This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License</a>.<br>
+			Contact me:<img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/lesca4on.png" style="position:relative; bottom: -4px;">
+        </p>
+        <span id="back-to-top">Δ <a href="#nav" rel="nofollow" title="Back to top">Top</a></span>
+    </div>
+</div><!--footer-->
+<!--Google Analytics-->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20587133-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!--百度统计-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F79248c3d57ff6c1cea21fdbba43b1ef2' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=79248c3d57ff6c1cea21fdbba43b1ef2" target="_blank"><img src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/21.gif" border="0" height="20" width="20"></a>
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/ujian.js"></script><script type="text/javascript" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/plugin.js" charset="utf-8"></script><div style="position:absolute;width:0px;height:0px;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="JIATHISSWF" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" height="0" width="0"><param name="allowScriptAccess" value="always"><param name="swLiveConnect" value="true"><param name="movie" value="http://www.jiathis.com/code/swf/m.swf"><param name="FlashVars" value="z=a"><embed name="JIATHISSWF" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/m.swf" flashvars="z=a" allowscriptaccess="always" swliveconnect="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="0" width="0"></object></div>
+<!-- UJian Button END -->
+<!-- Begin ggplus-->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script><!--End of ggplus-->
+
+<iframe style="width: 1px; height: 1px; position: absolute; left: -100px;" src="iptables%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B%EF%BC%9A%E5%9F%BA%E7%A1%80%E3%80%81%E6%9E%B6%E6%9E%84%E3%80%81%E6%B8%85%E7%A9%BA%E8%A7%84%E5%88%99%E3%80%81%E8%BF%BD%E5%8A%A0%E8%A7%84%E5%88%99%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%20_%20Lesca%E6%8A%80%E6%9C%AF%E5%AE%85_files/postmessageRelay.htm" id="oauth2relay909742212" name="oauth2relay909742212"></iframe></body></html>

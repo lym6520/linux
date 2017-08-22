@@ -1,0 +1,17 @@
+apache启动报错：the requested operation has failed解决办法
+分类： PHP 2009-07-20 17:43 5394人阅读 评论(7) 收藏 举报
+原因一：80端口占用 
+例如IIS，另外就是迅雷。我的apache服务器就是被迅雷害得无法启用！ 
+
+原因二：软件冲突 
+装了某些软件会使apache无法启动如Dr.com 你打开网络连接->TcpIp属性->高级->WINS标签 把netbios的lmhosts对勾去掉，禁用tcp/ip的netbios. 然后再启动应该就可以了。 
+
+原因三：httpd.conf配置错误 
+如果apache的配置文件httpd.conf搞错了，在windows里启动它，会提示the requested operation has failed ，这是比较郁闷的事，因为查错要看个半天。 
+其实可以用命令行模式启动apache，并带上参数，apache会提示你哪句有误，然后就可以针对性的解决，命令如下： httpd.exe -w -n "Apache2" -k start 
+
+还有一种情况： 
+即使你这次启动了，下次你都有可能启动失败 
+在运行里输入：netsh winsock reset 
+一会儿cmd会提示你重启，不用理会，现在APACHE已经可以启动了。 
+其实就是一个winsock的修复

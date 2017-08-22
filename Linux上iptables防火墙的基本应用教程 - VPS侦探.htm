@@ -1,0 +1,842 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Meta -->
+<title>Linux上iptables防火墙的基本应用教程 - VPS侦探</title>
+
+<!-- Feeds -->
+<link rel="alternate" type="application/rss+xml" title="VPS侦探 RSS2 Feed" href="http://www.vpser.net/feed">
+<link rel="alternate" type="application/rss+xml" title="VPS侦探 Comments RSS 2.0" href="http://www.vpser.net/comments/feed">
+<link rel="alternate" type="text/xml" title="VPS侦探 RSS 0.92" href="http://www.vpser.net/feed/rss">
+<link rel="alternate" type="application/atom+xml" title="VPS侦探 Atom 0.3" href="http://www.vpser.net/feed/atom">
+<link rel="pingback" href="http://www.vpser.net/xmlrpc.php">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="http://vpser.b0.upaiyun.com/favicon.ico" type="image/x-icon">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/style.css" type="text/css" media="screen">
+
+<!-- WordPress Tags -->
+<link rel="alternate" type="application/rss+xml" title="VPS侦探 » Linux上iptables防火墙的基本应用教程评论Feed" href="http://www.vpser.net/security/linux-iptables.html/feed">
+<link rel="stylesheet" id="wp-recentcomments-css" href="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/wp-recentcomments.css" type="text/css" media="screen">
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/jquery-1.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.vpser.net/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.vpser.net/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="VPSYOU 2011年5月VPS优惠码" href="http://www.vpser.net/coupons/vpsyou-2011-may-coupons.html">
+<link rel="next" title="VPSZZ - Xen及Windows VPS优惠码" href="http://www.vpser.net/coupons/vpszz-2011-xen-windows-vps-coupons.html">
+<meta name="generator" content="WordPress 3.6">
+<link rel="shortlink" href="http://www.vpser.net/?p=1050">
+<script type="text/javascript">
+	window._wp_rp_static_base_url = 'http://dtmvdvtzf8rz0.cloudfront.net/static/';
+	window._wp_rp_wp_ajax_url = "http://www.vpser.net/wp-admin/admin-ajax.php";
+	window._wp_rp_plugin_version = '2.8';
+	window._wp_rp_post_id = '1050';
+	window._wp_rp_num_rel_posts = '5';
+</script>
+
+<!-- All in One SEO Pack 2.0.3 by Michael Torbert of Semper Fi Web Design[297,366] -->
+<meta name="description" content="iptables是Linux上常用的防火墙软件，下面vps侦探给大家说一下iptables的安装、清除iptables规则、iptables只开放指定端口、iptables屏蔽指定ip、ip段及解封、删除已添加的iptables规则等常用的基本应用。">
+
+<meta name="keywords" content="iptables,linux,防火墙,基本,应用,教程">
+
+<link rel="canonical" href="http://www.vpser.net/security/linux-iptables.html">
+<!-- /all in one seo pack -->
+<!-- wp thread comment 1.4.9.4.002 -->
+<style type="text/css" media="screen">
+.editComment, .editableComment, .textComment{
+	display: inline;
+}
+.comment-childs{
+	border: 1px solid #999;
+	margin: 5px 2px 2px 4px;
+	padding: 4px 2px 2px 4px;
+	background-color: white;
+}
+.chalt{
+	background-color: #E2E2E2;
+}
+#newcomment{
+	border:1px dashed #777;width:90%;
+}
+#newcommentsubmit{
+	color:red;
+}
+.adminreplycomment{
+	border:1px dashed #777;
+	width:99%;
+	margin:4px;
+	padding:4px;
+}
+.mvccls{
+	color: #999;
+}
+			
+</style>
+	<link rel="archives" title="2013年八月" href="http://www.vpser.net/2013/08">
+	<link rel="archives" title="2013年七月" href="http://www.vpser.net/2013/07">
+	<link rel="archives" title="2013年六月" href="http://www.vpser.net/2013/06">
+	<link rel="archives" title="2013年五月" href="http://www.vpser.net/2013/05">
+	<link rel="archives" title="2013年四月" href="http://www.vpser.net/2013/04">
+	<link rel="archives" title="2013年三月" href="http://www.vpser.net/2013/03">
+	<link rel="archives" title="2013年二月" href="http://www.vpser.net/2013/02">
+	<link rel="archives" title="2013年一月" href="http://www.vpser.net/2013/01">
+	<link rel="archives" title="2012年十二月" href="http://www.vpser.net/2012/12">
+	<link rel="archives" title="2012年十一月" href="http://www.vpser.net/2012/11">
+	<link rel="archives" title="2012年十月" href="http://www.vpser.net/2012/10">
+	<link rel="archives" title="2012年九月" href="http://www.vpser.net/2012/09">
+	<link rel="archives" title="2012年八月" href="http://www.vpser.net/2012/08">
+	<link rel="archives" title="2012年七月" href="http://www.vpser.net/2012/07">
+	<link rel="archives" title="2012年六月" href="http://www.vpser.net/2012/06">
+	<link rel="archives" title="2012年五月" href="http://www.vpser.net/2012/05">
+	<link rel="archives" title="2012年四月" href="http://www.vpser.net/2012/04">
+	<link rel="archives" title="2012年三月" href="http://www.vpser.net/2012/03">
+	<link rel="archives" title="2012年二月" href="http://www.vpser.net/2012/02">
+	<link rel="archives" title="2012年一月" href="http://www.vpser.net/2012/01">
+	<link rel="archives" title="2011年十二月" href="http://www.vpser.net/2011/12">
+	<link rel="archives" title="2011年十一月" href="http://www.vpser.net/2011/11">
+	<link rel="archives" title="2011年十月" href="http://www.vpser.net/2011/10">
+	<link rel="archives" title="2011年九月" href="http://www.vpser.net/2011/09">
+	<link rel="archives" title="2011年八月" href="http://www.vpser.net/2011/08">
+	<link rel="archives" title="2011年七月" href="http://www.vpser.net/2011/07">
+	<link rel="archives" title="2011年六月" href="http://www.vpser.net/2011/06">
+	<link rel="archives" title="2011年五月" href="http://www.vpser.net/2011/05">
+	<link rel="archives" title="2011年四月" href="http://www.vpser.net/2011/04">
+	<link rel="archives" title="2011年三月" href="http://www.vpser.net/2011/03">
+	<link rel="archives" title="2011年二月" href="http://www.vpser.net/2011/02">
+	<link rel="archives" title="2011年一月" href="http://www.vpser.net/2011/01">
+	<link rel="archives" title="2010年十二月" href="http://www.vpser.net/2010/12">
+	<link rel="archives" title="2010年十一月" href="http://www.vpser.net/2010/11">
+	<link rel="archives" title="2010年十月" href="http://www.vpser.net/2010/10">
+	<link rel="archives" title="2010年九月" href="http://www.vpser.net/2010/09">
+	<link rel="archives" title="2010年八月" href="http://www.vpser.net/2010/08">
+	<link rel="archives" title="2010年七月" href="http://www.vpser.net/2010/07">
+	<link rel="archives" title="2010年六月" href="http://www.vpser.net/2010/06">
+	<link rel="archives" title="2010年五月" href="http://www.vpser.net/2010/05">
+	<link rel="archives" title="2010年四月" href="http://www.vpser.net/2010/04">
+	<link rel="archives" title="2010年三月" href="http://www.vpser.net/2010/03">
+	<link rel="archives" title="2010年二月" href="http://www.vpser.net/2010/02">
+	<link rel="archives" title="2010年一月" href="http://www.vpser.net/2010/01">
+	<link rel="archives" title="2009年十二月" href="http://www.vpser.net/2009/12">
+	<link rel="archives" title="2009年十一月" href="http://www.vpser.net/2009/11">
+	<link rel="archives" title="2009年十月" href="http://www.vpser.net/2009/10">
+	<link rel="archives" title="2009年九月" href="http://www.vpser.net/2009/09">
+	<link rel="archives" title="2009年八月" href="http://www.vpser.net/2009/08">
+	<link rel="archives" title="2009年七月" href="http://www.vpser.net/2009/07">
+	<link rel="archives" title="2009年六月" href="http://www.vpser.net/2009/06">
+	<link rel="archives" title="2009年五月" href="http://www.vpser.net/2009/05">
+	<link rel="archives" title="2009年四月" href="http://www.vpser.net/2009/04">
+	<link rel="archives" title="2009年三月" href="http://www.vpser.net/2009/03">
+</head>
+<body onmouseover="window.status='';return true">
+
+<div id="doc2cols" class="clearfix">
+<div id="trlogin"><a href="http://translate.google.com/translate?hl=auto&amp;sl=auto&amp;tl=en&amp;u=http://www.vpser.net/security/linux-iptables.html" target="_blank">English</a> | <a href="http://soft.vpser.net/" target="_blank">VPS常用软件下载</a> | <li class="page_item page-item-110"><a href="http://www.vpser.net/usa-vps">美国VPS主机推荐</a></li> | <li class="page_item page-item-666"><a href="http://www.vpser.net/daigou">代购服务</a></li> | <li class="page_item page-item-369"><a href="http://www.vpser.net/ten-dollars-vps">10美元以下VPS</a></li> | <li class="page_item page-item-637"><a href="http://www.vpser.net/vps-howto">VPS新手指南/教程</a></li> | <li class="page_item page-item-3"><a href="http://www.vpser.net/guestbook">留言板</a></li> | <li class="page_item page-item-2"><a href="http://www.vpser.net/about">关于VPSer</a></li> | <a href="http://bbs.vpser.net/" target="_blank">VPS论坛</a> | <a href="http://www.vpser.net/wp-login.php">登录</a> | </div>
+<div id="bd" class="clearfix"><div id="content">
+	<div id="content_inner">
+		<div id="hd">
+			<h1><a href="http://www.vpser.net/" title="VPS侦探">VPS侦探</a></h1>
+		</div><!--/hd -->
+		
+				
+			<div class="post" id="post-1050">
+<script type="text/javascript">
+function fsmaller(){
+		var f = new Number(document.getElementById('entry_content').style.fontSize.substr(0,2));
+		if (f>13)
+		{
+			f = f - 2;
+			document.getElementById('entry_content').style.fontSize = f + "px";
+			document.getElementById('entry_content').style.lineHeight = "160%";
+			if (f==13)
+			{
+				document.getElementById('fsmaller').className = "fsizeDisabled";			
+			}
+			document.getElementById('flarger').className = "fsizeOK";
+		}		
+}
+function flarger(){
+		var f = new Number(document.getElementById('entry_content').style.fontSize.substr(0,2));
+		if (f<19)
+		{
+			f = f + 2;
+			document.getElementById('entry_content').style.fontSize = f + "px";
+			document.getElementById('entry_content').style.lineHeight = "160%";
+			if (f==19)
+			{
+				document.getElementById('flarger').className = "fsizeDisabled";			
+			}
+			document.getElementById('fsmaller').className = "fsizeOK";
+		}
+}
+</script>
+
+				<h2 class="posttitle"><a href="http://www.vpser.net/security/linux-iptables.html" rel="bookmark" title="到《Linux上iptables防火墙的基本应用教程》的永久链接">Linux上iptables防火墙的基本应用教程</a></h2>
+				<p class="authordate">
+					<span>2011年05月14日 上午 | 作者：<a href="http://www.vpser.net/author/admin" title="由VPSer发布" rel="author">VPSer</a></span>
+				</p>
+				<div class="entry">
+					<p><a href="http://www.vpser.net/security/linux-iptables.html">iptables</a>是Linux上常用的防火墙软件，下面<a href="http://www.vpser.net/">vps侦探</a>给大家说一下iptables的安装、清除iptables规则、iptables只开放指定端口、iptables屏蔽指定ip、ip段及解封、删除已添加的iptables规则等<a href="http://www.vpser.net/security/linux-iptables.html">iptables的基本应用</a>。</p>
+<h2>1、安装iptables防火墙</h2>
+<p>如果没有安装iptables需要先安装，<strong>CentOS执行：</strong></p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">yum install iptables</div>
+<p><strong>Debian/Ubuntu执行：</strong></p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">apt-get install iptables</div>
+<h2><span id="more-1050"></span>2、清除已有iptables规则</h2>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">iptables -F<br>
+iptables -X<br>
+iptables -Z</div>
+<h2>3、开放指定的端口</h2>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto;">#允许本地回环接口(即运行本机访问本机)<br>
+iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT<br>
+# 允许已建立的或相关连的通行<br>
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT<br>
+#允许所有本机向外的访问<br>
+iptables -A OUTPUT -j ACCEPT<br>
+# 允许访问22端口<br>
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT<br>
+#允许访问80端口<br>
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT<br>
+#允许FTP服务的21和20端口<br>
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT<br>
+iptables -A INPUT -p tcp --dport 20 -j ACCEPT<br>
+#如果有其他端口的话，规则也类似，稍微修改上述语句就行<br>
+#禁止其他未允许的规则访问<br>
+iptables -A INPUT -j REJECT&nbsp; （注意：如果22端口未加入允许规则，SSH链接会直接断开。）<br>
+iptables -A FORWARD -j REJECT</div>
+<h2>4、屏蔽IP</h2>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto;">#如果只是想屏蔽IP的话“3、开放指定的端口”可以直接跳过。<br>
+#屏蔽单个IP的命令是<br>
+iptables&nbsp;-I&nbsp;INPUT&nbsp;-s 123.45.6.7 -j&nbsp;DROP<br>
+#封整个段即从123.0.0.1到123.255.255.254的命令<br>
+iptables&nbsp;-I&nbsp;INPUT&nbsp;-s 123.0.0.0/8&nbsp;-j&nbsp;DROP<br>
+#封IP段即从123.45.0.1到123.45.255.254的命令<br>
+iptables&nbsp;-I&nbsp;INPUT&nbsp;-s 124.45.0.0/16&nbsp;-j&nbsp;DROP<br>
+#封IP段即从123.45.6.1到123.45.6.254的命令是<br>
+iptables&nbsp;-I&nbsp;INPUT&nbsp;-s&nbsp;123.45.6.0/24&nbsp;-j&nbsp;DROP</div>
+<h2>4、查看已添加的iptables规则</h2>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto;">iptables -L -n</div>
+<blockquote><p>v：显示详细信息，包括每条规则的匹配包数量和匹配字节数<br>
+x：在 v 的基础上，禁止自动单位换算（K、M） <a href="http://www.vpser.net/"><span style="color: #ffffff;">vps侦探</span></a><br>
+n：只显示IP地址和端口号，不将ip解析为域名</p></blockquote>
+<h2>5、删除已添加的iptables规则</h2>
+<p>将所有iptables以序号标记显示，执行：</p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">iptables -L -n --line-numbers</div>
+<p>比如要删除INPUT里序号为8的规则，执行：</p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">iptables -D INPUT 8</div>
+<h2>6、iptables的开机启动及规则保存</h2>
+<p>CentOS上可能会存在安装好iptables后，iptables并不开机自启动，可以执行一下：</p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">chkconfig --level 345 iptables on</div>
+<p>将其加入开机启动。</p>
+<p>CentOS上可以执行：service iptables save保存规则。</p>
+<p>另外更需要注意的是Debian/Ubuntu上iptables是不会保存规则的。</p>
+<p>需要按如下步骤进行，让网卡关闭是保存iptables规则，启动时加载iptables规则：</p>
+<p>创建/etc/network/if-post-down.d/iptables 文件，添加如下内容：</p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">#!/bin/bash<br>
+iptables-save &gt; /etc/iptables.rules</div>
+<p>执行：chmod +x /etc/network/if-post-down.d/iptables 添加执行权限。</p>
+<p>创建/etc/network/if-pre-up.d/iptables 文件，添加如下内容：</p>
+<div style="background-color: #ffffff; border: #00a0c6 1px dashed; width: auto; margin-bottom: 10px;">#!/bin/bash<br>
+iptables-restore &lt; /etc/iptables.rules</div>
+<p>执行：chmod +x /etc/network/if-pre-up.d/iptables 添加执行权限。</p>
+<p>关于更多的iptables的使用方法可以执行：iptables --help或网上搜索一下iptables参数的说明。</p>
+<p>如有问题欢迎在本文下留言或到<a href="http://bbs.vpser.net/" target="_blank">VPS论坛</a>反馈。</p>
+<p>原创文章，谢绝转载！</p>
+					<b>&gt;&gt;转载请注明出处：<a href="http://www.vpser.net/">VPS侦探</a> 本文链接地址：<a href="http://www.vpser.net/security/linux-iptables.html" rel="bookmark" title="Linux上iptables防火墙的基本应用教程" target="_blank">http://www.vpser.net/security/linux-iptables.html</a></b>
+
+
+<div class="wp_rp_wrap  wp_rp_plain" id="wp_rp_first"><div class="wp_rp_content"><h3 class="related_post_title">相关文章：</h3><ul class="related_post wp_rp" style="visibility: visible"><li><a href="http://www.vpser.net/security/iptables-block-countries-ip.html" class="wp_rp_title">用 iptables 屏蔽来自某个国家的 IP</a></li><li><a href="http://www.vpser.net/security/linux-vps-cc-attack.html" class="wp_rp_title">Linux VPS下简单解决CC攻击[转]</a></li><li><a href="http://www.vpser.net/security/linux-autobackup-ftp.html" class="wp_rp_title">Linux VPS/服务器 网站及数据库自动本地备份并FTP上传备份脚本</a></li><li><a href="http://www.vpser.net/manage/what-is-using-my-disk-space-up.html" class="wp_rp_title">什么吃掉了我的硬盘？</a></li><li><a href="http://www.vpser.net/security/ddos-deflate.html" class="wp_rp_title">DDoS deflate – Linux下防御/减轻DDOS攻击</a></li></ul></div></div>
+
+<!--AD-->
+				</div>
+				<p class="postmetadata">
+					<span style="float: right;color: #999;"><a href="#comments" style="font-size: 14px;">发表评论</a>(30条评论)</span> 分类：<a href="http://www.vpser.net/category/security" title="查看VPS安全中的全部文章" rel="category tag">VPS安全</a> 标签： <a href="http://www.vpser.net/tag/iptables" rel="tag">iptables</a>, <a href="http://www.vpser.net/tag/linux" rel="tag">Linux</a>, <a href="http://www.vpser.net/tag/%e6%95%99%e7%a8%8b" rel="tag">教程</a>, <a href="http://www.vpser.net/tag/%e9%98%b2%e7%81%ab%e5%a2%99" rel="tag">防火墙</a> Tags: <a href="http://www.vpser.net/tag/iptables" rel="tag">iptables</a>,<a href="http://www.vpser.net/tag/linux" rel="tag">Linux</a>,<a href="http://www.vpser.net/tag/%e6%95%99%e7%a8%8b" rel="tag">教程</a>,<a href="http://www.vpser.net/tag/%e9%98%b2%e7%81%ab%e5%a2%99" rel="tag">防火墙</a>. 				</p>
+			</div>
+
+<div>
+<h3>VPS侦探推荐：</h3>
+<a href="http://www.vpser.net/go/diahosting" target="_blank" title="基于Xen，中文客服支持、高速稳定"><span style="color:#FF0000;font-weight: bold;">DiaHosting</span></a>、<a href="http://www.linode.com/?r=8feb8d13729744f394433de7ede23efbbab1205a" target="_blank" title="基于Xen，口碑超好，高速稳定(Fremont，Dallas，英国伦敦等机房)"><span style="color:#FF0000;font-weight: bold;">Linode</span></a>、<a href="http://www.photonvps.com/billing/aff.php?aff=007" target="_blank" title="基于Xen/OpenVZ、中文客服、性价比高"><span style="color:#FF0000;font-weight: bold;">PhotonVPS</span></a>、<a href="http://www.vpser.net/go/vpsyou" target="_blank" title="基于Xen,中文客服,洛杉矶机房(PacificRack、Webnx、San Jose机房(T2))"><span style="color:#FF0000;font-weight: bold;">VPSYou</span></a>、<a href="http://www.vpser.net/go/xehost" target="_blank" title="基于Xen，美国洛杉矶/Dallas/Fremont机房可供选择，支持支付宝。中文客服，多机房可供选择"><span style="color:#FF0000;font-weight: bold;">XeHost</span></a>、<a href="http://www.vpser.net/go/rashost" target="_blank" title="基于Xen,中文客服，洛杉矶机房"><span style="color:#FF0000;font-weight: bold;">瑞豪开源</span></a>等<span style="color:#FF0000;font-weight: bold;"><a href="http://www.vpser.net/usa-vps" target="_blank">美国VPS主机</a></span>。<br \="">
+欢迎加入VPS侦探论坛交流：<a href="http://bbs.vpser.net/" target="_blank">http://bbs.vpser.net</a>
+</div>
+
+			
+<div id="interact">
+
+	
+	<h3 id="comments">评论(30条评论)</h3>
+	<ol class="commentlist">
+
+		
+		<li class="alt" id="comment-56684">
+			<div class="commentmetadata"><span>uk8u8</span> - 六月 12th, 2013 20:51 </div>
+			<p>我按这个规则做了后，FTP就开始列不出目录了。其它完全正常。。<br>
+我的FTP默认22端口我改成8822了，</p>
+<p>iptables -A INPUT -p tcp --dport 8822 -j ACCEPT<br>
+iptables -A INPUT -p tcp --dport 20 -j ACCEPT</p>
+<p>其它原样复制的，麻烦军哥看到后能给个回复，感谢！！</p>
+<div class="comment-childs chalt" id="comment-56692"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">六月 12th, 2013 at 22:28</small></p><p><a href="#comment-56684" rel="nofollow">@uk8u8</a>, 被动模式的话需要将被动模式的端口加入到iptables里</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-42791">
+			<div class="commentmetadata"><span>mx</span> - 一月 2nd, 2013 21:47 </div>
+			<p>防火墙是加上了，。，，，ftp连接不上了</p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-26334">
+			<div class="commentmetadata"><span><a href="http://www.abiao.org/" rel="external nofollow" class="url">abiao</a></span> - 八月 20th, 2012 03:38 </div>
+			<p>iptables -F<br>
+iptables -X<br>
+iptables -Z<br>
+一执行这个，马上就从远程断开了，再也进不去了，超怕用</p>
+<div class="comment-childs chalt" id="comment-26463"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">八月 23rd, 2012 at 09:05</small></p><p><a href="#comment-26334" rel="nofollow">@abiao</a>, iptables -F 看看还有规则不，没有下面的可以不用执行。可能规则里还有其他的，建议iptables -L发上来看看</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-25025">
+			<div class="commentmetadata"><span>fsck_y</span> - 七月 5th, 2012 03:34 </div>
+			<p>方便QQ联系吗？我的1003770043</p>
+<p>我完全照着这个做的，重启之后 iptables -L 还是什么规则都没有？怎么回事呢？</p>
+<div class="comment-childs chalt" id="comment-25048"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">七月 5th, 2012 at 08:33</small></p><p><a href="#comment-25025" rel="nofollow">@fsck_y</a>, 可能是规则没保存，看文章6、iptables的开机启动及规则保存部分。</p>
+</div>		</li>
+
+		
+		
+		<li class="alt" id="comment-24504">
+			<div class="commentmetadata"><span><a href="http://www.freevpstui.com/" rel="external nofollow" class="url">叶子</a></span> - 六月 24th, 2012 23:51 </div>
+			<p>有没有设置允许一个IP段访问 22端口 其余IP段不允许的命令</p>
+		</li>
+
+		
+		
+		<li class="" id="comment-24262">
+			<div class="commentmetadata"><span>叶枫</span> - 六月 20th, 2012 17:52 </div>
+			<p>6楼那位，你在禁止其他未允许的规则访问 iptables -A INPUT -j REJECT之前，执行下面的，把ping加进去就可以了。网上找的，共享之<br>
+----------------------------------------<br>
+#打开PING<br>
+iptables -A OUTPUT -p icmp -j ACCEPT<br>
+iptables -A INPUT -p icmp -j ACCEPT<br>
+----------------------------------------</p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-19192">
+			<div class="commentmetadata"><span><a href="http://%E5%AE%87%E8%AE%AF%E5%BD%B1%E9%99%A2/" rel="external nofollow" class="url">ykkk</a></span> - 四月 15th, 2012 15:19 </div>
+			<p>军哥  在CentOS上执行：service iptables save保存规则时 出现<br>
+[root@293832 ~]# service iptables save<br>
+iptables: Saving firewall rules to /etc/sysconfig/iptables: /etc/init.d/iptables: line 268: restorecon: command not found<br>
+                                                           [FAILED]<br>
+错误！</p>
+<div class="comment-childs chalt" id="comment-19199"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">四月 15th, 2012 at 17:11</small></p><p><a href="#comment-19192" rel="nofollow">@ykkk</a>, 执行 yum install policycoreutils</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-18875">
+			<div class="commentmetadata"><span>Ben</span> - 四月 11th, 2012 10:09 </div>
+			<p>麻烦您！我按照您的iptables设置来开放了22、80、21、22口，但是在执行iptables -A INPUT -j REJECT后Nignx出现502错误，请问您知道是什么原因么？</p>
+<div class="comment-childs chalt" id="comment-18880"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/d3ba8b4b0a1c39654d8eb91cd1e7ce55.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite>Ben</cite> 回复:<br><small class="commentmetadata">四月 11th, 2012 at 10:28</small></p><p><a href="#comment-18875" rel="nofollow">@Ben</a>, 知道了，是88端口！谢谢！</p>
+</div>		</li>
+
+		
+		
+		<li class="alt" id="comment-15346">
+			<div class="commentmetadata"><span><a href="http://www.guoguo.tk/" rel="external nofollow" class="url">果果</a></span> - 十一月 3rd, 2011 18:01 </div>
+			<p>比如说我要封掉UDP和icmp 规则怎么写</p>
+<div class="comment-childs chalt" id="comment-15347"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">十一月 3rd, 2011 at 20:29</small></p><p><a href="#comment-15346" rel="nofollow">@果果</a>, iptables -A INPUT -p icmp -j DROP<br>
+iptables -A INPUT -p udp -j DROP</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-15345">
+			<div class="commentmetadata"><span><a href="http://www.guoguo.tk/" rel="external nofollow" class="url">果果</a></span> - 十一月 3rd, 2011 17:59 </div>
+			<p>如果规则没有加好不就悲剧了，22都连不上了</p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-14479">
+			<div class="commentmetadata"><span>jionggege</span> - 九月 9th, 2011 11:31 </div>
+			<p>1    ACCEPT     all  --  127.0.0.1            127.0.0.1<br>
+2    ACCEPT     all  --  0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED<br>
+3    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:22<br>
+4    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:80<br>
+5    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:21<br>
+6    ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:20<br>
+7    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           icmp type 0<br>
+8    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           icmp type 3<br>
+9    ACCEPT     icmp --  0.0.0.0/0            0.0.0.0/0           icmp type 11<br>
+额，这是我的iptables input中的，如果只是这个就可以ping，但是设置iptables -A INPUT -j REJECT这一条后就不能ping了，没有reject-with icmp-port-unreachable这一条啊</p>
+<div class="comment-childs chalt" id="comment-14480"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">九月 9th, 2011 at 12:42</small></p><p><a href="#comment-14479" rel="nofollow">@jionggege</a>, iptables -A INPUT -p icmp --icmp-type 8 -s 0.0.0.0/0 -j ACCEPT 试试<br>
+iptables -A INPUT -j REJECT是拒绝所有没有符合规则的INPUT</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-14473">
+			<div class="commentmetadata"><span>jionggege</span> - 九月 9th, 2011 00:28 </div>
+			<p>你好军哥，我设置了iptables -A INPUT -j REJECT<br>
+iptables -A FORWARD -j REJECT这两个后，ip就不能ping通了，不知道改如何解决呢？</p>
+<div class="comment-childs chalt" id="comment-14478"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">九月 9th, 2011 at 09:25</small></p><p><a href="#comment-14473" rel="nofollow">@jionggege</a>, 执行：iptables -L -n --line-numbers<br>
+将INPUT里面的reject-with icmp-port-unreachable 那一条删掉。</p>
+</div>		</li>
+
+		
+		
+		<li class="alt" id="comment-13385">
+			<div class="commentmetadata"><span>RB</span> - 六月 26th, 2011 12:56 </div>
+			<p><a href="http://www.vpser.net/vps-howto" rel="nofollow">http://www.vpser.net/vps-howto</a>  这个页面的“四.6、Linux上iptables防火墙的基本应用教程”这个连接是错误的，后来通过搜索标题才找到这篇文章。</p>
+<div class="comment-childs chalt" id="comment-13387"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">六月 26th, 2011 at 15:40</small></p><p><a href="#comment-13385" rel="nofollow">@RB</a>, 感谢反馈。</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-13049">
+			<div class="commentmetadata"><span><a href="http://www.vpser.net/manage/vi.html" rel="external nofollow" class="url">Linux上vi(vim)编辑器使用教程 - VPS侦探</a></span> - 五月 25th, 2011 18:58 </div>
+			<p>[...] Linux上iptables防火墙的基本应用教程 [...]</p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-12986">
+			<div class="commentmetadata"><span><a href="http://www.osmsg.com/" rel="external nofollow" class="url">OSMSG</a></span> - 五月 21st, 2011 00:00 </div>
+			<p>这个文章可以转载吗？</p>
+<div class="comment-childs chalt" id="comment-12991"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">五月 21st, 2011 at 09:53</small></p><p><a href="#comment-12986" rel="nofollow">@OSMSG</a>, 抱歉，不允许转载</p>
+</div>		</li>
+
+		
+		
+		<li class="" id="comment-12982">
+			<div class="commentmetadata"><span><a href="http://vv15.com/" rel="external nofollow" class="url">囧啊囧</a></span> - 五月 20th, 2011 17:26 </div>
+			<p>这个我以前在哪个博客看到过教程的</p>
+<div class="comment-childs chalt" id="comment-12983"><img alt="" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" class="avatar avatar-32 photo" height="32" width="32"><p><cite><a href="http://www.vpser.net/" rel="external nofollow" class="url">VPSer</a></cite> 回复:<br><small class="commentmetadata">五月 20th, 2011 at 20:05</small></p><p><a href="#comment-12982" rel="nofollow">@囧啊囧</a>, 100%纯自己写的。</p>
+</div>		</li>
+
+		
+		
+		<li class="alt" id="comment-12943">
+			<div class="commentmetadata"><span>yilin101</span> - 五月 15th, 2011 17:55 </div>
+			<p>非常好 已经是受益者了 哈哈 感谢</p>
+		</li>
+
+		
+		
+		<li class="" id="comment-12940">
+			<div class="commentmetadata"><span><a href="http://www.typever.com/" rel="external nofollow" class="url">剑书</a></span> - 五月 14th, 2011 19:45 </div>
+			<p>麻烦点的不好搞，我总爱把规则的顺序弄错，结果往往很杯具 <img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_redface.gif" alt=":oops:" class="wp-smiley"> </p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-12938">
+			<div class="commentmetadata"><span><a href="http://neverno.info/" rel="external nofollow" class="url">neverno</a></span> - 五月 14th, 2011 18:33 </div>
+			<p>非常好用····感谢·····mark下了</p>
+		</li>
+
+		
+			</ol>
+
+	
+		<h3 id="respond">发表评论</h3>
+		<form action="http://www.vpser.net/wp-comments-post.php" method="post" id="commentform">
+				<p><label for="author">姓名：</label><input name="author" id="author" size="22" tabindex="1" type="text"> *必填</p>
+		<p><label for="email">邮件：</label><input name="email" id="email" size="22" tabindex="2" type="text"> *必填 (不会被公开)</p>
+		<p><label for="url">网站：</label><input name="url" id="url" size="22" tabindex="3" type="text"></p>
+				<div id="smilies_toolbar">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_biggrin.gif" class="wp-smiley" alt=":D" title=":D">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_smile.gif" class="wp-smiley" alt=":-)" title=":-)">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_sad.gif" class="wp-smiley" alt=":(" title=":(">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_surprised.gif" class="wp-smiley" alt=":o" title=":o">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_eek.gif" class="wp-smiley" alt="8O" title="8O">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_confused.gif" class="wp-smiley" alt=":?" title=":?">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_cool.gif" class="wp-smiley" alt="8)" title="8)">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_lol.gif" class="wp-smiley" alt=":lol:" title=":lol:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_mad.gif" class="wp-smiley" alt=":x" title=":x">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_razz.gif" class="wp-smiley" alt=":P" title=":P">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_redface.gif" class="wp-smiley" alt=":oops:" title=":oops:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_cry.gif" class="wp-smiley" alt=":cry:" title=":cry:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_evil.gif" class="wp-smiley" alt=":evil:" title=":evil:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_twisted.gif" class="wp-smiley" alt=":twisted:" title=":twisted:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_rolleyes.gif" class="wp-smiley" alt=":roll:" title=":roll:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_wink.gif" class="wp-smiley" alt=":wink:" title=":wink:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_exclaim.gif" class="wp-smiley" alt=":!:" title=":!:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_question.gif" class="wp-smiley" alt=":?:" title=":?:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_idea.gif" class="wp-smiley" alt=":idea:" title=":idea:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_arrow.gif" class="wp-smiley" alt=":arrow:" title=":arrow:">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_neutral.gif" class="wp-smiley" alt=":|" title=":|">
+<img style="cursor: pointer;" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/icon_mrgreen.gif" class="wp-smiley" alt=":mrgreen:" title=":mrgreen:">
+</div>
+		<p><textarea name="comment" id="comment" style="width: 100%;" rows="10" tabindex="4"></textarea></p>
+		<p><input name="submit" id="submit" tabindex="5" value="确定发表" type="submit">
+
+		<input name="comment_post_ID" value="1050" type="hidden"></p>
+		<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="790911db84" type="hidden"></p><p><input id="comment_reply_ID" name="comment_reply_ID" value="0" type="hidden"><input id="comment_reply_dp" name="comment_reply_dp" value="0" type="hidden"></p><div id="cancel_reply" style="display:none;"><a href="javascript:void(0)" onclick="movecfm(null,0,1,null);" style="color:red;">点击取消回复</a></div><script type="text/javascript">
+/* <![CDATA[ */
+var commentformid = "commentform";
+var USERINFO = false;
+var atreply = "authorlink";
+/* ]]> */
+</script>
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/wp-thread-comment_002.htm"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var lstcommentid=56684;
+var needauthoremail=true;
+var sortflag="DESC";
+/* ]]> */
+</script>
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/wp-thread-comment.htm"></script>
+	</form>
+		
+</div>
+		
+	</div>
+</div><!--/content_inner -->
+
+<div id="sidebar">
+<div class="mod">
+<h3>关于VPS侦探 <a href="http://www.vpser.net/feed" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/subscribe.gif" alt="RSS订阅" title="通过RSS订阅VPS侦探" align="absmiddle"></a> <a href="http://list.qq.com/cgi-bin/qf_invite?id=805cb0408f2010746904170f99242b8404ec602ff506600f" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/e_rss.gif" alt="通过邮件订阅" title="通过邮件订阅VPS侦探" align="absmiddle"></a></h3>
+
+
+<a href="http://www.vpser.net/">VPS侦探</a>是一个致力于<a href="http://www.vpser.net/usa-vps">美国VPS主机推荐</a>、国内VPS主机推荐、<a href="http://www.vpser.net/category/build">VPS主机架设</a>、<a href="http://www.vpser.net/category/opt">VPS优化</a>、<a href="http://www.vpser.net/category/coupons">VPS优惠信息</a>及VPS免费试用的信息共享平台，这里将提供您所需要的关于VPS的价值性服务。<br>
+<b>请尊重作者的劳动成果，转载请注明出处。 <a href="http://www.vpser.net/about" target="_blank">联系我们</a></b>
+</div>
+
+<div class="mod">
+<h3>VPS侦探推荐</h3>
+本站建立在<a href="http://www.linode.com/?r=8feb8d13729744f394433de7ede23efbbab1205a" target="_blank" title="基于Xen，口碑超好，高速稳定(Fremont，Dallas，英国伦敦等机房)"><span style="color:#FF0000;font-weight: bold;">Linode</span></a>和<a href="http://www.diahosting.com/client/aff.php?aff=002" target="_blank" title="基于Xen，中文客服支持、高速稳定"><span style="color:#FF0000;font-weight: bold;">DiaHosting</span></a>上。
+<br><b>本站强烈推荐：</b><br><a href="http://www.diahosting.com/client/aff.php?aff=002" target="_blank" title="基于Xen，中文客服支持、高速稳定"><span style="color:#FF0000;font-weight: bold;">DiaHosting</span></a>、<a href="http://www.linode.com/?r=8feb8d13729744f394433de7ede23efbbab1205a" target="_blank" title="基于Xen，口碑超好，高速稳定(Fremont，Dallas，英国伦敦等机房)"><span style="color:#FF0000;font-weight: bold;">Linode</span></a>、<a href="http://www.photonvps.com/billing/aff.php?aff=007" target="_blank" title="基于Xen/OpenVZ、中文客服、性价比高"><span style="color:#FF0000;font-weight: bold;">PhotonVPS</span></a>、<a href="http://my.rashost.com/aff.php?aff=008" target="_blank" title="基于Xen,中文客服，洛杉矶机房"><span style="color:#FF0000;font-weight: bold;">瑞豪开源</span></a>、<a href="http://billing.vpsyou.com/aff.php?aff=033" target="_blank" title="基于Xen,中文客服,洛杉矶机房 (PacificRack、Webnx、San Jose机房(T2))"><span style="color:#FF0000;font-weight: bold;">VPSYou</span></a>等<span style="color:#FF0000;font-weight: bold;"><a href="http://www.vpser.net/usa-vps" target="_blank">美国VPS主机</a></span>。
+
+<a href="http://www.vpser.net/ten-dollars-vps" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/10.jpg"></a>
+</div>
+
+<div class="mod">
+<h3>美国VPS/服务器/VPN代购：</h3>
+<a href="http://jungehost.taobao.com/" target="_blank">http://jungehost.taobao.com/</a><br>
+
+代购联系:<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=503228080&amp;site=qq&amp;menu=yes"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/pa.gif" alt="" title="" border="0"></a> <a target="_blank" href="http://www.taobao.com/webww/ww.php?ver=3&amp;touid=lzhenbao&amp;siteid=cntaobao&amp;status=1&amp;charset=utf-8"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/realonline.gif" alt="点击这里给我发消息" border="0"></a>
+</div>
+
+<div class="mod">
+<table border="0" width="99%">
+  <tbody><tr>
+    <td><a href="http://vps.im/vm7" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/vpszz210.gif" alt="VPSZZ主机网(VM7)所有VPS均基于Xen，机房有T2、凤凰城SS、洛杉矶WEBNX、ST西雅图、SA威奇托机房、DS堪萨斯机房、IO波特温可供选择。" height="100" border="0" width="210"></a></td>
+  </tr>
+</tbody></table>
+<table border="0" width="99%">
+  <tbody><tr>
+    <td><a href="http://www.diahosting.com/client/aff.php?aff=002" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/diahosting100.png" alt="DiaHosting - 基于Xen，中文客服，支付宝支付，多机房选择" height="100" border="0" width="100"></a></td>
+    <td><a href="http://www.photonvps.com/billing/aff.php?aff=007" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/photonvps100.png" alt="PhotonVPS - 基于OpenVZ/Xen，中文客服，Paypal/支付宝支付，针对电信联通优化" height="100" border="0" width="100"></a></td>
+  </tr>
+  <tr>
+    <td><a href="http://vps.im/80vps" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/80vps100.jpg" alt="80VPS - 基于Xen，中文客服，支付宝支付，美国多地及香港机房选择" height="100" border="0" width="100"></a></td>
+    <td><a href="http://vps.im/aoyo" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/aoyohost100.gif" alt="遨游主机(Aoyohost)是澳大利亚注册公司 (澳洲工商可查)，由知名技术论坛LOC 害羞哥为首等多位技术达人于2010年合作成立，专营海外 Xen VPS 的服务商，基于XenServer，有洛杉矶UBI和MC机房可供选择。" height="100" border="0" width="100"></a></td>
+  </tr>
+</tbody></table>
+<table border="0" width="99%">
+  <tbody><tr>
+    <td><a href="http://vps.im/locvps" target="_blank"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/locvps210.gif" alt="LocVPS - 基于Xen架构的VPS，美国洛杉矶和香港机房可选，性价比高" border="0" width="210"></a></td>
+  </tr>
+</tbody></table>
+</div>
+
+<div class="mod">
+<h3>搜索本站内容</h3>
+<form method="get" id="searchform" action="http://www.vpser.net/">
+<p><input class="querytext" onfocus="if(value=='输入搜索关键字后回车'){this.value=''};this.style.color='#666666';" onblur="if(this.value==''){this.value='输入搜索关键字后回车'};this.style.color='#DADFE3';" value="输入搜索关键字后回车" size="24" name="s" id="s" type="text">
+<input id="searchsubmit" value="搜索" style="display: none;" type="submit"></p>
+</form></div>
+
+<div class="mod">
+<h3>文章分类</h3>
+<ul>
+	<li class="cat-item cat-item-7"><a href="http://www.vpser.net/category/opt" title="VPS优化">VPS优化</a> (<a href="http://www.vpser.net/category/opt/feed" title="RSS">RSS</a>) (7)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.vpser.net/category/coupons" title="VPS优惠码,VPS优惠信息">VPS优惠信息</a> (<a href="http://www.vpser.net/category/coupons/feed" title="RSS">RSS</a>) (282)
+</li>
+	<li class="cat-item cat-item-35"><a href="http://www.vpser.net/category/security" title="VPS安全">VPS安全</a> (<a href="http://www.vpser.net/category/security/feed" title="RSS">RSS</a>) (15)
+</li>
+	<li class="cat-item cat-item-40"><a href="http://www.vpser.net/category/vps-cp" title="VPS控制面板">VPS控制面板</a> (<a href="http://www.vpser.net/category/vps-cp/feed" title="RSS">RSS</a>) (15)
+</li>
+	<li class="cat-item cat-item-80"><a href="http://www.vpser.net/category/manage" title="VPS管理维护">VPS管理维护</a> (<a href="http://www.vpser.net/category/manage/feed" title="RSS">RSS</a>) (59)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.vpser.net/category/other" title="查看其他下的所有文章">其他</a> (<a href="http://www.vpser.net/category/other/feed" title="RSS">RSS</a>) (44)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.vpser.net/category/china-vps" title="国内VPS,中国VPS">国内VPS</a> (<a href="http://www.vpser.net/category/china-vps/feed" title="RSS">RSS</a>) (1)
+</li>
+	<li class="cat-item cat-item-199"><a href="http://www.vpser.net/category/domain" title="域名相关信息">域名</a> (<a href="http://www.vpser.net/category/domain/feed" title="RSS">RSS</a>) (53)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.vpser.net/category/build" title="VPS环境搭建">服务器环境搭建</a> (<a href="http://www.vpser.net/category/build/feed" title="RSS">RSS</a>) (26)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.vpser.net/category/usa-vps" title="美国VPS">美国VPS</a> (<a href="http://www.vpser.net/category/usa-vps/feed" title="RSS">RSS</a>) (38)
+</li>
+</ul>
+</div>
+
+<div class="mod">
+<h3>最新VPS优惠信息</h3>
+ 
+ 
+<ul> 
+<li> 
+<a href="http://www.vpser.net/coupons/locvps-2013-august-coupon-2.html" rel="bookmark" title="LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月">LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月</a> 
+</li> 
+ 
+<li> 
+<a href="http://www.vpser.net/coupons/yardvps-2013-august-coupon.html" rel="bookmark" title="YardVPS 2013年8月限时7折终身优惠码 Xen 512MB美国VPS 5.57美元/月">YardVPS 2013年8月限时7折终身优惠码 Xen 512MB美国VPS 5.57美元/月</a> 
+</li> 
+ 
+<li> 
+<a href="http://www.vpser.net/coupons/vps2ez-2013-august-coupon.html" rel="bookmark" title="VPS2EZ 8月 新增西海岸圣迭戈机房6折优惠 双核1GB内存 58.8元/月">VPS2EZ 8月 新增西海岸圣迭戈机房6折优惠 双核1GB内存 58.8元/月</a> 
+</li> 
+ 
+<li> 
+<a href="http://www.vpser.net/coupons/photonvps-2013-august-coupon.html" rel="bookmark" title="PhotonVPS 2013年8月7折优惠码 1G内存 Linux 7.67美元/月">PhotonVPS 2013年8月7折优惠码 1G内存 Linux 7.67美元/月</a> 
+</li> 
+ 
+<li> 
+<a href="http://www.vpser.net/coupons/80vps-2013-august-budgetvm-coupon.html" rel="bookmark" title="80VPS 洛杉矶Budgetvm机房优惠 1GB内存 65元/月">80VPS 洛杉矶Budgetvm机房优惠 1GB内存 65元/月</a> 
+</li> 
+ 
+</ul> 
+</div>
+
+<div class="mod">
+<h3>最新文章</h3>
+<ul>
+	<li><a href="http://www.vpser.net/coupons/locvps-2013-august-coupon-2.html" title="LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月">LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月</a></li>
+	<li><a href="http://www.vpser.net/coupons/yardvps-2013-august-coupon.html" title="YardVPS 2013年8月限时7折终身优惠码 Xen 512MB美国VPS 5.57美元/月">YardVPS 2013年8月限时7折终身优惠码 Xen 512MB美国VPS 5.57美元/月</a></li>
+	<li><a href="http://www.vpser.net/coupons/vps2ez-2013-august-coupon.html" title="VPS2EZ 8月 新增西海岸圣迭戈机房6折优惠 双核1GB内存 58.8元/月">VPS2EZ 8月 新增西海岸圣迭戈机房6折优惠 双核1GB内存 58.8元/月</a></li>
+	<li><a href="http://www.vpser.net/coupons/photonvps-2013-august-coupon.html" title="PhotonVPS 2013年8月7折优惠码 1G内存 Linux 7.67美元/月">PhotonVPS 2013年8月7折优惠码 1G内存 Linux 7.67美元/月</a></li>
+	<li><a href="http://www.vpser.net/coupons/80vps-2013-august-budgetvm-coupon.html" title="80VPS 洛杉矶Budgetvm机房优惠 1GB内存 65元/月">80VPS 洛杉矶Budgetvm机房优惠 1GB内存 65元/月</a></li>
+	<li><a href="http://www.vpser.net/coupons/myhost123-2013-august-kvm.html" title="MyHost123 新上凤凰城KVM VPS 终身65折优惠码">MyHost123 新上凤凰城KVM VPS 终身65折优惠码</a></li>
+	<li><a href="http://www.vpser.net/other/locvps-2013-august-coupon.html" title="LOCVPS 8月6折优惠码 美国机房39.3元起 香港机房75元起">LOCVPS 8月6折优惠码 美国机房39.3元起 香港机房75元起</a></li>
+	<li><a href="http://www.vpser.net/coupons/aoyouhost-2013-august-coupon.html" title="傲游主机(Aoyouhost) 2013年8月45折终身优惠码 44元起">傲游主机(Aoyouhost) 2013年8月45折终身优惠码 44元起</a></li>
+	<li><a href="http://www.vpser.net/coupons/vpszz-2013-august-coupons.html" title="VPSZZ.Net OpenVZ Linux优惠码 月付7折年付6折">VPSZZ.Net OpenVZ Linux优惠码 月付7折年付6折</a></li>
+	<li><a href="http://www.vpser.net/coupons/linode-2013-storage-space-doubled.html" title="Linode 再再次升级 硬盘翻倍">Linode 再再次升级 硬盘翻倍</a></li>
+</ul>
+</div>
+
+<div class="mod">
+<h3>论坛新贴</h3>
+<ul>
+<li><a title="BudgetVM安装lnmp1.0，两次都没成功，0.9的也不行，求解~~！" href="http://bbs.vpser.net/thread-9997-1-1.html" target="_blank">BudgetVM安装lnmp1.0，</a></li><li><a title="新手提问，请别扔砖。。。谢谢！" href="http://bbs.vpser.net/thread-9996-1-1.html" target="_blank">新手提问，请别扔砖。。。谢谢！</a></li><li><a title="buyvm" 的kvm安装lnmp1.0问题="" href="http://bbs.vpser.net/thread-9995-1-1.html" target="_blank">buyvm 的KVM安装lnmp1.</a></li><li><a title="实现两部vps交互备份？" href="http://bbs.vpser.net/thread-9994-1-1.html" target="_blank">实现两部vps交互备份？</a></li><li><a title="军哥我安装好了LNMP" 是否可以在按web.py有冲突吗="" href="http://bbs.vpser.net/thread-9993-1-1.html" target="_blank">军哥我安装好了LNMP 是否可以在按</a></li></ul>
+</div>
+
+<div class="mod">
+<h3>最新评论</h3>
+<ul style="cursor: auto;"><li id="rc-comment-69025" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/9db9f797636fec706822483e053c5b3b.png" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/coupons/locvps-2013-august-coupon-2.html#comment-69025" title="LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月">veccer</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">@bvb 我在用win，没任何问题。是你不会用或人品<span class="rc-ellipsis">...</span></div></li><li id="rc-comment-68882" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/90faa5b540c51821620fad6084893862.png" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/coupons/locvps-2013-august-coupon-2.html#comment-68882" title="LOCVPS 香港SSD VPS 48折优惠 1G 79.2元/月">bvb</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">Windows的不是很稳定啊</div></li><li id="rc-comment-68516" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ea29ff87aff26fc48af90a48fe7e4bbf.jpg" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/security/lnmp-remove-nginx-php-execute.html#comment-68516" title="lnmp去掉nginx上传目录的PHP执行权限">VPSer</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">@ลงประกาศฟรี, 只要没有需要直接访问ph<span class="rc-ellipsis">...</span></div></li><li id="rc-comment-68358" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/e2a1933b935cc6a5f1ac65917a3672bb.png" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/security/lnmp-remove-nginx-php-execute.html#comment-68358" title="lnmp去掉nginx上传目录的PHP执行权限">ลงประกาศฟรี</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">一下。在wp-content下除了上传附件用的upl<span class="rc-ellipsis">...</span></div></li><li id="rc-comment-68357" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/e2a1933b935cc6a5f1ac65917a3672bb.png" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/manage/monit.html#comment-68357" title="Monit - Linux系统进程、文件、目录和设备的监测软件">ลงประกาศฟรี</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">Thank you for information <span class="rc-ellipsis">...</span></div></li><li id="rc-comment-68123" class="rc-item rc-comment rc-clearfix"><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/63c91093782463df186f7f0115a78b50.jpg" alt="" class="rc-avatar rc-left" height="32" width="32"><div class="rc-info"><a class="rc-reviewer" rel="nofollow" href="http://www.vpser.net/coupons/digitalocean-ssd-vps.html#comment-68123" title="DigitalOcean 512MB内存 20GB SSD硬盘 5美元/月 附免费2个月优惠码+测评">koonkai</a></div><div class="rc-timestamp"></div><div class="rc-excerpt">我填了信用卡信息之后，就能使用了，我想知道他会在什么<span class="rc-ellipsis">...</span></div></li><li class="rc-navi rc-clearfix"><a "rel="nofollow&quot;" class="rc-older">下一页 »</a></li></ul>
+</div>
+ 
+<div class="mod">
+<h3>友情链接</h3>
+<ul>
+<li><a href="http://blog.licess.org/" title="关注Linux Nginx MySQL PHP WEB开发 系统管理 服务器架构" target="_blank">Licess's Blog</a></li>
+<li><a href="http://www.hostloc.com/" title="全球主机交流论坛" target="_blank">全球主机交流论坛</a></li>
+<li><a href="http://icodex.org/" title="icodex 二进制人生" target="_blank">icodex</a></li>
+<li><a href="http://ushost.me/" title="美国主机论坛" target="_blank">美国主机论坛</a></li>
+<li><a href="http://www.vpser.net/go/linode" title="Linode VPS-稳定、快速、口碑好" target="_blank">Linode VPS</a></li>
+<li><a href="http://www.diahosting.com/client/aff.php?aff=002" title="DiaHosting - 美国VPS-中国客服、支付宝支付" target="_blank">DiaHosting VPS</a></li>
+<li><a href="http://my.rashost.com/aff.php?aff=008" title="瑞豪开源(RasHost)VPS" target="_blank">瑞豪开源(RasHost)VPS</a></li>
+<li><a href="http://www.photonvps.com/billing/aff.php?aff=007" title="OpenVZ/Xen VPS，有中文客服" target="_blank">PhotonVPS</a></li>
+<li><a href="http://jungehost.com/" title="军哥代购|Paypal信用卡美元欧元代付代购" target="_blank">军哥代购</a></li>
+<li><a href="http://pixke.com/" title="Pixke趣味娱乐" target="_blank">Pixke趣味娱乐</a></li>
+<li><a href="http://www.itzk.com/" title="IT最快网" target="_blank">IT最快网</a></li>
+<li><a href="http://www.17ce.com/" title="17CE 专业网站测速、Ping、TraceRoute工具" target="_blank">17CE</a></li>
+<li><a href="http://zhujiming.com/" title="虚拟主机、域名优惠教程分享平台" target="_blank">煮机名</a></li>
+<li><a href="http://www.advertcn.com/" title="中国顶尖的联属网络营销论坛" target="_blank">广告中国</a></li>
+</ul>
+</div>
+
+<div class="mod">
+<h3>日志存档</h3>
+<ul>
+	<li><a href="http://www.vpser.net/2013/08" title="2013年八月">2013年八月</a></li>
+	<li><a href="http://www.vpser.net/2013/07" title="2013年七月">2013年七月</a></li>
+	<li><a href="http://www.vpser.net/2013/06" title="2013年六月">2013年六月</a></li>
+	<li><a href="http://www.vpser.net/2013/05" title="2013年五月">2013年五月</a></li>
+	<li><a href="http://www.vpser.net/2013/04" title="2013年四月">2013年四月</a></li>
+	<li><a href="http://www.vpser.net/2013/03" title="2013年三月">2013年三月</a></li>
+	<li><a href="http://www.vpser.net/2013/02" title="2013年二月">2013年二月</a></li>
+	<li><a href="http://www.vpser.net/2013/01" title="2013年一月">2013年一月</a></li>
+	<li><a href="http://www.vpser.net/2012/12" title="2012年十二月">2012年十二月</a></li>
+	<li><a href="http://www.vpser.net/2012/11" title="2012年十一月">2012年十一月</a></li>
+	<li><a href="http://www.vpser.net/2012/10" title="2012年十月">2012年十月</a></li>
+	<li><a href="http://www.vpser.net/2012/09" title="2012年九月">2012年九月</a></li>
+	<li><a href="http://www.vpser.net/2012/08" title="2012年八月">2012年八月</a></li>
+	<li><a href="http://www.vpser.net/2012/07" title="2012年七月">2012年七月</a></li>
+	<li><a href="http://www.vpser.net/2012/06" title="2012年六月">2012年六月</a></li>
+	<li><a href="http://www.vpser.net/2012/05" title="2012年五月">2012年五月</a></li>
+	<li><a href="http://www.vpser.net/2012/04" title="2012年四月">2012年四月</a></li>
+	<li><a href="http://www.vpser.net/2012/03" title="2012年三月">2012年三月</a></li>
+	<li><a href="http://www.vpser.net/2012/02" title="2012年二月">2012年二月</a></li>
+	<li><a href="http://www.vpser.net/2012/01" title="2012年一月">2012年一月</a></li>
+	<li><a href="http://www.vpser.net/2011/12" title="2011年十二月">2011年十二月</a></li>
+	<li><a href="http://www.vpser.net/2011/11" title="2011年十一月">2011年十一月</a></li>
+	<li><a href="http://www.vpser.net/2011/10" title="2011年十月">2011年十月</a></li>
+	<li><a href="http://www.vpser.net/2011/09" title="2011年九月">2011年九月</a></li>
+	<li><a href="http://www.vpser.net/2011/08" title="2011年八月">2011年八月</a></li>
+	<li><a href="http://www.vpser.net/2011/07" title="2011年七月">2011年七月</a></li>
+	<li><a href="http://www.vpser.net/2011/06" title="2011年六月">2011年六月</a></li>
+	<li><a href="http://www.vpser.net/2011/05" title="2011年五月">2011年五月</a></li>
+	<li><a href="http://www.vpser.net/2011/04" title="2011年四月">2011年四月</a></li>
+	<li><a href="http://www.vpser.net/2011/03" title="2011年三月">2011年三月</a></li>
+	<li><a href="http://www.vpser.net/2011/02" title="2011年二月">2011年二月</a></li>
+	<li><a href="http://www.vpser.net/2011/01" title="2011年一月">2011年一月</a></li>
+	<li><a href="http://www.vpser.net/2010/12" title="2010年十二月">2010年十二月</a></li>
+	<li><a href="http://www.vpser.net/2010/11" title="2010年十一月">2010年十一月</a></li>
+	<li><a href="http://www.vpser.net/2010/10" title="2010年十月">2010年十月</a></li>
+	<li><a href="http://www.vpser.net/2010/09" title="2010年九月">2010年九月</a></li>
+	<li><a href="http://www.vpser.net/2010/08" title="2010年八月">2010年八月</a></li>
+	<li><a href="http://www.vpser.net/2010/07" title="2010年七月">2010年七月</a></li>
+	<li><a href="http://www.vpser.net/2010/06" title="2010年六月">2010年六月</a></li>
+	<li><a href="http://www.vpser.net/2010/05" title="2010年五月">2010年五月</a></li>
+	<li><a href="http://www.vpser.net/2010/04" title="2010年四月">2010年四月</a></li>
+	<li><a href="http://www.vpser.net/2010/03" title="2010年三月">2010年三月</a></li>
+	<li><a href="http://www.vpser.net/2010/02" title="2010年二月">2010年二月</a></li>
+	<li><a href="http://www.vpser.net/2010/01" title="2010年一月">2010年一月</a></li>
+	<li><a href="http://www.vpser.net/2009/12" title="2009年十二月">2009年十二月</a></li>
+	<li><a href="http://www.vpser.net/2009/11" title="2009年十一月">2009年十一月</a></li>
+	<li><a href="http://www.vpser.net/2009/10" title="2009年十月">2009年十月</a></li>
+	<li><a href="http://www.vpser.net/2009/09" title="2009年九月">2009年九月</a></li>
+	<li><a href="http://www.vpser.net/2009/08" title="2009年八月">2009年八月</a></li>
+	<li><a href="http://www.vpser.net/2009/07" title="2009年七月">2009年七月</a></li>
+	<li><a href="http://www.vpser.net/2009/06" title="2009年六月">2009年六月</a></li>
+	<li><a href="http://www.vpser.net/2009/05" title="2009年五月">2009年五月</a></li>
+	<li><a href="http://www.vpser.net/2009/04" title="2009年四月">2009年四月</a></li>
+	<li><a href="http://www.vpser.net/2009/03" title="2009年三月">2009年三月</a></li>
+</ul>
+</div>
+
+<div class="mod">
+<h3>其他</h3>
+<ul>
+<li><a href="http://www.vpser.net/feed" target="_blank">订阅文章(RSS)</a></li>
+<li><a href="http://list.qq.com/cgi-bin/qf_invite?id=805cb0408f2010746904170f99242b8404ec602ff506600f" target="_blank">订阅文章(E-mail)</a></li>
+<li><a href="http://www.vpser.net/comments/feed">订阅评论(RSS)</a></li>
+<li><a href="http://www.vpser.net/sitemap.xml">Google SiteMap</a></li>
+<li><a href="http://www.vpser.net/sitemap_baidu.xml">BaiDu SiteMap</a></li>
+</ul>
+</div>
+
+<div class="mod" style="font-size: 80%;">
+<strong>Copyright © <a href="http://www.vpser.net/">VPS侦探</a></strong><br>
+Powered by <a href="http://wordpress.org/" target="_blank">WordPress</a><br>
+<a href="http://www.miibeian.gov.cn/" target="_blank">鲁ICP备06031665号</a>
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/tongji.js"></script><img src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/tongji.gif" height="1" border="0" width="1"><a href="http://tongji.linezing.com/report.html?unit_id=1001970" target="_blank">量子统计</a><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1001970/tongji.php"/></a></noscript><br>
+<a href="http://www.siteuptime.com/" onmouseover='this.href="http://www.siteuptime.com/statistics.php?Id=82145&amp;UserId=102025";' target="_blank"><img alt="website uptime" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/genbutton.png" height="16" border="0" width="85"></a><noscript><a href='http://www.siteuptime.com/'>website monitoring</a></noscript>
+<a href="http://exp.jiankongbao.com/load.php?host_id=921" target="_blank">测试访问速度</a>
+</div>
+
+</div>
+	<script type="text/javascript">
+	<!--if ( top.location !== self.location ) { top.location=self.location;}//-->
+	</script>
+	</div><!--/bd -->
+
+</div><!--/docXcol(s) -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function($) {
+	/* OnClick action */
+	$("#smilies_toolbar img").click(function() {
+		var text = $(this).attr('alt');
+		/* get an html escaped version of the text: */
+		tempdiv = $('<div/>');
+		text = tempdiv.text(text).html();
+		tempdiv.remove(); // Free up memory
+		var commentbox = $("form[action$=wp-comments-post.php] textarea:visible");
+		if (!commentbox.length) return;
+		commentbox.insertAtCaret(text);
+	});
+	$("#smilies_toolbar img").css('cursor', 'pointer');
+})(jQuery);
+/* ]]> */
+</script>
+<script>
+/* <![CDATA[ */
+var rcGlobal = {
+	serverUrl		:'http://www.vpser.net',
+	infoTemp		:'%REVIEWER% 在 %POST%',
+	loadingText		:'正在加载',
+	noCommentsText	:'没有任何评论',
+	newestText		:'&laquo; 最新的',
+	newerText		:'&laquo; 上一页',
+	olderText		:'下一页 &raquo;',
+	showContent		:'',
+	external		:'',
+	avatarSize		:'32',
+	avatarPosition	:'left',
+	anonymous		:'匿名'
+};
+/* ]]> */
+</script>
+	
+<!-- Smilies package, WordPress Smilies, courtesy of Matt Read (http://mattread.com/) -->
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/stt-common.js"></script>
+<script type="text/javascript" src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/wp-recentcomments.js"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Linux%E4%B8%8Aiptables%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%95%99%E7%A8%8B%20-%20VPS%E4%BE%A6%E6%8E%A2_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-842738-2");
+pageTracker._setDomainName(".vpser.net");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function($) {
+	/* OnClick action */
+	$("#smilies_toolbar img").click(function() {
+		var text = $(this).attr('alt');
+		/* get an html escaped version of the text: */
+		tempdiv = $('<div/>');
+		text = tempdiv.text(text).html();
+		tempdiv.remove(); // Free up memory
+		var commentbox = $("form[action$=wp-comments-post.php] textarea:visible");
+		if (!commentbox.length) return;
+		commentbox.insertAtCaret(text);
+	});
+	$("#smilies_toolbar img").css('cursor', 'pointer');
+})(jQuery);
+/* ]]> */
+</script>
+<script>
+/* <![CDATA[ */
+var rcGlobal = {
+	serverUrl		:'http://www.vpser.net',
+	infoTemp		:'%REVIEWER% 在 %POST%',
+	loadingText		:'正在加载',
+	noCommentsText	:'没有任何评论',
+	newestText		:'&laquo; 最新的',
+	newerText		:'&laquo; 上一页',
+	olderText		:'下一页 &raquo;',
+	showContent		:'',
+	external		:'',
+	avatarSize		:'32',
+	avatarPosition	:'left',
+	anonymous		:'匿名'
+};
+/* ]]> */
+</script>
+	
+<!-- Smilies package, WordPress Smilies, courtesy of Matt Read (http://mattread.com/) -->
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk
+Database Caching 51/53 queries in 0.022 seconds using disk
+Content Delivery Network via vpser.b0.upaiyun.com
+
+ Served from: www.vpser.net @ 2013-08-26 20:27:40 by W3 Total Cache --></body></html>

@@ -1,0 +1,21 @@
+列出当前的网络接口配置：
+ifconfig
+
+设置网络接口ip地址：
+ifconfig eth0 192.168.0.80
+
+设置此IP的子网掩码
+ifconfig eth0 192.168.0.80 netmask 255.255.255.0
+
+
+使用自动分配ip:
+dhclient eth0
+
+手动添加名字服务器（DNS）:
+echo nameserver 8.8.8.8 >> /etc/resolv.conf
+
+
+
+
+
+

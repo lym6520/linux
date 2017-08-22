@@ -1,0 +1,7 @@
+#设置过滤的uri请求
+SetEnvIf Request_URI "^.*/res/.*" res-request
+SetEnvIf Request_URI "^res/.*" res-request
+SetEnvIf Request_URI ".*\.ico$" res-request
+#/opt/apache-httpd/bin/rotatelogs 需要修改为对应apahce的安装路径
+CustomLog "logs/access_log" combined env=!res-request    
+TransferLog "|/opt/apache-httpd/bin/rotatelogs -l logs/access_log.%Y.%m.%d 86400"

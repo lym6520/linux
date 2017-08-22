@@ -1,0 +1,40 @@
+Linux非root用户如何使用80端口启动程序
+在linux中,为了安全起见,小于1024的端口都归root用户所有
+
+1.使用非80端口启动程序，然后再用iptables做一个端口转发。 
+ 
+  iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080 
+ 
+通过命令进行保存：service iptables save 
+重启防火墙： service iptables restart
+  用root用户直接去执行就可以了！ 
+
+删除指定nat
+iptables -t nat -L -n --line-numbers
+
+删除序号1
+iptables -t nat -D PREROUTING 1
+
+
+ 
+2.假设我们需要启动的程序是nginx，那么这么做也可以达到目的。 
+ 
+一开始我们查看nginx的权限描述： 
+ 
+-rwxr-xr-x 1 nginx dev 2408122 Sep  5 16:01 nginx 
+ 
+这个时候必然是无法正常启动的。 
+ 
+首先修改文件所属用户为root： 
+ 
+chown root nginx 
+ 
+然后再加上s权限： 
+ 
+chmod u+s nginx 
+ 
+再次查看权限描述的时候： 
+ 
+-rwsr-xr-x 1 root root 2408122 Sep  5 16:01 nginx 
+ 
+这样就能启动了。

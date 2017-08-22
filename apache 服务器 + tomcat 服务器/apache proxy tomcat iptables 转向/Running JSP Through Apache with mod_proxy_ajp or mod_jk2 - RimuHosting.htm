@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0052)http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<meta name="keywords" content="Servlet hosting,tomcat hosting,mod_jk2,port 8080,mod_proxy_ajp,JSP Hosting,Tomcat,Jetty,Tomcat/JBoss,JBoss,port 80">
+<meta name="description" content="RimuHosting&#39;s present a straight forward HOWTO for setting up mod_jk2 or mod_proxy_ajp with Jetty or Tomcat servlet engines.  Get the most from Apache and your Servlet/JSP Pages."><!--jspf/WEB-INF/jspf/rh2pagehead.jsp-->
+
+
+
+
+
+
+
+
+
+
+
+<title>Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting</title>
+
+<link rel="shortcut icon" href="http://rimuhosting.com/favicon.ico" type="image/x-icon">
+
+
+<script type="text/javascript" async="" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/ga.js"></script><script type="text/javascript">// <![CDATA[
+if(typeof addEvent != "function") function addEvent(elm, evType, fn, useCapture) {
+if (elm.addEventListener){
+elm.addEventListener(evType, fn, useCapture);
+return true;
+} else if (elm.attachEvent){
+var r = elm.attachEvent("on"+evType, fn);
+return r;
+} else if("load" == evType && elm == window && fn != window.onload ) {
+var oldonload = window.onload;
+ if (typeof window.onload != 'function') {
+   window.onload = fn;
+ } else {
+   window.onload = function() {
+     oldonload();
+     fn();
+   }
+ }  
+} else {
+  return false;
+//alert("Handler could not be added");
+}
+}
+if (typeof RH == "undefined") {
+    RH = {};
+}
+
+if (typeof RH.Util == "undefined") {
+    RH.Util = {};
+};
+RH.Util.contextPath = '/';
+RH.Util.errorReportingURL = '/r/jslogs';
+RH.Util.emailAssistantURL = '/r/email-assistant';
+RH.Util.loadingImage = '/images/common/loadingball.gif';
+addEvent(window, 'load', function() {
+    if('undefined' != typeof DWRAutocompleter) {
+        DWRAutocompleter.prototype.loadingImage = "<%=request.getContextPath()%>/images/common/loadingball.gif";
+    }
+    if('undefined' != typeof dwr && 'undefined' != typeof RH && RH.onErrorHandler) {
+        dwr.engine.setErrorHandler(RH.onErrorHandler);
+    }
+    
+    });
+//]]></script>
+<script type="text/javascript">// <![CDATA[
+    
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-6399149-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+    //]]>
+</script>
+<!--gc0--><!--jspf(end)/WEB-INF/jspf/rh2pagehead.jsp-->
+<link rel="stylesheet" type="text/css" href="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/960.css">
+<link rel="stylesheet" type="text/css" href="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/css">
+<link rel="stylesheet" type="text/css" href="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rrrh-css.jsp">
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/prototype.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/scriptaculous.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/builder.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/effects.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/dragdrop.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/controls.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/slider.js"></script><script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/sound.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/behavior.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/sortable.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/redrata.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/stacktrace.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/js.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/js2.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/js3.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rh2.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/onpageloadutils.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/effects.js"></script>
+<script type="text/javascript" src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/prototype-messagelayer.js"></script>
+</head>
+<body><!--jspf/WEB-INF/jspf/pagebodytop.jsp-->
+
+
+
+
+
+
+
+
+<div id="rrrh2id-pagetop">
+	<div class="container_12">
+		<div id="logo">
+			<a href="http://rimuhosting.com/index.jsp" id="rrid-tree-logo">
+				<img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rimutreelogo20110520.png" alt="Rimu Hosting Logo">				
+			</a>
+		</div>
+		<div class="grid_4">
+		<a id="rrid-name-logo" href="http://rimuhosting.com/index.jsp"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rimunamelogo20110520.png" alt="Rimu Hosting Logo"></a>
+		</div>
+		<div class="grid_8">
+			<div id="rrrhid-topright-links">
+				<a href="http://rimuhosting.com/chat.jsp" target="blank"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/im-message-new.png" alt=""></a>
+				<a href="http://rimuhosting.com/chat.jsp" target="blank">Live chat</a>
+			</div>
+		</div>
+				<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	<div class="container_12">
+		<div id="rrrh2id-pageheader">
+			
+			<div class="clear"></div>
+			<div id="rrid-toplevelmenudiv">
+				<ul class="rr-topmenu-first">
+  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/index.jsp">Home</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/java-hosting">Java hosting</a></li>
+    <li><a href="http://rimuhosting.com/rails-hosting">Rails hosting</a></li>
+    <li><a href="http://rimuhosting.com/dedicated-servers">Dedicated servers</a></li>
+    <li><a href="http://rimuhosting.com/vps-servers">VPS servers</a></li>
+    <li><a href="http://rimuhosting.com/webhosting.jsp">Web sites</a></li>
+    <li><a href="http://rimuhosting.com/resellerhosting.jsp">Plesk reseller hosting</a></li>
+    <li><a href="http://rimuhosting.com/servers-where-you-need-them">Servers where you need them</a></li>
+    <li><a href="http://rimuhosting.com/auckland-servers">Auckland-based servers</a></li>
+    <li><a href="http://rimuhosting.com/email.jsp">Email</a></li>
+    <li><a href="http://rimuhosting.com/developmentserver.jsp">Software development</a></li>
+    <li><a href="http://rimuhosting.com/servermonitoring.jsp">Server monitoring</a></li>
+    <li><a href="http://rimuhosting.com/redundantservers.jsp">Redundant server</a></li>
+    <li><a href="http://rimuhosting.com/geek.jsp">Enhance your geekness</a></li>
+  </ul></li>  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/order/startorder.jsp">Order</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/order/startorder.jsp">VPS &amp; dedicated servers</a>
+  <hr><ul>
+
+  <li><a href="http://rimuhosting.com/order/v2orderstart.jsp#variable_plan">VPS</a></li>
+  <li><a href="http://rimuhosting.com/order/startorder1.jsp?hom=t-vps-lowc">Semi-dedicated server</a></li>
+  <li><a href="http://rimuhosting.com/order/startorder1.jsp?hom=t-ded">Dedicated server</a></li>
+  <li><a href="http://rimuhosting.com/order/vps-on-dedicated.jsp">VPS-on-dedicated servers</a></li>
+</ul></li>
+  </ul></li>  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/vps/vpsindex.jsp">Hosting</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/vps/aboutvps.jsp">VPS technology</a></li>
+    <li><a href="http://rimuhosting.com/hardware.jsp">Hardware</a></li>
+    <li><a href="http://rimuhosting.com/datacenters.jsp">Data centers</a>
+  <hr><ul>
+
+  <li><a href="http://rimuhosting.com/datacenters.jsp#a3">Dallas</a></li>
+  <li><a href="http://rimuhosting.com/datacenters.jsp#a7">London</a></li>
+  <li><a href="http://rimuhosting.com/datacenters.jsp#a9">Australia</a></li>
+  <li><a href="http://rimuhosting.com/datacenters.jsp#a12">Auckland</a></li>
+</ul></li>
+    <li><a href="http://rimuhosting.com/distros.jsp">Linux distributions</a></li>
+    <li><a href="http://rimuhosting.com/software.jsp">Applications</a></li>
+  </ul></li>  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/support/sindex.jsp">Contact Us</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/ticket/startticket.jsp">Support ticket</a></li>
+    <li><a href="http://rimuhosting.com/support/feedback.jsp">Sales enquiry form</a></li>
+    <li><a href="http://rimuhosting.com/chat.jsp" target="_blank">Live Chat</a></li>
+    <li><a href="http://rimuhosting.com/support/aboutrh.jsp#contact">Phone, address, twitter, email</a></li>
+  </ul></li>  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/cp">Your account</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/cp">Control panel</a></li>
+    <li><a href="http://rimuhosting.com/cp/serverlist.jsp">Your RimuHosting servers</a></li>
+    <li><a href="http://rimuhosting.com/dns">DNS</a></li>
+    <li><a href="http://rimuhosting.com/cp/billing.jsp">Billing</a></li>
+    <li><a href="http://rimuhosting.com/cp/contactdetails.jsp">Contact details</a></li>
+    <li><a href="http://rimuhosting.com/maintenance.jsp">Operations notices</a></li>
+    <li><a href="http://rimuhosting.com/ticket/supportstatus.jsp">Real-time email response status</a></li>
+    <li><a href="http://rimuhosting.com/cp/rdns.jsp">Reverse DNS</a></li>
+    <li><a href="http://rimuhosting.com/cp/vps/upgrade.jsp">VPS upgrade</a></li>
+    <li><a href="http://rimuhosting.com/cp/vps/console.jsp">Console-over-SSH</a></li>
+    <li><a href="http://rimuhosting.com/cp/ftplist.jsp">FTP backup space</a></li>
+  </ul></li>  <li class="rr-contains-dropdown"><a href="http://rimuhosting.com/support/aboutrh.jsp">RimuHosting</a>
+  <ul class="rr-topmenu-second">
+
+    <li><a href="http://rimuhosting.com/support/aboutrh.jsp">About</a></li>
+    <li><a href="http://rimuhosting.com/support/staff.jsp">Staff</a></li>
+    <li><a href="http://forums.rimuhosting.com/forums/index.php">Forums</a></li>
+    <li><a href="http://blog.rimuhosting.com/">Blog</a></li>
+    <li><a href="http://rimuhosting.com/support-worth-raving-about">Support to rave about</a></li>
+    <li><a href="http://rimuhosting.com/support/howtolist.jsp">HOWTO articles</a></li>
+    <li><a href="http://ri.mu/news.jsp">News</a></li>
+    <li><a href="http://rimuhosting.com/quotes.jsp">Customer testimonials</a></li>
+    <li><a href="http://rimuhosting.com/linktous.jsp">Link to us</a></li>
+    <li><a href="http://rimuhosting.com/terms.jsp">Terms and conditions</a></li>
+    <li><a href="http://rimuhosting.com/support/sitemap.jsp">Site map</a></li>
+  </ul></li>
+</ul>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="clear"></div>
+			<div class="rr-message-layers-out">
+				<div class="rr-message-layers-alert"></div>
+			 	<div class="rr-message-layers"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+<!--jspf(end)/WEB-INF/jspf/pagebodytop.jsp-->
+<div class="container_12">
+    <div class="grid_12"><div class="rr-feedback-message"></div>
+    <div class="clear"></div>
+    </div>
+<div class="clear"></div>
+</div>
+<div class="container_12">
+    <div class="grid_12">
+
+<div class="bc">
+<a href="http://rimuhosting.com/index.jsp">Home</a>
+&gt; <a href="http://rimuhosting.com/support/sindex.jsp">Support</a>
+&gt; <a href="http://rimuhosting.com/support/howtolist.jsp">HOWTO List</a>
+&gt; JSP Hosting: mod_proxy_ajp or mod_jk2 Apache Connectors
+</div>
+
+<h1 id="port80">Accessing Tomcat on Port 80: From example.com:8080 to example.com</h1>
+
+<p>By default Tomcat and JBoss run on port 8080.&nbsp; So your Tomcat urls look like
+http://example.com:8080/index.jsp.</p>
+
+<p>There are a few ways ways you can access Tomcat webapps on the regular 
+port 80 so that you do not need the port number in the URL.</p>
+
+<ul>
+<li><em>Apache, mod_proxy/mod_jk2, Tomcat: </em> You can use Apache as the front end to all requests
+then forward certain URLs or virtual hosts to Tomcat.&nbsp; This option lets have some 
+content served by Tomcat (e.g. a whole domain, or a certain directory on a domain)
+and other content (e.g. HTML, PHP pages, etc) served by Apache.&nbsp; If you are on a newer distro
+(e.g. FC5, Centos5 and Debian Etch) with Apache 2.2 you would use <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#mod_proxy">mod_proxy</a>
+or if you had an older distro with Apache 2.0 (e.g. RHEL4, Debian Sarge) then  
+you would <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#mod_jk2">configure the Apache mod_jk2 module</a>.</li>
+
+<li><em>Tomcat, iptables, Port 80: </em> <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#iptables">Another method</a> you can use is iptables.&nbsp; iptables let you forward traffic received on one port (80) to another port (8080).&nbsp; This method bypasses the Apache webserver  completely (even if it is running on port 80).&nbsp; This is the simple to setup.&nbsp; But you will not be able to use Apache (e.g. for webmail, using PHP apps, or apps like phpMyAdmin).</li>
+
+<li><em>Tomcat, Root, Port 80: </em>You can also set Tomcat to run on port 80.&nbsp; We do not recommend this method, since then Tomcat would need to run as a privileged user.&nbsp; Which has security implications.</li>
+
+</ul>
+
+<h1 id="mod_proxy">Apache 2.2 mod_proxy</h1>
+
+<p>Often customers want to combine the use of JSP and Apache. For example, they may have some PHP scripts and some JSP programs they want to run. (And the Servlet engines cannot execute PHP scripts). Using Apache to handle your incoming requests also gives you more options for things like using SSL, error logs, and using .htaccess files.</p>
+
+<p>Apache 2 introduces the mod_proxy module.&nbsp; It is a standard module in most modern distros. This module pretty much deprecates the need for <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#mod_jk2">mod_jk2</a>. Full <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html">documentation</a> for mod_proxy is available.</p>
+
+<p>To setup mod_proxy_ajp add something like the following inside of your Apache VirtualHost entries (e.g. in /etc/httpd/conf/httpd.conf under CentOS/Fedora, /etc/apache2/sites-enabled under Ubuntu/Debian):</p>
+
+<pre class="codebox"><code>ProxyPass /tomcat ajp://127.0.0.1:8009/
+ProxyPassReverse /tomcat ajp://127.0.0.1:8009/
+</code></pre>
+
+<p>This will forward all requests to http://yourip/tomcat to tomcat's ROOT webapp. Or you could use the following line to forward all requests to http://yourip/tomcat to tomcat's jsp-examples webapp.</p>
+
+<pre class="codebox"><code>ProxyPass /tomcat ajp://127.0.0.1:8009/jsp-examples</code></pre>
+
+<p>Run the following to enable mod-proxy-ajp and to change allow/deny setting to &lt;Proxy *&gt;Deny from none # was all&lt;/Proxy&gt;:</p>
+
+<pre class="codebox"><code>
+a2enmod proxy proxy_ajp
+
+sed --in-place 's/Deny from all/Deny from none # was all/' /etc/apache2/mods-available/proxy.conf
+</code></pre>
+
+<h2>Resolving "client denied by server configuration"</h2>
+
+<p>If you get an error in the Apache error log like <code class="codebox">client denied by server configuration: proxy:ajp://127.0.0.1:8009/tomcat</code> then you may need to enable Proxying.&nbsp; e.g. on Ubuntu/Debian systems change the Proxy * setting from Deny all to Deny none in /etc/apache2/mods-enabled/proxy.conf:</p>
+
+<pre class="codebox"><code>
+        &lt;Proxy *&gt;
+                AddDefaultCharset off
+                Order deny,allow
+                Deny from none
+                #Allow from .example.com
+        &lt;/Proxy&gt;
+</code></pre>
+
+<p>Also on Ubuntu/Debian systems, you may need to enable the specific proxy module for apache. Something like the shell commands bellow...</p>
+
+<pre class="codebox"><code>a2enmod proxy_ajp
+a2enmod proxy_http
+</code></pre>
+
+<h1 id="mod_jk2">Running JSP Through Apache: mod_jk2</h1>
+
+<p>mod_jk2 is an option on Apache setups prior to Apache 2.2 (e.g. RHEL4, Debian 3.1).&nbsp; It is not an 
+option on newer setups (e.g. not on Centos5, FC5 or newer, Debian Etch, or Ubuntu 7.10).&nbsp; For the newer distros
+you would use <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#mod_proxy">mod_proxy</a> instead.</p>
+
+<p>mod_jk2 intercepts Apache requests to
+certain URLs and forwards them to your Servlet engine.&nbsp; For example, it can hand off
+requests to certain "mount points" like /jsp to your Servlet engine.&nbsp; It
+can also hand off certain file types (e.g. *.jsp) to your Servlet engine. </p>
+
+<p>mod_jk2 forwards the Apache requests to your Servlet engine via a socket using a
+protocol called ajp13.&nbsp; Both Tomcat and Jetty support the ajp13 protocol.</p>
+
+<h2 id="mod_jk2_step1">First Step: Serve Content on Default Servlet Port</h2>
+
+<p>The first step towards running your webapps with Apache as a front end, is to first get them
+working directly from your default servlet eninge port.&nbsp; 8080 is the default port for Tomcat (including JBoss/Tomcat) and Jetty.&nbsp; 
+Taking this step before testing the mod_jk2 setup 
+makes troubleshooting problems easier:</p>
+
+<ol>
+  <li>Set up your web apps (you may use any of the installed Servlet engines, they all support
+    mod_jk2).</li>
+  <li>Make sure your can browse your webapp using a URL like:
+    http://yourip:8080/jsp/index.jsp. When using Apache as a front end, it is best to not use
+    a 'ROOT' mounted webapp.</li>
+  <li><em>Do not</em> run the iptables command to forward port 80 requests to the Servlet
+    engine (since we want Apache to handle the incoming requests).</li>
+  <li>Test you can load your web app on http://yourip/jsp/index.jsp</li>
+</ol>
+
+<p>Note: your Servlet container needs to listen for connections from Apache.&nbsp; The
+Tomcat and Jetty installations on RimuHosting VPSs are set up this way by default.&nbsp;
+You just need to make sure they are running (see the Tomcat and Jetty start up
+instructions above).</p>
+
+<h2>Next Steps: Serving up your WebApp from Apache</h2>
+
+<p>RimuHosting have pre-installed the mod_jk2.so module binary for the Fedora, White Box Enterprise Linux 3 and recent
+Red Hat 9 distributions.&nbsp; (If your Red Hat VPS was setup prior to 2004, contact
+support for information on how to get the mod_jk2.so module).</p>
+
+<p>mod_jk2 is configured in the /etc/httpd/conf.d/mod_jk2.conf file.</p>
+
+<p>This file includes a sample 'Location'.&nbsp; It looks like this:</p>
+
+<pre class="codebox"><code>
+&lt;Location "/jsp-examples"&gt;
+  JkUriSet worker ajp13:localhost:8009
+&lt;/Location&gt;
+</code></pre>
+
+<p>This Location tag will direct requests to http://yourdomain/jsp-examples to the
+jsp-examples webapp (if one exists) on your Servlet engine.</p>
+
+<p>If you want to run your own webapp instead, just edit this file and rename jsp-examples
+to your own webapp's name.&nbsp; Alternatively you can add your own
+Location tags in /etc/httpd/conf/httpd.conf.</p>
+
+<p>You can put the Location tag inside a VirtualHost tag if you want the Location 
+to only work for a particular domain.&nbsp; Note: on some servers there seems to be a problem where the 
+VirtualHost is ignored, and the Location is used across all domains.&nbsp; In this case you will
+need to <a href="http://rimuhosting.com/mod_jk2_and_mod_proxy_ajp.jsp#workers2">setup a workers2.properties</a>.</p>
+
+<h2>ROOT WebApps</h2>
+
+<p>If you want to have all requests go to Tomcat, use a Location of / and your
+requests will go to the Tomcat ROOT webapp.</p>
+
+<p>If you want to mix and match Apache and Servlet engine requests for the domain, you
+may need to change the Location tag.&nbsp; For example, set it to /*.jsp and
+/*.do.&nbsp; This will make it so only the Servlet related requests go to the Servlet
+engine.</p>
+
+<h2 id="vhosts">Tomcat Host Directive: When Each Domain Has Their Own Root Webapp</h2>
+
+<p>Do you have more than one domain and you want each domain to use a different root webapp?&nbsp; 
+Then you will need to use Tomcat Host directives so that Tomcat knows which webapp to serve for
+which domain.</p>
+
+<p>Setup <a href="http://rimuhosting.com/howto/virtualhosting.jsp">Apache 
+VirtualHosts</a>.&nbsp; Then add a Location tag inside each of the VirtualHost directives
+in /etc/httpd/conf/httpd.conf, e.g.</p>
+
+<pre class="codebox"><code>
+&lt;VirtualHost *:80&gt;
+ServerName yourdomain.com
+ServerAlias *.yourdomain.com
+&lt;Location "/"&gt;
+  JkUriSet worker ajp13:localhost:8009
+&lt;/Location&gt;
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p>In your server.xml file (usually /usr/local/tomcat/conf/server.xml) add something like:</p>
+
+<pre class="codebox"><code>
+&lt;Host name="yourdomain.com"
+appBase="/usr/local/tomcat/webapps"&gt;
+&lt;Context path="" docBase="webapp1" debug="0"/&gt;
+&lt;/Host&gt;
+&lt;Host name="your2nddomain.com" appBase="/usr/local/tomcat/webapps"&gt;
+&lt;Context path="" docBase="webapp2" debug="0"/&gt;
+&lt;Alias&gt;www.your2nddomain.com&amp;lt;/Alias&gt;
+&lt;/Host&gt;
+</code></pre>
+
+<p>These directives setup the default webapps for each of the virtual hosts.</p>
+
+<p>Then restart Apache and Tomcat.</p>
+
+<p>Note: The server.xml changes are only required if you want to run multiple 
+virtual hosts with different ROOT webapps.&nbsp; If you just have multiple 
+virtual hosts with uniquely named webapps, they are not required.&nbsp; Just
+use the regular Location tags and make sure the webapp name and the Location 
+directory match.</p>
+
+<h2 id="workers2">workers2.properties: When Location Tags Inside VirtualHost Directives Do Not Work</h2>
+
+<p>On some versions of mod_jk2 and Apache we have noticed a problem 
+where Apache ignores the VirtualHost that a Location tag is nested 
+within.&nbsp; For example, a Location / inside one VirtualHost ends up 
+applying to all VirtualHosts on the server.&nbsp; So that all requests go to Tomcat, not
+just the requests for the intended domain.
+</p>
+
+<p>To workaround this problem, remove your Location directives.&nbsp; Create 
+a /etc/httpd/conf/workers2.properties file. Then add directives like:</p>
+
+<pre class="codebox"><code>[uri:yourdomain.com:80/*]
+worker=ajp13:localhost:8009
+[uri:your2nddomain.com:80/*]
+worker=ajp13:localhost:8009
+</code></pre>
+
+<p>These directives will pass the requests to the named virtual hosts to your Java 
+server.&nbsp; If you have yourdomain.com and www.yourdomain.com you'll need to add both those [uri] 
+directives for each.</p>
+
+<h2>jk2_init Errors</h2>
+
+<p>Getting something like this in your apache error_log file?</p>
+
+<pre class="codebox"><code>
+[Mon Feb 04 15:36:04 2008] [error] jk2_init() Can't find child 9744 in none of the 256 scoreboard slots 
+</code></pre>
+
+<p>We have seen these errors before.&nbsp; They do not appear to cause any problems.&nbsp; And according to our googling can just be ignored.</p>
+
+<h1 id="iptables">IPTables: Forwarding Incoming Port 80 requests to Port 8080</h1>
+
+<p>If you want to use Apache as a front end to Tomcat, skip this section.</p>
+
+<p>If you want to use iptables to forward incoming 
+requests on port 80 to Tomcat on port 8080, run these commands to setup an iptable rule:</p>
+
+<p>First, stop and disable apache. Under Centos or Fedora try the following...</p>
+
+<pre class="codebox"><code>
+# prevent Apache from running on startup
+chkconfig --del httpd
+# stop Apache from running right now
+/etc/init.d/httpd stop
+</code></pre>
+
+<p>... or if you have Debian/Ubuntu based systems try ...</p>
+
+<pre class="codebox"><code>
+# prevent Apache from running on startup
+update-rc.d -f apache2 remove
+# stop Apache from running right now
+/etc/init.d/apache2 stop
+</code></pre>
+
+<p>... then set the redirection up...</p>
+
+<pre class="codebox"><code>
+# install the iptables applications if they are not already there
+apt-get -y install iptables
+# tell iptables to forward incoming requests on port 80 to tomcat
+/sbin/iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+</code></pre>
+
+<p>For RedHat/Fedora/CentOS based distros (if there is a file called /etc/redhat-release) use this:</p>
+
+<pre class="codebox"><code>
+# save the iptable rules
+/sbin/iptables-save &gt; /etc/sysconfig/iptables
+# make sure iptables starts up by default after a server restart
+chkconfig --level 35 iptables on
+</code></pre>
+
+<p>For Debian based distros (if there is a file called /etc/debian_version) use this:</p>
+
+<pre class="codebox"><code>
+# save the iptable rules
+/sbin/iptables-save &gt; /etc/firewall.conf
+# create a script so ifupdown loads these rules on boot
+echo '#!/bin/sh' &gt; /etc/network/if-up.d/iptables
+echo "iptables-restore &lt; /etc/firewall.conf" &gt;&gt; /etc/network/if-up.d/iptables
+chmod +x /etc/network/if-up.d/iptables
+</code></pre>
+
+<p>You may get a QM_MODULES warning.&nbsp; You can safely ignore that.&nbsp; Our VPS servers are built 
+without modules and with the iptable features built into kernel itself.&nbsp; The iptables scripts 
+just do not detect that modules are not available and do not know to skip that step.</p>
+
+<p>If you decide to turn off your iptables rules, run this:</p>
+
+<pre class="codebox"><code>
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -F
+iptables -t nat -F
+</code></pre>
+
+<p>For RedHat/Fedora/CentOS based distros (if there is a file called /etc/redhat-release) use this:</p>
+
+<pre class="codebox"><code>
+# save the iptable rules
+/sbin/iptables-save &gt; /etc/sysconfig/iptables
+# make sure iptables starts up by default after a server restart
+chkconfig --level 35 iptables off
+</code></pre>
+
+<p>For Debian based distros (if there is a file called /etc/debian_version) use this:</p>
+
+<pre class="codebox"><code>
+# save the iptable rules
+/sbin/iptables-save &gt; /etc/firewall.conf
+</code></pre>
+
+<h1 id="sessions">Maintaining Java Sessions through an Apache Proxy</h1>
+
+<p>If your application makes use of Java Sessions, you may need to tweak the Cookie Path attribute to make it work as expected.&nbsp;  A common problem this might fix is when attempts to log in appear successful, but require you to log in again immediately.</p>
+
+<p>The problem is that Java is sending a cookie path for a certain location, but Apache is configured to serve the application at a different location, so the browser receives the session cookie, but never sends it back because it never requests a page that matches the cookies location.</p>
+
+<p>The original Set-Cookie header looks like this in the HTTP response</p>
+
+<pre class="codebox"><code>Set-Cookie: JSESSIONID=TOMCAT_SESSION_ID_HERE; Path=/myapp </code></pre>
+
+<p>If your application is not accessible at /myapp though, it won't ever send that cookie back in a request, so you don't appear to have working sessions.&nbsp;  The solution is simple, but requires Apache 2.2 which introduced the <a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypassreversecookiepath">ProxyPassReverseCookiePath</a> setting with mod_proxy.&nbsp;  Add this line to your Apache configuration to have Apache rewrite the Path attribute in the Set-Cookie header:</p>
+
+<pre class="codebox"><code>
+    ProxyPass / ajp://127.0.0.1:8009/myapp/
+    ProxyPassReverse / ajp://127.0.0.1:8009/myapp/
+    ProxyPassReverseCookiePath /myapp /
+</code></pre>
+
+<p>That will change the path attribute in the Set-Cookie response header to this:</p>
+
+<pre class="codebox"><code>Set-Cookie: JSESSIONID=TOMCAT_SESSION_ID_HERE; Path=/</code></pre>
+
+<p>And now your browser will send the cookie back on requests to your application.</p>
+
+
+    <div class="clear"></div>
+    </div>
+<div class="clear"></div>
+</div><!--jspf/WEB-INF/jspf/footer-standard.jsp-->
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="rrid-pagefooter">
+    <div class="rr-insole clearfix container_12">
+        <div class="grid_12">
+        	<p>RimuHosting is a <a href="http://ri.mu/">RimuHosting Ltd</a> business.  <a href="http://ri.mu/">RimuHosting</a> services include:</p>
+        </div>
+        <div class="clear"></div>
+        <div class="rr-contains-app  grid_4"> 
+                <div>
+                	<a href="http://launchtimevps.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rh2-logo-24.png" alt=""></a>
+                	<a class="rr-app-title" href="http://launchtimevps.com/">Launchtime&#8482;</a>
+                	<span class="rr-app-desc">VPS servers.</span>
+                </div>  
+                <div>
+                	<a href="http://rimuhosting.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/rimulogo24.png" alt=""></a>
+                	<a class="rr-app-title" href="http://rimuhosting.com/">RimuHosting&#8482;</a>
+                	<span class="rr-app-desc">Dedicated servers.</span>
+                </div>        
+                <div>
+                    <a href="http://pingability.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/pingabilitylogo24.png" alt=""></a>
+                    <a class="rr-app-title" href="http://pingability.com/">Pingability&#8482;</a>
+                    <span class="rr-app-desc">Website monitoring service.</span>
+                </div>
+		</div>
+		<div class="rr-contains-app  grid_4">
+                <div>
+                	<a href="http://bakop.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/backupspacelogo24.png" alt=""></a>
+                	<a class="rr-app-title" href="http://bakop.com/">Bakop&#8482;</a>
+                	<span class="rr-app-desc">Remote FTP backup service.</span>
+                </div>
+                <div>
+                	<a href="http://inboxharmony.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/commapplogo24.png" alt=""></a>
+                	<a class="rr-app-title" href="http://inboxharmony.com/">InboxHarmony&#8482;</a>
+                	<span class="rr-app-desc">The collaborative inbox for support teams.</span>
+                </div>
+                <div>
+                	<a href="http://zonomi.com/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/zonomilogo24.png" alt=""></a>
+                	<a class="rr-app-title" href="http://zonomi.com/">Zonomi&#8482;</a>
+                	<span class="rr-app-desc">DNS hosting service.</span>
+                </div>  
+      	</div>     
+      	<div class=" grid_4">
+      		<div class="rr-contains-app">
+		       	<div>
+		            <a href="http://25mail.st/"><img src="./Running JSP Through Apache with mod_proxy_ajp or mod_jk2 - RimuHosting_files/ms-logo24.png" alt=""></a>
+		            <a class="rr-app-title" href="http://25mail.st/">25 Mail St.&#8482;</a>
+		            <span class="rr-app-desc">Managed email hosting.</span>
+		        </div>    
+			</div>
+			<div class="clear"></div>
+        	<div id="rrid-footer-site-links">
+        	
+	       		<a href="mailto:questions@rimuhosting.com?subject=RimuHosting%20enquiry">Email the RimuHosting team</a>
+				
+         	   <a href="http://rimuhosting.com/support/aboutrh.jsp">About RimuHosting</a> 
+				
+				<a href="http://rimuhosting.com/terms.jsp">Policies (SLA, terms and conditions, privacy)</a>
+	       		<a target="_blank" href="http://blog.rimuhosting.com/">RimuHosting blog</a>
+	       		<a href="http://ri.mu/news.jsp">RimuHosting news</a>
+	        	<div class="clear"></div>
+	        </div>	        
+        </div>
+        <div class="grid_12"><p>&#169; RimuHosting Ltd 2002-2011. Rimuhosting, Launchtime and the Rimuhosting logo are RedRata&#8482; trademarks.</p></div>
+		<!-- Page loaded in 6 ms.-->
+    </div>
+</div>
+<!--jspf(end)/WEB-INF/jspf/footer-standard.jsp-->
+</body></html>

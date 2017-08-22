@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://shiningray.cn/proxypass-directive-in-apache.html -->
+<html lang="zh-CN"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Apache的ProxyPass指令详解 | Shining Ray</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://shiningray.cn/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://shiningray.cn/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="stylesheet" href="./Apache的ProxyPass指令详解   Shining Ray_files/orgSeries.css" type="text/css" media="screen"><meta name="description" content="作者: ShiningRay , 分类目录: 翻译 , Posted: 2008年04月19日 , 评论: 2 , 标签: Apache, ProxyPass, 反向代理">
+<link rel="alternate" type="application/rss+xml" title="Shining Ray » Feed" href="http://feed.shiningray.cn/">
+<link rel="alternate" type="application/rss+xml" title="Shining Ray » 评论Feed" href="http://shiningray.cn/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Shining Ray » Apache的ProxyPass指令详解评论Feed" href="http://shiningray.cn/proxypass-directive-in-apache.html/feed">
+<link rel="stylesheet" id="crayon-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-classic-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/classic.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-pagenavi-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/pagenavi-css.css" type="text/css" media="all">
+
+<link rel="stylesheet" id="twentytwelve-style-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='http://shiningray.cn/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/jquery.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/jquery.syntax.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.7","is_admin":"0","ajaxurl":"http:\/\/shiningray.cn\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"\u70b9\u51fb\u5c55\u5f00\u4ee3\u7801"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/crayon.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://shiningray.cn/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://shiningray.cn/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Dell电源上价格不菲的红色开关" href="http://shiningray.cn/the-red-button-on-dell.html">
+<link rel="next" title="Passenger (mod_rails)介绍" href="http://shiningray.cn/passenger-mod_rails-introduction.html">
+<meta name="generator" content="WordPress 4.0.1">
+<link rel="canonical" href="./Apache的ProxyPass指令详解   Shining Ray_files/Apache的ProxyPass指令详解   Shining Ray.htm">
+<link rel="shortlink" href="http://shiningray.cn/?p=166">
+<link rel="icon" href="http://shiningray.cn/favicon.png" type="image/png"><script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/anti-captcha-0.3.js.php"></script>
+	<link href="./Apache的ProxyPass指令详解   Shining Ray_files/SyntaxHighlighter.css" type="text/css" rel="stylesheet">
+		<link rel="stylesheet" href="./Apache的ProxyPass指令详解   Shining Ray_files/wp-fixes.css" type="text/css" media="screen">
+	<script type="text/javascript">
+		jQuery.noConflict(); jQuery(document).ready(function($) { $.syntax({root: 'http://shiningray.cn/wp-content/plugins/jquery-syntax/jquery-syntax/'}) });
+	</script>
+		<style type="text/css">
+						ol.footnotes li {list-style-type:decimal;}
+						ol.footnotes{font-size:0.8em; color:#666666;}		</style>
+		<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/related_items_v2"></script></head>
+
+<body class="single single-post postid-166 single-format-standard custom-font-enabled single-author">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="http://shiningray.cn/" title="Shining Ray" rel="home">Shining Ray</a></h1>
+			<h2 class="site-description">一缕阳光</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<h3 class="menu-toggle">菜单</h3>
+			<a class="assistive-text" href="http://shiningray.cn/proxypass-directive-in-apache.html#content" title="跳至内容">跳至内容</a>
+			<div class="nav-menu"><ul><li><a href="http://shiningray.cn/">首页</a></li><li class="page_item page-item-2 page_item_has_children"><a href="http://shiningray.cn/about">关于我</a><ul class="children"><li class="page_item page-item-126"><a href="http://shiningray.cn/about/resume">简历</a></li></ul></li><li class="page_item page-item-311"><a href="http://shiningray.cn/archives">存档</a></li><li class="page_item page-item-90 page_item_has_children"><a href="http://shiningray.cn/docs">文档</a><ul class="children"><li class="page_item page-item-432"><a href="http://shiningray.cn/docs/mnesia-a-distributed-robust-dbms-for-telecommunications-applications">Mnesia——针对电信应用的健壮分布式DBMS</a></li><li class="page_item page-item-91 page_item_has_children"><a href="http://shiningray.cn/docs/ocaml">Objective CAML系列教程</a><ul class="children"><li class="page_item page-item-97"><a href="http://shiningray.cn/docs/ocaml/the-basics-of-ocaml">基础知识</a></li><li class="page_item page-item-98"><a href="http://shiningray.cn/docs/ocaml/the-structure-of-ocaml-programs">程序的结构</a></li><li class="page_item page-item-96"><a href="http://shiningray.cn/docs/ocaml/data-types-and-matching">数据类型和匹配</a></li><li class="page_item page-item-95"><a href="http://shiningray.cn/docs/ocaml/null-pointers-asserts-and-warnings">空指针、断言和警告</a></li><li class="page_item page-item-94"><a href="http://shiningray.cn/docs/ocaml/functional-programming">函数式编程</a></li><li class="page_item page-item-93"><a href="http://shiningray.cn/docs/ocaml/modules">OCaml模块</a></li><li class="page_item page-item-92"><a href="http://shiningray.cn/docs/ocaml/if-statements-loops-and-recursion">If语句、循环和迭代</a></li></ul></li><li class="page_item page-item-414"><a href="http://shiningray.cn/docs/self-the-power-of-simplicity">Self：简洁的威力</a></li><li class="page_item page-item-416"><a href="http://shiningray.cn/docs/attack-of-the-clones">克隆的反攻</a></li></ul></li><li class="page_item page-item-23 page_item_has_children"><a href="http://shiningray.cn/toys">玩具</a><ul class="children"><li class="page_item page-item-796"><a href="http://shiningray.cn/toys/js-regexp-tester">javascript 正则表达式测试器</a></li><li class="page_item page-item-45"><a href="http://shiningray.cn/toys/js-minifier">JS Minifier</a></li><li class="page_item page-item-22"><a href="http://shiningray.cn/toys/smart-pinyin-slug">Smart PinYin Slug</a></li><li class="page_item page-item-38"><a href="http://shiningray.cn/toys/urlbase64hex-encoder-decoder">URL/Base64/Hex Encoder &amp; Decoder</a></li><li class="page_item page-item-43"><a href="http://shiningray.cn/toys/unix-timestamp">时间戳转换工具</a></li></ul></li></ul></div>
+		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-166" class="post-166 post type-post status-publish format-standard hentry category-translations tag-apache tag-proxypass tag-218">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">Apache的ProxyPass指令详解</h1>
+										<div class="comments-link">
+					<a href="http://shiningray.cn/proxypass-directive-in-apache.html#comments" title="《Apache的ProxyPass指令详解》上的评论">2条回复</a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>原文地址：<a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypass">http://httpd.apache.org/docs/2.2/mod/mod_proxy.html#proxypass</a><br>
+翻译：<a href="http://shiningray.cn/">ShiningRay</a></p>
+<p>描述：将远程服务器映射到本地服务器的URL空间<br>
+语法：ProxyPass [路径] !|url [键=值 键=值 …]] [nocanon]<br>
+上下文：	server config, virtual host, directory<br>
+状态：扩展<br>
+模块：mod_proxy</p>
+<p>该指令可以将远程服务器映射到本地服务器的URL空间；本地的服务器并不是扮演传统意义上的代理服务器的角色，而是表现为远程服务器的一个镜像。此本地服务器常被成为<strong>反向代理</strong>（reversed proxy）或者是<strong>网关</strong>（gateway）。<strong>路径</strong>是指本地虚拟路径的名字；<strong>url</strong>指远程服务器的一个部分URL，不能包含查询字符串。</p>
+<p>注意：在使用<code>ProxyPass</code>指令的时候，<code>ProxyRequests</code>指令通常都应该是关闭的。</p>
+<p>假设本地服务器的地址是 <code>http://example.com/ </code>，那么</p>
+<p></p><!-- Crayon Syntax Highlighter v2.6.7 -->
+
+		<div id="crayon-547a48519617f843383455" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings="" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0;">ProxyPass /mirror/foo/ http://backend.example.com/</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-547a48519617f843383455-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-547a48519617f843383455-1"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">mirror</span><span class="crayon-o">/</span><span class="crayon-v">foo</span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//backend.example.com/</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p></p>
+<p>将会把对<code>http://example.com/mirror/foo/bar</code>的本地请求内部转换成到<code>http://backend.example.com/bar</code>的代理请求。</p>
+<p>其中，<code>!</code>指令当你不想对某个子目录进行反向代理的时候就有用了，例如：</p>
+<p></p><!-- Crayon Syntax Highlighter v2.6.7 -->
+
+		<div id="crayon-547a485196190475805467" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings="" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0;">ProxyPass /mirror/foo/i !
+ProxyPass /mirror/foo http://backend.example.com</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-547a485196190475805467-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a485196190475805467-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-547a485196190475805467-1"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">mirror</span><span class="crayon-o">/</span><span class="crayon-v">foo</span><span class="crayon-o">/</span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">!</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a485196190475805467-2"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">mirror</span><span class="crayon-o">/</span><span class="crayon-e">foo </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//backend.example.com</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p></p>
+<p>将会把所有的<code>/mirror/foo</code>请求重定向到<code>backend.example.com</code>除了对<code>/mirror/foo/i</code>的请求。</p>
+<p>注意：</p>
+<p>顺序很重要：排除的指令必须在一般的<code>ProxyPass</code>指令之前。</p>
+<p>和Apache 2.1一样，具备了使用到后端服务器的线程池的能力。使用“<code>键=值</code>”的参数便可调节线程池的分配。<code>硬性最大值（Hard Maximum）</code>的默认值为当前MPM中每个进程的线程数量。在Prefork MPM中，该值总是为1，在Worker MPM中，该值受<code>ThreadsPerChild</code>控制。</p>
+<p>设置<code>min</code>可以决定有多少到后端服务器的链接始终打开。根据需要最多创建数量为柔性最大值（Soft Maximum），也就是<code>smax</code>的链接。任何超出<code>smax</code>数量的链接都会指定一个生存时间也就是<code>ttl</code>。Apache不会同时创建超过硬性最大值（或<code>max</code>）数量的到后端服务器的链接。</p>
+<p></p><!-- Crayon Syntax Highlighter v2.6.7 -->
+
+		<div id="crayon-547a48519619a027490329" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings="" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0;">ProxyPass /example http://backend.example.com smax=5 max=20 ttl=120 retry=300</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-547a48519619a027490329-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-547a48519619a027490329-1"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-e">example </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//backend.example.com smax=5 max=20 ttl=120 retry=300</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<table>
+<tbody>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+<tr>
+<td>min</td>
+<td>0</td>
+<td>到后端服务器的总是打开的链接最小数。</td>
+</tr>
+<tr>
+<td>max</td>
+<td>1…n</td>
+<td>允许连接到后端服务器的硬性最大链接数。<code>硬性最大值</code>的默认值为当前MPM中每个进程的线程数量。在Prefork MPM中，该值总是为1，在Worker MPM中，该值受<code>ThreadsPerChild</code>控制。</td>
+</tr>
+<tr>
+<td>smax</td>
+<td>max</td>
+<td>根据需要最多创建数量为柔性最大值（Soft Maximum），也就是<code>smax</code>的链接。任何超出<code>smax</code>数量的链接都会指定一个生存时间也就是<code>ttl</code>。</td>
+</tr>
+<tr>
+<td>acquire</td>
+<td>- </td>
+<td>如果设置了该参数，它就会成为等待链接池中空闲链接的最大时间。如果链接池中没有任何空闲链接，那么Apache将会给客户端返回<code>SERVER_BUSY</code>状态。</td>
+</tr>
+<tr>
+<td>flushpackets</td>
+<td>off </td>
+<td>决定代理模块是否要在接受到每段数据的时候自动冲掉输出缓冲。‘off’表示只有当需要的时候才冲掉，‘on’表示每段数据后都冲，‘auto’表示轮询／等待一段长度为‘<code>flushwait</code>’毫秒的时间后如果没有输入便冲掉。目前该参数仅对AJP有效。</td>
+</tr>
+<tr>
+<td>flushwait</td>
+<td>10</td>
+<td>表示如果‘flushpackets’为‘auto’，在冲掉输出组前等待额外输入的时间，单位毫秒。</td>
+</tr>
+<tr>
+<td>keepalive</td>
+<td>Off</td>
+<td>该参数应该在你的Apache和后端服务器之间有防火墙的时候时候，因为防火墙有可能会丢弃不活动的链接。该标志将会告诉操作系统在不活动的链接中发送<code>KEEP_ALIVE</code>消息（时间间隔由全局的OS设置决定，一般为120ms），这样避免防火墙丢弃该链接。要启用keepalive可以将该属性设置为<code>On</code>。</td>
+</tr>
+<tr>
+<td>lbset</td>
+<td>0 </td>
+<td>对该工作单元所属的负载均衡集群进行设置。负载均衡器会先尝试较小的lbset，然后尝试大的。</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>0</td>
+<td>Ping数据告诉Web服务器在对ajp13链接递交请求前发送一个CPING请求。参数为等待CPONG响应的延迟，单位为秒。添加该功能是为了避免挂起和忙碌的Tomcat的一些问题。该功能需要ajp13 的ping/pong支持，已经在Tomcat 3.3.2+、4.1.28+、5.0.13+中实现。它会增加普通操作中的网络流量，有可能是个问题，但是它在集群节点失效或者繁忙的时候减少网络流量。目前该参数只对AJP有效。</td>
+</tr>
+<tr>
+<td>loadfactor </td>
+<td>1</td>
+<td>工作单元负载系数。用于BalancerMember。它是一个1到100之间的数字，用于定义应用于该工作单元的正规化权重负载。</td>
+</tr>
+<tr>
+<td>redirect </td>
+<td>-</td>
+<td>工作单元的重定向路由（Redirection Route）。该值通常被动态设置用于从集群中安全地移除某个节点。如果被设置了，所有不包含会话ID的请求都会被重定向到有等值route参数的BalancerMember中。</td>
+</tr>
+<tr>
+<td>retry</td>
+<td>60</td>
+<td>线程池工作单元重试的超时时间，以秒为单位。如果到后端服务器的线程池工作单元状态是出错，Apache将不会递交任何请求到该服务器，直到超时结束。这可以令后端服务器关闭进行维护，并稍后上线。如果值为0则表示总是重试错误状态的工作单元不等待任何时间。</td>
+</tr>
+<tr>
+<td>route</td>
+<td>- </td>
+<td>工作单元的路由，用于负载均衡器中。该路由是附加给会话ID的一个值。</td>
+</tr>
+<tr>
+<td>status </td>
+<td>- </td>
+<td>用一个字符定义该工作单元的初始状态：‘D’表示禁用，‘S’表示已停止，‘I’表示忽略错误，‘H’表示热备，‘E’表示出错。状态可以通过前置‘+’表示设置或者‘-’表示清楚。这样，‘S-E’表示设置该工作单元为已停止并清除出错标志。</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>Timeout </td>
+<td>链接超时时间，单位为秒。如果未设置，那么Apache会一直等到有可用的链接位置。该指令常和max参数一起使用来限制到后端服务器的链接。</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>-</td>
+<td>超出smax连接数的非活动链接的生存时间（Time To Live），单位为秒。Apache会关闭在这段时间内没有被用过的所有链接。</td>
+</tr>
+</tbody>
+</table>
+<p>如果代理的指令类型以<code>balancer://</code>开头那么会创建一个虚拟工作单元，并不直接和后端服务器通讯。它负责对一些“真正”的工作单元进行管理。这种情况下可以给虚拟工作单元添加一系列额外参数。更多关于均衡器如何工作的信息请查看<a href="http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html"><code>mod_proxy_balancer</code></a>。</p>
+<table>
+<tbody>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+<tr>
+<td>lbmethod</td>
+<td>byrequests</td>
+<td>选择均衡器的负载均衡方式。可以是<code>byrequests</code>，进行加权请求计数，或者是<code>bytraffic</code>，进行加权流量字节计数均衡。默认按请求数。</td>
+</tr>
+<tr>
+<td>maxattempts</td>
+<td>1</td>
+<td>在放弃之前的故障转移的最大尝试次数。</td>
+</tr>
+<tr>
+<td>nofailover</td>
+<td>Off</td>
+<td>如果设为‘<code>On</code>’，当工作单元被禁用或者出错时，会话则立即中断。可以将该值设为<code>On</code>如果后端服务器不支持会话复制（Session replication）。</td>
+</tr>
+<tr>
+<td>stickysession</td>
+<td> – </td>
+<td>均衡器粘连会话名称。该值常常会被设置为类似<code>JSESSIONID</code>或者<code>PHPSESSIONID</code>之类的值，他依赖于支持会话的后端应用服务器。如果后端服务器使用不同的cookie名称或者URL编码的ID（像servlet容器），使用|来分开他们。第一个部分针对cookie，第二个针对路径。</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>0</td>
+<td>均衡器超时时间，单位为秒。如果设置了，那么就是等待空闲工作单元的最大时间。默认是不等。</td>
+</tr>
+</tbody>
+</table>
+<p>均衡器设置范例</p>
+<p></p><!-- Crayon Syntax Highlighter v2.6.7 -->
+
+		<div id="crayon-547a4851961a7100253750" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings="" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0;">ProxyPass /special-area http://special.example.com/ smax=5 max=10
+ProxyPass / balancer://mycluster stickysession=JSESSIONID|jsessionid nofailover=On
+&amp;lt;Proxy balancer://mycluster&amp;gt;
+BalancerMember http://1.2.3.4:8009
+BalancerMember http://1.2.3.5:8009 smax=10
+# 性能较弱的服务器，不要给他发送太多请求
+BalancerMember http://1.2.3.6:8009 smax=1 loadfactor=20
+&amp;lt;/Proxy&amp;gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-547a4851961a7100253750-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961a7100253750-2">2</div><div class="crayon-num" data-line="crayon-547a4851961a7100253750-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961a7100253750-4">4</div><div class="crayon-num" data-line="crayon-547a4851961a7100253750-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961a7100253750-6">6</div><div class="crayon-num" data-line="crayon-547a4851961a7100253750-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961a7100253750-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-547a4851961a7100253750-1"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">special</span><span class="crayon-o">-</span><span class="crayon-e">area </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//special.example.com/ smax=5 max=10</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961a7100253750-2"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-v">balancer</span><span class="crayon-o">:</span><span class="crayon-c">//mycluster stickysession=JSESSIONID|jsessionid nofailover=On</span></div><div class="crayon-line" id="crayon-547a4851961a7100253750-3"><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-e">Proxy </span><span class="crayon-v">balancer</span><span class="crayon-o">:</span><span class="crayon-c">//mycluster&amp;gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961a7100253750-4"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.4:8009</span></div><div class="crayon-line" id="crayon-547a4851961a7100253750-5"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.5:8009 smax=10</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961a7100253750-6"><span class="crayon-p"># 性能较弱的服务器，不要给他发送太多请求</span></div><div class="crayon-line" id="crayon-547a4851961a7100253750-7"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.6:8009 smax=1 loadfactor=20</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961a7100253750-8"><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-o">/</span><span class="crayon-v">Proxy</span><span class="crayon-o">&amp;</span><span class="crayon-v">gt</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p>设置一个热备份，也就是只有当没有其他成员可用的时候才使用：</p>
+<p></p><!-- Crayon Syntax Highlighter v2.6.7 -->
+
+		<div id="crayon-547a4851961c6315514843" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings="" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button crayon-nums-button crayon-pressed" title="切换是否显示行编号"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="纯文本显示代码"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="切换自动换行"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="点击展开代码" style="display: none;"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="在新窗口中显示代码"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" style="tab-size: 4; font-size: 12px !important; line-height: 15px !important; z-index: 0; opacity: 0;">ProxyPass / balancer://hotcluster/
+&amp;lt;Proxy balancer://hotcluster&amp;gt;
+BalancerMember http://1.2.3.4:8009 loadfactor=1
+BalancerMember http://1.2.3.5:8009 loadfactor=2
+# 以下是热备份
+BalancerMember http://1.2.3.6:8009 status=+H
+ProxySet lbmethod=bytraffic &amp;lt;/Proxy&amp;gt;</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1;">
+				<table class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-547a4851961c6315514843-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961c6315514843-2">2</div><div class="crayon-num" data-line="crayon-547a4851961c6315514843-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961c6315514843-4">4</div><div class="crayon-num" data-line="crayon-547a4851961c6315514843-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-547a4851961c6315514843-6">6</div><div class="crayon-num" data-line="crayon-547a4851961c6315514843-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-547a4851961c6315514843-1"><span class="crayon-v">ProxyPass</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-v">balancer</span><span class="crayon-o">:</span><span class="crayon-c">//hotcluster/</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961c6315514843-2"><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-e">Proxy </span><span class="crayon-v">balancer</span><span class="crayon-o">:</span><span class="crayon-c">//hotcluster&amp;gt;</span></div><div class="crayon-line" id="crayon-547a4851961c6315514843-3"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.4:8009 loadfactor=1</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961c6315514843-4"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.5:8009 loadfactor=2</span></div><div class="crayon-line" id="crayon-547a4851961c6315514843-5"><span class="crayon-p"># 以下是热备份</span></div><div class="crayon-line crayon-striped-line" id="crayon-547a4851961c6315514843-6"><span class="crayon-e">BalancerMember </span><span class="crayon-v">http</span><span class="crayon-o">:</span><span class="crayon-c">//1.2.3.6:8009 status=+H</span></div><div class="crayon-line" id="crayon-547a4851961c6315514843-7"><span class="crayon-e">ProxySet </span><span class="crayon-v">lbmethod</span><span class="crayon-o">=</span><span class="crayon-v">bytraffic</span><span class="crayon-h"> </span><span class="crayon-o">&amp;</span><span class="crayon-v">lt</span><span class="crayon-sy">;</span><span class="crayon-o">/</span><span class="crayon-v">Proxy</span><span class="crayon-o">&amp;</span><span class="crayon-v">gt</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<p>正常情况下，mod_proxy会标准化被ProxyPass的URL。但它可能会和某些后端不兼容，尤其是那些利用了<em>PATH_INFO</em>的。可选的nocanon关键词可以禁止它，并不动地直接将URL路径传递给后端。注意它可能会影响到后端的安全性，因为它跳过了由代理提供的对常见的基于URL的攻击的保护。</p>
+<p>当用在<a href="http://httpd.apache.org/docs/2.2/mod/core.html#location"><code>&lt;Location&gt;</code></a>节中的时候，第一个参数应被忽略，并且本地的路径将从<a href="http://httpd.apache.org/docs/2.2/mod/core.html#location"><code>&lt;Location&gt;</code></a>取得。</p>
+<p>如果你需要更加有弹性的反向代理配置，参见是用<code>[P]</code>标志的<a href="http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html#rewriterule"><code>RewriteRule</code></a>指令。</p>
+<div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:visible;position:relative;left:0;top:0;height:28px;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 230px; padding: 0px; text-indent: 0px; background: url(http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png) 0px 0px no-repeat;" onmouseover="this.style.backgroundPosition=&#39;-89px 0&#39;;" onmouseout="this.style.backgroundPosition=&#39;0 0&#39;;">
+        <a href="http://www.wumii.com/item/268lks5Q" target="_blank" id="wumiiNumLikes" style="float:left;width:38px;height:20px;line-height:21px;margin:4px 0 0 4px;padding:0;border:none;background-color:#fff;color:#385c80;letter-spacing:0;text-decoration:none;text-align:center;text-indent:0;font-size:12px;" onmouseover="this.style.fontWeight=&#39;bold&#39;;" onmouseout="this.style.fontWeight=&#39;normal&#39;;">17</a>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url(&#39;http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png&#39;) no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition=&#39;-328px 0&#39;;" onmouseout="this.style.backgroundPosition=&#39;-267px 0&#39;;"></span>
+        <img src="./Apache的ProxyPass指令详解   Shining Ray_files/loading.gif" id="wumiiLoading" style="clear:none;display:none;height:15px;margin:7px 0 0 8px;padding:0;border:0;background:none;cursor:default;" alt="正在加载推荐文章">
+    </div>
+</div>
+<div class="wumii-related-items-div" wmode="2" style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;">
+    
+    
+    
+        <div class="wumii-internal" style="padding: 0; margin: 0; border: none; clear: both; display: block;">
+        <div class="wumii-widget-title" style="margin: 0; border: none; padding: 20px 0 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold; ">您可能对以下文章页感兴趣</div>
+                <div class="wumii-image-row" style="clear: both; overflow: hidden; border: none; padding: 0;margin: 0;_zoom: 1;" fromurl="http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html"><a class="wumii-image-block" hidefocus="true" title="HTTP代理缓存" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/http-proxy-cache.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/resources/images/related_item_default/76.jpg" src="./Apache的ProxyPass指令详解   Shining Ray_files/76.jpg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">HTTP代理缓存</div>
+</a><a class="wumii-image-block" hidefocus="true" title="Squid 2.6做反向代理的WWW-Authentication无法通过问题" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/squid26.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/resources/images/related_item_default/66.jpg" src="./Apache的ProxyPass指令详解   Shining Ray_files/66.jpg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">Squid 2.6做反向代理的WWW-Authentication无法通过问题</div>
+</a><a class="wumii-image-block" hidefocus="true" title="利用SSH通道加密网页浏览" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/li-yong-ssh-tong-dao-jia-mi-wang-ye-lan.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/resources/images/related_item_default/81.jpg" src="./Apache的ProxyPass指令详解   Shining Ray_files/81.jpg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">利用SSH通道加密网页浏览</div>
+</a><a class="wumii-image-block" hidefocus="true" title="开心农场" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/happy-farm.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/site_images/ti/1srC5kmb.png?i=142aXa9ui" src="./Apache的ProxyPass指令详解   Shining Ray_files/1srC5kmb.png">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">开心农场</div>
+</a><a class="wumii-image-block" hidefocus="true" title="从Trails和Firebird开始" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom-style: none; cursor: pointer; position: relative; margin: 5px 0px 0px -1px; padding: 5px; text-align: left; outline: none; border-left-width: 1px !important; border-left-style: solid !important; border-left-color: rgb(221, 221, 221) !important; background-image: none;" href="http://shiningray.cn/trails-and-firebird.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/site_images/ti/Fo7FheIB.jpg?i=1ePnWZwpa" src="./Apache的ProxyPass指令详解   Shining Ray_files/Fo7FheIB.jpg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">从Trails和Firebird开始</div>
+</a><a class="wumii-image-block" hidefocus="true" title="简易Smalltalk测试框架" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/simple-smalltalk-test-framework.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/site_images/ti/Elt0f4yX.gif?i=b2Nnnt2B" src="./Apache的ProxyPass指令详解   Shining Ray_files/Elt0f4yX.gif">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">简易Smalltalk测试框架</div>
+</a><a class="wumii-image-block" hidefocus="true" title="有趣的Morphic图形系统" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/fun-with-the-morphic-graphics-system.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/site_images/ti/Y2QmTvJW.gif?i=O2NTsTBP" src="./Apache的ProxyPass指令详解   Shining Ray_files/Y2QmTvJW.gif">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">有趣的Morphic图形系统</div>
+</a><a class="wumii-image-block" hidefocus="true" title="在Java2平台企业版中应用异步JavaScript技术和XML（AJAX）" onmouseout="this.style.backgroundColor=&#39;&#39;" onmouseover="this.style.backgroundColor=&#39;#E3E4FA&#39;" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://shiningray.cn/ajax-with-j2ee.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background: none;" image-url="http://static.wumii.cn/site_images/ti/LwJzVOlg.jpg?i=zb8xubVR" src="./Apache的ProxyPass指令详解   Shining Ray_files/LwJzVOlg.jpg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">在Java2平台企业版中应用异步JavaScript技术和XML（AJAX）</div>
+</a></div>
+    </div><div class="wumii-footer" style="margin: 0px; border: none; padding: 5px 0px; clear: both; text-align: right; width: 564px;">
+            <a href="http://www.wumii.com/widget/relatedItems" target="_blank" title="无觅关联推荐" style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: arial; color: rgb(187, 187, 187); border-bottom-style: none; word-wrap: normal; display: inline; cursor: pointer;">无觅关联推荐[?]</a>
+                
+        </div>
+</div></div>
+<div id="anyShare" class="clearfix">
+<b><i>anyShare</i>分享到：</b>
+<a target="_blank" rel="nofollow" id="L766" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="QQ空间" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&desc=&summary=&site=&pics="></a>
+<a target="_blank" rel="nofollow" id="L398" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="新浪微博" href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&appkey=&pic=&sudaref="></a>
+<a target="_blank" rel="nofollow" id="L161" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="腾讯微博" href="http://share.v.t.qq.com/index.php?c=share&a=index&url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&appkey="></a>
+<a target="_blank" rel="nofollow" id="L301" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="人人网" href="http://widget.renren.com/dialog/share?resourceUrl=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&srcUrl=&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&description="></a>
+<a target="_blank" rel="nofollow" id="L280" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="百度贴吧" href="http://tieba.baidu.com/f/commit/share/openShareApi?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&desc=&comment="></a>
+<a target="_blank" rel="nofollow" id="L315" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="开心网" href="http://www.kaixin001.com/rest/records.php?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&style=11&content=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&stime=&sig="></a>
+<a target="_blank" rel="nofollow" id="L472" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="百度空间" href="http://hi.baidu.com/pub/show/share?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&content=&linkid="></a>
+<a target="_blank" rel="nofollow" id="L937" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="豆瓣" href="http://www.douban.com/share/service?href=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&name=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3&image="></a>
+<a target="_blank" rel="nofollow" id="L115" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="搜狐微博" href="http://t.sohu.com/third/post.jsp?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&title=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3%20&pic="></a>
+<a target="_blank" rel="nofollow" id="L944" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="FaceBook" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html&t="></a>
+<a target="_blank" rel="nofollow" id="L050" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="Twitter" href="https://twitter.com/intent/tweet?source=webclient&text=Apache%E7%9A%84ProxyPass%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3%20http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html"></a>
+<a target="_blank" rel="nofollow" id="L918" onclick="javascript:window.open(this.href,&#39;&#39;,&#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=480,width=640&#39;); return false;" title="GooglePlus" href="https://plus.google.com/share?url=http%3A%2F%2Fshiningray.cn%2Fproxypass-directive-in-apache.html"></a>
+<br clear="all"></div><!-- #anyShare -->					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			本条目发布于<a href="./Apache的ProxyPass指令详解   Shining Ray_files/Apache的ProxyPass指令详解   Shining Ray.htm" title="12:12 上午" rel="bookmark"><time class="entry-date" datetime="2008-04-19T00:12:06+00:00">2008年04月19日</time></a>。属于<a href="http://shiningray.cn/category/translations" rel="category tag">翻译</a>分类，被贴了 <a href="http://shiningray.cn/tag/apache" rel="tag">Apache</a>、<a href="http://shiningray.cn/tag/proxypass" rel="tag">ProxyPass</a>、<a href="http://shiningray.cn/tag/%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86" rel="tag">反向代理</a> 标签。<span class="by-author">作者是<span class="author vcard"><a class="url fn n" href="http://shiningray.cn/author/shiningray" title="查看所有由ShiningRay发布的文章" rel="author">ShiningRay</a></span>。</span>								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">文章导航</h3>
+					<span class="nav-previous"><a href="http://shiningray.cn/the-red-button-on-dell.html" rel="prev"><span class="meta-nav">←</span> Dell电源上价格不菲的红色开关</a></span>
+					<span class="nav-next"><a href="http://shiningray.cn/passenger-mod_rails-introduction.html" rel="next">Passenger (mod_rails)介绍 <span class="meta-nav">→</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			《<span>Apache的ProxyPass指令详解</span>》上有2条评论		</h2>
+
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1" id="li-comment-20084">
+		<article id="comment-20084" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="http://1.gravatar.com/avatar/153753eeed404a0892518391375ea49c?s=44&d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D44&r=G" class="avatar avatar-44 photo" height="44" width="44"><cite><b class="fn">zwf</b> </cite><a href="http://shiningray.cn/proxypass-directive-in-apache.html/comment-page-1#comment-20084"><time datetime="2009-11-19T11:22:03+00:00">2009年11月19日11:22 上午</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>你好，apache的代理转发模块是否有bug？最近发现这样配置的多个站点总出现502 Proxy Error的错误，重启服务器后又会好，但隔一段时间又出来了。我们服务器上用虚拟目录和端口转发实现php和jsp的同时运行，以前都没有问题，最近才出现这个怪问题。谢谢。</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-20086">
+		<article id="comment-20086" class="comment">
+			<header class="comment-meta comment-author vcard">
+				<img alt="" src="http://0.gravatar.com/avatar/0483666667da0ede142e86a3cc190d22?s=44&d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D44&r=G" class="avatar avatar-44 photo" height="44" width="44"><cite><b class="fn"><a href="http://shiningray.cn/" rel="external nofollow" class="url">ShiningRay</a></b> </cite><a href="http://shiningray.cn/proxypass-directive-in-apache.html/comment-page-1#comment-20086"><time datetime="2009-11-19T13:15:32+00:00">2009年11月19日1:15 下午</time></a>			</header><!-- .comment-meta -->
+
+			
+			<section class="comment-content comment">
+				<p>楼上的建议你使用haproxy或nginx，apache做反响代理性能不佳</p>
+							</section><!-- .comment-content -->
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+	</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+		
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://shiningray.cn/proxypass-directive-in-apache.html#respond" style="display:none;">取消回复</a></small></h3>
+									<form action="http://shiningray.cn/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">电子邮件地址不会被公开。 必填项已用<span class="required">*</span>标注</p>							<p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="text" value="" size="30"></p>
+												<p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">您可以使用这些<abbr title="HyperText Markup Language">HTML</abbr>标签和属性： <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code class="" title="" data-url=""&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; &lt;pre class="" title="" data-url=""&gt; &lt;span class="" title="" data-url=""&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="发表评论">
+							<input type="hidden" name="comment_post_ID" value="166" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f3a1c21c82"></p><p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1417323444328"><input type="hidden" value="z079bm6z64b8cbbecbb6z74cq0cdp7z3d11d6035gfg4887x80e" name="anti-captcha-token"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<!--WP Widget Cache 0.26 Begin -->
+<!--Cache text-1 for 3600 second(s)-->
+<aside id="text-1" class="widget widget_text"><h3 class="widget-title">关于我</h3>			<div class="textwidget"><div class="hresume about">
+    <dl class="vcard contact summary">
+    <dt class="fn n"><span class="family-name">曹</span><span class="given-name">力</span></dt>
+    <dd>程序员 / 架构师</dd>
+    <dd>暴走漫画</dd>
+    <dd><a href="http://shiningray.cn/professional-javascript-for-web-developers.html">JavaScript高级程序设计</a>译者</dd>
+    <dd><a href="http://www.qiushibaike.com/">糗事百科</a>前架构师程序员</dd>
+   <dd><a href="http://www.bling0.com/">博聆创始人</a></dd>
+    </dl>
+<a href="http://stackoverflow.com/users/69730/shiningray">
+<img src="./Apache的ProxyPass指令详解   Shining Ray_files/69730.png" width="208" height="58" alt="profile for ShiningRay at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for ShiningRay at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+</a>
+
+</div></div>
+		</aside><!--WP Widget Cache End -->
+<!--WP Widget Cache 0.26 Begin -->
+<!--Cache text-3 for 3600 second(s)-->
+<aside id="text-3" class="widget widget_text"><h3 class="widget-title">版权声明</h3>			<div class="textwidget"><a href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img src="./Apache的ProxyPass指令详解   Shining Ray_files/somerights20.png" border="0"></a>
+本 Blog 所有文章若无特别声明都遵循<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/">创作共用约定</a>，要求署名、非商业、保持一致。转载时请先阅读以上许可协议，并以超链接形式注明出处。</div>
+		</aside><!--WP Widget Cache End -->
+<!--WP Widget Cache 0.26 Begin -->
+<!--Cache categories-1 for 3600 second(s)-->
+<aside id="categories-1" class="widget widget_categories"><h3 class="widget-title">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-34"><a href="http://shiningray.cn/category/intro">介绍</a> (35)
+</li>
+	<li class="cat-item cat-item-235"><a href="http://shiningray.cn/category/%e5%93%b2%e5%ad%a6">哲学</a> (7)
+</li>
+	<li class="cat-item cat-item-29"><a href="http://shiningray.cn/category/memo">备忘</a> (10)
+</li>
+	<li class="cat-item cat-item-234"><a href="http://shiningray.cn/category/%e6%84%9f%e6%83%b3">感想</a> (20)
+</li>
+	<li class="cat-item cat-item-104"><a href="http://shiningray.cn/category/%e6%96%b0%e9%97%bb">新闻</a> (2)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://shiningray.cn/category/diary">日记</a> (123)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://shiningray.cn/category/translations">翻译</a> (51)
+</li>
+	<li class="cat-item cat-item-45"><a href="http://shiningray.cn/category/solutions">解决方案</a> (7)
+</li>
+	<li class="cat-item cat-item-223"><a href="http://shiningray.cn/category/papers">论文</a> (1)
+</li>
+	<li class="cat-item cat-item-332"><a href="http://shiningray.cn/category/%e8%bd%ac%e8%bd%bd">转载</a> (15)
+</li>
+		</ul>
+</aside><!--WP Widget Cache End -->
+<aside id="get-recent-comments" class="widget widget_get_recent_comments"><h3 class="widget-title">Recent Comments</h3><div id="get_recent_comments_wrap"><ul>	<li><img src="http://www.gravatar.com/avatar.php?gravatar_id=61b6b92b56f2c9833d74007b2f366d59&size=20&rating=G" alt="" width="20" height="20" class="kjgrcGravatar"><a href="http://shiningray.cn/docs/ocaml/modules#comment-51654" title="OCaml模块, 2007年12月28日">杨</a>: HTML的 “ &gt; ” 全部不能被显示出来。。。</li>
+	<li><img src="http://www.gravatar.com/avatar.php?gravatar_id=0b8e5013226fe74b5fb38225f1fa4db8&size=20&rating=G" alt="" width="20" height="20" class="kjgrcGravatar"><a href="http://shiningray.cn/rabbitmq%e7%ae%80%e4%bb%8b.html#comment-32347" title="RabbitMQ简介, 2014年05月24日">terrysco</a>: 我们对rabbimtmq做了改造，支持批量发布和批量mirr ored，QPS提升5-8倍</li>
+	<li><img src="http://www.gravatar.com/avatar.php?gravatar_id=3a5aa539361f3fdfe047d7806f7bcca0&size=20&rating=G" alt="" width="20" height="20" class="kjgrcGravatar"><a href="http://shiningray.cn/zui-he-shi-xie-dai-ma-de-zi-ti.html#comment-27249" title="最合适写代码的字体, 2007年11月16日">metaboy</a>: MONACO 这个字体非常不错。。。。</li>
+	<li><img src="http://www.gravatar.com/avatar.php?gravatar_id=38ee597932ce15ef17cbf988c6afe4ed&size=20&rating=G" alt="" width="20" height="20" class="kjgrcGravatar"><a href="http://shiningray.cn/%e7%a8%8b%e5%ba%8f%e5%91%98%ef%bc%8c%e4%bd%a0%e8%b0%83%e8%af%95%e8%bf%87%e7%9a%84%e6%9c%80%e9%9a%be%e7%9a%84-bug-%e6%98%af%ef%bc%9f.html#comment-26155" title="程序员，你调试过的最难的 Bug 是？, 2013年11月7日">chaogu</a>: 暴走漫画iphone版本刷新会出现已经看过的图，尽快解决一下 。客户端经常会网络假死，也就是刷新不了，一直在等待（不知道是 不是我网络的问题）。 告诉王尼玛，说好的暴走大事件呢……</li>
+	<li><img src="http://www.gravatar.com/avatar.php?gravatar_id=58d353436ca3157a1d9f8f4325a41810&size=20&rating=G" alt="" width="20" height="20" class="kjgrcGravatar"><a href="http://shiningray.cn/about/resume#comment-25516" title="简历, 2008年01月19日">小雨</a>: 前来膜拜学长。明年软工毕业的孩子走过。</li>
+</ul></div></aside><!--WP Widget Cache 0.26 Begin -->
+<!--Cache links-2 for 3600 second(s)-->
+<aside id="linkcat-179" class="widget widget_links"><h3 class="widget-title">分身</h3>
+	<ul class="xoxo blogroll">
+<li><a href="https://coderwall.com/shiningray" rel="me" target="_blank">@codewall</a></li>
+<li><a href="https://github.com/ShiningRay" rel="me" target="_blank">@GitHub</a></li>
+<li><a href="http://twitter.com/shiningray" rel="me" target="_blank">@twitter</a></li>
+<li><a href="http://weibo.com/shiningray" rel="me" target="_blank">@新浪微博</a></li>
+
+	</ul>
+</aside>
+<aside id="linkcat-2" class="widget widget_links"><h3 class="widget-title">友情链接</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.balloonsys.com/blog/">Balloonsys Inc.</a></li>
+<li><a href="http://blog.icybear.cn/">Bearice</a></li>
+<li><a href="http://blog.csdn.net/ffb/">ffb</a></li>
+<li><a href="http://www.hging.net/">hging</a></li>
+<li><a href="http://www.icebugger.cn/">icebugger</a></li>
+<li><a href="http://icojump.in/" rel="co-worker">ICO</a></li>
+<li><a href="http://lionzixuanyuan.github.io/">Lion's Space</a></li>
+<li><a href="http://www.oneleo.com/" rel="acquaintance co-resident spouse sweetheart">One Leo</a></li>
+<li><a href="http://snow.snowrain.org/">Snow Chen</a></li>
+<li><a href="http://swdpress.cn/" target="_blank">ssword</a></li>
+<li><a href="http://www.tzpsky.com/">TOM日志</a></li>
+<li><a href="http://www.junchenwu.com/">吴隽辰</a></li>
+<li><a href="http://hi.baidu.com/cloudidust/blog">呆呆蜗牛</a></li>
+<li><a href="http://blog.orzwow.com/">孙Orz</a></li>
+<li><a href="http://jinsongzhang.com/">张劲松</a></li>
+<li><a href="http://www.zhangyun.org/" rel="acquaintance">张赟</a></li>
+<li><a href="http://www.qiubaibbs.com/">早安糗百</a></li>
+<li><a href="http://www.chaself.com/" target="_blank">替身</a></li>
+<li><a href="http://hudaxian1224.blogbus.com/">狐之境界</a></li>
+<li><a href="http://gengxipeng.com/" title="艺术家">耿西鹏</a></li>
+<li><a href="http://www.huakaili.com/" target="_blank">花开里</a></li>
+
+	</ul>
+</aside>
+<aside id="linkcat-365" class="widget widget_links"><h3 class="widget-title">项目</h3>
+	<ul class="xoxo blogroll">
+<li><a href="https://github.com/qiushibaike/moumentei" target="_blank">冇问题</a></li>
+<li><a href="http://www.bling0.com/" target="_blank">博聆网</a></li>
+
+	</ul>
+</aside>
+<!--WP Widget Cache End -->
+<!--WP Widget Cache 0.26 Begin -->
+<!--Cache tag_cloud-2 for 3600 second(s)-->
+<aside id="tag_cloud-2" class="widget widget_tag_cloud"><h3 class="widget-title">标签</h3><div class="tagcloud"><a href="http://shiningray.cn/tag/c" class="tag-link-134" title="8个话题" style="font-size: 16.773333333333pt;">C</a>
+<a href="http://shiningray.cn/tag/cache" class="tag-link-68" title="4个话题" style="font-size: 12.106666666667pt;">cache</a>
+<a href="http://shiningray.cn/tag/class" class="tag-link-33" title="2个话题" style="font-size: 8pt;">class</a>
+<a href="http://shiningray.cn/tag/erlang" class="tag-link-244" title="6个话题" style="font-size: 14.906666666667pt;">erlang</a>
+<a href="http://shiningray.cn/tag/java" class="tag-link-26" title="6个话题" style="font-size: 14.906666666667pt;">java</a>
+<a href="http://shiningray.cn/tag/javascript" class="tag-link-24" title="16个话题" style="font-size: 22pt;">javascript</a>
+<a href="http://shiningray.cn/tag/linux" class="tag-link-11" title="8个话题" style="font-size: 16.773333333333pt;">linux</a>
+<a href="http://shiningray.cn/tag/memcached" class="tag-link-44" title="4个话题" style="font-size: 12.106666666667pt;">memcached</a>
+<a href="http://shiningray.cn/tag/mysql" class="tag-link-4" title="9个话题" style="font-size: 17.706666666667pt;">mysql</a>
+<a href="http://shiningray.cn/tag/nginx" class="tag-link-50" title="4个话题" style="font-size: 12.106666666667pt;">nginx</a>
+<a href="http://shiningray.cn/tag/ocaml" class="tag-link-123" title="8个话题" style="font-size: 16.773333333333pt;">OCaml</a>
+<a href="http://shiningray.cn/tag/php" class="tag-link-8" title="15个话题" style="font-size: 21.44pt;">php</a>
+<a href="http://shiningray.cn/tag/python" class="tag-link-6" title="8个话题" style="font-size: 16.773333333333pt;">python</a>
+<a href="http://shiningray.cn/tag/rails" class="tag-link-30" title="12个话题" style="font-size: 19.76pt;">rails</a>
+<a href="http://shiningray.cn/tag/rebol" class="tag-link-132" title="5个话题" style="font-size: 13.6pt;">rebol</a>
+<a href="http://shiningray.cn/tag/ruby" class="tag-link-3" title="12个话题" style="font-size: 19.76pt;">ruby</a>
+<a href="http://shiningray.cn/tag/scalability" class="tag-link-266" title="3个话题" style="font-size: 10.24pt;">scalability</a>
+<a href="http://shiningray.cn/tag/smalltalk" class="tag-link-114" title="5个话题" style="font-size: 13.6pt;">Smalltalk</a>
+<a href="http://shiningray.cn/tag/sqlobject" class="tag-link-18" title="2个话题" style="font-size: 8pt;">sqlobject</a>
+<a href="http://shiningray.cn/tag/squid" class="tag-link-5" title="2个话题" style="font-size: 8pt;">squid</a>
+<a href="http://shiningray.cn/tag/ubuntu" class="tag-link-10" title="3个话题" style="font-size: 10.24pt;">ubuntu</a>
+<a href="http://shiningray.cn/tag/url" class="tag-link-53" title="2个话题" style="font-size: 8pt;">url</a>
+<a href="http://shiningray.cn/tag/wordpress" class="tag-link-52" title="3个话题" style="font-size: 10.24pt;">wordpress</a>
+<a href="http://shiningray.cn/tag/xpweb" class="tag-link-149" title="3个话题" style="font-size: 10.24pt;">XPWeb</a>
+<a href="http://shiningray.cn/tag/%e4%b8%87%e7%bd%91" class="tag-link-41" title="2个话题" style="font-size: 8pt;">万网</a>
+<a href="http://shiningray.cn/tag/%e4%b9%a6%e7%b1%8d" class="tag-link-121" title="3个话题" style="font-size: 10.24pt;">书籍</a>
+<a href="http://shiningray.cn/tag/%e5%87%bd%e6%95%b0%e5%bc%8f%e7%bc%96%e7%a8%8b" class="tag-link-66" title="5个话题" style="font-size: 13.6pt;">函数式编程</a>
+<a href="http://shiningray.cn/tag/%e5%8d%8f%e8%ae%ae" class="tag-link-129" title="3个话题" style="font-size: 10.24pt;">协议</a>
+<a href="http://shiningray.cn/tag/%e5%a5%b3%e6%80%a7" class="tag-link-338" title="4个话题" style="font-size: 12.106666666667pt;">女性</a>
+<a href="http://shiningray.cn/tag/%e5%a9%9a%e5%a7%bb" class="tag-link-340" title="3个话题" style="font-size: 10.24pt;">婚姻</a>
+<a href="http://shiningray.cn/tag/%e5%ad%97%e4%bd%93" class="tag-link-22" title="3个话题" style="font-size: 10.24pt;">字体</a>
+<a href="http://shiningray.cn/tag/%e5%bf%83%e7%90%86%e5%ad%a6" class="tag-link-343" title="3个话题" style="font-size: 10.24pt;">心理学</a>
+<a href="http://shiningray.cn/tag/%e6%80%a7%e8%83%bd" class="tag-link-127" title="4个话题" style="font-size: 12.106666666667pt;">性能</a>
+<a href="http://shiningray.cn/tag/%e6%81%8b%e7%88%b1" class="tag-link-339" title="4个话题" style="font-size: 12.106666666667pt;">恋爱</a>
+<a href="http://shiningray.cn/tag/%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="tag-link-143" title="3个话题" style="font-size: 10.24pt;">数据类型</a>
+<a href="http://shiningray.cn/tag/%e6%9c%ba%e6%88%bf" class="tag-link-43" title="2个话题" style="font-size: 8pt;">机房</a>
+<a href="http://shiningray.cn/tag/%e6%9e%81%e9%99%90%e7%bc%96%e7%a8%8b" class="tag-link-150" title="3个话题" style="font-size: 10.24pt;">极限编程</a>
+<a href="http://shiningray.cn/tag/%e6%b5%8b%e8%af%95" class="tag-link-111" title="3个话题" style="font-size: 10.24pt;">测试</a>
+<a href="http://shiningray.cn/tag/%e7%88%b1%e6%83%85" class="tag-link-344" title="3个话题" style="font-size: 10.24pt;">爱情</a>
+<a href="http://shiningray.cn/tag/%e7%ae%97%e6%b3%95" class="tag-link-148" title="3个话题" style="font-size: 10.24pt;">算法</a>
+<a href="http://shiningray.cn/tag/translations" class="tag-link-15" title="2个话题" style="font-size: 8pt;">翻译</a>
+<a href="http://shiningray.cn/tag/%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="tag-link-120" title="3个话题" style="font-size: 10.24pt;">设计模式</a>
+<a href="http://shiningray.cn/tag/%e8%af%ad%e8%a8%80" class="tag-link-20" title="9个话题" style="font-size: 17.706666666667pt;">语言</a>
+<a href="http://shiningray.cn/tag/%e9%83%a8%e7%bd%b2" class="tag-link-221" title="3个话题" style="font-size: 10.24pt;">部署</a>
+<a href="http://shiningray.cn/tag/%e9%98%b2%e7%81%ab%e5%a2%99" class="tag-link-40" title="2个话题" style="font-size: 8pt;">防火墙</a></div>
+</aside><!--WP Widget Cache End -->
+<aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">功能</h3>			<ul>
+						<li><a href="http://shiningray.cn/wp-login.php">登录</a></li>
+			<li><a href="http://feed.shiningray.cn/">文章<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://shiningray.cn/comments/feed">评论<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://cn.wordpress.org/" title="基于WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>			</ul>
+</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="http://cn.wordpress.org/" title="优雅的个人发布平台">自豪地采用WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+				<script type="text/javascript"><!--
+			var seriesdropdown = document.getElementById("orgseries_dropdown");
+			if (seriesdropdown) {
+			 function onSeriesChange() {
+					if ( seriesdropdown.options[seriesdropdown.selectedIndex].value != ( 0 || -1 ) ) {
+						location.href = "http://shiningray.cn/series/"+seriesdropdown.options[seriesdropdown.selectedIndex].value;
+					}
+				}
+				seriesdropdown.onchange = onSeriesChange;
+			}
+			--></script>
+			
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-576087-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+    <script type="text/javascript" src="http://js.tongji.cn.yahoo.com/884516/ystat.js"></script><noscript>&lt;a href="http://tongji.cn.yahoo.com"&gt;&lt;img src="http://img.tongji.cn.yahoo.com/884516/ystat.gif"/&gt;&lt;/a&gt;</noscript>
+    <script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shCore.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushPhp.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushJScript.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushJava.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushVb.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushSql.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushXml.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushDelphi.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushPython.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushRuby.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushCss.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/shBrushCpp.js"></script>
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/patch.js"></script>
+<script type="text/javascript"><!--
+dp.SyntaxHighlighter.ClipboardSwf='http://shiningray.cn/wp-content/plugins/google-syntax-highlighter/clipboard.swf'; 
+//--></script>
+
+<p style="margin:0;padding:0;height:1px;overflow:hidden;">
+    <script type="text/javascript"><!--
+        var wumiiSitePrefix = "http://shiningray.cn";
+        var wumiiEnableCustomPos = false;
+        var wumiiParams = "&num=8&mode=3&displayInFeed=1&version=1.0.5.7&pf=WordPress4.0.1";
+        var wumiiCategories = ["\u7ffb\u8bd1"];
+    //--></script><script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/relatedItemsWidget"></script><a href="http://www.wumii.com/widget/relatedItems" style="border:0;"><img src="./Apache的ProxyPass指令详解   Shining Ray_files/pixel.png" alt="无觅相关文章插件，快速提升流量" style="border:0;padding:0;margin:0;"></a>
+</p><script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/form.js"></script>
+<link rel="stylesheet" id="anyShare-css" href="./Apache的ProxyPass指令详解   Shining Ray_files/anyShare.css" type="text/css" media="all">
+<script type="text/javascript" src="./Apache的ProxyPass指令详解   Shining Ray_files/navigation.js"></script>
+
+
+<!-- Dynamic page generated in 0.162 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-11-29 14:27:29 -->
+
+<!-- Compression = gzip --></body></html>

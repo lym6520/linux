@@ -1,0 +1,30 @@
+执行./configure命令的时候，出现以下错误：
+错误一：configure: error: no acceptable C compiler found in $PATH
+
+原因：c编译器的相关package没有安装
+解决办法：安装gcc
+
+可用通过命令：
+#yum install gcc
+来安装gcc
+
+
+错误二：configure: error: C++ preprocessor "/lib/cpp" fails sanity check
+
+原因：c++编译器的相关package没有安装
+解决办法：安装g++
+
+可用通过命令：
+# yum install glibc-headers
+# yum install gcc-c++
+
+错误三：configure: error:No curses/termcap library found
+解决方法：安装ncurses 和 ncurses-devel
+参考yum安装命令：
+yum list|grep ncurses
+yum -y install ncurses-devel
+yum install ncurses-devel
+
+
+
+

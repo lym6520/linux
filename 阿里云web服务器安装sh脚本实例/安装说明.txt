@@ -1,0 +1,17 @@
+------------------------- 自动安装过程 -------------------------
+
+图文教程地址：http://www.phpwind.me/read.php?tid=209
+
+默认安装：nginx1.0.4 + php5.2.17 + zend optimizer3.3.3 + mysql5.1.37
+
+debian和ubuntu下默认shell是dash，执行
+sudo dpkg-reconfigure dash
+选择no，切换到bash环境
+
+cd /home && mkdir tmp && cd tmp
+
+xftp上传sh目录
+
+cd sh && chmod +x install*.sh && ./install.sh
+
+安装完成后请查看tmp.log文件。数据库密码在里面

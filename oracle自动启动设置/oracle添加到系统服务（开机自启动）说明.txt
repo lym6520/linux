@@ -1,0 +1,33 @@
+方式一：
+最简单的是把启动命令放到/etc/rc.d/rc.local文件里。这样就可以每次启动的时候自动启动服务了。例如对于 apache，编译好apache后会在安装目录的bin下生成apachectl文件，这是个启动脚本，我们只需要把这个命令加到rc.local里就可以了：
+echo /usr/local/apache/bin/apachectl >> /etc/rc.d/rc.local
+
+
+
+方式二：
+添加 oracle 为系统服务
+
+创建oracle文件（修改相应参数）
+
+赋予可执行权限
+#chmod +x oracle
+将文件放到/etc/rc.d/init.d目录下
+#mv oracle /etc/rc.d/init.d 
+添加到系统服务
+#chkconfig --add oracle
+查看是否已添加
+#chkconfig --list oracle
+
+##开机启动服务？
+#chkconfig oracle on
+ 
+#su - oracle
+
+找到“xsdcrm:/opt/oracle/ora10g:N” 将N改为Y
+#vim /etc/oratab
+
+测试
+#service oracle start|stop|restart
+
+/etc/oratab 由root.sh 脚本创建，在用DBCA 创建实例时也会更新这个文件。 
+当$ORACLE_SID:$ORACLE_HOME:<N|Y> 设置为Y时，允许实例自启动，当设置为N时，则不允许自启动。 这个文件里的配置仅仅起一个开关的作用，其并不会具体的执行启动和关闭，具体的操作由$ORACLE_HOME/bin/dbstart和dbshut 脚本来实现。 这2个脚本在执行时会检查/etc/oratab 文件里的配置，为Y时才能继续执行。

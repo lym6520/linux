@@ -1,0 +1,34 @@
+开源镜像站
+
+
+网易开源镜像站(联通)                  http://mirrors.163.com/
+搜狐开源镜像站                        http://mirrors.sohu.com/
+台湾镜像站                            http://www.mirror.tw/pub/
+大连理工大学镜像站                    http://mirror.dlut.edu.cn/
+兰大开源社区镜像站                    http://mirror.lzu.edu.cn/
+兰州大学                             ftp://mirror.lzu.edu.cn/
+厦门大学开源软件镜像站                http://mirrors.xmu.edu.cn/
+
+北京交通大学镜像站                    http://mirror.bjtu.edu.cn/cn/index.html
+上海交通大学                          http://ftp.sjtu.edu.cn/ubuntu/
+
+清华大学                              ftp://ftp3.tsinghua.edu.cn/
+电子科大                              http://ubuntu.uestc.edu.cn/
+
+kernel 镜像站                         http://mirrors.kernel.org/
+Fedora 官方镜像站                     http://download.fedora.redhat.com/pub
+                                      http://download.fedora.redhat.com/
+Debian 全球镜像站                     http://www.debian.org/mirror/list   
+Ubuntu 官方镜像站                     http://releases.ubuntu.com/releases/       
+                                      http://cdimage.ubuntu.com/
+suse官方镜像站                        http://download.opensuse.org/
+开源世界镜像服务器                     http://mirror.lupaworld.com/
+
+外国镜像站：
+http://ftp.chg.ru/                     俄罗斯服务器
+http://ftp.kddilabs.jp/
+http://ftp.jaist.ac.jp/pub/
+http://ftp.kaist.ac.kr/
+http://mirror.karneval.cz/pub/
+http://ftp.gwdg.de/pub/
+http://ftp.estpak.ee/pub/

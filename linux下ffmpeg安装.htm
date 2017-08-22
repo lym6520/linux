@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="UTF-8">
+<meta content="all" name="robots">
+<meta name="author" content="代码人生">
+<meta name="description" content="阿东的代码人生">
+<meta name="keywords" content="windows,linux,ffmpeg,Web开发,PHP编程,AJAX技术,LAMP,PHP安装,MySQL安装,Apache安装,PHP教程,PHP技巧,PHP学习,Linux学习,Linux教程,Linux技巧,HTML,JavaScript,DIV,CSS,搜索引擎优化,SEO">
+<!-- base href="http://www.code-life.com/" -->
+<link rel="alternate" title="代码人生" href="http://www.code-life.com/feed.php" type="application/rss+xml">
+<link rel="stylesheet" rev="stylesheet" href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" rev="stylesheet" href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/5.css" type="text/css" media="all">
+
+<title>[原]Windows下FFmpeg下载和Linux下FFmpeg的编译配置 - 代码人生 - 阿东的代码人生</title>
+<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/common.js"></script>
+<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/jslang.js"></script>
+<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/ajax.js"></script>
+<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/swfobject.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+var moreimagepath="images";
+var shutajax=0;
+var absbaseurl='http://www.code-life.com/';
+//]]>
+</script><link title="搜索 代码人生" rel="search" type="application/opensearchdescription+xml" href="http://www.code-life.com/inc/opensearch.php">
+
+
+
+</head><body id="pagelocation-read?61">
+<div id="wrapper">
+	<div id="innerWrapper">
+		<div id="header">
+			<div id="innerHeader">
+				<div class="blog-header">
+					<h1 class="blog-title"><a href="http://www.code-life.com/index.php">代码人生</a></h1>
+					<div class="blog-desc">阿东的代码人生</div>
+					<!--Start search bar -->
+					<div id="minisearchbar" align="right">
+	<script type="text/javascript">//<![CDATA[
+function livesearch (eventobject){
+	if(eventobject.keyCode==13) {
+		document.getElementById("minisearchSubmit").click();
+	}
+}
+function setbgin () {
+	document.getElementById('minisearcharea').style.background="url('"+absbaseurl+"template/EleganX2/images/search2.gif"+"') no-repeat";;
+}
+function setbgout () {
+	document.getElementById('minisearcharea').style.background="url('"+absbaseurl+"template/EleganX2/images/search1.gif"+"') no-repeat";;
+}
+//]]>
+</script>
+						<li class="minisearchbar">
+						<div class="minisearcharea" id="minisearcharea">
+						<form name="searchform" method="post" action="visit.php">
+						<input id="minisearch" name="keyword" value="Search..." onclick="if (this.value=='Search...') this.value=''" style="color: rgb(0, 0, 0);" title="Type keywords and then press 'Enter' key to search" onkeypress="livesearch(event)" onfocus="setbgin()" onblur="setbgout()" type="text">
+						<input name="job" value="search" type="hidden"><input name="searchmethod" value="2" type="hidden">
+						<input id="minisearchSubmit" style="display: none;" value="Search" type="submit">
+						</form>
+						</div>
+						</li>
+						</div>
+						<!--End search bar -->
+				</div>
+					<div style="height: 95px;"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/header.jpg" border="0" height="95" width="780"></div>
+				<div id="nav">
+					<div id="menu">
+						<ul>
+						<li><span id="nav_index" class="activepage"><a href="http://www.code-life.com/index.php"><span id="navitem_index" class="activepageitem">首页</span></a></span></li>
+<li><span id="nav_login"><a href="http://www.code-life.com/login.php"><span id="navitem_login">登入</span></a></span></li>
+<li><span id="nav_tag"><a href="http://www.code-life.com/tag.php"><span id="navitem_tag">标签</span></a></span></li>
+<li><span id="nav_guestbook"><a href="http://www.code-life.com/guestbook.php"><span id="navitem_guestbook">留言</span></a></span></li>
+<li><span id="nav_javascript_3AshowHideSidebar_28_29_3B"><a href="javascript:showHideSidebar();"><span id="navitem_javascript_3AshowHideSidebar_28_29_3B">边栏</span></a></span></li>
+<li><span id="nav_links"><a href="http://www.code-life.com/links.php"><span id="navitem_links">链接</span></a></span></li>
+<li><span id="nav_archive"><a href="http://www.code-life.com/archive.php"><span id="navitem_archive">归档</span></a></span></li>
+<li><span id="nav_star"><a href="http://www.code-life.com/star.php"><span id="navitem_star">星标日志</span></a></span></li> 	
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mainWrapper">
+			<div id="content" class="content">
+				<div id="innerContent">
+					<div class="announce" style="display: none;">
+						<div class="announce-content">
+						
+						</div>
+					</div>
+					<div class="article-top" style="display: none;">
+						<div class="pages" align="center">
+							
+						</div>
+					</div>
+					<div class="article-top">
+	<div class="prev-article"><a href="http://www.code-life.com/read.php?60" title="上一篇 [原]Linux下Ima"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/toolbar_previous.gif" alt="" border="0">[原]Linux下Ima</a></div>
+	<div class="next-article"><a href="http://www.code-life.com/read.php?64" title="下一篇 [原]PHP文件上传大文"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/toolbar_next.gif" alt="" border="0">[原]PHP文件上传大文</a></div>
+</div>
+<div class="textbox">
+	<div class="textbox-title" style="width: 100%;">
+			<h2>
+				<a href="http://www.code-life.com/read.php?61">[原]Windows下FFmpeg下载和Linux下FFmpeg的编译配置</a>
+			</h2>
+			<div class="title-label">
+				 <a href="http://www.code-life.com/index.php?go=category_4" title="查看分类： 技术空间">技术空间</a> » <a href="http://www.code-life.com/index.php?go=category_12" title="查看分类： 网站开发">网站开发</a> | <a href="http://www.code-life.com/read.php?61">阅读(4387)</a> | <a href="http://www.code-life.com/read.php?61#reply" title="发表您的评论">评论(8)</a> 
+			</div>
+		<div class="entry-date">
+				<div class="entry-month">Jul</div>
+				<div class="entry-day">31</div> 
+				<div class="entry-year">2008</div>
+	  	</div>
+  </div>
+		<div class="textbox-content">
+		转载请注明出处 作者：阿东 来源：代码人生 www.code-life.com<br><br>　
+　当前视频分享网站十分火爆，其中涉及到两个技术问题，一是对用户上传的视频进行转码，例如几乎所有的视频网站都会把视频转换成FLV格式；另一就是对视
+频进行截图，方便用户预览。视频转码常用的是mencoder，这个工具包含在mplayer中，也可以使用FFmpeg，但据说有些格式转换的时候效率
+不及mencoder，所以能用mencoder转换的尽量用mencoder转换，由于mencoder暂时还没有研究，等研究过了再补充上。视频截图
+就要用FFmpeg了，这篇文章介绍的是FFmpeg。Windows下FFmpeg只要下载编译好的包就可以了，点击以下地址下载，这个包里包含有绝大
+多数的编码解码器，比如mp3、ogg、xvid、mp4、3gp、aac、flv等等，可以执行ffmpeg
+-formats看到支持的编码格式。Linux下FFmpeg编译就稍复杂了点，下面介绍步骤。<a name="entrymore"></a><div class="quote downloadbox"><div class="quote-title"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/download.gif" alt="">下载文件 </div><div class="quote-content"><a href="http://www.code-life.com/attachment.php?fid=9">点击这里下载文件</a></div></div><br><br>　　要编译成功FFmpeg，并支持大部分主流视频编码格式，首先还要做一些准备工作。<br><br>1. 支持MP3<br><br>　　下载LAME（http://lame.sourceforge.net/）。<br><br># tar zxvf lame-*.tar.gz<br># cd lame-*<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br>2. 支持OGG和Vorbis<br><br>　　RPM安装libogg、libogg-devel、libvorbis和libvorbis-devel。<br><br>3. 支持Xvid和x264<br><br>　　下载Xvid（http://www.xvid.org/）。<br><br># tar zxvf xvidcore-*.tar.gz<br># cd xvidcore-*/build/generic<br># ./configure --prefix=/usr<br># make<br># make install<br><br>　　下载x264（http://www.videolan.org/developers/x264.html）。<br><br># bunzip2 x264-*.tar.bz2<br># tar xvf x264-*.tar<br># cd x264-*<br># ./configure --prefix=/usr --enable-shared --disable-asm<br># make<br># make install<br><br>4. 支持AC3和DTS<br><br>　　下载liba52（http://liba52.sourceforge.net/）。<br><br># tar zxvf a52dec-*.tar.gz<br># cd a52dec-*<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br>　　下载libdca（http://www.videolan.org/developers/libdca.html）。<br><br># bunzip2 libdca-*.tar.bz2<br># tar xvf libdca-*.tar<br># cd libdca-*<br># ./configure --prefix=/usr<br># make<br># make install<br><br>5. 支持MPEG4和AAC<br><br>　　下载FAAC和FAAD2（http://sourceforge.net/projects/faac/）。<br><br># tar zxvf faac-*.tar.gz<br># cd faac-*<br># ./bootstrap<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br># tar zxvf faad2-*.tar.gz<br># autoreconf -vif<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br>　　注：编译FAAD2需要使用autoreconf，需要预先RPM安装autoconf、automake和libtool。<br><br>6. 支持3GP<br><br>　　下载libamrnb和libamrwb（http://www.penguin.cz/~utx/amr）。<br><br># tar zxvf amrnb-*.tar.gz<br># cd amrnb-*<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br># tar zxvf amrwb-*.tar.gz<br># cd amrwb-*<br># ./configure --prefix=/usr --enable-shared<br># make<br># make install<br><br>7. 编译FFmpeg<br><br>　　完成了以上准备工作后，开始编译FFmpeg了。FFmpeg的最新源码可以使用Subversion获取。<br><br>#
+./configure --prefix=/usr/local/ffmpeg --enable-shared
+--enable-libmp3lame --enable-libvorbis --enable-libxvid
+--enable-libx264 --enable-liba52 --enable-liba52bin --enable-gpl
+--enable-libfaad --enable-libfaadbin --enable-libfaac
+--enable-libamr-nb --enable-libamr-wb --enable-nonfree<br># make<br># make install<br><br>　　至此，FFmpeg就编译安装成功了。找一段视频测试一下：<br><br># /usr/local/ffmpeg/bin/ffmpeg -i /tmp/test.avi -y -f image2 -ss 00:00:02 -t 0.001 -s 320x240 /tmp/test.jpg<br><br>　　其中/tmp/test.avi为视频文件，/tmp/test.jpg为截图文件，00:00:02表示截2秒时候的一屏。<br><br>　　如果这时遇到“error while loading shared libraries”，是因为找不到库文件。编辑/etc/ld.so.conf，加入/usr/local/ffmpeg/lib，执行ldconfig即可。<br><br>PS: 这个FFmpeg折腾了我好久，终于搞定了，记下笔记，希望对朋友们有所帮助。<br> 
+	</div>
+	<div class="textbox-bottom">
+		<div class="tags" style="display: block;"> Tags:  <a href="http://www.code-life.com/tag.php?tag=windows" title="Tags:  windows" rel="tag">windows</a> , <a href="http://www.code-life.com/tag.php?tag=linux" title="Tags:  linux" rel="tag">linux</a> , <a href="http://www.code-life.com/tag.php?tag=ffmpeg" title="Tags:  ffmpeg" rel="tag">ffmpeg</a> 
+		</div>
+	 </div>
+	<div class="sep"></div>
+	</div>
+<div id="commentWrapper" class="comment-wrapper">
+	<a name="topreply"></a>
+	<div id="addnew"></div><div id="blogcomment51">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">笨笨   </div>
+			<div class="commentbox-label" align="left">2009/09/24 10:56   </div>
+		</div>
+		<div class="commentbox-content">
+			<img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan.gif" alt="zan" border="0">这才是牛人
+			<div class="quote" style="display: none;" id="replied_com_51">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_51" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment49">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">bobo   </div>
+			<div class="commentbox-label" align="left">2009/07/30 14:40   </div>
+		</div>
+		<div class="commentbox-content">
+			很有帮助
+			<div class="quote" style="display: none;" id="replied_com_49">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_49" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment33">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">学习经过   </div>
+			<div class="commentbox-label" align="left">2009/01/23 15:01   </div>
+		</div>
+		<div class="commentbox-content">
+			博主能方便留下你的联系方式吗？我有问题想咨询一下你。MSN: CHINAXHB@HOTMAIL.COM
+			<div class="quote" style="display: block;" id="replied_com_33">
+				<div class="quote-title"><a href="http://www.code-life.com/view.php?go=user_1" target="_blank" title="查看他/她的资料">xudongding</a> 回复于 2009/02/01 11:35</div>
+				<div class="quote-content">我的邮箱：xudongding@yahoo.com.cn</div>
+			</div>
+		</div>
+		<div id="com_33" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment30">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">斑头雁   </div>
+			<div class="commentbox-label" align="left">2009/01/05 08:48   </div>
+		</div>
+		<div class="commentbox-content">
+			<img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/ok_002.gif" alt="pig" border="0">
+			<div class="quote" style="display: none;" id="replied_com_30">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_30" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment25">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">qiums   </div>
+			<div class="commentbox-label" align="left">2008/10/26 16:15   </div>
+		</div>
+		<div class="commentbox-content">
+			博主，我爱死你了。。。
+			<div class="quote" style="display: none;" id="replied_com_25">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_25" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment14">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">外星飞碟   </div>
+			<div class="commentbox-label" align="left">2008/09/04 18:25   </div>
+		</div>
+		<div class="commentbox-content">
+			非常感谢。。<img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan.gif" alt="zan" border="0"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan.gif" alt="zan" border="0"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan.gif" alt="zan" border="0"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/ok_002.gif" alt="pig" border="0">OK了。。
+			<div class="quote" style="display: none;" id="replied_com_14">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_14" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment13">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">外星飞碟   </div>
+			<div class="commentbox-label" align="left">2008/09/04 18:21   </div>
+		</div>
+		<div class="commentbox-content">
+			好，强大<img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan.gif" alt="zan" border="0">
+			<div class="quote" style="display: none;" id="replied_com_13">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_13" style="display: none;">
+		</div>
+	</div></div><div id="blogcomment10">	<div class="commentbox">
+		<div class="commentbox-title">
+			<div class="commentbox-name">千年bug   </div>
+			<div class="commentbox-label" align="left">2008/07/31 15:34   </div>
+		</div>
+		<div class="commentbox-content">
+			很好很强大
+			<div class="quote" style="display: none;" id="replied_com_10">
+				<div class="quote-title"></div>
+				<div class="quote-content"></div>
+			</div>
+		</div>
+		<div id="com_10" style="display: none;">
+		</div>
+	</div></div>	<div class="comment-pages">
+	<span class="pagebar-mainbody"> 分页： 1/1  <a href="http://www.code-life.com/read.php?entryid=61&amp;page=1&amp;part=1"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/doubleleft.gif" alt="第一页" title="第一页" border="0"></a> <span class="pagebar-selections"> <span class="pagelink-current">1</span> </span> <a href="http://www.code-life.com/read.php?entryid=61&amp;page=1&amp;part=1"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/doubleright.gif" alt="最后页" title="最后页" border="0"></a> </span>
+	</div>
+</div>
+	<a name="reply"></a>
+	<div id="commentForm">
+		<form name="visitorinput" id="visitorinput" method="post" action="javascript: ajax_submit('addreply');">
+		<table class="formbox-comment" align="center" border="0" cellpadding="4" cellspacing="1" width="93%">
+			<tbody><tr>
+				<td colspan="2" class="formbox-comment-title">发表评论</td>
+			</tr>
+			<tr>
+				<td class="formbox-comment-rowheader" width="140">
+					<div class="panel-smilies">
+						<div class="panel-smilies-title">表情</div>
+							<div class="panel-smilies-content">
+								<a href="javascript:%20insertemot('anger');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/anger.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('bad');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/bad.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('cool');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/cool.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('cry');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/cry.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('dog');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/coffee.gif" alt="emot" border="0"></a><br><a href="javascript:%20insertemot('envy');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/envy.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('fear');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/fear.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('grin');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/grin.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('kill');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/kill.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('love');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/love.gif" alt="emot" border="0"></a><br><a href="javascript:%20insertemot('pig');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/ok.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('puke');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/puke.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('question');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/question.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('shock');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/shock.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('shuai');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/shuai.gif" alt="emot" border="0"></a><br><a href="javascript:%20insertemot('shy');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/shy.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('sleepy');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/sleepy.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('smile');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/smile.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('smoke');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/hamarneh.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('stupid');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/stupid.gif" alt="emot" border="0"></a><br><a href="javascript:%20insertemot('sweat');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/sweat.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('thumbdown');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/thumbdown.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('unhappy');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/unhappy.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('uplook');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/uplook.gif" alt="emot" border="0"></a><a href="javascript:%20insertemot('zan');"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/zan_002.gif" alt="emot" border="0"></a><br>
+							</div>
+						</div>
+						<div style="text-align: left;">
+							<input name="stat_html" id="stat_html" value="1" disabled="disabled" type="checkbox"> 打开HTML<br>
+							<input name="stat_ubb" id="stat_ubb" value="1" checked="checked" type="checkbox"> 打开UBB<br>
+							<input name="stat_emot" id="stat_emot" value="1" checked="checked" type="checkbox"> 打开表情<br>
+							<input name="stat_property" id="stat_property" value="1" type="checkbox"> 隐藏
+						</div>
+				</td>
+				<td class="formbox-comment-content" valign="top">
+					<div style="padding-bottom: 5px;">
+					
+					昵称 <input name="v_replier" id="v_replier" size="12" class="text" value="" type="text">&nbsp;
+					 密码 <input name="v_password" id="v_password" size="12" class="text" value="" type="password">&nbsp; 游客无需密码 
+					<br>
+					网址 <input name="v_repurl" id="v_repurl" size="12" class="text" value="" type="text">&nbsp;
+					电邮 <input name="v_repemail" id="v_repemail" size="12" class="text" value="" type="text">&nbsp; <a href="http://www.code-life.com/login.php?job=register" title="注册">[注册]</a>
+					</div>
+					<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/ubbeditor_tiny.js"></script><div style="margin: 4px 0px;"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/bar.gif" alt=""> &nbsp;<a href="javascript:%20bold();"><img title="粗体" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/bold.gif" alt="" border="0"></a> &nbsp;<a href="javascript:%20italicize();"><img title="斜体" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/italic.gif" alt="" border="0"></a> &nbsp;<a href="javascript:%20underline();"><img title="下划线" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/underline.gif" alt="" border="0"></a> &nbsp;<img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/bar.gif" alt=""> &nbsp;<a href="javascript:%20image();"><img title="插入图片" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/insertimage.gif" alt="" border="0"></a> &nbsp;<a href="javascript:%20hyperlink();"><img title="插入超链接" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/url.gif" alt="" border="0"></a> &nbsp;<a href="javascript:%20email();"><img title="插入邮件地址" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/email.gif" alt="" border="0"></a> &nbsp;<a href="javascript:%20quoteme();"><img title="插入引用文字" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/quote.gif" alt="" border="0"></a></div>
+					<textarea name="v_content" id="v_content" cols="50" rows="10" onkeydown="ctrlenterkey(event);"></textarea> <br>
+					 验证码 <img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/securitycode.png" alt="" title="请输入验证码"> <input name="v_security" id="v_security" size="4" maxlength="4" class="text" type="text"> 不区分大小写 
+					<div style="padding-top: 10px;">
+					<input name="v_id" id="v_id" value="61" type="hidden"><input name="v_reppsw" id="v_reppsw" value="" type="hidden">
+						<input name="btnSubmit" id="btnSubmit" value="提交" class="button" onclick="ajax_submit('addreply'); return false;" type="button">&nbsp;
+						<input name="reset" id="reset" value="重置" class="button" type="reset">
+					</div>
+				</td>
+			</tr>
+		</tbody></table>
+		</form>
+	</div>
+					<div class="article-bottom" style="display: none;">
+						<div class="pages" align="center">
+							
+						</div>
+					</div>
+				</div>		
+			</div>
+		<div style="display: block;" id="sidebar" class="sidebar">
+			<div id="innerSidebar">
+				<div id="panelCategory" class="panel">
+<h5 style="cursor: pointer;" onclick='showhidediv("sideblock_category");'>分类</h5>
+<div class="panel-content" id="sideblock_category" style="display: block;">
+<ul><li><a href="http://www.code-life.com/index.php?go=category_1" title="个人日记">个人日记</a> [17] <a href="http://www.code-life.com/feed.php?go=category_1"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li><a href="http://www.code-life.com/index.php?go=category_2" title="大千世界">大千世界</a> [22] <a href="http://www.code-life.com/feed.php?go=category_2"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li><a href="http://www.code-life.com/index.php?go=category_3" title="情感美文">情感美文</a> [6] <a href="http://www.code-life.com/feed.php?go=category_3"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li><a href="http://www.code-life.com/index.php?go=category_4" title="技术空间">技术空间</a> [54] <a href="http://www.code-life.com/feed.php?go=category_4"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li class="indent"><a href="http://www.code-life.com/index.php?go=category_8" title="网页设计">网页设计</a> [3] <a href="http://www.code-life.com/feed.php?go=category_8"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li class="indent"><a href="http://www.code-life.com/index.php?go=category_12" title="网站开发">网站开发</a> [36] <a href="http://www.code-life.com/feed.php?go=category_12"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li class="indent"><a href="http://www.code-life.com/index.php?go=category_13" title="Linux">Linux</a> [6] <a href="http://www.code-life.com/feed.php?go=category_13"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li><li class="indent"><a href="http://www.code-life.com/index.php?go=category_14" title="雕虫小技">雕虫小技</a> [9] <a href="http://www.code-life.com/feed.php?go=category_14"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/rss.png" alt="RSS" title="追踪这个分类的RSS" border="0"></a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_calendar");'>日历</h5>
+<div class="panel-content" id="sidebar_calendar" style="display: block;">
+<table id="calendar" cellspacing="1" width="100%">
+<tbody><tr><td colspan="7" class="calendar-top">
+<a href="http://www.code-life.com/index.php?go=archive&amp;cm=9&amp;cy=2008" rel="noindex,nofollow">&lt;</a>
+<a href="http://www.code-life.com/archive.php" rel="noindex,nofollow"><span class="calendar-year">2009</span></a>
+<a href="http://www.code-life.com/index.php?go=archive&amp;cm=9&amp;cy=2010" rel="noindex,nofollow">&gt;</a>
+	&nbsp;&nbsp;
+<a href="http://www.code-life.com/index.php?go=archive&amp;cm=8&amp;cy=2009" rel="noindex,nofollow">&lt;</a>
+<a href="http://www.code-life.com/index.php?go=archive&amp;cm=9&amp;cy=2009" rel="noindex,nofollow"><span class="calendar-month">9</span></a>
+<a href="http://www.code-life.com/index.php?go=archive&amp;cm=10&amp;cy=2009" rel="noindex,nofollow">&gt;</a>
+</td></tr>
+<tr class="calendar-weekdays">
+	<td class="calendar-weekday-cell">日</td>
+	<td class="calendar-weekday-cell">一</td>
+	<td class="calendar-weekday-cell">二</td>
+	<td class="calendar-weekday-cell">三</td>
+	<td class="calendar-weekday-cell">四</td>
+	<td class="calendar-weekday-cell">五</td>
+	<td class="calendar-weekday-cell">六</td>
+</tr>
+<tr class="calendar-weekdays"><td class="calendar-sunday"></td><td class="calendar-day"></td><td id="cal1" class="calendar-day"><a href="http://www.code-life.com/index.php?go=showday_2009-9-1" rel="noindex,nofollow">1</a></td><td id="cal2" class="calendar-day">2</td><td id="cal3" class="calendar-day">3</td><td id="cal4" class="calendar-day">4</td><td id="cal5" class="calendar-saturday">5</td></tr><tr class="calendar-weekdays"><td id="cal6" class="calendar-sunday">6</td><td id="cal7" class="calendar-day">7</td><td id="cal8" class="calendar-day">8</td><td id="cal9" class="calendar-day">9</td><td id="cal10" class="calendar-day">10</td><td id="cal11" class="calendar-day">11</td><td id="cal12" class="calendar-saturday">12</td></tr><tr class="calendar-weekdays"><td id="cal13" class="calendar-sunday">13</td><td id="cal14" class="calendar-day">14</td><td id="cal15" class="calendar-day">15</td><td id="cal16" class="calendar-day">16</td><td id="cal17" class="calendar-day">17</td><td id="cal18" class="calendar-day">18</td><td id="cal19" class="calendar-saturday">19</td></tr><tr class="calendar-weekdays"><td id="cal20" class="calendar-sunday">20</td><td id="cal21" class="calendar-day">21</td><td id="cal22" class="calendar-day">22</td><td id="cal23" class="calendar-day">23</td><td id="cal24" class="calendar-day">24</td><td id="cal25" class="calendar-day">25</td><td id="cal26" class="calendar-saturday">26</td></tr><tr class="calendar-weekdays"><td id="cal27" class="calendar-today">27</td><td id="cal28" class="calendar-day">28</td><td id="cal29" class="calendar-day">29</td><td id="cal30" class="calendar-day">30</td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-saturday"></td></tr>
+</tbody></table>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_statistics");'>统计</h5>
+<div class="panel-content" id="sidebar_statistics" style="display: block;">
+访问次数 118210<br>今日访问 166<br>日志数量 98<br><a href="http://www.code-life.com/view.php?go=comment">评论数量 38</a><br><a href="http://www.code-life.com/view.php?go=tb">引用数量 0</a><br><a href="http://www.code-life.com/guestbook.php">留言数量 2</a><br>在线人数 20<br>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_search");'>搜索</h5>
+<div class="panel-content" id="sidebar_search" style="display: block;">
+	<form method="post" action="visit.php">
+	<input name="job" value="search" type="hidden">
+	<input name="keyword" class="search-field" type="text">
+	<select name="searchmethod"><option value="1">日志标题</option><option value="2">日志全文</option><option value="3">评论引用</option><option value="4">所有留言</option><option value="5">Tags</option></select>
+	<input value="搜索" class="button" type="submit">
+	</form>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_entries");'>最新日志</h5>
+<div class="panel-content" id="sidebar_entries" style="display: block;">
+<ul><li class="rowcouple"><a href="http://www.code-life.com/read.php?104" title="永远做你的红颜知己好吗？">永远做你的红颜知己好吗？</a></li><li class="rowodd"><a href="http://www.code-life.com/read.php?103" title="[原]MySQL忘记密码的解决办法">[原]MySQL忘记密码...</a></li><li class="rowcouple"><a href="http://www.code-life.com/read.php?102" title="[转]最不能忘记迈克尔·杰克逊的10件大事">[转]最不能忘记迈克尔·...</a></li><li class="rowodd"><a href="http://www.code-life.com/read.php?101" title="[转]CSS网页布局编码标准及最佳实践">[转]CSS网页布局编码...</a></li><li class="rowcouple"><a href="http://www.code-life.com/read.php?100" title="Apache、MySQL及Subversion Windows服务安装">Apache、MySQL...</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_replies");'>最新评论</h5>
+<div class="panel-content" id="sidebar_replies" style="display: block;">
+<ul><li class="rowcouple"><a href="http://www.code-life.com/read.php?61#blogcomment51" title="[笨笨] - [原]Windows下FFmpeg下载和Linux下FFmpeg的编译配置">zan这才是牛人</a></li><li class="rowodd"><a href="http://www.code-life.com/read.php?61#blogcomment49" title="[bobo] - [原]Windows下FFmpeg下载和Linux下FFmpeg的编译配置">很有帮助</a></li><li class="rowcouple"><a href="http://www.code-life.com/read.php?60#blogcomment43" title="[hfcmx] - [原]Linux下ImageMagick和MagicWand For PHP的安装">不错,学习了.</a></li><li class="rowodd"><a href="http://www.code-life.com/read.php?73#blogcomment37" title="[GUEST] - [原]Linux下PHP支持MSSQL(SQL Server)">我编译mssql模块这种...</a></li><li class="rowcouple"><a href="http://www.code-life.com/read.php?0#blogcomment36" title="[飞扬草] - 我回来啦！">dog</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_link");'>链接</h5>
+<div class="panel-content" id="sidebar_link" style="display: block;">
+<ul><li><strong>朋友站点</strong></li><li class="indent"><a href="http://www.51rank.net.cn/blog/" target="_blank" title="Kenneth Says - 人生应该如蜡烛一样，从顶燃到底，一直都是光明的">Kenneth Says</a></li><li class="indent"><a href="http://shop36281407.taobao.com/" target="_blank" title="海之恋鲜花网 - 专业的鲜花速递商全国配送，为您传递爱情亲情与友情">海之恋鲜花网</a></li><li class="indent"><a href="http://www.another-tale.com/" target="_blank" title="Another Tale - Yoshin的个人创作站~"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/logo80.gif" alt="Another Tale" border="0"></a></li><li class="indent"><a href="http://blog.sky1314.cn/" target="_blank" title="こ妖娮祸眾づ - こ妖娮祸眾づ"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/logos.htm" alt="こ妖娮祸眾づ" border="0"></a></li><li><strong>友情链接</strong></li><li class="indent"><a href="http://www.ahql.org/" target="_blank" title="安徽省青年联合会 - 共青团安徽省委属安徽省青年联合会网站">安徽省青年联合会</a></li><li class="indent"><a href="http://www.chunhui.net/" target="_blank" title="春晖艺术幼儿园 - 芜湖春晖艺术幼儿园网站">春晖艺术幼儿园</a></li><li class="indent"><a href="http://www.52superlover.cn/" target="_blank" title="时尚包包网 - 时尚包包网">时尚包包网</a></li><li class="indent"><a href="http://www.skymobile.com.cn/" target="_blank" title="龙翔通讯 - 龙翔通讯">龙翔通讯</a></li><li class="indent"><a href="http://www.bee99.com/" target="_blank" title="天山蜂蜜专卖网 - 济康天山蜂蜜专卖">天山蜂蜜专卖网</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_archive");'>归档</h5>
+<div class="panel-content" id="sidebar_archive" style="display: block;">
+<ul><li><a href="http://www.code-life.com/index.php?go=archive&amp;cm=9&amp;cy=2009" rel="noindex,nofollow">2009/09</a></li>
+<li><a href="http://www.code-life.com/index.php?go=archive&amp;cm=8&amp;cy=2009" rel="noindex,nofollow">2009/08</a></li>
+<li><a href="http://www.code-life.com/index.php?go=archive&amp;cm=7&amp;cy=2009" rel="noindex,nofollow">2009/07</a></li>
+<li><a href="http://www.code-life.com/index.php?go=archive&amp;cm=6&amp;cy=2009" rel="noindex,nofollow">2009/06</a></li>
+<li><a href="http://www.code-life.com/index.php?go=archive&amp;cm=5&amp;cy=2009" rel="noindex,nofollow">2009/05</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_misc");'>其他</h5>
+<div class="panel-content" id="sidebar_misc" style="display: block;">
+<a href="http://www.code-life.com/login.php">登入</a><br><a href="http://www.code-life.com/login.php?job=register">注册</a><br><a href="http://www.code-life.com/login.php?job=applylink">申请链接</a><br>RSS： <a href="http://www.code-life.com/feed.php">日志</a> | <a href="http://www.code-life.com/feed.php?go=comment">评论</a><br>编码：UTF-8<br><a href="http://validator.w3.org/check?uri=referer" target="_blank">XHTML 1.0</a>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_weather");'>天气预报</h5>
+<div class="panel-content" id="sidebar_weather" style="display: block;">
+<iframe src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/weather.htm" marginwidth="0" marginheight="0" frameborder="0" height="54" scrolling="no" width="165"></iframe>
+</div>
+</div>
+			</div>
+		</div>
+	</div>
+		<div id="footer">
+			<div id="innerFooter">
+			<div id="innerFooter-info"><a href="http://www.jjying.cn/" target="_blank"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/info.gif" title="Click to visitor the theme Creator's website" border="0"></a>
+			</div>
+				 Powered by <a href="http://www.bo-blog.com/" target="_blank">Bo-Blog 2.1.0</a><span id="footer-security"><a href="http://www.cnbct.org/" target="_blank" title="Code detection by Bug.Center.Team"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/detect.gif" alt="Code detection by Bug.Center.Team" border="0"></a></span><span id="nav_http_3A_2F_2Fwww.miibeian.gov.cn"><a href="http://www.miibeian.gov.cn/" target="_blank"><span id="navitem_http_3A_2F_2Fwww.miibeian.gov.cn"><br>皖ICP备07004871号</span></a></span>
+				<script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/stat.htm" language="javascript" type="text/javascript" charset="gb2312"></script><a href="http://www.cnzz.com/stat/website.php?web_id=564636" target="_blank" title="站长统计"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/pic.gif" border="0" hspace="0" vspace="0"></a><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85_files/stat_002.htm" border="0" height="0" width="0">
+			<div id="processtime"><span class="runtimedisplay">Run in 667 ms, 8 Queries, Gzip enabled.</span></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+loadSidebar();
+</script>
+<script type="text/javascript">
+//<![CDATA[
+if (document.getElementById('processtime')) document.getElementById('processtime').innerHTML="<span class='runtimedisplay'>Run in 667 ms, 8 Queries, Gzip enabled.</span>";
+//]]>
+</script></body></html>

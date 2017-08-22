@@ -1,0 +1,15 @@
+Install a package
+$rpm 每ivh packagename
+upgrade a package
+$rpm 每Uvh packagename
+
+create a tar file
+$tar 每cvf myfiles.tar mydir/
+(add z if you are dealing with or creating .tgz (.tar.gz) files)
+
+standard install from source
+$tar 每xvzf Apackage.tar.gz
+$cd Apackage
+$./configure
+$make
+$make install

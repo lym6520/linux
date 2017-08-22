@@ -1,0 +1,143 @@
+查看进程 端口:
+netstat -plten | grep java 
+  
+
+查看java进程: 
+ps -ef|grep java
+
+
+删除进程：
+kill -9 进程id
+
+
+直接删除：
+rm -rf 目录或文件名
+
+
+使配置文件立即生效：
+source profile
+
+查看当前路径：
+pwd
+
+
+后台运行：
+nohup ./startup.sh &
+setsid ./startup.sh &
+
+不输出nohup.out日志命令写法
+nohup ./startup.sh >/dev/null 2>&1 &
+
+
+
+查看系统版本信息：
+使用 uname -a 查看操作系统的版
+ lsb_release -a
+ cat /proc/version
+
+用户环境变量文件：
+vi /用户目录/.bashrc
+
+
+
+SSH乱码问题：
+export LANG=zh_CN.GBK
+export NLS_LANG="AMERICAN_AMERICA.ZHS16GBK" 
+
+
+查看分区信息:
+df -aBG
+
+
+查看内存使用情况(单位：兆)：
+free -ml
+
+
+linux下 如何看每个CPU的使用率：
+#top -d 1
+之后按下数字1. 则显示多个CPU（top后按1也一样）
+cpu状态
+    6.7% us — 用户空间占用CPU的百分比。
+    0.4% sy — 内核空间占用CPU的百分比。
+    0.0% ni — 改变过优先级的进程占用CPU的百分比
+    92.9% id — 空闲CPU百分比
+    0.0% wa — IO等待占用CPU的百分比
+    0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比
+    0.0% si — 软中断（Software Interrupts）占用CPU的百分比
+
+
+查看端口信息
+netstat -an|grep 1521
+netstat -lnp|grep 80
+
+监控java线程数：
+ps -eLf | grep java | wc -l
+
+监控网络客户连接数：
+netstat -n | grep tcp | grep 侦听端口 | wc -l
+ 
+
+查看文件系统大小：
+df -h
+
+查看目录的大小
+du -h --max-depth=0 dir_ptah
+
+
+建用户：
+adduser phpq                             //新建phpq用户
+passwd phpq                               //给phpq用户设置密码
+
+ mkdir servers && tar -zxvf /tmp/apache-tomcat-8-etm.tar.gz -C ./servers/
+
+分配用户多个组
+usermod -G 组名1[，组名2，……] 用户名
+如：添加user用户group1、group2组权限
+usermod -G group1,group2 user
+
+修改当前dir目录的所有者权限：
+chown user:group -R dir
+
+root用户下以user用户的身份来执行命令
+su - user -c /home/redis/redis/startup.sh
+
+
+
+ssh 远程免登录设置：
+http://jingyan.baidu.com/article/2fb0ba4043124a00f2ec5f0f.html
+在source机器上生成id_dsa.pub文件
+$ ssh-keygen -t dsa -P '' -f .ssh/id_dsa
+将id_dsa.pub文件拷贝到target机器上，并写入到用户目录下的授权key中
+$ cat id_dsa.pub >> .ssh/authorized_keys
+$ chmod 600 .ssh/authorized_keys
+写入完毕后可以在source机器上登录target机器（无需输入密码）
+
+远程关闭、启动tomcat
+“shutdown_all.sh”:
+#!/bin/bash
+ssh -l web 192.168.1.57 "cd /home/web/server/apache-tomcat/bin && ./shutdown-force.sh"
+
+“startup_all.sh”:
+#!/bin/bash
+ssh -l web 192.168.1.57 "cd /home/web/server/apache-tomcat/bin && ./startup.sh"
+
+
+
+linux 禁止 ping 设置（0表示允许 1表示禁止）
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
+
+
+rpm 卸载命令（如卸载yum）
+rpm -aq|grep yum|xargs rpm -e --nodeps
+
+
+安装ssh client：
+yum -y install openssh-clients
+
+安装sftp：
+yum install openssh-clients
+
+
+
+　　
+

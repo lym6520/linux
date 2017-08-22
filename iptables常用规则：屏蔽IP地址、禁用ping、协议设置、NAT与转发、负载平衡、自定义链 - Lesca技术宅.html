@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://lesca.me/archives/iptables-examples.html -->
+<html class=" js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅</title> 
+<meta name="description" content="本文介绍25个常用的iptables用法。如果你对iptables还不甚了解，可以参考上一篇iptables详细教程：基础、架构、清空规则、追加规则、应用实例，看完这篇文章，你就能明白iptables的用法和本文提到的基本术语。">
+<meta name="keywords" content="DNAT,ICMP,iptables,MASQUERADE,NAT,ping,SNAT,屏蔽,自定义链,防火墙">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/style.css" type="text/css" media="screen">
+<link rel="shortcut icon" href="http://lesca.me/wp-content/themes/tangstyle/images/favicon.ico" type="image/x-icon">
+<script src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/jquery.min.js"></script>
+<script src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/theme.js"></script>
+<link rel="alternate" type="application/rss+xml" title="Lesca技术宅 RSS Feed" href="http://lesca.me/feed">
+<link rel="pingback" href="http://lesca.me/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="Lesca技术宅 » iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 Comments Feed" href="http://lesca.me/archives/iptables-examples.html/feed">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/lesca.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="https://api.w.org/" href="http://lesca.me/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://lesca.me/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://lesca.me/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="iptables详细教程：基础、架构、清空规则、追加规则、应用实例" href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html">
+<link rel="next" title="通过Yahoo pipes转全文RSS" href="http://lesca.me/archives/full-rss-feed-through-yahoo-pipes.html">
+
+<link rel="canonical" href="http://lesca.me/archives/iptables-examples.html">
+<link rel="shortlink" href="http://lesca.me/?p=964">
+<link rel="alternate" type="application/json+oembed" href="http://lesca.me/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-examples.html">
+<link rel="alternate" type="text/xml+oembed" href="http://lesca.me/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flesca.me%2Farchives%2Fiptables-examples.html&amp;format=xml">
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		</head>
+
+<body>
+<div id="background_wrap"></div>
+<div id="wrap">
+	
+<div id="header">
+    <div class="logo"><a href="http://lesca.me/">Lesca技术宅</a><p>Lesca，也就是我，求知若渴的技术宅，期待与您分享心得与收获，与您交换见解，讨论技术、科学、IT、哲学。</p></div>
+    <div id="navigation">
+    <ul id="nav"><li id="menu-item-356" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-356"><a href="http://lesca.me/topics/tutorial">教程 Tutorials</a></li>
+<li id="menu-item-1055" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1055"><a href="http://lesca.me/topics/projects">项目 Projects</a>
+<ul class="sub-menu" style="display: none;">
+	<li id="menu-item-992" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-992"><a href="http://lesca.me/topics/projects/ovm">VPN</a></li>
+	<li id="menu-item-580" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-580"><a href="http://lesca.me/topics/projects/websh">Websh</a></li>
+	<li id="menu-item-23" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23"><a href="http://man.lesca.me/">Docs</a></li>
+</ul>
+</li>
+<li id="menu-item-1078" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-1078"><a title="Operating System" href="http://lesca.me/topics/os">操作系统OS</a>
+<ul class="sub-menu">
+	<li id="menu-item-995" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-995"><a href="http://lesca.me/topics/os/ubuntu-2">Ubuntu</a>
+	<ul class="sub-menu">
+		<li id="menu-item-998" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-998"><a href="http://lesca.me/topics/os/kernel">Kernel</a></li>
+		<li id="menu-item-997" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-997"><a href="http://lesca.me/topics/os/grub2">GRUB2</a></li>
+		<li id="menu-item-996" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-996"><a href="http://lesca.me/topics/os/gdb">GDB</a></li>
+	</ul>
+</li>
+	<li id="menu-item-1010" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1010"><a href="http://lesca.me/topics/os/windows">Windows</a></li>
+</ul>
+</li>
+<li id="menu-item-1079" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-1079"><a title="Network" href="http://lesca.me/topics/network">网络Network</a>
+<ul class="sub-menu" style="display: none;">
+	<li id="menu-item-1301" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1301"><a href="http://lesca.me/topics/network/ipv6">IPv6</a></li>
+	<li id="menu-item-1080" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1080"><a href="http://lesca.me/topics/network/apache">Apache</a></li>
+	<li id="menu-item-1083" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1083"><a href="http://lesca.me/topics/network/php">PHP</a></li>
+	<li id="menu-item-1081" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1081"><a href="http://lesca.me/topics/network/http">HTTP</a></li>
+	<li id="menu-item-1085" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1085"><a href="http://lesca.me/topics/network/web">Web</a></li>
+	<li id="menu-item-1084" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1084"><a href="http://lesca.me/topics/network/socket">SOCKET</a></li>
+	<li id="menu-item-1082" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1082"><a href="http://lesca.me/topics/network/iptables">iptables</a></li>
+</ul>
+</li>
+<li id="menu-item-25" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25"><a href="http://download.lesca.me/">下载 Downloads</a></li>
+<li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24"><a href="http://lesca.me/about">留言 Guestbook</a></li>
+<li id="menu-item-1019" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1019"><a title="搜索本站" href="http://lesca.me/search">搜索本站 Search</a></li>
+</ul><select class="selectnav" id="selectnav1"><option value="">[选择频道]</option><option value="http://lesca.me/topics/tutorial">教程 Tutorials</option><option value="http://lesca.me/topics/projects">项目 Projects</option><option value="http://lesca.me/topics/projects/ovm">- VPN</option><option value="http://lesca.me/topics/projects/websh">- Websh</option><option value="http://man.lesca.me/">- Docs</option><option value="http://lesca.me/topics/os">操作系统OS</option><option value="http://lesca.me/topics/os/ubuntu-2">- Ubuntu</option><option value="http://lesca.me/topics/os/kernel">-- Kernel</option><option value="http://lesca.me/topics/os/grub2">-- GRUB2</option><option value="http://lesca.me/topics/os/gdb">-- GDB</option><option value="http://lesca.me/topics/os/windows">- Windows</option><option value="http://lesca.me/topics/network">网络Network</option><option value="http://lesca.me/topics/network/ipv6">- IPv6</option><option value="http://lesca.me/topics/network/apache">- Apache</option><option value="http://lesca.me/topics/network/php">- PHP</option><option value="http://lesca.me/topics/network/http">- HTTP</option><option value="http://lesca.me/topics/network/web">- Web</option><option value="http://lesca.me/topics/network/socket">- SOCKET</option><option value="http://lesca.me/topics/network/iptables">- iptables</option><option value="http://download.lesca.me/">下载 Downloads</option><option value="http://lesca.me/about">留言 Guestbook</option><option value="http://lesca.me/search">搜索本站 Search</option></select>    <ul class="my">
+        <li><a href="http://lesca.me/archives/iptables-examples.html#"><i class="iconfont">Ą</i>关注我</a>
+            <ul>
+                <li><a href="http://lesca.me/feed" rel="external nofollow" target="_blank"><i class="iconfont">ǣ</i>RSS订阅</a>
+                    <ul>
+                    <li><a href="http://lesca.me/feed" rel="external nofollow" target="_blank">RSS Feed</a></li>
+                    <li><a href="http://mail.qq.com/cgi-bin/feed?u=http://lesca.me/feed" rel="external nofollow" target="_blank">订阅到 QQ邮箱</a></li>
+                    <li><a href="http://reader.youdao.com/b.do?keyfrom=bookmarklet&amp;url=http://lesca.me/feed" rel="external nofollow" target="_blank">订阅到 有道阅读</a></li>
+                    <li><a href="http://xianguo.com/subscribe?url=http://lesca.me/feed" rel="external nofollow" target="_blank">订阅到 鲜果</a></li>
+                    <li><a href="http://www.zhuaxia.com/add_channel.php?sourceid=102&amp;url=http://lesca.me/feed" rel="external nofollow" target="_blank">订阅到 抓虾</a></li>
+                    <li><a href="http://www.google.com/ig/add?feedurl=http://lesca.me/feed" rel="external nofollow" target="_blank">订阅到 iGoogle</a></li>
+                    </ul>
+                </li>
+                				            </ul>
+        </li>
+    </ul>
+    </div>
+</div>
+<div id="content">
+
+<!--面包屑导航调用-->
+<div class="mbx-dh">
+<div id="crumbs"><a href="http://lesca.me/">首页</a> » <a href="http://lesca.me/topics/network">Network</a> » <a href="http://lesca.me/topics/network/iptables">iptables</a> » <span>iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链</span></div> 
+</div>
+<!--面包屑导航结束-->
+	<div id="main">
+				<div id="article">
+			<h1><a href="http://lesca.me/archives/iptables-examples.html" title="iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链">iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链</a></h1>
+			<div class="info">
+            	<span class="meat_span">作者: lesca</span>
+                <span class="meat_span">分类: <a href="http://lesca.me/topics/network/iptables" rel="category tag">iptables</a>, <a href="http://lesca.me/topics/network" rel="category tag">Network</a>, <a href="http://lesca.me/topics/tutorial" rel="category tag">Tutorials</a>, <a href="http://lesca.me/topics/os/ubuntu-2" rel="category tag">Ubuntu</a></span>
+                <span class="meat_span">发布时间: 2012-03-27 16:25</span>
+                <span class="meat_span"><i class="iconfont">ė</i>浏览 17,946 次</span>
+                <span class="meat_span"><i class="iconfont">6</i><a href="http://lesca.me/archives/iptables-examples.html#comments">6条评论</a></span>
+                            </div>
+			<div class="text">
+			<p>本文介绍25个常用的iptables用法。如果你对iptables还不甚了解，可以参考上一篇<a href="http://lesca.me/2012/03/23/iptables-tutorial-structures-configuratios-examples/">iptables详细教程：基础、架构、清空规则、追加规则、应用实例</a>，看完这篇文章，你就能明白iptables的用法和本文提到的基本术语。<br>
+<span id="more-964"></span></p>
+<h2>一、iptables：从这里开始</h2>
+<h3>删除现有规则</h3>
+<pre>iptables -F
+(OR)
+iptables --flush
+</pre>
+<h3>设置默认链策略</h3>
+<p>iptables的filter表中有三种链：INPUT, FORWARD和OUTPUT。默认的链策略是ACCEPT，你可以将它们设置成DROP。</p>
+<pre>iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+</pre>
+<p>你需要明白，这样做会屏蔽所有输入、输出网卡的数据包，除非你明确指定哪些数据包可以通过网卡。</p>
+<h3>屏蔽指定的IP地址</h3>
+<p>以下规则将屏蔽BLOCK_THIS_IP所指定的IP地址访问本地主机：</p>
+<pre>BLOCK_THIS_IP="x.x.x.x"
+iptables -A INPUT -i eth0 <strong>-s "$BLOCK_THIS_IP"</strong> -j DROP
+(或者仅屏蔽来自该IP的TCP数据包）
+iptables -A INPUT -i eth0 <strong>-p tcp</strong> -s "$BLOCK_THIS_IP" -j DROP
+</pre>
+<h3>允许来自外部的ping测试</h3>
+<pre>iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</pre>
+<h3>允许从本机ping外部主机</h3>
+<pre>iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</pre>
+<h3>允许环回(loopback)访问</h3>
+<pre>iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+</pre>
+<h2>二、iptables：协议与端口设定</h2>
+<h3>允许所有SSH连接请求</h3>
+<p>本规则允许所有来自外部的SSH连接请求，也就是说，只允许<strong>进入eth0接口，并且目的端口为22的数据包</strong></p>
+<pre>iptables <strong>-A INPUT -i eth0</strong> -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables <strong>-A OUTPUT -o eth0</strong> -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许从本地发起的SSH连接</h3>
+<p>本规则和上述规则有所不同，本规则意在允许本机发起SSH连接，上面的规则与此正好相反。</p>
+<pre>iptables <strong>-A OUTPUT -o eth0</strong> -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables <strong>-A INPUT -i eth0</strong> -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>仅允许来自指定网络的SSH连接请求</h3>
+<p>以下规则仅允许来自192.168.100.0/24的网络：</p>
+<pre>iptables -A INPUT -i eth0 -p tcp <strong>-s 192.168.100.0/24</strong> --dport 22 -m state --state <strong>NEW</strong>,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<p>上例中，你也可以使用<strong>-s 192.168.100.0/255.255.255.0</strong>作为网络地址。当然使用上面的CIDR地址更容易让人明白。</p>
+<h3>仅允许从本地发起到指定网络的SSH连接请求</h3>
+<p>以下规则仅允许从本地主机连接到<strong>192.168.100.0/24</strong>的网络：</p>
+<pre>iptables -A OUTPUT -o eth0 -p tcp <strong>-d 192.168.100.0/24</strong> --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许HTTP/HTTPS连接请求</h3>
+<pre># 1.允许HTTP连接：80端口
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+
+# 2.允许HTTPS连接：443端口
+iptables -A INPUT -i eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许从本地发起HTTPS连接</h3>
+<p>本规则可以允许用户从本地主机发起HTTPS连接，从而访问Internet。</p>
+<pre>iptables <strong>-A OUTPUT -o eth0</strong> -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables <strong>-A INPUT -i eth0</strong> -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<p>类似的，你可以设置允许HTTP协议（80端口）。</p>
+<h3>-m multiport：指定多个端口</h3>
+<p>通过指定<strong>-m multiport</strong>选项，可以在一条规则中同时允许SSH、HTTP、HTTPS连接：</p>
+<pre>iptables -A INPUT -i eth0 -p tcp <strong>-m multiport</strong> --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp <strong>-m multiport</strong> --sports 22,80,443 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许出站DNS连接</h3>
+<pre>iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
+iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
+</pre>
+<h3>允许NIS连接</h3>
+<p>如果你在使用NIS管理你的用户账户，你需要允许NIS连接。即使你已允许SSH连接，你仍需允许NIS相关的ypbind连接，否则用户将无法登陆。NIS端口是动态的，当ypbind启动的时候，它会自动分配端口。因此，首先我们需要获取端口号，本例中使用的端口是853和850：</p>
+<pre>rpcinfo -p | grep ypbind
+</pre>
+<p>然后，允许连接到111端口的请求数据包，以及ypbind使用到的端口：</p>
+<pre>iptables -A INPUT -p tcp --dport 111 -j ACCEPT
+iptables -A INPUT -p udp --dport 111 -j ACCEPT
+iptables -A INPUT -p tcp --dport 853 -j ACCEPT
+iptables -A INPUT -p udp --dport 853 -j ACCEPT
+iptables -A INPUT -p tcp --dport 850 -j ACCEPT
+iptables -A INPUT -p udp --dport 850 -j ACCEPT
+</pre>
+<p>以上做法在你重启系统后将失效，因为ypbind会重新指派端口。我们有两种解决方法：<br>
+1.为NIS使用静态IP地址<br>
+2.每次系统启动时调用脚本获得NIS相关端口，并根据上述iptables规则添加到filter表中去。</p>
+<h3>允许来自指定网络的rsync连接请求</h3>
+<p>你可能启用了rsync服务，但是又不想让rsync暴露在外，只希望能够从内部网络（192.168.101.0/24）访问即可：</p>
+<pre>iptables -A INPUT -i eth0 -p tcp -s 192.168.101.0/24 --dport 873 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 873 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许来自指定网络的MySQL连接请求</h3>
+<p>你可能启用了MySQL服务，但只希望DBA与相关开发人员能够从内部网络（192.168.100.0/24）直接登录数据库：</p>
+<pre>iptables -A INPUT -i eth0 -p tcp -s 192.168.100.0/24 --dport 3306 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 3306 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许Sendmail, Postfix邮件服务</h3>
+<p>邮件服务都使用了25端口，我们只需要允许来自25端口的连接请求即可。</p>
+<pre>iptables -A INPUT -i eth0 -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 25 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许IMAP与IMAPS</h3>
+<pre># IMAP：143
+iptables -A INPUT -i eth0 -p tcp --dport 143 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 143 -m state --state ESTABLISHED -j ACCEPT
+
+# IMAPS：993
+iptables -A INPUT -i eth0 -p tcp --dport 993 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 993 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>允许POP3与POP3S</h3>
+<pre># POP3：110
+iptables -A INPUT -i eth0 -p tcp --dport 110 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 110 -m state --state ESTABLISHED -j ACCEPT
+
+# POP3S：995
+iptables -A INPUT -i eth0 -p tcp --dport 995 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 995 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<h3>防止DoS攻击</h3>
+<pre>iptables -A INPUT -p tcp --dport 80 <strong>-m limit --limit 25/minute --limit-burst 100</strong> -j ACCEPT
+</pre>
+<ul>
+<li><strong>-m limit:</strong> 启用limit扩展</li>
+<li><strong>–limit 25/minute:</strong> 允许最多每分钟25个连接</li>
+<li><strong>–limit-burst 100:</strong> 当达到100个连接后，才启用上述25/minute限制</li>
+</ul>
+<h2>三、转发与NAT</h2>
+<h3>允许路由</h3>
+<p>如果本地主机有两块网卡，一块连接内网(eth0)，一块连接外网(eth1)，那么可以使用下面的规则将eth0的数据路由到eht1：</p>
+<pre>iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
+</pre>
+<h3>DNAT与端口转发</h3>
+<p>以下规则将会把来自422端口的流量转发到22端口。这意味着来自422端口的SSH连接请求与来自22端口的请求等效。</p>
+<pre># 1.启用DNAT转发
+iptables -t nat -A PREROUTING -p tcp -d 192.168.102.37 --dport 422 -j DNAT --to-destination 192.168.102.37:22
+
+# 2.允许连接到422端口的请求
+iptables -A INPUT -i eth0 -p tcp --dport 422 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 422 -m state --state ESTABLISHED -j ACCEPT
+</pre>
+<p>假设现在外网网关是xxx.xxx.xxx.xxx，那么如果我们希望把HTTP请求转发到内部的某一台计算机，应该怎么做呢？</p>
+<pre>iptables -t nat -A PREROUTING -p tcp -i eth0 -d xxx.xxx.xxx.xxx --dport 8888 -j DNAT --to 192.168.0.2:80
+iptables -A FORWARD -p tcp -i eth0 -d 192.168.0.2 --dport 80 -j ACCEPT
+</pre>
+<p>当该数据包到达xxx.xxx.xxx.xxx后，需要将该数据包转发给192.168.0.2的80端口，事实上NAT所做的是<strong>修改</strong>该数据包的目的地址和目的端口号。然后再将该数据包<strong>路由</strong>给对应的主机。<br>
+但是iptables会接受这样的需要路由的包么？这就由FORWARD链决定。我们通过第二条命令告诉iptables可以转发目的地址为192.168.0.2:80的数据包。再看一下上例中422端口转22端口，这是同一IP，因此不需要设置FORWARD链。</p>
+<h3>SNAT与MASQUERADE</h3>
+<p>如下命令表示把所有10.8.0.0网段的数据包SNAT成192.168.5.3的ip然后发出去：</p>
+<pre>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j snat <strong>--to-source 192.168.5.3</strong>
+</pre>
+<p>对于snat，不管是几个地址，必须明确的指定要snat的IP。假如我们的计算机使用ADSL拨号方式上网，那么外网IP是动态的，这时候我们可以考虑使用MASQUERADE</p>
+<pre>iptables -t nat -A POSTROUTING -s 10.8.0.0/255.255.255.0 -o eth0 -j MASQUERADE
+</pre>
+<h3>负载平衡</h3>
+<p>可以利用iptables的<strong>-m nth</strong>扩展，及其参数（–counter 0 –every 3 –packet x），进行DNAT路由设置（-A PREROUTING -j DNAT –to-destination），从而将负载平均分配给3台服务器：</p>
+<pre>iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 0 -j DNAT --to-destination 192.168.1.101:443
+iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 1 -j DNAT --to-destination 192.168.1.102:443
+iptables -A PREROUTING -i eth0 -p tcp --dport 443 -m state --state NEW -m nth --counter 0 --every 3 --packet 2 -j DNAT --to-destination 192.168.1.103:443
+</pre>
+<h2>自定义的链</h2>
+<h3>记录丢弃的数据包</h3>
+<pre># 1.新建名为LOGGING的链
+iptables <strong>-N LOGGING</strong>
+
+# 2.将所有来自INPUT链中的数据包跳转到LOGGING链中
+iptables -A INPUT -j LOGGING
+
+# 3.指定自定义的日志前缀"IPTables Packet Dropped: "
+iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables Packet Dropped: " --log-level 7
+
+# 4.丢弃这些数据包
+iptables -A LOGGING -j DROP
+</pre>
+<h2>References:</h2>
+<p>[1] <a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a><br>
+[2] <a href="http://lesca.me/2011/06/01/iptables-snat-dnat-masquerade%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/">iptables: SNAT, DNAT, MASQUERADE的联系与区别</a> </p>
+			<!--文章分页效果-->
+						<!--文章分页结束-->
+			</div>
+            <div class="text_add">
+                <div class="copy"><p style="color:#fe9800;">本文出自 Lesca技术宅，转载时请注明出处及相应链接。</p><p style="color:#777;font-size:12px;">本文永久链接: <a href="http://lesca.me/archives/iptables-examples.html" target="_blank">http://lesca.me/archives/iptables-examples.html</a></p></div>
+                <div class="share">
+								<!-- 百度分享按钮 
+				<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_t163" data-cmd="t163" title="分享到网易微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=86835285.js?cdnversion='+~(-new Date()/36e5)];</script>
+				<!-- 百度分享按钮结束 -->
+								</div>
+                </div>
+			<div class="meta"><i class="iconfont">0</i><a href="http://lesca.me/tags/dnat" rel="tag">DNAT</a>, <a href="http://lesca.me/tags/icmp" rel="tag">ICMP</a>, <a href="http://lesca.me/tags/iptables" rel="tag">iptables</a>, <a href="http://lesca.me/tags/masquerade" rel="tag">MASQUERADE</a>, <a href="http://lesca.me/tags/nat" rel="tag">NAT</a>, <a href="http://lesca.me/tags/ping" rel="tag">ping</a>, <a href="http://lesca.me/tags/snat" rel="tag">SNAT</a>, <a href="http://lesca.me/tags/%e5%b1%8f%e8%94%bd" rel="tag">屏蔽</a>, <a href="http://lesca.me/tags/%e8%87%aa%e5%ae%9a%e4%b9%89%e9%93%be" rel="tag">自定义链</a>, <a href="http://lesca.me/tags/%e9%98%b2%e7%81%ab%e5%a2%99" rel="tag">防火墙</a></div>
+		</div>
+
+		<!--cnzz tui-->
+				<!--cnzz tui-->
+
+		        <div class="post_link">
+			<div class="prev">« <a href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html" rel="prev">iptables详细教程：基础、架构、清空规则、追加规则、应用实例</a></div>
+			<div class="next"><a href="http://lesca.me/archives/full-rss-feed-through-yahoo-pipes.html" rel="next">通过Yahoo pipes转全文RSS</a> »</div>
+        </div>
+        
+        <div id="comments">			<h3>6 Comments</h3>
+
+		<ol class="comment_list">
+			    <li id="li-comment-924">
+    <div id="comment-924">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite>duck</cite>            <span class="time">2012-04-16 at 20:11</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=924#respond" onclick="return addComment.moveForm( &quot;comment-924&quot;, &quot;924&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to duck">回复</a></span>
+                        </div>
+            <p>请问下在这篇文章里面最后一点讲的SNAT与MASQUERADE的那个SNAT地址转换是不是要求那台linux主机必须有两张以上的网卡？也就是说局域网内的所有计算机都经过那台linux主机，至少要SNAT的主机要经过那台linux主机。请问这样说对不对？</p>
+                    </div>
+    </div>
+	<ol class="children">
+    <li id="li-comment-926">
+    <div id="comment-926">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite><a href="http://lesca.me/" rel="external nofollow" target="_blank">lesca</a></cite>            <span class="time">2012-04-17 at 10:00</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=926#respond" onclick="return addComment.moveForm( &quot;comment-926&quot;, &quot;926&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to lesca">回复</a></span>
+                        </div>
+            <p>不需要。MASQUERADE免去了指明–to-source的IP地址，比SNAT更灵活。可以参见<a href="http://lesca.me/blog/2011/06/01/iptables-snat-dnat-masquerade%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB/" rel="nofollow">这篇文章</a><br>
+SNAT的作用是将数据包的源地址（source IP)改写，如果是连接到Internet的局域网，那通常改成外网IP地址。</p>
+                    </div>
+    </div>
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+    <li id="li-comment-1643">
+    <div id="comment-1643">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite><a href="http://www.ansen.org/" rel="external nofollow" target="_blank">Ansen</a></cite>            <span class="time">2012-08-03 at 09:14</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=1643#respond" onclick="return addComment.moveForm( &quot;comment-1643&quot;, &quot;1643&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to Ansen">回复</a></span>
+                        </div>
+            <p>iptables还没有学到家啊<br>
+转载了，谢谢博主分享，</p>
+                    </div>
+    </div>
+	</li><!-- #comment-## -->
+    <li id="li-comment-2417">
+    <div id="comment-2417">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite>xiaoxin163</cite>            <span class="time">2012-09-26 at 01:35</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=2417#respond" onclick="return addComment.moveForm( &quot;comment-2417&quot;, &quot;2417&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to xiaoxin163">回复</a></span>
+                        </div>
+            <p>请教：<br>
+1、启用了防火墙，21端口没开单仍然还是可以访问，是哪条开启了类似端口？<br>
+2、按上面的设置mysql的允许访问ip，但是没用，前台ip还是可以连接上。</p>
+                    </div>
+    </div>
+	<ol class="children">
+    <li id="li-comment-2573">
+    <div id="comment-2573">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite><a href="http://lesca.me/" rel="external nofollow" target="_blank">lesca</a></cite>            <span class="time">2012-10-11 at 11:12</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=2573#respond" onclick="return addComment.moveForm( &quot;comment-2573&quot;, &quot;2573&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to lesca">回复</a></span>
+                        </div>
+            <p>1.请检查默认策略，如果默认策略是DROP，则只需要设定允许访问的端口，如<br>
+iptables -A INPUT -i eth0 -p tcp –dport 22 -m state –state NEW,ESTABLISHED -j ACCEPT<br>
+iptables -A OUTPUT -o eth0 -p tcp –sport 22 -m state –state ESTABLISHED -j ACCEPT<br>
+如果默认策略是ACCEPT，则需要表达出来，如<br>
+iptables -A INPUT -i eth0 -p tcp –dport 21 -j <strong>DROP</strong></p>
+<p>2.同样是检查默认策略。本文的“准备工作”中已经将默认策略改为DROP，而实际上不作修改应该是ACCEPT。</p>
+<p>另外还要注意规则顺序，含有“屏蔽”含义的规则可能与之前的规则产生冲突，如之前打开了所有TCP端口，该规则后面的规则不会执行。</p>
+<p>还有一个情况，尽管可能性比较小，但是还要提一下。你需要确定iptables的相关模块是否启用：<br>
+<code>cat /proc/net/ip_tables_names</code><br>
+可能的输出为：<br>
+mangle<br>
+filter<br>
+nat</p>
+                    </div>
+    </div>
+	</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+    <li id="li-comment-2561">
+    <div id="comment-2561">
+    	<div class="avatar"></div>
+    	<div class="comment">
+        	<div class="comment_meta">
+            <cite>skipper</cite>            <span class="time">2012-10-10 at 16:56</span>
+            <span class="reply"><a rel="nofollow" class="comment-reply-link" href="http://lesca.me/archives/iptables-examples.html?replytocom=2561#respond" onclick="return addComment.moveForm( &quot;comment-2561&quot;, &quot;2561&quot;, &quot;respond&quot;, &quot;964&quot; )" aria-label="Reply to skipper">回复</a></span>
+                        </div>
+            <p>找到一个好网站，收藏了</p>
+                    </div>
+    </div>
+	</li><!-- #comment-## -->
+		</ol>
+
+		        
+
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://lesca.me/archives/iptables-examples.html#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="http://lesca.me/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="964" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="742b641b66"></p><p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1476167005730"></form>
+					</div><!-- #respond -->
+		</div>
+	</div>
+	<div id="sidebar">
+    <div id="search">
+	    <form id="searchform" method="get" action="http://lesca.me/">
+		    <input type="text" value="" name="s" id="s" size="30" x-webkit-speech="">
+			<button type="submit" id="searchsubmit"><i class="iconfont">ő</i></button>
+		</form>
+    </div>
+    <div class="sidebar">
+	    <div class="widget">
+		<h3>分类目录</h3>
+		<ul>
+    			<li class="cat-item cat-item-515"><a href="http://lesca.me/topics/active-directory-2">Active Directory</a> (9)
+</li>
+	<li class="cat-item cat-item-319"><a href="http://lesca.me/topics/apple">Apple</a> (3)
+</li>
+	<li class="cat-item cat-item-103"><a href="http://lesca.me/topics/arm">ARM</a> (9)
+</li>
+	<li class="cat-item cat-item-441"><a href="http://lesca.me/topics/bitcoin">Bitcoin</a> (2)
+</li>
+	<li class="cat-item cat-item-416"><a href="http://lesca.me/topics/cad">CAD</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://lesca.me/topics/concept" title="概念">Concept</a> (33)
+</li>
+	<li class="cat-item cat-item-286"><a href="http://lesca.me/topics/life">life</a> (5)
+</li>
+	<li class="cat-item cat-item-264"><a href="http://lesca.me/topics/math">Math</a> (3)
+</li>
+	<li class="cat-item cat-item-221"><a href="http://lesca.me/topics/network">Network</a> (41)
+</li>
+	<li class="cat-item cat-item-403"><a href="http://lesca.me/topics/os" title="Operating System">OS</a> (104)
+</li>
+	<li class="cat-item cat-item-553"><a href="http://lesca.me/topics/powershell-2">Powershell</a> (4)
+</li>
+	<li class="cat-item cat-item-155"><a href="http://lesca.me/topics/projects">Projects</a> (8)
+</li>
+	<li class="cat-item cat-item-588"><a href="http://lesca.me/topics/security">Security</a> (1)
+</li>
+	<li class="cat-item cat-item-383"><a href="http://lesca.me/topics/sql">SQL</a> (4)
+</li>
+	<li class="cat-item cat-item-595"><a href="http://lesca.me/topics/troubleshoot">Troubleshoot</a> (1)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://lesca.me/topics/tutorial" title="教程">Tutorials</a> (140)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://lesca.me/topics/uncategorized">Uncategorized</a> (2)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://lesca.me/topics/wordpress">wordpress</a> (1)
+</li>
+		</ul>
+	</div>
+	<div id="related_post" class="widget">
+		<h3>iptables 下的最新文章</h3>
+		<ul><li><a href="http://lesca.me/archives/block-ssh-dictionary-attack-with-iptables.html">iptables：阻止SSH字典攻击</a></li><li><a href="http://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html">iptables详细教程：基础、架构、清空规则、追加规则、应用实例</a></li><li><a href="http://lesca.me/archives/iptables-nat-mangle-clear-rules.html">iptables应用：NAT、数据报处理、清空iptables规则</a></li><li><a href="http://lesca.me/archives/iptables-architecture-commands-extensions.html">iptables入门：iptables构架、基本命令及扩展（功能）简介</a></li><li><a href="http://lesca.me/archives/iptables-snat-dnat-masquerade.html">iptables: SNAT, DNAT, MASQUERADE的联系与区别</a></li></ul><ul><li><a href="http://lesca.me/archives/how-to-import-and-export-wireless-profile-on-windows-7.html">Windows7：如何在Win7上导入导出无线接入点配置</a></li><li><a href="http://lesca.me/archives/ddns-with-cloudflare-on-windows.html">在Windows上利用CloudFlare实现DDNS（动态域名解析）</a></li><li><a href="http://lesca.me/archives/how-to-build-ipv6-tunnel-on-windows.html">Windows: 如何配置IPv6隧道</a></li><li><a href="http://lesca.me/archives/enable-ipv6-for-nginx.html">Nginx: 开启Ipv6</a></li><li><a href="http://lesca.me/archives/ipv6-address-state.html">IPv6: 地址状态</a></li><li><a href="http://lesca.me/archives/ipv6-compatibility-address.html">IPv6: 兼容地址(Compatibility Address)</a></li><li><a href="http://lesca.me/archives/how-to-ping-ipv6-address.html">IPv6: 如何正确ping ipv6地址？</a></li><li><a href="http://lesca.me/archives/the-percent-sign-following-link-local-address.html">IPv6: 为什么Link-local地址后面要有百分号(%)</a></li><li><a href="http://lesca.me/archives/ipv4-vs-ipv6.html">IPv4 vs IPv6：对比与区别</a></li><li><a href="http://lesca.me/archives/ipv6-multicast-and-anycast-address.html">IPv6: Multicast地址（多播/组播）与Anycast地址（任播）</a></li></ul><ul><li><a href="http://lesca.me/archives/debian-or-raspbian-nfs-kernel-server-not-starting-portmapper-is-not-running.html">Debian or Raspbian: nfs-kernel-server not starting portmapper is not running</a></li><li><a href="http://lesca.me/archives/uid-functions-for-hp-servers.html">HP 服务器 UID 指示灯的作用</a></li><li><a href="http://lesca.me/archives/greenize-and-customize-google-chrome-v29.html">Google Chrome 绿化与个性化教程</a></li><li><a href="http://lesca.me/archives/test-peer-to-peer-connection-with-iperf3.html">Test Peer to Peer Connection Speed with iperf3</a></li><li><a href="http://lesca.me/archives/backup-and-restore-the-mysql-slave-server.html">备份与还原MySQL从服务器</a></li><li><a href="http://lesca.me/archives/mysql-master-slave-replication-on-centos-7.html">在CentOS 7上配置MySQL的主从复制模式 (Master-Slave Replication)</a></li><li><a href="http://lesca.me/archives/how-to-configure-your-proxy-client.html">How to configure your proxy client</a></li><li><a href="http://lesca.me/archives/speed-up-your-web-with-dnsmasq-and-squid.html">加速WEB访问：使用DNSmasq与squid代理并过滤广告</a></li><li><a href="http://lesca.me/archives/ios8-does-not-support-cisco-ap-local-radius-server.html">坑爹！iOS8不支持LEAP了！</a></li><li><a href="http://lesca.me/archives/vsphere-client-ports-redirect-with-portproxy-on-windows-7.html">vSphere Client: Ports redirect with portproxy on Windows 7 (端口转发)</a></li></ul><ul><li><a href="http://lesca.me/archives/enable-ipv6-for-nginx.html">Nginx: 开启Ipv6</a></li><li><a href="http://lesca.me/archives/set-timezone-with-command-line-on-ubuntu.html">Ubuntu: 以命令行方式修改时区</a></li><li><a href="http://lesca.me/archives/lspci-know-your-linux-server-hardware.html">lspci: 了解Linux服务器硬件信息</a></li><li><a href="http://lesca.me/archives/quickly-deploy-vpn-on-ubuntu-with-ovm.html">OVM：在Ubuntu上快速部署OpenVPN, L2TP, PPTP服务</a></li><li><a href="http://lesca.me/archives/compress-and-decompress-lzma-pacakge.html">Ubuntu: 压缩与解压缩LZMA文件</a></li><li><a href="http://lesca.me/archives/mine-bitcoin-on-cpu-with-cgminer.html">Ubuntu: 用cgminer挖掘CPU比特币(bitcoin)</a></li><li><a href="http://lesca.me/archives/mine-bitcoin-on-cpu-with-ufasoft-bitcoin-miner.html">Ubuntu: 用ufasoft bitcoinn miner挖掘CPU比特币(bitcoin)</a></li><li><a href="http://lesca.me/archives/ppasearch-search-the-ppa.html">ppasearch: search the ppa</a></li><li><a href="http://lesca.me/archives/how-to-rebuild-sources-list.html">apt-get: 恢复sources.list</a></li><li><a href="http://lesca.me/archives/compile-bash-shell-with-shc.html">使用SHC加密bash脚本程序</a></li></ul>	</div>
+    <div class="widget">
+		<h3>随机文章</h3>
+		<ul>
+    		    		<li><a href="http://lesca.me/archives/ipv6-basic.html" title="IPv6地址基础：语法与结构">IPv6地址基础：语法与结构</a></li>
+    		    		<li><a href="http://lesca.me/archives/htaccess-rewrite.html" title=".htaccess技巧: URL重写(Rewrite)与重定向(Redirect)">.htaccess技巧: URL重写(Rewrite)与重定向...</a></li>
+    		    		<li><a href="http://lesca.me/archives/detect-service-of-opened-port.html" title="被打开的端口谁（哪个进程）在监听？ （Detect service of opened port）">被打开的端口谁（哪个进程）在监听？ （De...</a></li>
+    		    		<li><a href="http://lesca.me/archives/install-mac-os-and-windows-on-macbook-with-multiple-partitions.html" title="MacBook: 安装Mac OS X与多分区Windows双系统完美教程">MacBook: 安装Mac OS X与多分区Windows双...</a></li>
+    		    		<li><a href="http://lesca.me/archives/mysql-master-slave-replication-on-centos-7.html" title="在CentOS 7上配置MySQL的主从复制模式 (Master-Slave Replication)">在CentOS 7上配置MySQL的主从复制模式 (Ma...</a></li>
+    		    		<li><a href="http://lesca.me/archives/window-server-2003-resource-kit-tools.html" title="Window Server 2003 Resource Kit Tools">Window Server 2003 Resource Kit Tools</a></li>
+    		    		<li><a href="http://lesca.me/archives/vsphere-client-ports-redirect-with-portproxy-on-windows-7.html" title="vSphere Client: Ports redirect with portproxy on Windows 7 (端口转发)">vSphere Client: Ports redirect with por...</a></li>
+    		    		<li><a href="http://lesca.me/archives/how-to-setup-pptp-on-ubuntu-server.html" title="如何在Unbuntu上快速部署PPTP服务">如何在Unbuntu上快速部署PPTP服务</a></li>
+    		    		<li><a href="http://lesca.me/archives/test-peer-to-peer-connection-with-iperf3.html" title="Test Peer to Peer Connection Speed with iperf3">Test Peer to Peer Connection Speed with...</a></li>
+    		    		<li><a href="http://lesca.me/archives/not-reentrant-code.html" title="危险：中断不可重入的函数">危险：中断不可重入的函数</a></li>
+    				</ul>
+	</div>
+    <div class="widget">
+		<h3>标签云</h3>
+        <div class="tagcloud"><a href="http://lesca.me/tags/htaccess" class="tag-link-379 tag-link-position-1" title="4 topics" style="color:#724b37;font-size: 11.948717948718pt;;">.htaccess</a>
+<a href="http://lesca.me/tags/ad" class="tag-link-507 tag-link-position-2" title="4 topics" style="color:#2dc223;font-size: 11.948717948718pt;;">ad</a>
+<a href="http://lesca.me/tags/apache" class="tag-link-606 tag-link-position-3" title="3 topics" style="color:#a63f6b;font-size: 10.153846153846pt;;">Apache</a>
+<a href="http://lesca.me/tags/apt-get" class="tag-link-112 tag-link-position-4" title="2 topics" style="color:#b76b1a;font-size: 8pt;;">apt-get</a>
+<a href="http://lesca.me/tags/brcm47xx" class="tag-link-577 tag-link-position-5" title="4 topics" style="color:#b11a95;font-size: 11.948717948718pt;;">brcm47xx</a>
+<a href="http://lesca.me/tags/chrome" class="tag-link-91 tag-link-position-6" title="5 topics" style="color:#e1cd0a;font-size: 13.384615384615pt;;">chrome</a>
+<a href="http://lesca.me/tags/dc" class="tag-link-316 tag-link-position-7" title="4 topics" style="color:#a86f5;font-size: 11.948717948718pt;;">DC</a>
+<a href="http://lesca.me/tags/disk" class="tag-link-150 tag-link-position-8" title="2 topics" style="color:#c6c202;font-size: 8pt;;">disk</a>
+<a href="http://lesca.me/tags/gdb" class="tag-link-614 tag-link-position-9" title="2 topics" style="color:#1f8778;font-size: 8pt;;">GDB</a>
+<a href="http://lesca.me/tags/goagent" class="tag-link-576 tag-link-position-10" title="4 topics" style="color:#d44bc4;font-size: 11.948717948718pt;;">goagent</a>
+<a href="http://lesca.me/tags/grub" class="tag-link-24 tag-link-position-11" title="4 topics" style="color:#cac48;font-size: 11.948717948718pt;;">GRUB</a>
+<a href="http://lesca.me/tags/grub2" class="tag-link-612 tag-link-position-12" title="4 topics" style="color:#7f88fa;font-size: 11.948717948718pt;;">GRUB2</a>
+<a href="http://lesca.me/tags/http%e5%8d%8f%e8%ae%ae" class="tag-link-84 tag-link-position-13" title="2 topics" style="color:#a09d9c;font-size: 8pt;;">HTTP协议</a>
+<a href="http://lesca.me/tags/http%e6%8a%a5%e6%96%87" class="tag-link-87 tag-link-position-14" title="2 topics" style="color:#dcb500;font-size: 8pt;;">HTTP报文</a>
+<a href="http://lesca.me/tags/iptables" class="tag-link-615 tag-link-position-15" title="7 topics" style="color:#e591f6;font-size: 15.538461538462pt;;">iptables</a>
+<a href="http://lesca.me/tags/ipv6-2" class="tag-link-472 tag-link-position-16" title="10 topics" style="color:#248a4e;font-size: 18.051282051282pt;;">ipv6</a>
+<a href="http://lesca.me/tags/kernel" class="tag-link-613 tag-link-position-17" title="2 topics" style="color:#eb42c4;font-size: 8pt;;">Kernel</a>
+<a href="http://lesca.me/tags/linux" class="tag-link-152 tag-link-position-18" title="5 topics" style="color:#119b0d;font-size: 13.384615384615pt;;">linux</a>
+<a href="http://lesca.me/tags/mini2440" class="tag-link-104 tag-link-position-19" title="2 topics" style="color:#c16fb4;font-size: 8pt;;">mini2440</a>
+<a href="http://lesca.me/tags/nat" class="tag-link-211 tag-link-position-20" title="4 topics" style="color:#b863eb;font-size: 11.948717948718pt;;">NAT</a>
+<a href="http://lesca.me/tags/nfs" class="tag-link-116 tag-link-position-21" title="3 topics" style="color:#cb9cf8;font-size: 10.153846153846pt;;">NFS</a>
+<a href="http://lesca.me/tags/openssl" class="tag-link-239 tag-link-position-22" title="3 topics" style="color:#cace37;font-size: 10.153846153846pt;;">openssl</a>
+<a href="http://lesca.me/tags/openvpn" class="tag-link-227 tag-link-position-23" title="4 topics" style="color:#2a61f9;font-size: 11.948717948718pt;;">openvpn</a>
+<a href="http://lesca.me/tags/openwrt" class="tag-link-616 tag-link-position-24" title="5 topics" style="color:#222140;font-size: 13.384615384615pt;;">OpenWRT</a>
+<a href="http://lesca.me/tags/php" class="tag-link-607 tag-link-position-25" title="3 topics" style="color:#aff201;font-size: 10.153846153846pt;;">PHP</a>
+<a href="http://lesca.me/tags/powershell" class="tag-link-540 tag-link-position-26" title="5 topics" style="color:#536002;font-size: 13.384615384615pt;;">powershell</a>
+<a href="http://lesca.me/tags/signal" class="tag-link-170 tag-link-position-27" title="2 topics" style="color:#29a6f8;font-size: 8pt;;">signal</a>
+<a href="http://lesca.me/tags/sql-server" class="tag-link-287 tag-link-position-28" title="3 topics" style="color:#db096f;font-size: 10.153846153846pt;;">Sql server</a>
+<a href="http://lesca.me/tags/ssh" class="tag-link-134 tag-link-position-29" title="6 topics" style="color:#94806d;font-size: 14.641025641026pt;;">SSH</a>
+<a href="http://lesca.me/tags/telnet" class="tag-link-76 tag-link-position-30" title="2 topics" style="color:#e55c1c;font-size: 8pt;;">Telnet</a>
+<a href="http://lesca.me/tags/telnet%e8%bf%9e%e6%8e%a5http" class="tag-link-77 tag-link-position-31" title="2 topics" style="color:#56e748;font-size: 8pt;;">telnet连接HTTP</a>
+<a href="http://lesca.me/tags/tutorial-2" class="tag-link-558 tag-link-position-32" title="3 topics" style="color:#6cba5;font-size: 10.153846153846pt;;">tutorial</a>
+<a href="http://lesca.me/tags/ubuntu" class="tag-link-6 tag-link-position-33" title="16 topics" style="color:#131e40;font-size: 21.461538461538pt;;">ubuntu</a>
+<a href="http://lesca.me/tags/wallproxy" class="tag-link-580 tag-link-position-34" title="3 topics" style="color:#fd26b4;font-size: 10.153846153846pt;;">wallproxy</a>
+<a href="http://lesca.me/tags/win7" class="tag-link-21 tag-link-position-35" title="7 topics" style="color:#be36bf;font-size: 15.538461538462pt;;">Win7</a>
+<a href="http://lesca.me/tags/windows-2" class="tag-link-23 tag-link-position-36" title="17 topics" style="color:#c438d6;font-size: 22pt;;">windows</a>
+<a href="http://lesca.me/tags/wordpress" class="tag-link-605 tag-link-position-37" title="3 topics" style="color:#def3be;font-size: 10.153846153846pt;;">wordpress</a>
+<a href="http://lesca.me/tags/xp" class="tag-link-422 tag-link-position-38" title="3 topics" style="color:#c8bdb4;font-size: 10.153846153846pt;;">xp</a>
+<a href="http://lesca.me/tags/%e4%b8%8d%e5%8f%af%e9%9d%a0%e6%80%a7" class="tag-link-172 tag-link-position-39" title="2 topics" style="color:#8afad9;font-size: 8pt;;">不可靠性</a>
+<a href="http://lesca.me/tags/%e5%8c%ba%e5%88%ab" class="tag-link-44 tag-link-position-40" title="3 topics" style="color:#fe7b37;font-size: 10.153846153846pt;;">区别</a>
+<a href="http://lesca.me/tags/%e5%8f%af%e9%9d%a0%e6%80%a7" class="tag-link-171 tag-link-position-41" title="2 topics" style="color:#9d0979;font-size: 8pt;;">可靠性</a>
+<a href="http://lesca.me/tags/%e5%ae%89%e8%a3%85" class="tag-link-32 tag-link-position-42" title="2 topics" style="color:#97a721;font-size: 8pt;;">安装</a>
+<a href="http://lesca.me/tags/%e5%ae%89%e8%a3%85%e5%86%85%e6%a0%b8" class="tag-link-128 tag-link-position-43" title="2 topics" style="color:#7e0432;font-size: 8pt;;">安装内核</a>
+<a href="http://lesca.me/tags/%e7%bc%96%e8%af%91%e5%86%85%e6%a0%b8" class="tag-link-127 tag-link-position-44" title="2 topics" style="color:#3da715;font-size: 8pt;;">编译内核</a>
+<a href="http://lesca.me/tags/%e9%85%8d%e7%bd%ae" class="tag-link-19 tag-link-position-45" title="2 topics" style="color:#745c22;font-size: 8pt;;">配置</a></div>
+	</div>
+        </div>
+</div></div>
+<div id="totop" class="totop" style="display: block;"><i class="iconfont">Ɣ</i>回顶部</div>
+<script type="text/javascript">
+	$(window).scroll(function () {
+        var dt = $(document).scrollTop();
+        var wt = $(window).height();
+        if (dt <= 0) {
+            $("#totop").hide();
+            return;
+        }
+        $("#totop").show();
+        if ($.browser.msie && $.browser.version == 6.0) {//IE6返回顶部
+            $("#totop").css("top", wt + dt - 110 + "px");
+        }
+    });
+    $("#totop").click(function () { $("html,body").animate({ scrollTop: 0 }, 200) });
+</script>
+</div>
+<div id="footer">
+	© 2015 Lesca技术宅.
+	Powered by WordPress.
+    Theme by <a href="http://tangjie.me/tangstyle" title="TangStyle" target="_blank">TangStyle</a>.
+	由<a href="http://www.xiaoz.me/" title="wordpress教程" target="_blank">小z博客</a>优化.
+        <p>
+                        本站采用创作共用版权协议, 要求署名、非商业用途和保持一致. <br>
+                        转载本站内容必须也遵循“署名-非商业用途-保持一致”的创作共用协议.<br>
+                        This site is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License</a>.<br>
+                        Contact me:<img src="https://lesca.me/wp-content/uploads/email.png" style="position:relative; bottom: -4px;">
+        </p>
+        </div>
+<script type="text/javascript" src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/form.js"></script>
+<script type="text/javascript" src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./iptables常用规则：屏蔽IP地址、禁用ping、协议设置、NAT与转发、负载平衡、自定义链 - Lesca技术宅_files/wp-embed.min.js"></script>
+
+
+</body></html>

@@ -1,0 +1,20 @@
+sudo mount加载FTP服务器命令
+
+方式一：包含密码
+#sudo mount //192.168.1.22/FTPServer /windows -o username=hdyuser,password=hedongyuan..2008 -t cifs
+
+
+方式二：密码单独输入
+
+#sudo mount //192.168.1.22/FTPServer /windows -o username=hdyuser -t cifs
+#password：hedongyuan..2008
+
+卸载：
+#umount /FTPServer
+
+
+--------------------------------------
+
+mount //192.168.1.108/convert2pdfExtendOutput /home/equity/convert2pdfExtendOutput -o username=convertpdf,password=abc*1,uid=505,gid=505 -t cifs
+
+属性中的gid,uid,是你想要让挂载属于哪个用户的 gid和uid.  至于这个gid和uid,你可以使用id username,来获得，比如说我的jboss,用户获得的gid和uid就是1003

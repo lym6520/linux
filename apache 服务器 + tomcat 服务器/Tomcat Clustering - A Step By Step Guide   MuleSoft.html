@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://www.mulesoft.com/tcat/tomcat-clustering -->
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema# article: http://ogp.me/ns/article# book: http://ogp.me/ns/book# profile: http://ogp.me/ns/profile# video: http://ogp.me/ns/video#" class="js js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/saved_resource"></script><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/munchkin.js"></script><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/inpage_linkid.js" id="undefined"></script><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/insight.min.js"></script><script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/ip.json"></script><script async="" type="text/javascript" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/rtp.js"></script><script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/cjs.aspx" async="true"></script><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/dc.js"></script><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/conversion_async.js"></script>
+  <meta charset="utf-8">
+<link rel="shortcut icon" href="https://www.mulesoft.com/sites/all/themes/muletheme/favicon.ico">
+<meta name="description" content="Tomcat Clustering - A Step By Step Guide Apache Tomcat is a great performer on its own, but if you&#39;re expecting more traffic as your site expands, or are thinking about the best way to provide high availability, you&#39;ll be happy to know that Tomcat also shines in a clustered environment. With built-in support for both synchronous and asynchronous in-memory and external session replication, cluster segmentation, and compatibility with all common load balancing solutions, your Tomcat servers are ready for the cluster right out of the box.">
+<meta name="generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/Tomcat Clustering - A Step By Step Guide   MuleSoft.html">
+<link rel="shortlink" href="https://www.mulesoft.com/node/2396">
+<meta property="og:site_name" content="MuleSoft">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.mulesoft.com/tcat/tomcat-clustering">
+<meta property="og:title" content="Tomcat Clustering - A Step By Step Guide">
+<meta property="og:updated_time" content="2015-02-16T10:32:05-08:00">
+<meta property="article:published_time" content="2015-02-16T10:32:05-08:00">
+<meta property="article:modified_time" content="2015-02-16T10:32:05-08:00">
+  <title>Tomcat Clustering - A Step By Step Guide | MuleSoft</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cleartype" content="on">
+
+  <style>
+@import url("https://www.mulesoft.com/modules/system/system.base.css?nl2rat");
+</style>
+<style>
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.core.min.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.theme.min.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.button.min.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.resizable.min.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.dialog.min.css?nl2rat");
+</style>
+<style>
+@import url("https://www.mulesoft.com/modules/aggregator/aggregator.css?nl2rat");
+@import url("https://www.mulesoft.com/modules/comment/comment.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/date/date_api/date.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/date/date_popup/themes/datepicker.1.7.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/fences/field.css?nl2rat");
+@import url("https://www.mulesoft.com/modules/node/node.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/picture/picture_wysiwyg.css?nl2rat");
+@import url("https://www.mulesoft.com/modules/search/search.css?nl2rat");
+@import url("https://www.mulesoft.com/modules/user/user.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/views/css/views.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/ckeditor/css/ckeditor.css?nl2rat");
+</style>
+<style>
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/ctools/css/ctools.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/panels/css/panels.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/default/files/ctools/css/b7a68f7053ef66854d36836846bcea01.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/modules/contrib/panels/plugins/layouts/flexible/flexible.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/default/files/ctools/css/cc7ab4d6f2706acd588c5c27f3795bb6.css?nl2rat");
+</style>
+
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="https://www.mulesoft.com/sites/all/themes/muletheme/css/ie.css?nl2rat" media="all" />
+<![endif]-->
+<style>
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/styles.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/mulesoft-custom/custom-styles.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/mulesoft-custom/product-pages.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/mulesoft-custom/services-pages.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/mulesoft-custom/solutions-content-type.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/mulesoft-custom/brand-guidelines.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/font-icons/style.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/jquery.sidr.dark.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/slick.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/magnific-popup.css?nl2rat");
+@import url("https://www.mulesoft.com/sites/all/themes/muletheme/css/easy-responsive-tabs.css?nl2rat");
+</style>
+  <script async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/gtm.js"></script><script defer="defer" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/modernizr-latest.js"></script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/js_0gj6QcpfRH2jzTbCQqf7kEkm4MXY0UA_sRhwPc8jC1o.js"></script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/js_P4pwVmC2JXoZweqw70tGnmnIVoBHQV_W86Sesdd2pv8.js"></script>
+<script>document.createElement( "picture" );</script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/js_wr_JpMjWuY-Ch9t6l9QDl7sgNCgJ6LF2NYUrIfc4YYg.js"></script>
+<script>var switchTo5x = true;var __st_loadLate = true;</script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/buttons.js"></script>
+<script>if (stLight !== undefined) { stLight.options({"publisher":"dr-96f5c40-5303-a1ac-5dac-7550c05e4bf2","version":"5x","onhover":false,"shorten":"false"}); }</script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/58710519.js"></script>
+<script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/js_sPsL4YeX43UjhxHDZxrVqZw5hX3VtFQTpVJ7G0L4Eqg.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"muletheme","theme_token":"CR-CizFRj89k17HixmLJKNhgwz6jZ3bL2Olz4EfAOEk","jquery_version":"1.7","js":{"sites\/all\/modules\/contrib\/picture\/picturefill2\/picturefill.js":1,"sites\/all\/modules\/contrib\/picture\/picture.js":1,"sites\/all\/libraries\/modernizr\/modernizr-latest.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery\/1.7\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.core.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.widget.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.button.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.mouse.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.draggable.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.position.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.resizable.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.dialog.min.js":1,"sites\/all\/libraries\/jquery.slick\/slick.min.js":1,"misc\/ajax.js":1,"sites\/all\/modules\/contrib\/jquery_update\/js\/jquery_update.js":1,"0":1,"sites\/all\/modules\/contrib\/linkit\/js\/linkit.js":1,"misc\/progress.js":1,"sites\/all\/modules\/contrib\/linkit\/editors\/ckeditor\/linkitDialog.js":1,"1":1,"https:\/\/ws.sharethis.com\/button\/buttons.js":1,"2":1,"https:\/\/cdn.optimizely.com\/js\/58710519.js":1,"sites\/all\/themes\/muletheme\/js\/jquery.sidr.min.js":1,"sites\/all\/themes\/muletheme\/js\/jquery.magnific-popup.min.js":1,"sites\/all\/themes\/muletheme\/js\/easyResponsiveTabs.js":1,"sites\/all\/themes\/muletheme\/js\/grids.min.js":1,"sites\/all\/themes\/muletheme\/js\/script.js":1,"sites\/all\/themes\/muletheme\/js\/mulesoft-custom.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"misc\/ui\/jquery.ui.core.css":1,"misc\/ui\/jquery.ui.theme.css":1,"misc\/ui\/jquery.ui.button.css":1,"misc\/ui\/jquery.ui.resizable.css":1,"misc\/ui\/jquery.ui.dialog.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/contrib\/date\/date_api\/date.css":1,"sites\/all\/modules\/contrib\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/contrib\/fielder\/fielder.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/contrib\/picture\/picture_wysiwyg.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/panels\/css\/panels.css":1,"public:\/\/ctools\/css\/b7a68f7053ef66854d36836846bcea01.css":1,"sites\/all\/modules\/contrib\/panels\/plugins\/layouts\/flexible\/flexible.css":1,"public:\/\/ctools\/css\/cc7ab4d6f2706acd588c5c27f3795bb6.css":1,"sites\/all\/themes\/muletheme\/css\/ie.css":1,"sites\/all\/themes\/muletheme\/system.menus.css":1,"sites\/all\/themes\/muletheme\/system.messages.css":1,"sites\/all\/themes\/muletheme\/system.theme.css":1,"sites\/all\/themes\/muletheme\/css\/styles.css":1,"sites\/all\/themes\/muletheme\/css\/mulesoft-custom\/custom-styles.css":1,"sites\/all\/themes\/muletheme\/css\/mulesoft-custom\/product-pages.css":1,"sites\/all\/themes\/muletheme\/css\/mulesoft-custom\/services-pages.css":1,"sites\/all\/themes\/muletheme\/css\/mulesoft-custom\/solutions-content-type.css":1,"sites\/all\/themes\/muletheme\/css\/mulesoft-custom\/brand-guidelines.css":1,"sites\/all\/themes\/muletheme\/font-icons\/style.css":1,"sites\/all\/themes\/muletheme\/css\/jquery.sidr.dark.css":1,"sites\/all\/themes\/muletheme\/css\/slick.css":1,"sites\/all\/themes\/muletheme\/css\/magnific-popup.css":1,"sites\/all\/themes\/muletheme\/css\/easy-responsive-tabs.css":1}},"linkit":{"autocompletePath":"https:\/\/www.mulesoft.com\/linkit\/autocomplete\/___profile___?s=","dashboardPath":"\/linkit\/dashboard\/","currentInstance":{}}});</script>
+      <!--[if lt IE 9]>
+    <script src="/sites/all/themes/zen/js/html5.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" type="text/css" href="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/buttons-secure.css"><script type="text/javascript" async="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/munchkin(1).js"></script><img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/pixel" style="display: none;"><img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/pixel(1)" style="display: none;"><link id="mktoForms2BaseStyle" rel="stylesheet" type="text/css" href="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/forms2.css"><link id="mktoForms2ThemeStyle" rel="stylesheet" type="text/css" href="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/forms2-theme-inset.css"><style>/* Add your custom CSS below */
+.mktoForm .mktoButtonWrap.mktoInset button.mktoButton {
+  margin: 0;
+  background: #03c615;
+  background: -moz-linear-gradient(center top , #0ee022, #01cd14) repeat scroll 0 0 transparent;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0ee022), to(#01cd14));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#0ee022', EndColorStr='#01cd14');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#0ee022', EndColorStr='#01cd14')";
+  padding: 0;
+  width: 134px;
+  height: 35px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -o-border-radius: 5px;
+  border: 1px solid #01df16;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: none;
+  display: block;
+  text-shadow: 1px 1px 1px #0ca403;
+  line-height: 34px;
+  cursor: pointer;
+}
+.mktoForm .mktoFieldWrap input {
+  color: #787878;
+  border: 1px solid #cfcfcf;
+  width: 215px;
+  height: 25px;
+  font-size: 12px;
+  padding: 0 0 0 5px;
+  background: #fff;
+  margin: 0 0 5px 0;
+}</style><link type="text/css" href="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/jquery-ui-insightera-custom-1.5.css" rel="stylesheet"><script async="true" type="text/javascript" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/roundtrip.js"></script><script async="true" type="text/javascript" src="https://d.adroll.com/pixel/LLXG7J62ZRDJZP6CTRSYV6/3RNHAJCS5ZDCRH4M5QJ7FQ?pv=45958683965.727684&cookie=&keyw="></script><div style="width: 1px; height: 1px; display: inline;"><img height="1" width="1" style="border-style:none;" alt="" src="https://d.adroll.com/cm/r/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out(2)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out(3)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out(4)">
+<img height="1" width="1" alt="" style="display:none" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/tr"><img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/saved_resource(1)">
+<img height="1" width="1" style="border-style:none;" alt="" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/out(5)">
+<img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/seg" width="1" height="1">
+</div></head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-2396 node-type-msc-ct-article tcat i18n-en section-tcat page-panels">
+  <!-- Google Tag Manager -->
+  <noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-SP2R"
+                    height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-SP2R');</script>
+  <!-- End Google Tag Manager -->
+      <p id="skip-link">
+      <a href="https://www.mulesoft.com/tcat/tomcat-clustering#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      
+<div id="page">
+
+  <div class="page-bg-dark"></div>
+
+  <header class="header" id="header" role="banner">
+
+    <div class="header__wrapper clearfix">
+
+      <div class="header__top-wrapper">
+
+        <div class="header__nav-wrapper">
+
+          <a href="https://www.mulesoft.com/tcat" title="Home" rel="home" class="header__logo" id="logo">
+            <img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/mule_logo.svg" alt="Home" class="header__logo-image">
+            <span class="tcat-logo-text">| Tcat</span>
+            <span class="brand-logo-text">| Brand </span>
+          </a>
+
+          
+            <div class="region region-header-top">
+    <div id="block-menu-menu-contact-phone-number" class="block block-menu first odd" role="navigation"><h2 class="block__title block-title">Contact &amp; Phone number</h2>
+<ul class="menu">
+<li class="menu__item is-leaf first leaf"><a class="menu__link" title="Contact Us" href="https://www.mulesoft.com/lp/contact">Contact</a></li>
+<li class="menu__item is-leaf last leaf"><a class="menu__link" title="" href="https://www.mulesoft.com/lp/contact">+61 2 8854 5600</a></li>
+</ul></div>
+<div id="block-menu-menu-header-top-menu" class="block block-menu even" role="navigation">
+
+        <h2 class="block__title block-title">Header Top Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.mulesoft.com/support-and-services/mule-esb-support-license-subscription" title="" class="menu__link">Support</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://blogs.mulesoft.org/" title="" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf last leaf"><a href="http://www.mulesoft.org/" title="" class="menu__link">Community</a></li>
+</ul>
+</div>
+<div id="block-search-form" class="block block-search last odd" role="search">
+
+      
+  <form onsubmit="if(this.search_block_form.value==&#39;Search&#39;){ alert(&#39;Please enter a search&#39;); return false; }" action="https://www.mulesoft.com/search-results" method="get" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-searchfield form-item-as-q">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search&#39;;}" onfocus="if (this.value == &#39;Search&#39;) {this.value = &#39;&#39;;}" placeholder="Search" type="search" id="edit-search-block-form--2" name="as_q" value="" size="15" maxlength="128" class="form-text form-search">
+</div>
+<div class="search-icon icon-muletheme-search2"></div><div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit"></div><input type="hidden" name="form_build_id" value="form-Go45B-h8lieMTSm24L59zl0Ysj-yvnihSd6JUVOvnvQ">
+<input type="hidden" name="form_id" value="search_block_form">
+<input type="hidden" name="cx" value="009167469708926298605:hwtkd-ufwfq">
+<input type="hidden" name="cof" value="FORID:10">
+<input type="hidden" name="ie" value="UTF-8">
+</div>
+</div></form>
+</div>
+  </div>
+
+        </div>
+
+      </div> <!-- header__secondary-nav-search -->
+
+      <div class="header__logo--primary-nav clearfix">
+
+        <a href="https://www.mulesoft.com/tcat/tomcat-clustering#sidr" id="open-left">
+          <div class="icon-muletheme-navicon"></div>
+        </a>
+
+          <div class="header__region region region-header">
+    <div id="block-menu-menu-tcat-primary-navigation" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">T-cat Main Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.mulesoft.com/tcat/leading-enterprise-apache-tomcat-application-server" title="" class="menu__link">Features</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/support-apache-tomcat" title="" class="menu__link">Support</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/understanding-apache-tomcat" title="" class="menu__link">Resources</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.mulesoft.org/documentation/display/TCAT/Home" title="" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.com/contact" title="" class="menu__link">Contact</a></li>
+</ul>
+</div>
+  </div>
+
+      </div> <!-- header__logo--primary-nav -->
+
+      <div class="contact-us-nub">
+        <a href="https://www.mulesoft.com/lp/contact">contact us</a>      </div><!-- Contact us nub -->
+
+    </div> <!-- header__wrapper -->
+
+  </header>
+
+  <div id="main">
+
+    <div id="content" class="column" role="main">
+            <!--   uncomment to restore core breadcrumbs -->
+      <a id="main-content"></a>
+                                                
+
+
+<div class="panel-flexible panels-flexible-131 clearfix">
+<div class="panel-flexible-inside panels-flexible-131-inside">
+<div class="panels-flexible-row panels-flexible-row-131-2 panels-flexible-row-first clearfix ">
+  <div class="inside panels-flexible-row-inside panels-flexible-row-131-2-inside panels-flexible-row-inside-first clearfix">
+<div class="panels-flexible-region panels-flexible-region-131-breadcrumbs panels-flexible-region-first panels-flexible-region-last ">
+  <div class="inside panels-flexible-region-inside panels-flexible-region-131-breadcrumbs-inside panels-flexible-region-inside-first panels-flexible-region-inside-last">
+<div class="panel-pane pane-page-breadcrumb">
+  
+      
+  
+  <nav class="breadcrumb" role="navigation"><h2 class="element-invisible">You are here</h2><ol><li><a href="https://www.mulesoft.com/">Home</a></li></ol></nav>
+  
+  </div>
+  </div>
+</div>
+  </div>
+</div>
+<div class="panels-flexible-row panels-flexible-row-131-main-row clearfix centered">
+  <div class="inside panels-flexible-row-inside panels-flexible-row-131-main-row-inside clearfix">
+<div class="panels-flexible-region panels-flexible-region-131-center panels-flexible-region-first">
+  <div class="inside panels-flexible-region-inside panels-flexible-region-131-center-inside panels-flexible-region-inside-first">
+<div class="panel-pane pane-entity-field pane-node-body">
+  
+      
+  
+  
+  <div class="field-body">
+    <div>
+<div>
+<div>
+<div>
+<h1>Tomcat Clustering - A Step By Step Guide</h1>
+<p>Apache Tomcat is a great performer on its own, but if you're expecting more traffic as your site expands, or are thinking about the best way to provide high availability, you'll be happy to know that Tomcat also shines in a clustered environment. With built-in support for both synchronous and asynchronous in-memory and external session replication, cluster segmentation, and compatibility with all common load balancing solutions, your Tomcat servers are ready for the cluster right out of the box.</p>
+<p>In this article, we'll show you how easy it is to set up a simple Tomcat cluster with load balancing and session replication.</p>
+<p>This simple step-by-step guide will walk you through every step of the process in plain English, from <a href="http://old.mulesoft.com/tcat/tomcat-clustering#install-modjk">installing the load balancer</a>, to <a href="http://old.mulesoft.com/tcat/tomcat-clustering#configure">configuring mod_jk</a>, to <a href="http://old.mulesoft.com/tcat/tomcat-clustering#session-replication">enabling Tomcat's built-in session replication capabilities</a>. Along the way, we'll point out common problem areas, to help you avoid configuration mistakes before they happen.</p>
+<h2>A Simple Explanation of Clustering</h2>
+<p>Although clustering can seem like a complicated topic, the premise is quite simple. A clustered architecture is used to solve one or more of the following problems:</p>
+<ul><li>A single server cannot handle the high number of incoming requests efficiently</li>
+<li>A stateful application needs a way of preserving session data if its server fails</li>
+<li>A developer requires the capability to make configuration changes or <a href="http://old.mulesoft.com/tomcat-deploy">deploy</a> updates to their applications without discontinuing service.</li>
+</ul><p>A clustered architecture solves these problems using a combination of load balancing, multiple server "workers" to process the balanced load, and some kind of session replication. Depending on the needs of the application, only some of these components may be used, or additional components such as caching and compression engines.</p>
+<p>Since this is a how-to guide, we'll stop the general information session here, and move on to setting up a working Tomcat cluster. However, if you're new to clustering, it's probably a good idea to do a little more reading up on the subject.</p>
+<p>For more information about the how and why of clustered architecture, check out our <a href="http://old.mulesoft.com/tomcat-clustering">Tomcat Clustering</a> Basics article for an in-depth look at all the components of a cluster, comparisons of different approaches, and more.</p>
+<h2>About Our Example Set-Up</h2>
+<p>For the purposes of this tutorial, we'll use a simple clustered configuration:</p>
+<ul><li>Apache HTTPD with mod_jk (for load balancing)</li>
+<li>2 Tomcat 6.x instances</li>
+<li>in-memory session replication (via Tomcat's built in functionality)</li>
+</ul><p>This configuration was chosen because it is a simple example of a very common clustering configuration used by many Tomcat users. Additionally, Apache HTTPD with mod_jk or mod_proxy is currently the default clustering solution recommended in the official Tomcat documentation provided by Apache.</p>
+<p>We demonstrate configuration with mod_jk rather than mod_proxy for two reasons: it's a little more complex, and requires some additional steps, and it's currently the more mature load balancing <a href="http://old.mulesoft.com/tomcat-connector">connector</a>, with a wider user base in the Tomcat community. Additionally, while new releases of mod_proxy are tied to Apache HTTPD releases, mod_jk is developed and released separately from Tomcat, so its features tend to be more current.</p>
+<p>Using this tutorial as a basic reference, you should be able to find enough information elsewhere to create more customized or complex configurations. If you are curious about these kinds of situations, or want to know more about how other common approaches to Tomcat clustering stack up against one another, check out our <a href="http://old.mulesoft.com/tomcat-cluster">Tomcat Cluster</a> basics article for an in-depth guide.</p>
+<h2>Setting Up Your Tomcat Cluster</h2>
+<p>Let's get started!</p>
+<p><a></a></p>
+<h3>Step 1 - Install Tomcat instances and Apache HTTPD</h3>
+<p>If you haven't already installed them, the first thing to do is to download and install the latest stable versions of Apache Tomcat 6.x and Apache HTTPD. You can find the latest stable versions on the <a href="http://httpd.apache.org/">Apache HTTPD</a> and <a href="http://tomcat.apache.org/">Tomcat</a> project sites.</p>
+<p>Depending on how you want to set up your servers for the purposes of this tutorial, you can either install these elements on multiple servers or a single server; the only differences will be in the port and address configuration steps. Simply follow standard conventions for sharing a single machine with multiple network services (don't overlap ports, don't use conflicting names, and so on). If you only want to use this tutorial to test different clustering configurations, the multiple Tomcat instances can live on the same machine, and even share the same base directory, using the CATALINA_BASE variable, as long as you remember that you should move to a set-up that reflects your actual production environment before doing any benchmark testing.</p>
+<p>For the purposes of this tutorial, we'll assume that you understand how to install these components. If you need additional help, don't worry - the Apache HTTPD <a href="http://httpd.apache.org/docs/2.1/install.html">installation documentation</a> is quite good, and we've created a simple guide to installing Tomcat 6 on multiple platforms, which you can find <a href="http://old.mulesoft.com/tomcat-60">here</a>.</p>
+<h3>Step 2 - Download and install mod_jk</h3>
+<p>mod_jk is the Apache HTTPD module that will be used to provide our cluster with its load balancing and proxy capabilities. It uses the AJP protocol to facilitate fast communication between Tomcat servers and the Apache Web Server that will receive the client requests.</p>
+<p>The mod_jk module is distributed separately from Apache HTTPD as part of the Tomcat project. Binary distributions of the module are available for most major platforms, and can be downloaded <a href="http://www.apache.org/dist/tomcat/tomcat-connectors/jk/binaries/">here</a>. If the version and platform you are looking for is not yet available as a binary distribution, you can build the appropriate version from the source.</p>
+<p>Once you have either downloaded and unzipped or built the module, place it in the 'modules' directory of your Apache HTTPD server.</p>
+<p><a></a></p>
+<h3>Step 3 - Configure mod_jk</h3>
+<p>Next, we'll have to set up the mod_jk module in Apache HTTPD's configuration files. This configuration is a two step process, and can be a little confusing, as mod_jk does not separate its proxy capabilities from its load balancing capabilities.</p>
+<p>First, let's configure the module itself. This is done by adding a few lines to the main Apache HTTPD configuration file, httpd.conf. Take a look at this example configuration (we'll explain what each attribute does in a second):</p>
+<pre>
+&nbsp;</pre><p># Load module</p>
+<p>LoadModule jk_module path/to/apache2/mod_jk.so</p>
+<p># Specify path to worker configuration file</p>
+<p>JkWorkersFile /path/to/apache2/conf/workers.properties</p>
+<p># Configure logging and memory</p>
+<p>JkShmFile /path/to/desired/log/location/mod_jk.shm</p>
+<p>JkLogFile /path/to/desired/log/location/mod_jk.log</p>
+<p>JkLogLevel info</p>
+<p># Configure monitoring</p>
+<p>JkMount /jkmanager/* jkstatus</p>
+<p>&lt;Location /jkmanager&gt;</p>
+<p>Order deny, allow</p>
+<p>Deny from all</p>
+<p>Allow from localhost</p>
+<p>&lt;/Location&gt;</p>
+<p># Configure applications</p>
+<p>JkMount /webapp-directory/* LoadBalancer</p>
+<p>Here's a quick explanation of the parameters we just configured.</p>
+<ul><li><strong>LoadModule</strong> - this command makes the mod_jk module available for use. The extension of the module itself will vary by operating system.</li>
+<li><strong>JkWorkersFile</strong> - sets the path to the worker configuration file, which we will create in the next step.</li>
+<li><strong>JkShmFile</strong> - sets the path to the shared memory files for the module. Generally, you'll want to keep this with the logs.</li>
+<li><strong>JkLogFile</strong> - sets the path to the module log file.</li>
+<li><strong>JkLogLevel</strong> - sets the level of <a href="http://old.mulesoft.com/tomcat-logging">logging</a> for the module. The valid values for this attribute, in descending order by verbosity, are "debug", "error" or "info".</li>
+<li><strong>JkMount</strong> - this is used to map a certain URL pattern to a specific worker configured in the worker configuration file. Here, we use it twice - once to enable /jkmanager as the access URL for jkstatus, a virtual monitoring worker, and once to map all requests we want to be handled by the <a href="http://old.mulesoft.com/tomcat-cluster">cluster</a> to the "lb" worker, a virtual worker that contains the load balancing capability</li>
+<li><strong>Location</strong> - this is a <a href="http://old.mulesoft.com/tomcat-security">security</a> constraint. The settings we have included allow access to the jkmanager only from the localhost (this is a Good Idea).</li>
+</ul><h3>Step 4 - Configure the cluster workers</h3>
+<p>Now that we've configured the main settings, we will configure the workers. "Workers" is a blanket term used within mod_jk to refer to both real Tomcat servers that will process requests, and virtual servers included in the module to handle load balancing and monitoring. In other words, rather than creating a separate apparatus to manage load balancing, mod_jk simply loads an additional virtual worker with load balancing functionality. If this seems confusing to you, you're not alone - this is one area where mod_jk shows its age compared to mod_proxy, which keeps all of its configuration in the main httpd.conf file, and doesn't use the concept of virtual workers.</p>
+<p>Here's a (very) basic workers.properties configuration example (see below for an explanation of the configuration directives):</p>
+<pre>
+&nbsp;</pre><p># Define worker names</p>
+<p>worker.list=jkstatus, LoadBalancer</p>
+<p># Create virtual workers</p>
+<p>worker.jkstatus.type=status</p>
+<p>worker.loadbalancer.type=lb</p>
+<p># Declare Tomcat server workers 1 through n</p>
+<p>worker.worker1.type=ajp13</p>
+<p>worker.worker1.host=hostname</p>
+<p>worker.worker1.port=8009</p>
+<p># ...</p>
+<p>worker.worker[n].type=ajp13</p>
+<p>worker.worker[n].port=8010</p>
+<p>worker.worker[n].host=hostname</p>
+<p># Associate real workers with virtual LoadBalancer worker</p>
+<p>worker.LoadBalancer.balance_workers=worker1,worker2,…worker[n]</p>
+<p>Here's a quick explanation of the directives we just configured:</p>
+<h3>Global Directives</h3>
+<p>These are directives that apply to the entire configuration. There are only two of these directives, and here, we only use one.</p>
+<p><strong>worker.list</strong> - Allows you to specifically name any workers that should be loaded when the server starts up. These are the only workers to which you can map requests in httpd.conf. This has more uses when using mod_jk as a proxy server. For our purposes, the two workers we've defined are enough.</p>
+<h3>General Worker Directives</h3>
+<p>These are directives that pertain specifically to workers, but not to virtual workers. They always take the following form:</p>
+<p>worker.[name].[directive]=[value]</p>
+<p>Worker names are defined as part of a directive (unless set in worker.list). Subsequent directives using the same name value will apply to the same worker. Names may only contain underscores, dashes, and alphanumeric characters, and are case sensitive.</p>
+<p>There is a very long list of worker directives, allowing configuration of everything from session replication partner nodes, to connection timeout values, to weights for use with load balancing algorithms. It's even possible to include workers within multiple nodes, allowing you to do things such as using a very fast server as a pinch hitter to handle spikes in multiple clusters. The extensive control this provides over load balancing scenarios is the reason why using mod_jk over mod_proxy is currently worth the extra configuration trouble. As this is a simple tutorial, we won't go into the list here, but you can find the whole thing on the Apache <a href="http://tomcat.apache.org/connectors-doc/reference/workers.html">project site</a>, and it is highly recommended reading.</p>
+<p><strong>worker.[name].type</strong> - This allows you to declare a "type" for a given worker. This type can either refer to a virtual worker type (i.e. "lb" for load balancer worker, "status" for the status worker), or to the protocol that the server should use to communicate with a real worker.</p>
+<p>Here, we use the type ajp13, which refers to the latest version of the Apache Jserv Protocol, as well as the "lb" and "status" types, which define the virtual load balancing and status manager workers.</p>
+<p>worker.[name].host - this allows you to define the appropriate host for a worker. You can also include port in this entry by separating the host name from the port value with a ":".</p>
+<p><strong>worker.[name].port</strong> - This allows you to set a port number to access the relevant server. This is especially useful if you want to cluster multiple Tomcat instances running on a single server.</p>
+<h3>Load Balancer Directives</h3>
+<p>The mod_jk virtual workers each have their own specialized subsets of directives, which provide extra levels of control over their functions. For example, although the "lb" worker uses a load balancing algorithm based on requests and each server's lbfactor to distribute the load by default, mod_jk actually includes three additional load balancing algorithms, some of which are more appropriate for certain situations, and can be configured with the "method" directive.</p>
+<p>As this is a bare-bones example configuration, we haven't configured any non-required directives, but as with the worker directives, the full list is available on the Tomcat Connectors <a href="http://tomcat.apache.org/download-connectors.cgi">project site</a>, and is recommended reading.</p>
+<p><strong>worker.[name].balance_workers=[name1],[name2],…[name[n]]</strong> - this is the only required load balancer directive, and is used to associate a group of workers with a given load balancer. You can define multiple load balancer names in the global worker list if you will be balancing multiple clusters with a single Apache instance.</p>
+<p>If you'd like to learn more about load balancing with mod_jk, visit the <a href="http://tomcat.apache.org/connectors-doc/generic_howto/loadbalancers.html">load balancing how-to article</a> on the Apache site.</p>
+<h2>Tips and Tricks</h2>
+<p>In the interest of simplicity, we'll leave it up to you to explore the other configuration options on your own. However, before we move on, here's two quick tricks that can be real time-savers when you start configuring your real-world clusters.</p>
+<h3>Variables</h3>
+<p>The mod_jk worker configuration file supports the use of variables to make adding new clusters or migrating configurations to a new server an easier process. Variables can be used in place of any directive-defined value. It's very simple to define a variable. Simply use the format below, making sure that you do not use a word already associated with a specific function:</p>
+<pre>[variable_name]=[value]</pre><p>Variable names can contain any alphanumeric character, as well as dashes, underscores, and periods, and are not case sensitive. To call a variable, use the following syntax:</p>
+<pre>worker.[name].directive=$(variable_name)</pre><p>For example, you could define a base network address:</p>
+<pre>mynetwork=193.228.43</pre><p>...And then use it to configure multiple workers:</p>
+<pre>
+&nbsp;</pre><p>worker.worker1.host=$(mynetwork).12</p>
+<p>worker.worker2.host=$(mynetwork).13</p>
+<p>worker.worker3.host=$(mynetwork).14</p>
+<h3>Property Inheritance</h3>
+<p>If you are configuring multiple similar workers or clusters, you can use the "reference" directive to cause a worker to inherit any properties of another existing worker for which you have not provided an explicit value for the new worker. References are inherited by hierarchy, so you can even create multiple subclasses of reference worker. Use the following syntax to create a reference:</p>
+<pre>worker.worker1.reference=worker.WorkerTemplate</pre><p>This will cause "worker1" to inherit all the properties of the "WorkerTemplate" worker. You can create a template worker simply by defining it in the usual way and excluding it from workers.list and any balanced_worker lists. A common use for the reference directive is to define a single load balancer, and use inherited values to split its workers across two domains.</p>
+<h3>Putting It All Together</h3>
+<p>A good combined use of property inheritance and variables would be to comment a section at the top of the mod_jk configuration section of your httpd.conf file as "Global Settings and Templates", and then use something like this:</p>
+<pre>
+&nbsp;</pre><p># Global Settings</p>
+<p>myHost=my/host/name.domain</p>
+<p>myOtherHost=my/other/hostname.domain</p>
+<p>worker.default.connection_timeout=1</p>
+<p>worker.default.host=$(myHost)</p>
+<p>worker.fastserver.lbfactor=4</p>
+<p>worker.fastserver.host=$(myOtherHost)</p>
+<p>Using this technique, you can create whole cluster profiles simply by referencing these archetypes, and migrate entire configurations to new servers by changing just a few variables.</p>
+<p>For a more in-depth look at defining workers, and some more inspiration for tricky configurations, visit the Workers HowTo [<a href="http://tomcat.apache.org/connectors-doc/generic_howto/workers.html]">http://tomcat.apache.org/connectors-doc/generic_howto/workers.html]</a> article on Apache's website.</p>
+<h2>Step 5 - Configure your Tomcat workers</h2>
+<p>Now that we've finally gotten the mod_jk configuration out of the way, it's time to configure our Tomcat instances to support clustering. To make this task a little easier to swallow, we've divided the process into two steps - enabling session replication, and configuring the actual cluster.</p>
+<p><a></a></p>
+<h3>Step 5a - Configure your Tomcat workers - Enabling session replication</h3>
+<p>In this example, we'll use simple all-to-all in-<a href="http://old.mulesoft.com/tomcat-memory">memory</a> session replication. This means every worker in our example cluster will replicate their sessions across every other worker. This is not always the most efficient method of session replication in higher load environments, but you can easily build on the concepts we'll introduce in this section to create a more specific solution when you design clusters for your production environment.</p>
+<p>Tomcat provides in-memory session replication through a combination of serializable session attributes, "sticky sessions", which are provided by the load balancer, and specialized components configured in Tomcat's XML configuration files. We'll tackle each of these components one by one.</p>
+<h3>Serializable Session Attributes</h3>
+<p>In order to use Tomcat's built-in session replication, any session attribute or class that will need to be available in the event of failover must implement java.io.Serializable. This interface allows the <a href="http://old.mulesoft.com/tomcat-jvm">JVM</a> to convert session objects into bytecode that can be stored in memory and copied to other instances. All JavaBeans are technically required to be serializeable by default, but you should make sure that all your session attributes properly implement the interface.</p>
+<h3>Sticky Sessions</h3>
+<p>Load balancers use a variety of methods to make sure that requests are sent to the machine that has the most current session data. The easiest of these, and the one we will use for this example, is called "sticky sessions".</p>
+<p>A load balancer with sticky sessions enabled, after routing a request to a given worker, will pass all subsequent requests with matching sessionID values to the same worker. In the event that this worker fails, the load balancer will begin routing this request to the next most available server that has access to the failed server's session information. Tomcat's method of in-memory session replication relies on sticky sessions for both normal and failover load balancing situations.</p>
+<p>The latest version of mod_jk enables sticky sessions by default. If you want to be absolutely sure that sticky sessions is enabled for your configuration, you can add the worker.lb.stickysessions=true attribute to your workers.properties file.</p>
+<h3>Make Your Applications Distributable</h3>
+<p>In the context of clustered Java application servers, the term "distributable" is used to denote an application that allows its information to be distributed to more than one JVM. This is essential for session replication. You can mark your applications as "distributable" in one of two places. First, you can include the &lt;distributable&gt; element in your application's deployment descriptor (WEB-INF/web.xml), like this:</p>
+<p>&lt;distributable /&gt;</p>
+<p>Note that the distributable element is one of the rare "self-closing" XML tags in Tomcat; nest it anywhere inside the enclosing &lt;web-app&gt; elements.</p>
+<p>Your other option is to simply add the "distributable" attribute to the relevant application's <a href="http://old.mulesoft.com/tomcat-context">Context</a> element, as follows:</p>
+<p>&lt;Context distributable="true"&gt;</p>
+<p>Even if you have marked your application as distributable, you may run into problems if you haven't created your web application with clustering in mind. In addition to being declared as such, distributable applications must satisfy the following requirements:</p>
+<p>Session attributes must implement java.io.Serializable.</p>
+<p>HttpSession.setAttribute() must be called any time changes are made to an object that belongs to a session, so that the session replicator can distribute the changes across the cluster</p>
+<p>The sessions must not be so big that they overload the server with traffic when copied.</p>
+<h3>Setting jvmRoute</h3>
+<p>The jvmRoute attribute of the Engine element allows the load balancer to match requests to the JVM currently responsible for updating the relevant session. It does this by appending the name of the JVM to the JSESSIONID of the request, and matching this against the worker name provided in workers.properites.</p>
+<p>In order to configure jvmRoute, make sure that the value of "jvmRoute" for all your Engines is paired with an identically named Worker name entry in mod_jk's worker.properties configuration file.</p>
+<h3>Keeping your Workers in Sync</h3>
+<p>When clustering multiple servers, it is important that each worker in the cluster have the same understanding of real world time, as some of Tomcat's clustering features are time-dependent.</p>
+<p>In order to eliminate this concern, make sure that all of your servers update their time settings automatically by connecting to the same Network Time Protocol (NTP) service. This is a function of the server OS itself, not of the Tomcat instance. If you are unsure of how to set up this connection, consult the documentation provided by your OS vendor. You can find a list of NTP servers and more information about the service at the <a href="http://support.ntp.org/bin/view/Servers/WebHome">NTP Project Wiki</a>.</p>
+<h3>Step 5b - Configure your Clusters</h3>
+<p>Finally, you can now configure your cluster to work with Tomcat. This is done in Tomcat's main configuration file, server.xml, which can be found in the $CATALINA_HOME/conf directory, within a special Cluster element. The cluster element is nested</p>
+<p>As not every server <a href="http://old.mulesoft.com/tomcat-configuration">configuration</a> requires clustering, the Cluster element is commented out by default. Open server.xml and uncomment the following entry:</p>
+<pre>
+&nbsp;</pre><p>&lt;!--</p>
+<p>&lt;Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/&gt;</p>
+<p>--&gt;</p>
+<p>The className is the Java class responsible for providing Tomcat's clustering capabilities, which is included with all versions of Tomcat 5.x and later.</p>
+<p>In order to configure clustering, Tomcat uses a mixture of cluster-specific elements and standard Tomcat elements nested within a Cluster element. Let's take a look at an example cluster configuration, and go through it element by element to learn how it works.</p>
+<p>Note that as the goal of this article is simply to demonstrate an easy cluster configuration, we will not get into much depth as to way in which the various Java components that make up Tomcat's clustering functionality work. However, as you become more familiar with clustering, this is recommended reading, and you can get started on the Apache project site.</p>
+<h2>An Example Clustering Configuration</h2>
+<pre>
+&nbsp;</pre><p>&lt;Engine name="Catalina" defaultHost="<a href="http://www.mysite.com%22/">www.mysite.com"</a> jvmRoute="[worker name]"&gt;</p>
+<p>&lt;Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster" channelSendOptions="8"&gt;</p>
+<p>&lt;Manager className="org.apache.catalina.ha.session.DeltaManager"</p>
+<p>expireSessionsOnShutdown="false"</p>
+<p>notifyListenersOnReplication="true"/&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;Channel className="org.apache.catalina.tribes.group.GroupChannel"&gt;</p>
+<p>&lt;Membership className="org.apache.catalina.tribes.membership.McastService"</p>
+<p>address="228.0.0.4"</p>
+<p>port="45564" frequency="500"</p>
+<p>dropTime="3000"/&gt;</p>
+<p>&lt;Sender className="org.apache.catalina.tribes.transport.ReplicationTransmitter"&gt;</p>
+<p>&lt;Transport className="org.apache.catalina.tribes.transport.nio.PooledParallelSender"/&gt;</p>
+<p>&lt;/Sender&gt;</p>
+<p>&lt;Receiver className="org.apache.catalina.tribes.transport.nio.NioReceiver"</p>
+<p>address="auto" port="4000" autoBind="100"</p>
+<p>selectorTimeout="5000" maxThreads="6"/&gt;</p>
+<p>&lt;Interceptor className="org.apache.catalina.tribes.group.interceptors.TcpFailureDetector"/&gt;</p>
+<p>&lt;Interceptor className="org.apache.catalina.tribes.group.interceptors.MessageDispatch15Interceptor"/&gt;</p>
+<p>&lt;/Channel&gt;</p>
+<p>&lt;Valve className="org.apache.catalina.ha.tcp.ReplicationValve" filter=""/&gt;</p>
+<p>&lt;Valve className="org.apache.catalina.ha.session.JvmRouteBinderValve"/&gt;</p>
+<p>&lt;ClusterListener className="org.apache.catalina.ha.session.JvmRouteSessionIDBinderListener"/&gt;</p>
+<p>&lt;ClusterListener className="org.apache.catalina.ha.session.ClusterSessionListener"/&gt;</p>
+<p>&lt;/Cluster&gt;</p>
+<p>Let's go through this configuration one Element at a time.</p>
+<h3>Engine</h3>
+<p>This is the standard Engine element that defines Catalina as the component responsible for processing requests. As we mentioned in Step 5a, to enable session replication, you must set the "jvmRoute" attribute to match the corresponding worker you have configured in mod_jk's workers.properties file. This value must be unique for every node included in the cluster.</p>
+<h3>Cluster</h3>
+<p>This is the main Cluster element, within which all other clustering elements are nested. It supports a variety of attributes, but in this simple example, we have only configured one, "channelSendOptions". This attribute sets a flag within Tomcat's clustering class that chooses between different methods of cluster communication. These options are outside the scope of this article, but a safe default setting is "8", which enables asynchronous communication.</p>
+<h3>Manager</h3>
+<p>This is the standard element that Tomcat uses for session management. When nested inside the Cluster element, it is used to tell Tomcat which cluster-aware session manager should be used for session replication. In this example, we have used the DeltaManager, which provides basic cluster-aware session management, as well as additional capabilities you can use to divide your cluster into multiple groups in the future. The attributes we have configured, "expireSessionsOnShutdown" and "notifyListenersOnReplication", have been configured to prevent a failing node from destroying sessions on other clustered nodes and explicitly notify the ClusterListeners when a session has been updated.</p>
+<h3>Channel</h3>
+<p>This element communicates with a component of Tomcat's clustering solution called Tribes. This component handles all communication between the clustered nodes. In this example, we have configured Tribes to use multicast communication, although more complicated situations can be configured using single point broadcasting. The Channel element is used to contain a series of other elements that divide cluster communication into simple blocks.</p>
+<h3>Membership</h3>
+<p>This Tribes-related element defines the address all nodes will use to keep track of one another. The settings we have used here are the Tribes defaults.</p>
+<h3>Sender</h3>
+<p>This Tribes-related element, in conduction with the Transport element nested inside of it, is used to choose from and configure a number of different implementations of cluster communication. Here, we have used the NIO transport, which generally provides the best <a href="http://old.mulesoft.com/tomcat-performance">performance</a>.</p>
+<h3>Receiver</h3>
+<p>This Tribes-related element configures a single Receiver component, which receives messages from other nodes' Sender components. The attributes of the element allow you to specify addresses, buffer sizes, thread limits, and more. The settings we have used here allow the nodes to automatically discover one another via an address that Tribes will generate automatically.</p>
+<h3>Interceptor</h3>
+<p>Interceptor elements are used to make modifications to messages sent between nodes. For example, one of the Interceptor elements we have configured here detects delays that may be preventing a member from updating its table due to timeout, and provides an alternative TCP connection. Tribes includes a number of standard interceptors; to enable any of them, simply add an addition Interceptor element with the appropriate className. Here, we have included only interceptors useful in almost all clustering situations.</p>
+<h3>Valve</h3>
+<p>Tomcat's standard Valve element can be nested within Cluster elements to provide filtering. The element includes a number of cluster-specific implementations. For example, one of the Valves we have included here can be used to restrict the kinds of files replicated across the cluster. For this example configuration, we have included the most commonly used Valves, with blank attribute values that you can configure as required.</p>
+<h3>ClusterListener</h3>
+<p>This element listens to all messages sent through by cluster workers, and intercepts those that match their respective implementation's specifications. These elements operate in a very similar manner to Inteceptor elements, except that rather than modifying messages and passing them on to a Receiver, they are the intended recipient of the messages for which they are listening.</p>
+<p>Once you have edited your server.xml file, simply restart the server, and you will have a cluster-enabled Tomcat instance up and running! Note that you will need to add this configuration to each Tomcat instance you wish to add to the cluster as a worker, and that each Engine element must have its own unique jvmRoute.</p>
+</div>
+</div>
+</div>
+</div>
+  </div>
+
+  
+  </div>
+  </div>
+</div>
+<div class="panels-flexible-region panels-flexible-region-131-press_release_sidebar panels-flexible-region-last node-sidebar">
+  <div class="inside panels-flexible-region-inside panels-flexible-region-131-press_release_sidebar-inside panels-flexible-region-inside-last">
+<div class="panel-pane pane-sharethis">
+  
+        <h2 class="pane-title">Share this article</h2>
+    
+  
+  <div class="sharethis-wrapper"><span st_url="https://www.mulesoft.com/tcat/tomcat-clustering?utm_source=linkedin" st_title="Tomcat Clustering - A Step By Step Guide" class="st_linkedin_large" displaytext="linkedin" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(https://ws.sharethis.com/images/linkedin_32.png);"></span></span></span>
+<span st_url="https://www.mulesoft.com/tcat/tomcat-clustering?utm_source=facebook" st_title="Tomcat Clustering - A Step By Step Guide" class="st_facebook_large" displaytext="facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(https://ws.sharethis.com/images/facebook_32.png);"></span></span></span>
+<span st_url="https://www.mulesoft.com/tcat/tomcat-clustering?utm_source=twitter" st_title="Tomcat Clustering - A Step By Step Guide" class="st_twitter_large" displaytext="twitter" st_via="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(https://ws.sharethis.com/images/twitter_32.png);"></span></span></span>
+<span st_url="https://www.mulesoft.com/tcat/tomcat-clustering?utm_source=email" st_title="MuleSoft" class="st_email_large" displaytext="email" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(https://ws.sharethis.com/images/email_32.png);"></span></span></span>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-bean-tcat-cta">
+  
+      
+  
+  <div class="entity entity-bean bean-content clearfix" about="/block/tcat-cta" typeof="">
+
+  <div class="content">
+    
+  <div class="field-main-content-text">
+    <style>
+#download{
+  line-height: 1.5;
+}
+</style>
+<h2>Download tcat</h2>
+<a class="green-button iframe" href="https://www.mulesoft.com/tcat/download" id="download">Download</a>
+  </div>
+  </div>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-views-panes pane-msc-view-ad-block-listing-panel-pane-1 ad-block-listing-view">
+  
+      
+  
+  <div class="view view-msc-view-ad-block-listing view-id-msc_view_ad_block_listing view-display-id-panel_pane_1 view-dom-id-eac1f64755c887b43bf89a267d93e904">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+      
+  <div>        <h2>Questions? Ask an expert</h2>  </div>  
+              
+              
+          
+  <div class="field-ad-block-link">
+    <a href="https://www.mulesoft.com/lp/contact/ask-an-expert" class="button">Ask</a>  </div>
+    </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+  
+  </div>
+<div class="panel-pane pane-views pane-msc-view-article">
+  
+        <h2 class="pane-title">Related Articles</h2>
+    
+  
+  <div class="view view-msc-view-article view-id-msc_view_article view-display-id-default view-dom-id-d11125810498ea598a31f784b2b086bb">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.mulesoft.com/tcat/migrating-applications-ibm-websphere-apache-tomcat">Migrating Applications From IBM WebSphere to Apache Tomcat </a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.mulesoft.com/tcat/server-tomcat-monitoring-diagnostics">Tcat -- Tomcat Monitoring &amp; Diagnostics</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.mulesoft.com/tcat/tomcat-ejb">Apache Tomcat EJB FAQ</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://tcat/migrating-applications-ibm-websphere-apache-tomcat">Migrating Applications From IBM WebSphere to Apache Tomcat </a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd views-row-last">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.mulesoft.com/tcat-trial-license-renewal">Tcat Trial License Renewal</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+  
+  </div>
+  </div>
+</div>
+  </div>
+</div>
+<div class="panels-flexible-row panels-flexible-row-131-1 panels-flexible-row-last clearfix related-resource grey-bg">
+  <div class="inside panels-flexible-row-inside panels-flexible-row-131-1-inside panels-flexible-row-inside-last clearfix">
+<div class="panels-flexible-region panels-flexible-region-131-related_resource panels-flexible-region-first panels-flexible-region-last related-resource">
+  <div class="inside panels-flexible-region-inside panels-flexible-region-131-related_resource-inside panels-flexible-region-inside-first panels-flexible-region-inside-last">
+  </div>
+</div>
+  </div>
+</div>
+</div>
+</div>
+          </div>
+
+    <div class="zen-container">
+      <div class="bready"></div>
+      <div class="bready-two"></div>
+    </div>
+
+    
+    
+  </div>
+
+  <div class="footer">
+    <div class="footer__wrapper">
+      <div class="footer__top">
+          <div class="region region-footer-top">
+    <div id="block-menu-menu-t-cat-footer-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">T-cat Footer Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.mulesoft.com/tcat/leading-enterprise-apache-tomcat-application-server" title="" class="menu__link">Features</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/support-apache-tomcat" title="" class="menu__link">Support</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/understanding-apache-tomcat" title="" class="menu__link">Resources</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.mulesoft.org/documentation/display/TCAT/Home" title="" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.com/contact" title="" class="menu__link">Contact</a></li>
+</ul>
+</div>
+  </div>
+      </div>
+
+      <div class="footer-bottom-wrapper">
+
+        <a href="https://www.mulesoft.com/" title="Home" rel="home" class="header__logo" id="logo"><img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/mule_logo.svg" alt="Home" class="header__logo-image"></a>
+
+        <div class="terms-conditions temp">
+
+            <footer id="footer" class="region region-footer">
+    <div id="block-menu-menu-footer-bottom-menu" class="block block-menu first last odd" role="navigation">
+
+      
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://www.mulesoft.org/" title="" class="menu__link">Community</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://blogs.mulesoft.org/" title="" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" title="" class="menu__link">Terms</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" title="" class="menu__link">Privacy</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" title="" class="menu__link">Contact</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.com/contact" title="" class="menu__link">1-415-229-2009</a></li>
+</ul>
+</div>
+  </footer>
+
+          <div class="default-terms-conditions">
+                      </div>
+
+          <div class="brand-terms-conditions">
+                      </div>
+
+          <p class="copyright">©2015 MuleSoft, INC.</p>
+        </div>
+
+        <div class="connect-footer">
+          <h2>Connect with us</h2><p>Sign up for our newsletter</p>
+          <script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/forms2.js"></script>
+<form id="mktoForm_415" novalidate="novalidate" class="mktoForm mktoHasWidth mktoLayoutLeft" style="font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: rgb(51, 51, 51); width: 181px;"><style type="text/css">.mktoForm .mktoButtonWrap.mktoInset .mktoButton {
+color:#000;
+background:#fff;
+border:1px solid #aeb0b6;
+padding:0.4em 1em;
+font-size:1em;
+box-shadow: 1px 1px 6px 1px #ccc;
+background-color:#f5f5f5;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#dfdfdf));
+background-image: -webkit-linear-gradient(top, #f5f5f5, #dfdfdf);
+background-image: -moz-linear-gradient(top, #f5f5f5, #dfdfdf);
+background-image: linear-gradient(to bottom, #f5f5f5, #dfdfdf);
+}
+.mktoForm .mktoButtonWrap.mktoInset .mktoButton:hover {
+border:1px solid #999;
+}
+.mktoForm .mktoButtonWrap.mktoInset .mktoButton:focus {
+outline:none;
+border:1px solid #999;
+}
+.mktoForm .mktoButtonWrap.mktoInset .mktoButton:active{
+box-shadow:inset 1px 1px 6px 1px #ccc;
+background-color:#dfdfdf;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#dfdfdf), to(#f5f5f5));
+background-image: -webkit-linear-gradient(top, #dfdfdf, #f5f5f5);
+background-image: -moz-linear-gradient(top, #dfdfdf, #f5f5f5);
+background-image: linear-gradient(to bottom, #dfdfdf, #f5f5f5);
+}
+</style><div class="mktoFormRow"><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="Email" class="mktoLabel mktoHasWidth" style="width: 10px;"><div class="mktoAsterix">*</div></label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><input id="Email" name="Email" placeholder="Email" maxlength="255" title="" type="email" class="mktoField mktoEmailField mktoHasWidth mktoRequired" style="width: 150px;"><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoButtonRow"><span class="mktoButtonWrap mktoInset" style="margin-left: 120px;"><button type="submit" class="mktoButton">Subscribe</button></span></div><input type="hidden" name="formid" class="mktoField mktoFieldDescriptor" value="415"><input type="hidden" name="munchkinId" class="mktoField mktoFieldDescriptor" value="564-SZS-136"></form>
+<script>MktoForms2.loadForm("//app-abd.marketo.com", "564-SZS-136", 415);</script>
+  <script>
+    MktoForms2.whenReady(function (form){
+      // Custom code here
+    });
+  </script>          <ul class="social-links">
+            <li><a href="https://twitter.com/MuleSoft" target="_blank" class="icon-muletheme-twitter"></a></li>
+            <li><a href="https://www.linkedin.com/company/www.mulesoft.com" target="_blank" class="icon-muletheme-linkedin"></a></li>
+            <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+            <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div id="sidr" class="sidr right">
+    <div class="region region-off-canvas">
+    <div id="block-search-form--2" class="block block-search first odd" role="search">
+
+      
+  <form onsubmit="if(this.search_block_form.value==&#39;Search&#39;){ alert(&#39;Please enter a search&#39;); return false; }" action="https://www.mulesoft.com/search-results" method="get" id="search-block-form--2" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-searchfield form-item-as-q">
+  <label class="element-invisible" for="edit-search-block-form--4">Search </label>
+ <input title="Enter the terms you wish to search for." onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search&#39;;}" onfocus="if (this.value == &#39;Search&#39;) {this.value = &#39;&#39;;}" placeholder="Search" type="search" id="edit-search-block-form--4" name="as_q" value="" size="15" maxlength="128" class="form-text form-search">
+</div>
+<div class="search-icon icon-muletheme-search2"></div><div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--3" name="op" value="Search" class="form-submit"></div><input type="hidden" name="form_build_id" value="form-2PE1rWwxdaDNfCgXgX4hrdhhmJdI1TQ2UlpZADDt3xw">
+<input type="hidden" name="form_id" value="search_block_form">
+<input type="hidden" name="cx" value="009167469708926298605:hwtkd-ufwfq">
+<input type="hidden" name="cof" value="FORID:10">
+<input type="hidden" name="ie" value="UTF-8">
+</div>
+</div></form>
+</div>
+<div id="block-menu-menu-tcat-primary-navigation--2" class="block block-menu last even" role="navigation">
+
+        <h2 class="block__title block-title">T-cat Main Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://www.mulesoft.com/tcat/leading-enterprise-apache-tomcat-application-server" title="" class="menu__link first-links">Features<div></div></a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/support-apache-tomcat" title="" class="menu__link first-links">Support<div></div></a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/tcat/understanding-apache-tomcat" title="" class="menu__link first-links">Resources<div></div></a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.mulesoft.org/documentation/display/TCAT/Home" title="" class="menu__link first-links">Documentation<div></div></a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.com/contact" title="" class="menu__link first-links">Contact<div></div></a></li>
+</ul>
+</div>
+  </div>
+</div>
+  <script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/js_6TAnF117heNLUe_NSA6QrMWPUlMbDthN85wxrI4UFUM.js"></script>
+
+
+
+<script type="text/javascript" id="">var _gaq=_gaq||[],pluginUrl="//www.google-analytics.com/plugins/ga/inpage_linkid.js";_gaq.push(["_require","inpage_linkid",pluginUrl]);_gaq.push(["_setAccount","UA-605632-12"]);document.URL.match(/mulesoft.com/)?_gaq.push(["_setDomainName","mulesoft.com"]):_gaq.push(["_setDomainName","mulesoft.org"]);_gaq.push(["_setAllowLinker",!0]);_gaq.push(["_trackPageview"]);
+(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script>
+
+<script type="text/javascript" id="">(function(){function b(){!1===c&&(c=!0,Munchkin.init("564-SZS-136"))}var c=!1,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=document.location.protocol+"//munchkin.marketo.net/munchkin.js";a.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||b()};a.onload=b;document.getElementsByTagName("head")[0].appendChild(a)})();</script>
+
+
+<script type="text/javascript" id="">adroll_adv_id="LLXG7J62ZRDJZP6CTRSYV6";adroll_pix_id="3RNHAJCS5ZDCRH4M5QJ7FQ";(function(){var b=window.onload;window.onload=function(){__adroll_loaded=!0;var a=document.createElement("script"),c="https:"==document.location.protocol?"https://s.adroll.com":"http://a.adroll.com";a.setAttribute("async","true");a.type="text/javascript";a.src=c+"/j/roundtrip.js";((document.getElementsByTagName("head")||[null])[0]||document.getElementsByTagName("script")[0].parentNode).appendChild(a);b&&b()}})();</script>
+
+
+<script type="text/javascript" id="" charset="utf-8" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/13821.js"></script>
+<script type="text/javascript" id="">(function(){var a=document.createElement("script");a.src="https://assets.seevolution.com/cjs.aspx";a.setAttribute("async","true");var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script>
+ 
+<script type="text/javascript" id="">(function(a,b,c,f,e){a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[c].a=e;var d=b.createElement("script");d.async=!0;d.type="text/javascript";d.src=f+"?rh\x3d"+a.location.hostname+"\x26aid\x3d"+e;b=b.getElementsByTagName("script")[0];b.parentNode.insertBefore(d,b)})(window,document,"rtp","//rtp-cloud3.marketo.com/rtp-api/v1/rtp.js","mulesoft");rtp("send","view");rtp("get","campaign",!0);</script>
+<script type="text/javascript" id="">var page=document.location.href;db_cta=function(){};top!=self&&(page=document.referrer);dbApi=document.createElement("script");dbView=document.createElement("img");dbRetarget=document.createElement("img");dbApi.src="//api.demandbase.com/api/v2/ip.json?key\x3d4df402c7cc04a14222776e50ee325ef4\x26callback\x3ddb_cta\x26page\x3d"+page+"\x26page_title\x3d"+document.title+"\x26referrer\x3d"+document.referrer;dbView.src="//a.company-target.com/pixel?id\x3d1403548427\x26type\x3djs";dbRetarget.src="//a.company-target.com/pixel?id\x3d1403548463\x26type\x3djs";
+dbSc=document.getElementsByTagName("script")[0];dbSc.parentNode.insertBefore(dbApi,dbSc);dbSc.parentNode.insertBefore(dbView,null);dbSc.parentNode.insertBefore(dbRetarget,null);dbView.style.display="none";dbRetarget.style.display="none";</script>
+<script type="text/javascript" id="">var _bizo_data_partner_id="6754";</script>
+<script type="text/javascript" id="">(function(){var b=document.getElementsByTagName("script")[0],a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===window.location.protocol?"https://sjs":"http://js")+".bizographics.com/insight.min.js";b.parentNode.insertBefore(a,b)})();</script>
+<noscript>
+  &lt;img height="1" width="1" alt="" style="display:none;" src="//www.bizographics.com/collect/?pid=6754&amp;amp;fmt=gif"&gt;
+</noscript><div id="mktoStyleLoaded" style="display: none; border-top-color: rgb(18, 52, 86);"></div>
+<form novalidate="novalidate" class="mktoForm mktoHasWidth mktoLayoutLeft" style="font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: rgb(51, 51, 51); visibility: hidden; position: absolute; top: -500px; left: -1000px; width: 1349px;"></form><iframe name="mktoFormsXDIframe0.031231805915012956" id="MktoForms2XDIframe" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/XDFrame.html" style="display: none;"></iframe><script type="text/javascript">(function(){AITag.activateCampaign(1762);})()</script><iframe id="stSegmentFrame" name="stSegmentFrame" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><script src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/saved_resource(2)" type="text/javascript"></script><div id="stwrapper" class="stwrapper stwrapper5x" style="display: none;"><iframe allowtransparency="true" id="stLframe" class="stLframe" name="stLframe" frameborder="0" scrolling="no" src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/index.html"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();"></div><img src="./Tomcat Clustering - A Step By Step Guide   MuleSoft_files/l" width="1" height="1" border="0" alt="" style="display: none;"></body></html>

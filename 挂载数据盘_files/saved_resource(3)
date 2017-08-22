@@ -1,0 +1,138 @@
+/**
+ * xiao yun helps you vision 2
+ * author: liuqi.lq@alibaba-inc.com
+**/
+(function(window){
+    window.CHCONFIG = window.CHCONFIG || {};
+    window.CHCONFIG.loadOnClick = window.CHCONFIG.loadOnClick || true;
+    //是否显示小云按钮
+    CHCONFIG.showXiaoYunButton = CHCONFIG.showXiaoYunButton || true;
+    CHCONFIG.wrapStyle = CHCONFIG.wrapStyle || {'right':53,'top':119};
+    CHCONFIG.defaultButtonName = CHCONFIG.defaultButtonName || "#J_cloudHelper";
+    CHCONFIG.defaultButtonWrap = CHCONFIG.defaultButtonWrap || ".float-tool";
+    CHCONFIG.defaultButtonHtml = '<div id="J_cloudHelper" class="btn-tool"><a title="小云帮助"><span class="icon-help"></span></a></div>';
+    CHCONFIG.button_2_html = '<div id="J_cloudHelper" class="cloud-helper-button cloud-helper-showonce" style="position: fixed;_position: absolute;top: 394px;right: 0.1%;z-index: 10000;width:38px;height:38px;" ><a href="#" onclick="return false;" title="小云帮助"></a></div>';
+    CHCONFIG.suffix = function(){
+       var domain = window.location.host;
+       if(!domain.match(/^.+\.aliyun\.|^aliyun\./))return '.com';
+       var output =  domain.replace(/^.*\.aliyun|^aliyun/i,'');
+       if(!output)output = '.com';
+       return output;
+    }();
+    //白名单命中的url
+    CHCONFIG.curWhiteList = null;
+    CHCONFIG.showXiaoYun = window.CHCONFIG.showXiaoYun || false;
+    CHCONFIG.WHITE_LIST = [
+    '\^http://www.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/ecs\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/rds\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/oss\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/cdn\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/oss\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/ots\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/ocs\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/odps\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/ace\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/yundun\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/jiankong\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/product/slb\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/act/webbaindex.html\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/act/contactservice.html\$',
+    '\^http://market.aliyun' + CHCONFIG.suffix + '',
+    '\^http://help.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://help.aliyun' + CHCONFIG.suffix + '/guide\$',
+    '\^http://help.aliyun' + CHCONFIG.suffix + '/manual\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/customer',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/customer/detail',
+    '\^http://awdc.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://buy.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://buy.aliyun' + CHCONFIG.suffix + '/postpay_vm\$',
+    '\^http://fuwu.aliyun' + CHCONFIG.suffix + '',
+    '\^http://partner.aliyun' + CHCONFIG.suffix + '',
+    '\^http://aliyuntest.gein.cn',
+    '\^http://batest.gein.cn',
+    '\^http://aliyun.gein.cn',
+    '\^http://ba.hichina.com',
+    '\^http://icptest.gein.cn:8780',
+    '\^http://try.aliyun' + CHCONFIG.suffix + '',
+    '\^http://appcloud.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://game.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://jr.aliyun' + CHCONFIG.suffix + '\$',
+    '\^http://promotion.aliyun' + CHCONFIG.suffix + '/act/xszq.html\$',
+    '\^http://www.aliyun' + CHCONFIG.suffix + '/act/contactservice.html\$'
+    ];
+
+    CHCONFIG.isInWhiteList = function(url){
+        var el;
+        var re;
+        for(var i = 0;i< CHCONFIG.WHITE_LIST.length ;i++){
+            el=CHCONFIG.WHITE_LIST[i];
+            re=new RegExp(el,['i']);
+            if(url.substr(url.length-1) == '/'){
+                url = url.substring(0,url.length-1);
+            }
+            if(url.match(re)){
+               CHCONFIG.curWhiteList = el;
+               return true; 
+            }
+            if(CHCONFIG.showXiaoYun){
+                CHCONFIG.curWhiteList = el;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //电话等默认配置
+    CHCONFIG.presaleserviceTel = CHCONFIG.presaleserviceTel || "400-600-3456";
+    CHCONFIG.putonrecordTel = CHCONFIG.putonrecordTel || '4006008500转3';
+    CHCONFIG.workOrderTel = CHCONFIG.workOrderTel || '0571-85025885';
+
+    CHCONFIG.configBaseUrl = function(node,curl,purl){
+        /* 
+         * 企信宝
+         * 修改了售前电话
+         */
+        if((curl.indexOf('http://market.aliyun.com/shop') == 0 && curl.indexOf('shopId=34320') != -1)
+            || (curl.indexOf('http://market.aliyun.com/shop/product_detail') == 0 && curl.indexOf('productId=cmqx000001')!= -1 )
+            || curl.indexOf('http://market.aliyun.com/zt/qxb.html') == 0 ){
+            node.find('#cloud-helper-presaleservice-tel').text("4006003456");
+        }
+        /* 
+         * 备案页面
+         * 修改了整个人工客服面板，仅保留备案电话
+         */
+        if(CHCONFIG.curWhiteList == '\^http://aliyuntest.gein.cn' 
+            || CHCONFIG.curWhiteList == '\^http://aliyun.gein.cn'
+            || CHCONFIG.curWhiteList == '\^http://ba.hichina.com'
+            || CHCONFIG.curWhiteList == '\^http://batest.gein.cn')
+        {
+            var boxBot = node.filter('.cloud-helper-box-bot');
+            boxBot.css({'height':'35px'});
+            boxBot.find('table').hide();
+            boxBot.append('<p style="margin:10px 0 0 150px;">备案咨询电话：4006008500转3</p>')
+        }
+        /* 
+         * 开发者服务页面
+         * 修改了整个人工客服面板，仅保留售前电话
+         */
+        if(curl.indexOf('http://fuwu.aliyun.com/product/product_list.htm') == 0 && curl.indexOf('productTypeId=13')!="-1" && (curl.indexOf('productCategoryId=57') != -1 
+            || curl.indexOf('productCategoryId=58') != -1 || curl.indexOf('productCategoryId=59') != -1 || curl.indexOf('productCategoryId=60') != -1 )
+        ){
+            var boxBot = node.filter('.cloud-helper-box-bot');
+            boxBot.find('table tr').not(':first').hide();
+            boxBot.find('table tr:first td').not(':first').hide();
+            boxBot.find('table tr:first td:first').css({
+                'text-align':'center',
+                'font-size':'14px'
+            }).find('.cloud-helper-box-bot-label').text('售前联系方式:').css({
+                'padding-left':'0px'
+            });
+        }
+           
+
+
+        return node;
+    }
+})(window);

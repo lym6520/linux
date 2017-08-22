@@ -1,0 +1,10 @@
+apache 开机自动启动脚本修改
+修改/etc/init.d/httpd 文件：
+# chkconfig: - 85 15
+改为：
+# chkconfig: 2345 85 15
+
+保存，然后执行以下命令：
+
+#chkconfig --add httpd
+#chkconfig httpd on

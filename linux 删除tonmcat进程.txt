@@ -1,0 +1,3 @@
+输入命令ps -ef|grep java ，查看tomcat进程ID
+
+输入命令sudo -u username kill -9 pid，其中userName指用户名 pid我这里是第一行用户后面的那个数字

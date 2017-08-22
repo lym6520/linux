@@ -1,0 +1,10 @@
+1.获取GCC升级包：wget http://gcc.skazkaforyou.com/releases
+2.解压缩：
+#tar -xf gcc-4.8.2.tar.gz
+3.进入到目录gcc-*，运行（下载、配置、安装依赖库）：
+#./contrib/download_prerequisites
+4.#./configure --enable-checking=release --enable-languages=c,c++ --disable-multilib
+--enable-languages表示你要让你的gcc支持那些语言，--disable-multilib不生成编译为其他平台可执行代码的交叉编译器。--disable-checking生成的编译器在编译过程中不做额外检查，也可以使用--enable-checking=xxx来增加一些检查；
+5.编译：make；注意此步和上一步，比较耗时；
+6.安装：make  install；
+7.验证：gcc -v；或者g++ -v，如果显示的gcc版本仍是以前的版本，就需要重启系统；或者可以查看gcc的安装位置：which gcc；然后在查看版本 /usr/local/bin/gcc -v

@@ -1,0 +1,9 @@
+You need tcl 8.5 or newer in order to run the Redis test
+
+
+wget http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz  
+tar xzvf tcl8.6.1-src.tar.gz  -C /usr/local/  
+cd  /usr/local/tcl8.6.1/unix/  
+./configure  
+make  
+make install   

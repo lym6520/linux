@@ -1,0 +1,12 @@
+在centos 5.2 下使用unzip命令解压包含中文文件名的ZIP压缩包,解压的结果会出现乱码,这时可尝试安装7ZIP.
+
+在SSH终端下输入:
+
+yum –y install p7zip
+
+即可完成安装.怎么解压呢 ?
+
+export LANG=zh_CH.GBK // 若系统编码为zh_CH.GBK,此语句可省略
+7za e docs.zip
+
+参考网址:http://dag.wieers.com/rpm/packages/p7zip/

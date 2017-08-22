@@ -1,0 +1,12 @@
+
+
+编译程序用下列命令：
+gcc -Wall mcastclient.c -o mcastclient
+gcc -Wall mcastserver.c -o mcastserver
+运行程序用如下命令：
+./mcastserver 230.1.1.1 7838
+
+客户端程序运行命令为：
+./mcastclient 230.1.1.1 7838 [destip] 12345
+如：
+./mcastclient 230.1.1.1 7838 192.18.54.106 12345

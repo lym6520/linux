@@ -1,0 +1,17 @@
+创建AuthUserFile文件
+第一次添加用户：
+htpasswd -c "文件路径" 创建的用户名
+添加用户：
+htpasswd -c "文件路径" 创建的用户名
+
+
+
+
+<Location /jkstatus>
+AllowOverride None
+AuthName  安全认证中心
+AuthUserFile  /etc/apache.secure.user
+AuthType Basic
+require valid-user
+</Location>
+

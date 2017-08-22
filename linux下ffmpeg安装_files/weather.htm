@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>天气预报</title>
+<style type="text/css">
+body {
+  margin:0;
+}
+
+#weather {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:1;
+  width:190px;
+  height:54px;
+  overflow:hidden;
+}
+</style>
+
+<script language="javascript" type="text/javascript">
+document.oncontextmenu = new Function('event.returnValue=false;');
+document.onselectstart = new Function('event.returnValue=false;');
+</script>
+</head><body><script>window.addEventListener("resize",new Function("event","adjustLKMediaDiv(event);"),false)</script><script>function juiceapp_bx(x, y, w, h) {     this.l = x;     this.r = x + w;     this.t = y;     this.b = y + h; }function cBB(o) {     var b = new juiceapp_bx(0, 0, 0, 0);      if (!o)         return b;      var x = 0, y = 0, p = o;   try{  do {      y+=p.offsetTop || 0;      x+=p.offsetLeft || 0;   p = p.offsetParent||p.parentNode;  }while(p);  }catch(e){}     b.l = x;     b.t = y;     return b; }function adjustLKMediaDiv(event){var divs = document.getElementsByName('lk_juiceapp_mediaPopup_div');for(i=0;i<divs.length;i++){var d = divs[i];var embs = document.getElementsByTagName('embed');var iframes=document.getElementsByTagName('iframe');if (embs.length>0){for(var k=0;k<iframes.length;k++){embs[embs.length]=iframes[k];}}else{embs=iframes};var objects=document.getElementsByTagName('object');if (embs.length>0){for(var k=0;k<objects.length;k++){embs[embs.length]=objects[k];}}else{embs=objects}for(j=0;j<embs.length;j++){var emb = embs[j];if (emb.getAttribute('lk_media')!='yes'){continue;}if(emb.getAttribute('lk_mediaId') == d.id){var b = cBB(emb);d.style.left=(b.l+emb.clientWidth)+'px';d.style.top=(b.t+emb.clientHeight/2-30)+'px';break;}//end of if emb
+}//end of for embs
+}//end of for divs
+}
+</script>
+<div id="weather">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" height="54" width="190">
+    <param name="movie" value="weather.swf">
+    <param name="quality" value="high">
+    <param name="scale" value="exactfit">
+    <param name="wmode" value="transparent">
+    <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038854021" src="weather_data/weather.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" scale="exactfit" wmode="transparent" height="54" width="190">
+  </object>
+</div>
+<iframe src="weather_data/weather.htm" marginwidth="0" marginheight="0" frameborder="0" height="54" scrolling="no" width="190"></iframe>
+<div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 190px; top: -3px;" id="lk_juiceapp_mediaPopup_1254038854021"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="weather_data/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div></body></html>

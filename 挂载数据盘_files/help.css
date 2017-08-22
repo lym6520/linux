@@ -1,0 +1,154 @@
+.cc{zoom:1;}
+.cc:after{content:'\20';display:block;height:0;clear:both;visibility: hidden;}
+.c{clear:both;height:0;font:0/0 Arial;overflow:hidden;width:0;}
+
+.c-panel-help .shorts li.shorts-ic span,.c-panel-help .guide li .giude-ic{background:url(../../images/www-summerwind/icon-big.png) no-repeat -10px -10px;}
+
+.aysw-header-searchpanel{float: right;word-wrap: normal;white-space: nowrap;padding-top:15px;}
+.aysw-header-searchpanel input{width:295px;border:1px solid #cdcdcd; background:white url(../../images/www-summerwind/aysw-aysearch.png) no-repeat 8px center;font: 12px/120% Microsoft YaHei,Tahoma,Geneva,sans-serif,SimSun;height: 12px;padding: 9px 11px 9px 30px;vertical-align: middle;color: #CCC;}
+.aysw-header-searchpanel .searchbtn{display:inline-block; *display:inline; *zoom:1; width:75px; height:34px; background:url(../../images/www-summerwind/searchbtn.png) no-repeat; text-indent:-99999px; overflow:hidden; vertical-align:middle; margin-left:0px;}
+.aysw-header-searchpanel .searchbtn:hover{ opacity:0.8; filter:alpha(opacity=80);}
+
+.homeSK{background:url(../../images/www-summerwind/homeSK.png) no-repeat; height:76px; padding:60px 15px 14px 118px; position:relative;}
+.homeSK input{background:transparent; color:#999; width:462px; height:28px; line-height:28px; padding:5px 5px 5px 12px; font-size:14px; overflow-x:hidden; overflow-y:auto; word-wrap:break-word; outline:none; border:0;}
+.homeSK .send_btn{text-indent: -9999em;display:inline-block; width:86px; height:39px;background:url(../../images/www-summerwind/sendbtn.png) no-repeat; float:right; position:relative; margin-top:-1px; cursor:pointer;}
+.homeSK .send_btn:hover{ opacity:0.8; filter:alpha(opacity=80);}
+.c-panel-funcarea{padding-top:10px; text-align:right; font-size:14px; color:#999; padding-right:90px;}
+.c-panel-funcarea em{font-size:18px; padding:0 5px;}
+
+.c-panel-dropdown{width:478px; border:1px solid #CCC; background:#FFF; position:absolute; margin-top:3px; left:118px; top:99px;}
+.c-panel-dropdown li{height:24px; line-height:24px; color:#666; padding:0 10px; cursor:default;}
+.c-panel-dropdown li.ac_over{background:#b0b0b0; color:#FFF;}
+
+.c-panel-help .hd{color:#333; line-height:150%;border-bottom:2px solid #eaeaea;}
+.c-panel-help .hd h2{float:left;font-size:18px;font-weight:600;border-bottom:2px solid #ff8700; position:relative; margin-bottom:-2px; padding:4px 2px 10px;}
+.c-panel-help .bd{padding:0 0 0 20px;}
+.c-panel-help .shorts li{float:left; width:64px; padding:25px 32px 0; text-align:center; line-height:22px;}
+.c-panel-help .shorts li a{color:#333; font-size:14px; cursor:pointer;}
+.c-panel-help .shorts li.shorts-ic span{display:block;width:64px; height:65px;}
+.c-panel-help .shorts li.shorts-ic-register span{background-position:-10px -10px;}
+.c-panel-help .shorts li.shorts-ic-login span{background-position:-10px -86px;}
+.c-panel-help .shorts li.shorts-ic-password span{background-position:-10px -162px;}
+.c-panel-help .shorts li.shorts-ic-cost span{background-position:-10px -238px;}
+.c-panel-help .shorts li.shorts-ic-service span{background-position:-10px -313px;}
+.c-panel-help .shorts li.shorts-ic-buy span{background-position:-10px -389px;}
+.c-panel-help .shorts li.shorts-ic-try span{background-position:-10px -466px;}
+.c-panel-help .shorts li.shorts-ic-appre span{background-position:-10px -542px;}
+.c-panel-help .shorts li.shorts-ic-rene span{background-position:-10px -619px;}
+.c-panel-help .shorts li.shorts-ic-aftermarket span{background-position:-10px -695px;}
+
+.c-panel-help .guide li{float:left; padding:25px 20px 0 0; width:290px;}
+.c-panel-help .guide li.w345{width:345px;}
+.c-panel-help .guide li.w650{width:650px;}
+.c-panel-help .guide li .giude-ic{float:left; display:block; width:45px; height:35px;}
+.c-panel-help .guide li .giude-ic-iccou{background-position:-101px -10px;}
+.c-panel-help .guide li .giude-ic-appre{background-position:-101px -55px;}
+.c-panel-help .guide li .giude-ic-close{background-position:-101px -95px;}
+.c-panel-help .guide li .giude-ic-help{background-position:-101px -145px;}
+.c-panel-help .guide li .giude-ic-give{background-position:-101px -195px;}
+.c-panel-help .guide li .giude-ic-stor{background-position:-101px -235px;}
+.c-panel-help .guide li .giude-ic-safe{background-position:-101px -295px;}
+.c-panel-help .guide li .desc{float:left;}
+.c-panel-help .guide li .desc h3{font-size:16px; font-weight:500; line-height:23px; color:#333;}
+.c-panel-help .guide li .desc a{padding-right:25px;}
+
+.page-help-home .feedback{ background:url(../../images/www-summerwind/help_feedback.png) no-repeat; width:220px; height:81px;}
+
+/*联系客服 by ransiwei 20130113*/
+/*导航*/
+.aysw-navswrap,.aysw-navswrap .aysw-navs-m,.aysw-navswrap .aysw-navs,.aysw-navswrap .aysw-navs li a:hover,.aysw-navswrap .aysw-navs li a span,.aysw-navswrap .aysw-navs li.aysw-navs-home a,.aysw-navswrap .aysw-navs li.current a{background:url(../../images/www-summerwind/navs-bg.png) no-repeat -9999px -9999px;}
+.aysw-navswrap{height:42px; background-position:0 -42px; background-repeat:repeat-x; width:940px; margin:10px auto 0;}
+.aysw-navswrap .aysw-navs-m{background-position:100% -84px;}
+.aysw-navswrap .aysw-navs{background-position:0 0; height:42px;}
+.aysw-navswrap .aysw-navs li{float:left; margin-left:-1px; position:relative; z-index:10;}
+.aysw-navswrap .aysw-navs li.aysw-navs-line{width:1px; height:14px;padding:0; overflow:hidden; font-size:0; line-height:0; background:#ddd; z-index:1; margin:13px 0 0 -1px;}
+.aysw-navswrap .aysw-navs li a{color:#333; text-shadow:0 1px 1px #ccc; line-height:40px;padding-left:25px; display:block; float:left; font-weight:600; cursor:pointer;}
+.aysw-navswrap .aysw-navs li a span{display:block; float:left; padding-right:25px;}
+.aysw-navswrap .aysw-navs li a:hover,.aysw-navswrap .aysw-navs li.current a,.aysw-navswrap .aysw-navs li.current a:hover{background-position:0 -168px; color:#FFF; text-decoration:none; text-shadow:0 1px 1px #ff3300;}
+.aysw-navswrap .aysw-navs li a:hover span,.aysw-navswrap .aysw-navs li.current a span,.aysw-navswrap .aysw-navs li.current a:hover span{background-position:100% -210px;}
+.aysw-navswrap .aysw-navs li.aysw-navs-home a{background-position:0 -126px; padding-left:25px; text-align:center; color:#FFF; text-shadow:0 1px 1px #ff3300;}
+
+.aysw-navswrap .aysw-navs li.aysw-navs-home a:hover{background-position:0 -126px;}
+.aysw-navswrap .aysw-navs li.aysw-navs-home a:hover span{ background:none;}
+.aysw-navs li.aysw-navs-homehover a:hover{background-position:0 -126px;}
+.aysw-navs li.aysw-navs-homehover a:hover span{ background:none;}
+
+/*logo*/
+.aysw-header .aysw-logo-w{display:block; width:325px; float:left; height:60px; margin:0; padding: 0 0 0 10px}
+.aysw-header .aysw-logo{width:135px; float:left; }
+.aysw-header .aysw-logo a{display:block; width:135px; float:left; height:60px; background:url(../../images/www-summerwind/logo_aliyun_help.gif) left center no-repeat; margin:0; text-indent:-999em; overflow:hidden;}
+.aysw-header .aysw-logo-s{ display:block; width:102px; height:60px; background:url(../../images/www-summerwind/logo_help_s.gif) left center no-repeat; margin:0; text-indent:-999em; overflow:hidden; float:left;}
+
+/*service*/
+.page-help-service .help-service-main{border: 1px solid #eff2f9; background: #f7fcff}
+.page-help-service .service-tab-menu li{ float: left; height: 181px; background:#fdfdfd url(../../images/www-summerwind/severlistbg.png) bottom repeat-x; width: 233px}
+.page-help-service .service-tab-menu li.service-II-b{border-left: 1px solid #eff2f9; border-right: 1px solid #eff2f9}
+.page-help-service .service-tab-menu li.service-III-b{border-right: 1px solid #eff2f9;width: 236px}
+.page-help-service .service-tab-menu li .service-inner{ padding: 20px}
+
+.page-help-service .service-tab-menu li h3,.page-help-service .service-tab-menu li .service-star-level,.service-content .service-enter-btn,.page-help-service .service-content .service-zx-btn,.page-help-service .service-content .service-enter-btn:hover{ background: url(../../images/www-summerwind/helpservicebg.png) no-repeat; text-indent: -9999em}
+
+.page-help-service .service-tab-menu li .service-star{height: 20px; margin: 12px 0 10px  }
+.page-help-service .service-tab-menu li .service-star span{ display: inline-block;float: left;}
+.page-help-service .service-tab-menu li .service-star .service-star-t{color: #333;font:12px/18px "\5FAE\8F6F\96C5\9ED1", Helvetica, Arial, Verdana, "\5B8B\4F53"; padding: 0 5px 0 0}
+.page-help-service .service-tab-menu li .service-star .service-star-level{float: left;display: inline-block; width: 92px; height: 15px}
+
+.page-help-service .service-tab-menu li p{ font-size: 12px; color: #666; line-height: 20px}
+
+.page-help-service .service-tab-menu li.active{ background: url(../../images/www-summerwind/severlisthover.png) repeat-x}
+
+.page-help-service .service-tab-menu li .service-I h3{ height: 33px;}
+.page-help-service .service-tab-menu li .service-I .service-star-level{ background-position: 0 -310px}
+.page-help-service .service-tab-menu li.active .service-I h3{ background-position: 0 -33px}
+.page-help-service .service-tab-menu li.active .service-I .service-star-level{ background-position: 0 -325px}
+
+.page-help-service .service-tab-menu li .service-II h3{height:33px;background-position: 0 -66px}
+.page-help-service .service-tab-menu li .service-II .service-star-level{ background-position: 0 -341px}
+.page-help-service .service-tab-menu li.active .service-II h3{ height: 35px; background-position: 0 -99px}
+.page-help-service .service-tab-menu li.active .service-II .service-star-level{ background-position: 0 -359px}
+.page-help-service .service-tab-menu li.active .service-II .service-star{margin:10px 0 10px;}
+
+.page-help-service .service-tab-menu li .service-III h3{ height: 33px; background-position: 0 -132px}
+.page-help-service .service-tab-menu li .service-III .service-star-level{ background-position: 0 -375px}
+.page-help-service .service-tab-menu li.active .service-III h3{ height: 33px; background-position: 0 -165px}
+.page-help-service .service-tab-menu li.active .service-III .service-star-level{ background-position: 0 -391px}
+
+.page-help-service .service-tab-menu li .service-IV h3{ height: 33px; background-position: 0 -198px}
+.page-help-service .service-tab-menu li .service-IV .service-star-level{ background-position: 0 -375px}
+.page-help-service .service-tab-menu li.active .service-IV h3{ height: 33px; background-position: 0 -231px}
+.page-help-service .service-tab-menu li.active .service-IV .service-star-level{ background-position: 0 -391px}
+
+.page-help-service .service-content{ background: #f7fcff; height: 311px}
+.page-help-service .service-cotent-tab1{background: url(../../images/www-summerwind/s2.png) 85px 28px no-repeat; height: 290px}
+.page-help-service .service-cotent-tab1 .service-tab1-c{ padding: 90px 0 0 313px;width: 527px}
+.page-help-service .service-cotent-tab1 .service-tab1-c p,.service-cotent-tab2 .service-tab2-c p,.service-cotent-tab3 .service-tab3-c p,.page-help-service .service-tab4-c p{color: #000; font-size: 20px; line-height: 25px; padding:3px 0}
+.page-help-service .service-enter span{color: #000; font-size: 18px; line-height: 24px; float: left; padding:0 5px 0 0}
+.page-help-service .service-content .service-enter-btn{display: inline-block;width: 83px; height: 27px; cursor: pointer; background-position: 0 -422px}
+.page-help-service .service-content .service-enter-btn:hover{background-position: 0 -450px}
+.page-help-service .service-content .service-zx-btn{display: inline-block;width: 78px; height: 23px; cursor: pointer; background-position: 0 -499px}
+.page-help-service .service-content .mr60{margin-right: 60px!important;}
+
+.page-help-service .service-cotent-tab2{background:url(../../images/www-summerwind/s1.png) 98px 12px no-repeat; height:310px }
+.page-help-service .service-cotent-tab2 .service-tab2-c{padding: 125px 0 0 360px;width: 490px}
+
+.page-help-service .service-cotent-tab3{background:url(../../images/www-summerwind/s3.png) 40px 30px no-repeat; height:310px }
+.page-help-service .service-cotent-tab3 .service-tab3-c{padding: 100px 0 0 400px;width: 490px}
+.service-cotent-tab3 .service-tab3-c p{ padding-bottom: 10px; font-size: 20px}
+
+.page-help-service .service-cotent-tab4{background:url(../../images/www-summerwind/s4.png) 100px 25px no-repeat; height:310px }
+.page-help-service .service-cotent-tab4 .service-tab4-c{padding: 100px 0 0 400px;width: 490px}
+.page-help-service .service-tab4-c p{ padding-bottom: 10px; font-size: 20px}
+
+
+/***新手指南/产品使用帮助 字体icon替换***/
+@font-face{
+	font-family:'ayfia'; font-weight:normal; font-style:normal;
+	src:url("/fonts/a/ayfia.eot?v=20130422");
+	src:url("/fonts/a/ayfia.eot?v=20130422#iefix") format("embedded-opentype"),
+		url("/fonts/a/ayfia.woff?v=20130422") format("woff"),
+		url("/fonts/a/ayfia.ttf?v=20130422") format("truetype"),
+		url("/fonts/a/ayfia.svg?v=20130422#ayfia") format("svg");
+}
+.c-panel-help .guide li .fi{ font-family:'ayfia'; float:left; width:45px; line-height:1.2em; font-size:36px; color:#DBDBDB;}
+.c-panel-help .guide li .ani{-moz-transition:all .2s linear;-webkit-transition:all .2s linear;transition:all .2s linear;}
+.c-panel-help .guide li .fi:hover{ cursor:pointer; -moz-transform:scale(1.5);-webkit-transform:scale(1.5);transform:scale(1.5);}

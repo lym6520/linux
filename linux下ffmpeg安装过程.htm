@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>LInux下如何安装ffmpeg - yezi - JavaEye技术网站</title>
+    <meta name="description" content="终于装上了，把过程记录一下 首先要安装各种解码器 1、lame lame-3.97.tar.gz  Url：http://sourceforge.net/project/showfiles.php?group_id=290&amp;package_id=309  安装方法如下：tar -zxvf lame-3.97.tar.gz  cd lame-3.97  ./configure --enable ...">
+    <meta name="keywords" content="linux ffmpeg  LInux下如何安装ffmpeg">
+    <link rel="shortcut icon" href="http://yezi.javaeye.com/images/favicon.ico" type="image/x-icon">
+    <link href="http://yezi.javaeye.com/rss" rel="alternate" title="yezi" type="application/rss+xml">
+    <link href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/green.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/application.js" type="text/javascript"></script>
+      <link href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/hotkey.js" type="text/javascript"></script>
+  <style>
+    div#main {background-color: transparent; border: 0; padding: 0px; width: 740px;}
+  </style>
+  <link href="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/ui.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/compress.js" type="text/javascript"></script>
+  <style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head><body><script>window.addEventListener("resize",new Function("event","adjustLKMediaDiv(event);"),false)</script><script>function juiceapp_bx(x, y, w, h) {     this.l = x;     this.r = x + w;     this.t = y;     this.b = y + h; }function cBB(o) {     var b = new juiceapp_bx(0, 0, 0, 0);      if (!o)         return b;      var x = 0, y = 0, p = o;   try{  do {      y+=p.offsetTop || 0;      x+=p.offsetLeft || 0;   p = p.offsetParent||p.parentNode;  }while(p);  }catch(e){}     b.l = x;     b.t = y;     return b; }function adjustLKMediaDiv(event){var divs = document.getElementsByName('lk_juiceapp_mediaPopup_div');for(i=0;i<divs.length;i++){var d = divs[i];var embs = document.getElementsByTagName('embed');var iframes=document.getElementsByTagName('iframe');if (embs.length>0){for(var k=0;k<iframes.length;k++){embs[embs.length]=iframes[k];}}else{embs=iframes};var objects=document.getElementsByTagName('object');if (embs.length>0){for(var k=0;k<objects.length;k++){embs[embs.length]=objects[k];}}else{embs=objects}for(j=0;j<embs.length;j++){var emb = embs[j];if (emb.getAttribute('lk_media')!='yes'){continue;}if(emb.getAttribute('lk_mediaId') == d.id){var b = cBB(emb);d.style.left=(b.l+emb.clientWidth)+'px';d.style.top=(b.t+emb.clientHeight/2-30)+'px';break;}//end of if emb
+}//end of for embs
+}//end of for divs
+}
+</script>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.javaeye.com/" class="homepage">首页</a>
+  <a href="http://www.javaeye.com/news">新闻</a>
+  <a href="http://www.javaeye.com/forums">论坛</a>
+  <a href="http://www.javaeye.com/blogs">博客</a>
+  <a href="http://www.javaeye.com/job">招聘</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display: none;">
+    <a href="http://www.javaeye.com/ask">问答</a>
+    <a href="http://www.javaeye.com/wiki">知识库</a>
+    <a href="http://www.javaeye.com/groups">圈子</a>
+    <a href="http://www.javaeye.com/google_search">搜索</a>
+  </div>
+</div>
+      <div id="user_nav">
+      <a href="http://lym6520.javaeye.com/" title="查看我的博客首页" class="welcome">欢迎lym6520</a>
+    
+      <a href="http://app.javaeye.com/messages" title="发送站内短信">收件箱</a>
+    
+    
+      <a href="http://app.javaeye.com/" title="我的应用首页">我的应用</a>
+    
+    <div class="quick_menu" style="display: none;">
+      <a href="http://app.javaeye.com/feed" title="我订阅的好友动态消息">我的订阅</a>
+      <a href="http://app.javaeye.com/feed/my" title="我参与的话题更新的消息">我的参与</a>
+      <a href="http://app.javaeye.com/chat" title="用闲聊发表简短的话题">我的闲聊</a>
+      <a href="http://app.javaeye.com/mygroup" title="我加入的圈子最新话题">我的圈子</a>
+      <a href="http://app.javaeye.com/links" title="我收藏的网络资源链接">我的收藏</a>
+      <a href="http://app.javaeye.com/myresume" title="我的个人简历">我的简历</a>
+    </div>
+        <a href="http://lym6520.javaeye.com/admin" title="管理我的博客">我的博客</a>
+    <a href="http://app.javaeye.com/profile" title="修改我的个人设置">设置</a>
+    <a href="http://yezi.javaeye.com/logout" class="nobg" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); m.setAttribute('name', '_method'); m.setAttribute('value', 'put'); f.appendChild(m);f.submit();return false;">退出</a>
+  </div>
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name"><h1><a href="http://yezi.javaeye.com/">yezi</a></h1></div>
+        <div id="blog_preview"></div>
+        <div id="blog_domain">永久域名 <a href="http://yezi.javaeye.com/">http://yezi.javaeye.com</a></div>
+      </div>
+      
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+          
+
+
+<div class="blog_main"> 
+  <div id="blog_nav">
+    
+    <div id="pre_next">
+      <a href="http://yezi.javaeye.com/blog/144569" class="next" title="爱在苏梅---梦幻南园">爱在苏梅---梦幻南园</a>
+      |
+      <a href="http://yezi.javaeye.com/blog/139257" class="pre" title="Linux如何安装Mencoder">Linux如何安装Mencoder</a>
+    </div>
+  </div>
+  <div class="blog_title">
+    <div class="date"><span class="year">2007</span><span class="sep_year">-</span><span class="month">11</span><span class="sep_month">-</span><span class="day">09</span></div>
+    <h3 class="" title=""><a href="http://yezi.javaeye.com/blog/139399">LInux下如何安装ffmpeg</a></h3>
+                <strong>关键字: linux ffmpeg</strong>
+  </div>
+
+  <div class="blog_content">
+    终于装上了，把过程记录一下
+<br>首先要安装各种解码器
+<br>
+<br>1、lame
+<br><span style="color: red;">lame-3.97.tar.gz </span>
+<br>Url：<a href="http://sourceforge.net/project/showfiles.php?group_id=290&amp;package_id=309" target="_blank">http://sourceforge.net/project/showfiles.php?group_id=290&amp;package_id=309</a> 
+<br>安装方法如下：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619515" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=tar%20-zxvf%20lame-3.97.tar.gz%0Acd%20lame-3.97%0A.%2Fconfigure%20--enable-shared%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>tar&nbsp;-zxvf&nbsp;lame-</span><span class="number">3.97</span><span>.tar.gz&nbsp;&nbsp;</span></span></li><li><span>cd&nbsp;lame-<span class="number">3.97</span><span>&nbsp;&nbsp;</span></span></li><li><span>./configure&nbsp;--enable-shared&nbsp;--prefix=/usr&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">tar -zxvf lame-3.97.tar.gz
+cd lame-3.97
+./configure --enable-shared --prefix=/usr
+make
+make install</pre>
+<br>
+<br>2、libogg
+<br><span style="color: red;">libogg-1.1.3.tar.gz</span>
+<br>Url：<a href="http://downloads.xiph.org/releases/ogg/libogg-1.1.3.tar.gz" target="_blank">http://downloads.xiph.org/releases/ogg/libogg-1.1.3.tar.gz</a>
+<br>安装方法如下：
+<br><div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619532" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>3、libvorbis
+<br><span style="color: red;">libvorbis-1.1.2.tar.gz</span>
+<br>Url：<a href="http://downloads.xiph.org/releases/vorbis/libvorbis-1.1.2.tar.gz" target="_blank">http://downloads.xiph.org/releases/vorbis/libvorbis-1.1.2.tar.gz</a>
+<br>安装方法如下：
+<br><div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619540" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>4、xvid
+<br><span style="color: red;">xvidcore-1.1.3.tar.gz</span>
+<br>Url：<a href="http://downloads.xvid.org/downloads/xvidcore-1.1.3.tar.gz" target="_blank">http://downloads.xvid.org/downloads/xvidcore-1.1.3.tar.gz</a>
+<br>安装方法如下：
+<br><div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619548" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=tar%20zvxf%20xvidcore-1.1.3.tar.gz%0Acd%20xvidcore-1.1.3%2Fbuild%2Fgeneric%0A.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>tar&nbsp;zvxf&nbsp;xvidcore-</span><span class="number">1.1</span><span>.</span><span class="number">3</span><span>.tar.gz&nbsp;&nbsp;</span></span></li><li><span>cd&nbsp;xvidcore-<span class="number">1.1</span><span>.</span><span class="number">3</span><span>/build/generic&nbsp;&nbsp;</span></span></li><li><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">tar zvxf xvidcore-1.1.3.tar.gz
+cd xvidcore-1.1.3/build/generic
+./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>5、x264
+<br><span style="color: red;">x264-snapshot-20071107-2245.tar.bz2</span>
+<br>Url：<a href="http://www.videolan.org/developers/x264.html" target="_blank">http://www.videolan.org/developers/x264.html</a>
+<br><a href="ftp://ftp.videolan.org/pub/videolan/x264/snapshots/" target="_blank">ftp://ftp.videolan.org/pub/videolan/x264/snapshots/</a>
+<br>安装方法如下：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619556" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=bunzip2%20x264-snapshot-20070913-2245.tar.bz2%0Atar%20xvf%20x264-snapshot-20070913-2245.tar%0A.%2Fconfigure%20--prefix%3D%2Fusr%20--enable-shared%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>bunzip2&nbsp;x264-snapshot-</span><span class="number">20070913</span><span>-</span><span class="number">2245</span><span>.tar.bz2&nbsp;&nbsp;</span></span></li><li><span>tar&nbsp;xvf&nbsp;x264-snapshot-<span class="number">20070913</span><span>-</span><span class="number">2245</span><span>.tar&nbsp;&nbsp;</span></span></li><li><span>./configure&nbsp;--prefix=/usr&nbsp;--enable-shared&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">bunzip2 x264-snapshot-20070913-2245.tar.bz2
+tar xvf x264-snapshot-20070913-2245.tar
+./configure --prefix=/usr --enable-shared
+make
+make install</pre>
+<br>
+<br>6、libdts
+<br><span style="color: red;">libdts-0.0.2.tar.gz</span>
+<br>[url]http://download.videolan.org/pub/videolan/libdca/0.0.2/libdca-0.0.2.tar.gz [/url]
+<br>安装方法：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619564" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=tar%20zxvf%20libdts-0.0.2.tar.gz%0Acd%20libdts-0.0.2%0A.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install%0A" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>tar&nbsp;zxvf&nbsp;libdts-</span><span class="number">0.0</span><span>.</span><span class="number">2</span><span>.tar.gz&nbsp;&nbsp;</span></span></li><li><span>cd&nbsp;libdts-<span class="number">0.0</span><span>.</span><span class="number">2</span><span>&nbsp;&nbsp;</span></span></li><li><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">tar zxvf libdts-0.0.2.tar.gz
+cd libdts-0.0.2
+./configure --prefix=/usr
+make
+make install
+</pre>
+<br>
+<br>7、a52
+<br><span style="color: red;">a52dec-0.7.4.tar.gz</span>
+<br><a href="http://liba52.sourceforge.net/downloads.html" target="_blank">http://liba52.sourceforge.net/downloads.html</a>
+<br>安装方法：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619572" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>8、faad2
+<br><span style="color: red;">faad2-2.6.1.tar.gz</span>
+<br><a href="http://www.audiocoding.com/downloads.html" target="_blank">http://www.audiocoding.com/downloads.html</a>
+<br>安装方法<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619580" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=autoreconf%20-vif%0A.%2Fconfigure%20--prefix%3D%2Fusr%20--with-mp4v2%20--enable-shared%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>autoreconf&nbsp;-vif&nbsp;&nbsp;</span></span></li><li><span>./configure&nbsp;--prefix=/usr&nbsp;--with-mp4v2&nbsp;--enable-shared&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">autoreconf -vif
+./configure --prefix=/usr --with-mp4v2 --enable-shared
+make
+make install</pre>
+<br>
+<br>9、faac
+<br><span style="color: red;">faac-1.26.tar.gz</span>
+<br><a href="http://linux.softpedia.com/progDownload/FAAC-Download-554.html" target="_blank">http://linux.softpedia.com/progDownload/FAAC-Download-554.html</a>
+<br>安装方法：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619588" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=tar%20zxvf%20faac-1.26.tar.gz%0Acd%20faac%0A.%2Fbootstrap%0A.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%20%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>tar&nbsp;zxvf&nbsp;faac-</span><span class="number">1.26</span><span>.tar.gz&nbsp;&nbsp;</span></span></li><li><span>cd&nbsp;faac&nbsp;&nbsp;</span></li><li><span>./bootstrap&nbsp;&nbsp;</span></li><li><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></li><li><span>make&nbsp;&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">tar zxvf faac-1.26.tar.gz
+cd faac
+./bootstrap
+./configure --prefix=/usr
+make 
+make install</pre>
+<br>
+<br>10、amr-nb
+<br><span style="color: red;">amrnb-6.1.0.4.tar.bz2</span>
+<br><a href="http://ftp.penguin.cz/pub/users/utx/amr/amrnb-6.1.0.4.tar.bz2" target="_blank">http://ftp.penguin.cz/pub/users/utx/amr/amrnb-6.1.0.4.tar.bz2</a>
+<br>安装方法：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619596" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>11、amr-wb
+<br><span style="color: red;">amrwb-7.0.0.1.tar.bz2</span>
+<br><a href="http://ftp.penguin.cz/pub/users/utx/amr/amrwb-7.0.0.1.tar.bz2" target="_blank">http://ftp.penguin.cz/pub/users/utx/amr/amrwb-7.0.0.1.tar.bz2</a>
+<br>安装方法：<div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619603" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr
+make
+make install</pre>
+<br>
+<br>12、lib52
+<br><span style="color: red;">a52dec-0.7.4.tar.gz</span>
+<br><a href="http://liba52.sourceforge.net/downloads.html" target="_blank">http://liba52.sourceforge.net/downloads.html</a>
+<br>
+<br>如果前面的安装一切顺利的话，恭喜你，可以安装ffmpeg了
+<br>
+<br>安装ffmpeg
+<br><div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619611" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=.%2Fconfigure%20--prefix%3D%2Fusr%20--enable-gpl%20--enable-shared%20--enable-libmp3lame%20--enable-libogg%20--enable-libvorbis%20--enable-libamr-nb%20--enable-libamr-wb%20--enable-libxvid%20--enable-libx264%20--enable-liba52%20--enable-liba52bin%20--enable-libfaac%20--enable-libfaad%20--enable-libfaadbin%20--enable-pp%20--enable-pthreads%20--disable-ffserver%20--disable-ffplay%0Amake%0Amake%20install" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>./configure&nbsp;--prefix=/usr&nbsp;--enable-gpl&nbsp;--enable-shared&nbsp;--enable-libmp3lame&nbsp;--enable-libogg&nbsp;--enable-libvorbis&nbsp;--enable-libamr-nb&nbsp;--enable-libamr-wb&nbsp;--enable-libxvid&nbsp;--enable-libx264&nbsp;--enable-liba52&nbsp;--enable-liba52bin&nbsp;--enable-libfaac&nbsp;--enable-libfaad&nbsp;--enable-libfaadbin&nbsp;--enable-pp&nbsp;--enable-pthreads&nbsp;--disable-ffserver&nbsp;--disable-ffplay&nbsp;&nbsp;</span></span></li><li><span>make&nbsp;&nbsp;</span></li><li><span>make&nbsp;install&nbsp;&nbsp;</span></li></ol></div><pre style="display: none;" name="code" class="java">./configure --prefix=/usr --enable-gpl --enable-shared --enable-libmp3lame --enable-libogg --enable-libvorbis --enable-libamr-nb --enable-libamr-wb --enable-libxvid --enable-libx264 --enable-liba52 --enable-liba52bin --enable-libfaac --enable-libfaad --enable-libfaadbin --enable-pp --enable-pthreads --disable-ffserver --disable-ffplay
+make
+make install</pre>
+  </div>
+
+  
+
+  <div>
+<script type="text/javascript">
+google_ad_client = "pub-9971846879634397";
+google_ad_slot = "8644581328";
+google_ad_width = 468;
+google_ad_height = 60;
+</script>
+<script type="text/javascript" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/show_ads.js">
+</script><script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/expansion_embed.js"></script><script src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/test_domain.js"></script><script>google_protectAndRun("ads_core.google_render_ad", google_handleError, google_render_ad);</script><ins style="border: medium none ; margin: 0pt; padding: 0pt; display: inline-table; height: 60px; position: relative; visibility: visible; width: 468px;"><ins style="border: medium none ; margin: 0pt; padding: 0pt; display: block; height: 60px; position: relative; visibility: visible; width: 468px;"><iframe allowtransparency="true" hspace="0" id="google_ads_frame1" marginheight="0" marginwidth="0" name="google_ads_frame" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/ads.htm" style="left: 0pt; position: absolute; top: 0pt;" vspace="0" frameborder="0" height="60" scrolling="no" width="468"></iframe></ins></ins>
+</div>
+
+  
+  
+
+  <div class="blog_bottom">
+    <ul>
+      <li>10:18</li>
+      <li>浏览 (5953)</li>
+            <li><a href="#comments">评论</a> (2)</li>
+      <li>分类: <a href="http://yezi.javaeye.com/category/12634">服务器相关</a></li>
+      
+      
+        <li><a href="http://app.javaeye.com/links?user_favorite%5Btitle%5D=LInux%E4%B8%8B%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85ffmpeg&amp;user_favorite%5Burl%5D=http%3A%2F%2Fyezi.javaeye.com%2Fblog%2F139399" target="_blank" class="favorite">收藏</a></li>
+        
+      
+      
+      <li class="last"><a href="http://www.javaeye.com/wiki/topic/139399" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc413977">
+  <div class="comment_title">
+    2 楼
+    <a href="http://ferreousbox.javaeye.com/" target="_blank">ferreousbox</a>
+    2007-11-16&nbsp;&nbsp;
+    <a href="#" onclick="quote_comment(413977);return false;">引用</a>
+    
+  </div>
+  <div class="comment_content">你好，我按照你的来安装，在安装到第10步的时候出现错误：
+<br><div class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed lk_media="yes" lk_mediaid="lk_juiceapp_mediaPopup_1254038619620" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/clipboard_new.swf" flashvars="clipboard=%2Fusr%2Fbin%2Fwget%20-N%20http%3A%2F%2Fwww.3gpp.org%2Fftp%2FSpecs%2Farchive%2F26_series%2F26.104%2F26104-610.zip%0A--20%3A41%3A59--%20%20http%3A%2F%2Fwww.3gpp.org%2Fftp%2FSpecs%2Farchive%2F26_series%2F26.104%2F26104-610.zip%0A%E6%AD%A3%E5%9C%A8%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA%20www.3gpp.org...%20212.234.161.21%0AConnecting%20to%20www.3gpp.org%7C212.234.161.21%7C%3A80...%20%E5%B7%B2%E8%BF%9E%E6%8E%A5%E3%80%82%0A%E5%B7%B2%E5%8F%91%E5%87%BA%20HTTP%20%E8%AF%B7%E6%B1%82%EF%BC%8C%E6%AD%A3%E5%9C%A8%E7%AD%89%E5%BE%85%E5%9B%9E%E5%BA%94...%20403%20Forbidden%0A20%3A42%3A00%20%E9%94%99%E8%AF%AF%20403%EF%BC%9AForbidden%E3%80%82%0A%0Amake%3A%20***%20%5B26104-610.zip%5D%20%E9%94%99%E8%AF%AF%201" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14"></div></div><ol class="dp-j" start="1"><li><span><span>/usr/bin/wget&nbsp;-N&nbsp;http:</span><span class="comment">//www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-610.zip</span><span>&nbsp;&nbsp;</span></span></li><li><span>--<span class="number">20</span><span>:</span><span class="number">41</span><span>:</span><span class="number">59</span><span>--&nbsp;&nbsp;http:</span><span class="comment">//www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-610.zip</span><span>&nbsp;&nbsp;</span></span></li><li><span>正在解析主机&nbsp;www.3gpp.org...&nbsp;<span class="number">212.234</span><span>.</span><span class="number">161.21</span><span>&nbsp;&nbsp;</span></span></li><li><span>Connecting&nbsp;to&nbsp;www.3gpp.org|<span class="number">212.234</span><span>.</span><span class="number">161.21</span><span>|:</span><span class="number">80</span><span>...&nbsp;已连接。&nbsp;&nbsp;</span></span></li><li><span>已发出&nbsp;HTTP&nbsp;请求，正在等待回应...&nbsp;<span class="number">403</span><span>&nbsp;Forbidden&nbsp;&nbsp;</span></span></li><li><span><span class="number">20</span><span>:</span><span class="number">42</span><span>:</span><span class="number">00</span><span>&nbsp;错误&nbsp;</span><span class="number">403</span><span>：Forbidden。&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>make:&nbsp;***&nbsp;[<span class="number">26104</span><span>-</span><span class="number">610</span><span>.zip]&nbsp;错误&nbsp;</span><span class="number">1</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre style="display: none;" name="code" class="java">/usr/bin/wget -N http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-610.zip
+--20:41:59--  http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-610.zip
+正在解析主机 www.3gpp.org... 212.234.161.21
+Connecting to www.3gpp.org|212.234.161.21|:80... 已连接。
+已发出 HTTP 请求，正在等待回应... 403 Forbidden
+20:42:00 错误 403：Forbidden。
+
+make: *** [26104-610.zip] 错误 1</pre>
+<br>不知道为什么？</div>
+</div>
+<div id="bc413956">
+  <div class="comment_title">
+    1 楼
+    <a href="http://ferreousbox.javaeye.com/" target="_blank">ferreousbox</a>
+    2007-11-16&nbsp;&nbsp;
+    <a href="#" onclick="quote_comment(413956);return false;">引用</a>
+    
+  </div>
+  <div class="comment_content">顶一个，不错的，明天试一下，看能否成功，今天试了下在安装amr-wb的时候出错，提示wget时403错误，forbeddin，郁闷啊~~~</div>
+</div>
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+          
+      
+        <form action="/blog/139399" id="comment_form" method="post" onsubmit="return false;">          
+
+
+  <input value="true" id="editor_bbcode_flag" type="hidden">
+
+
+
+<div id="editor_main"><div class="clearfix" id="editor_wrapper"><div id="bbcode_emotions"><h5>表情图标</h5><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_biggrin.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_smile.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_sad.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_surprised.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_eek.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_confused.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_cool.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_lol.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_mad.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_razz.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_redface.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_cry.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_evil.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_twisted.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_rolleyes.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_wink.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_exclaim.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_question.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_idea.gif"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/icon_arrow.gif"></div><div id="bbcode_controllers"><div id="bbcode_toolbar"><input id="button_bold" value="B" type="button"><input id="button_italic" value="I" type="button"><input id="button_underline" value="U" type="button"><input value="Quote" type="button"><input value="Code" type="button"><input value="List" type="button"><input value="Img" type="button"><input value="URL" type="button"><input value="Flash" type="button"><input value="Table" type="button"><br>字体颜色: <select id="select_color"><option value="black" style="color: black;">标准</option><option value="darkred" style="color: darkred;">深红</option><option value="red" style="color: red;">红色</option><option value="orange" style="color: orange;">橙色</option><option value="brown" style="color: brown;">棕色</option><option value="yellow" style="color: yellow;">黄色</option><option value="green" style="color: green;">绿色</option><option value="olive" style="color: olive;">橄榄</option><option value="cyan" style="color: cyan;">青色</option><option value="blue" style="color: blue;">蓝色</option><option value="darkblue" style="color: darkblue;">深蓝</option><option value="indigo" style="color: indigo;">靛蓝</option><option value="violet" style="color: violet;">紫色</option><option value="gray" style="color: gray;">灰色</option><option value="white" style="color: white;">白色</option><option value="black" style="color: black;">黑色</option></select>&nbsp;字体大小: <select id="select_font"><option value="0">标准</option><option value="xx-small">1 (xx-small)</option><option value="x-small">2 (x-small)</option><option value="small">3 (small)</option><option value="medium">4 (medium)</option><option value="large">5 (large)</option><option value="x-large">6 (x-large)</option><option value="xx-large">7 (xx-large)</option></select>&nbsp;对齐: <select id="select_align"><option value="0">标准</option><option value="left">居左</option><option value="center">居中</option><option value="right">居右</option></select></div><div id="bbcode_tooltip">代码: [code="ruby"]...[/code] (支持java, ruby, js, xml, html, php, python, c, c++, c#, sql)</div><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="comment[body]" rows="20" style="width: 500px; height: 350px;"></textarea></div></div></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+          <p style="text-align: right; padding-right: 30px;">(快捷键 Alt+S / Ctrl+Enter) <input class="submit" id="quick_reply_button" name="commit" value="提交" type="submit"></p>
+        </form>
+        <script type="text/javascript">
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+    
+            if(result) {
+              new Ajax.Request('/blog/create_comment/139399', {
+                onSuccess:function(response){
+                  Element.scrollTo($('comments'));
+                  $('comments').insert({after:response.responseText})
+                  $('editor_body').value = "";
+                  form.spinner.hide();
+                }, parameters:Form.serialize(form)
+              });
+            }
+    
+        }});
+        </script>
+      
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.blog_content img'), 700);
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'Post'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);}
+    });
+  }
+</script>
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+            <div id="blog_owner_logo"><a href="http://yezi.javaeye.com/"><img alt="yezi的博客" class="logo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/3d7a5f92-efdc-468b-b4d1-689e0ea49723.jpg" title="yezi的博客: yezi"></a></div>
+            <div id="blog_owner_name">yezi</div>
+          </div>
+          
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 123677 次</li>
+              
+              <li>来自: 北京</li>
+              <li><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/offline.gif"></li>
+              <li>
+                <a href="http://yezi.javaeye.com/blog/profile" class="profile">详细资料</a>
+                <a href="http://yezi.javaeye.com/blog/guest_book" class="guest_book">留言簿</a>
+              </li>
+              
+                <li>
+                  <a href="http://app.javaeye.com/messages/new?message%5Breceiver_name%5D=yezi" class="message" title="发送站内短信">发短消息</a>
+                  
+                    <a href="http://app.javaeye.com/feed?subscription%5Bsubscribed_user_name%5D=yezi" class="subscription" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;">订阅</a>
+                  
+                </li>
+              
+            </ul>
+            <h5>搜索本博客</h5>
+            <form action="/blog/search" method="get">              <input class="text" id="query" name="query" style="margin-left: 10px; width: 110px;" type="text">
+              <input class="submit" value="搜索" type="submit">
+            </form>          </div>
+          
+            <div id="user_visits" class="clearfix">
+              <h5>最近访客 <span style="font-weight: normal; font-size: 12px; padding-left: 30px;"><a href="http://yezi.javaeye.com/blog/user_visits">&gt;&gt;更多访客</a></span></h5>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href="http://lym6520.javaeye.com/" target="_blank"><img alt="lym6520的博客" class="logo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/7b68a8ef-cea8-3f29-bdbb-d454ee4d1521-thumb.jpg" title="lym6520的博客: 脉兜"></a></div>
+                  <div class="left"><a href="http://lym6520.javaeye.com/" target="_blank">lym6520</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href="http://aofanliguo.javaeye.com/" target="_blank"><img alt="aofanliguo的博客" class="logo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/user-logo-thumb.gif" title="aofanliguo的博客: aofanliguo"></a></div>
+                  <div class="left"><a href="http://aofanliguo.javaeye.com/" target="_blank">aofanliguo</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href="http://wuzheng321.javaeye.com/" target="_blank"><img alt="wuzheng321的博客" class="logo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/user-logo-thumb.gif" title="wuzheng321的博客: wuzheng321"></a></div>
+                  <div class="left"><a href="http://wuzheng321.javaeye.com/" target="_blank">wuzheng321</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href="http://chatlv.javaeye.com/" target="_blank"><img alt="chatlv的博客" class="logo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/user-logo-thumb.gif" title="chatlv的博客: chatlv"></a></div>
+                  <div class="left"><a href="http://chatlv.javaeye.com/" target="_blank">chatlv</a></div>
+                </div>
+              
+            </div>
+          
+                      <div id="blog_menu">
+              <h5>博客分类</h5>
+              <ul>
+                <li><a href="http://yezi.javaeye.com/">全部博客 (72)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/9045">WebWork (15)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/9050">网摘 (4)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/11985">Cache (2)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/12499">数据库相关 (9)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/12634">服务器相关 (9)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/12642">Hibernate (4)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/13594">上帝保佑 (12)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/17485">WebService (4)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/21581">Ruby on Rails (6)</a></li>
+                
+                  <li><a href="http://yezi.javaeye.com/category/22377">行者无疆 (2)</a></li>
+                
+              </ul>
+            </div>
+            
+              <div id="blog_album">
+                <h5>我的相册</h5>
+                <div class="picture_thumb" style="float: none;">
+                  <div><span class="thumb_box"><a href="http://yezi.javaeye.com/album"><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/76988825-a3a2-35e4-b837-75437d40ffca-thumb.jpg"></a></span></div>
+                  <span>IMG_7195<br> <a href="http://yezi.javaeye.com/album">共 46 张</a></span>
+                </div>
+              </div>
+            
+            
+              <div id="guest_books">
+                <h5>我的留言簿 <span style="font-weight: normal; font-size: 12px; padding-left: 20px;"><a href="http://yezi.javaeye.com/blog/guest_book">&gt;&gt;更多留言</a></span></h5>
+                <ul>
+                  
+                    <li>
+                      nhn？<br>
+                      -- by <a href="http://yezi.javaeye.com/blog/guest_book#2273">yinpeng21cn</a>
+                    </li>
+                  
+                </ul>
+              </div>
+            
+            <div id="blog_others">
+              <h5>其他分类</h5>
+              <ul>
+                <li><a href="http://yezi.javaeye.com/blog/favorite">我的收藏</a> (0)</li>
+                                                <li><a href="http://yezi.javaeye.com/blog/forum">我的论坛帖子</a> (35)</li>
+                <li><a href="http://yezi.javaeye.com/blog/article">我的精华良好贴</a> (1)</li>
+                              </ul>
+            </div>
+            
+            <div id="recent_groups">
+              <h5>最近加入圈子</h5>
+              <ul>
+                
+              </ul>
+            </div>
+            
+            
+                          <div id="month_blogs">
+                <h5>存档</h5>
+                <ul>
+                  
+                    <li><a href="http://yezi.javaeye.com/blog/monthblog/2008-08">2008-08</a> (1)</li>
+                  
+                    <li><a href="http://yezi.javaeye.com/blog/monthblog/2008-04">2008-04</a> (2)</li>
+                  
+                    <li><a href="http://yezi.javaeye.com/blog/monthblog/2008-03">2008-03</a> (1)</li>
+                  
+                  <li><a href="http://yezi.javaeye.com/blog/monthblog_more">更多存档...</a></li>
+                </ul>
+              </div>
+                        <div id="recent_comments">
+              <h5>最新评论</h5>
+              <ul>
+                
+                  <li>
+                    <a href="http://yezi.javaeye.com/blog/148283#comments" title="自责！我是新手！">自责！我是新手！</a><br>
+                    深有同感啊@!<br>
+                    -- by <a href="http://zhangbo520.javaeye.com/" target="_blank">zhangbo520</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://yezi.javaeye.com/blog/105739#comments" title="关于数据库非空字段缺省值在hbm.xml中的设置">关于数据库非空字段缺省值 ...</a><br>
+                    谢谢楼主！<br>
+                    -- by <a href="http://youngtsinglin.javaeye.com/" target="_blank">youngtsinglin</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://yezi.javaeye.com/blog/72846#comments" title="关于Mysql5.0.X集群的配置与安装（Sql节点和Ndb cluster节点）">关于Mysql5.0.X集群的配置 ...</a><br>
+                    192.168.36.108这个地址是干什么用的啊？？不理解<br>
+                    -- by <a href="http://fangchi958.javaeye.com/" target="_blank">fangchi958</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://yezi.javaeye.com/blog/118330#comments" title="xfire生成的webservice部署出现的问题">xfire生成的webservice部 ...</a><br>
+                    LZ还能把bcprov-jdk13-132.jar下载地址或者上传为附件提供出来， ...<br>
+                    -- by <a href="http://wxu.javaeye.com/" target="_blank">卡其色秋天</a>
+                  </li>
+                
+                  <li>
+                    <a href="http://yezi.javaeye.com/blog/105739#comments" title="关于数据库非空字段缺省值在hbm.xml中的设置">关于数据库非空字段缺省值 ...</a><br>
+                    xdoclet里面怎么写呢？<br>
+                    -- by <a href="http://sundysea.javaeye.com/" target="_blank">sundysea</a>
+                  </li>
+                
+              </ul>
+            </div>
+            <div id="comments_top">
+              <h5>评论排行榜</h5>
+              <ul>
+                
+              </ul>
+            </div>
+            <div id="rss">
+              <ul>
+                <li><a href="http://yezi.javaeye.com/rss" target="_blank"><img alt="Rss" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/rss.png"></a></li>
+                <li><a href="http://fusion.google.com/add?feedurl=http://yezi.javaeye.com/rss" target="_blank"><img alt="Rss_google" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/rss_google.gif"></a></li>
+                <li><a href="http://www.zhuaxia.com/add_channel.php?url=http://yezi.javaeye.com/rss" target="_blank"><img alt="Rss_zhuaxia" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/rss_zhuaxia.gif"></a></li>
+                <li><a href="http://www.xianguo.com/subscribe.php?url=http://yezi.javaeye.com/rss" target="_blank"><img alt="Rss_xianguo" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/rss_xianguo.jpg"></a></li>
+                <li><a href="http://www.google.com/search?hl=zh-CN&amp;q=RSS">[什么是RSS?]</a></li>
+              </ul>
+            </div>
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2009 JavaEye.com.   All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ]
+        </div>
+      </div>
+    </div>
+    
+  <div id="chat_input" style="display: none;">
+    <iframe id="chat_iframe" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+  </div>
+  <div id="chat_button"><a href="#" style="text-decoration: none; color: black;" onclick="$('chat_input').show();$('chat_iframe').src='/chat/widget';return false;">说点啥吧 <img alt="Chat" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/chat.gif"></a></div>
+
+<script type="text/javascript">
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=yes" + "' width='0' height='0' />");
+</script><img src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/a.gif" height="0" width="0">
+    
+  <div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; opacity: -0.1; visibility: visible; z-index: 9999999; left: 339px; top: 332.5px; display: none;" id="lk_juiceapp_mediaPopup_1254038619515"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; opacity: -0.1; visibility: visible; z-index: 9999999; left: 339px; top: 566.5px; display: none;" id="lk_juiceapp_mediaPopup_1254038619532"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; opacity: -0.1; visibility: visible; z-index: 9999999; left: 339px; top: 763.5px; display: none;" id="lk_juiceapp_mediaPopup_1254038619540"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 961.5px;" id="lk_juiceapp_mediaPopup_1254038619548"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 1212.5px;" id="lk_juiceapp_mediaPopup_1254038619556"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 1446.5px;" id="lk_juiceapp_mediaPopup_1254038619564"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 1679.5px;" id="lk_juiceapp_mediaPopup_1254038619572"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 1877.5px;" id="lk_juiceapp_mediaPopup_1254038619580"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 2092.5px;" id="lk_juiceapp_mediaPopup_1254038619588"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 2344.5px;" id="lk_juiceapp_mediaPopup_1254038619596"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 2541.5px;" id="lk_juiceapp_mediaPopup_1254038619603"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 339px; top: 2793.5px;" id="lk_juiceapp_mediaPopup_1254038619611"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div><div name="lk_juiceapp_mediaPopup_div" style="overflow: visible; position: absolute; display: inline; opacity: 0; visibility: visible; z-index: 9999999; left: 357px; top: 3130.5px;" id="lk_juiceapp_mediaPopup_1254038619620"><a id="lk_juiceapp_mediaPopup_aid_0"><img style="cursor: pointer;" src="linux%E4%B8%8Bffmpeg%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B_files/dragme.png" id="juiceapp_mediaPopup_imgID_0"></a></div></body></html>

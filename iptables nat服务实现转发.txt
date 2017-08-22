@@ -1,0 +1,36 @@
+ 
+参考以下命令：
+#打开内核路由功能
+echo "1">/proc/sys/net/ipv4/ip_forward
+【重要】vi /etc/sysconfig/iptables
+允许远程链接（SSH,MySQL等）控制其背后的内网服务器 
+-A FORWARD -j ACCEPT
+例子：把192.168.1.84:899的请求转到192.168.1.110:8001上
+   在192.168.1.84上操作：
+a.echo 1 > /proc/sys/net/ipv4/ip_forward
+b. vi /etc/sysconfig/iptables
+在 *nat 之后添加如下规则：
+-A PREROUTING -i em1 -p tcp -m tcp -d 192.168.1.84 --dport 899 -j DNAT --to-destination 192.168.1.110:8001
+#注：以下二选一 实现IP伪装
+#-A POSTROUTING -o em1 -j MASQUERADE
+-A POSTROUTING -o em1 -d 192.168.1.110 -p tcp -m tcp --dport 8001 -j SNAT --to-source 192.168.1.84
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+#查看是否加入：
+iptables -t nat -L PREROUTING
+#重启iptables服务
+service iptables restart
+ 
+#添加转发规则 本机80 到 8801
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8801
+
+删除：
+查看序号NUM
+iptables -t nat -L -n --line-numbers
+
+删除序号num=1
+iptables -t nat -D PREROUTING 1

@@ -1,0 +1,54 @@
+参考：
+http://www.vpser.net/security/linux-iptables.html
+http://www.cdus.org/bbs/forum.php?mod=viewthread&tid=42303
+
+=========================================================
+【设置仅22、80端口可访问】
+
+通过命令 netstat -tnl 可以查看当前服务器打开了哪些端口
+]# netstat -tnl
+
+查看防火墙设置:
+]#iptables -L -n 
+
+执行以下命令：
+
+]# iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+]# iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
+]# iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+]# iptables -A OUTPUT -p tcp --sport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+#取消其他端口的访问规则
+]# iptables -P INPUT DROP
+]# iptables -P FORWARD DROP
+]# iptables -P OUTPUT DROP
+
+
+#允许本地回环接口(即运行本机访问本机)
+]#iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT
+# 允许已建立的或相关连的通行
+]#iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+#允许所有本机向外的访问
+]#iptables -A OUTPUT -j ACCEPT
+
+
+通过命令进行保存：service iptables save 
+重启防火墙： service iptables restart
+
+----------------------------------------------------------
+
+
+修改防火墙配置文件： 
+vi /etc/sysconfig/iptables 
+增加下面一行： 
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT
+如果想开通21等端口，只需要将3306换成21等要开放的端口就可以了。 
+配置后，重新启动iptable 
+service iptables restart 
+这时就可以从其他机器访问Mysql了。 
+注：开通3306 端口的行必须在icmp-host-prohibited前 
+-A INPUT -p icmp -j ACCEPT
+
+
+设置允许客户端ping
+-A INPUT -p icmp -s 0/0 -d 0/0 -j ACCEPT

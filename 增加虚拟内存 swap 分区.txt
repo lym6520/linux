@@ -1,0 +1,24 @@
+swap 分区作用说明
+SWAP就是LINUX下的虚拟内存分区,它的作用是在物理内存使用完之后,将磁盘空间(也就是SWAP分区)虚拟成内存来使用.
+
+需要注意的是,虽然这个SWAP分区能够作为"虚拟"的内存,但它的速度比物理内存可是慢多了,因此如果楼主您需要更快的速度的话,并不能寄厚望于SWAP,最好的办法仍然是加大物理内存.SWAP分区只是临时的解决办法.
+
+具体操作过程：
+
+添加交换文件并设置其大小为1G，使用如下命令(表示创建一个大小为1024M 的文件 /usr/user_swap 用空值填充,bs 是扇区大小 bs=1024 指大小为1K .)
+#dd if=/dev/zero of=/usr/user_swap bs=1024 count=1024000
+创建（设置）交换空间，使用命令mkswap
+#mkswap /usr/user_swap
+检查现有的交换空间大小
+# free -m
+或者
+#grep SwapTotal  /proc/meminfo
+
+启动新增加的1G的交换空间
+#swapon /usr/user_swap
+关闭新增加的1G的交换空间
+#swapoff /usr/user_swap  
+
+修改/etc/fstab文件，使得新加的2G交换空间在系统重新启动后自动生效
+在文件最后加入：
+/usr/user_swap     swap      swap defaults 0 0

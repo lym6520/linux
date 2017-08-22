@@ -1,0 +1,57 @@
+.commentslist LI {
+	LIST-STYLE: none none outside; BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 5px; MARGIN-TOP: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; CLEAR: both; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 5px
+}
+.commentslist LI.trackback {
+	BORDER-BOTTOM: #edd 1px double; BORDER-LEFT: #edd 1px double; BORDER-TOP: #edd 1px double; BORDER-RIGHT: #edd 1px double
+}
+.author A {
+	FONT-WEIGHT: 700
+}
+.commentslist .body {
+	MARGIN: 5px 5px 5px 20px
+}
+.commentslist .body P {
+	MARGIN: 10px 0px 0px
+}
+.commentslist UL {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; PADDING-BOTTOM: 0px; MARGIN: 7px 0px 0px 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: medium none; BORDER-RIGHT: medium none; PADDING-TOP: 0px
+}
+.commentslist {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: medium none; BORDER-RIGHT: medium none; PADDING-TOP: 0px
+}
+.commenthead {
+	COLOR: #888; FONT-SIZE: 0.95em; FONT-WEIGHT: 200
+}
+.meta {
+	COLOR: #888; FONT-SIZE: 0.95em; FONT-WEIGHT: 200
+}
+.commenthead A {
+	COLOR: #36b
+}
+.meta A {
+	COLOR: #36b
+}
+.commentform {
+	MARGIN: 10px 0px 10px 20px
+}
+#commentdiv {
+	PADDING-RIGHT: 8px
+}
+#commentform TEXTAREA {
+	BORDER-BOTTOM: #b0b0b0 1px solid; BORDER-LEFT: #b0b0b0 1px solid; BORDER-TOP: #b0b0b0 1px solid; BORDER-RIGHT: #b0b0b0 1px solid
+}
+#reco SPAN {
+	COLOR: #999
+}
+.avatar {
+	PADDING-BOTTOM: 5px; MARGIN-TOP: -26px; PADDING-LEFT: 0px; WIDTH: 80px; PADDING-RIGHT: 0px; BACKGROUND-REPEAT: no-repeat; FLOAT: right; HEIGHT: 80px; MARGIN-RIGHT: -4px; PADDING-TOP: 0px
+}
+.mine {
+	BORDER-BOTTOM-COLOR: #ddd !important; BORDER-TOP-COLOR: #ddd !important; BORDER-RIGHT-COLOR: #ddd !important; BORDER-LEFT-COLOR: #ddd !important
+}
+.borderc1 {
+	BORDER-BOTTOM-COLOR: #ddd !important; BORDER-TOP-COLOR: #ddd !important; BORDER-RIGHT-COLOR: #ddd !important; BORDER-LEFT-COLOR: #ddd !important
+}
+.borderc2 {
+	BORDER-BOTTOM-COLOR: #ccc !important; BORDER-TOP-COLOR: #ccc !important; BORDER-RIGHT-COLOR: #ccc !important; BORDER-LEFT-COLOR: #ccc !important
+}

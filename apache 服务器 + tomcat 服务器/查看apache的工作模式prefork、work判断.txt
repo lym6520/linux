@@ -1,0 +1,7 @@
+如果httpd -l列出worker.c ，类似如下，则表示是 worker 工作模式
+
+如果httpd -l列出prefork.c。则表示是 prefork 工作方式。
+
+
+
+http://m.blog.csdn.net/blog/ghj1976/6128779

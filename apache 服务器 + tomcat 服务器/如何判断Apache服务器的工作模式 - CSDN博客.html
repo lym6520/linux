@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://m.blog.csdn.net/blog/ghj1976/6128779 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta content="width=device-width,user-scalable=no" name="viewport">
+<meta name="apple-itunes-app" content="app-id=425349261">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>如何判断Apache服务器的工作模式 - CSDN博客</title>
+<link rel="Stylesheet" type="text/css" href="./如何判断Apache服务器的工作模式 - CSDN博客_files/wapall.css">
+<script type="text/javascript" async="" src="./如何判断Apache服务器的工作模式 - CSDN博客_files/ga.js"></script><script src="./如何判断Apache服务器的工作模式 - CSDN博客_files/ajax.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrap">
+<div id="header">
+<a class="home" href="http://www.csdn.net/"><img src="./如何判断Apache服务器的工作模式 - CSDN博客_files/home.png"></a> 
+<a class="logo" href="http://m.blog.csdn.net/">
+<img src="./如何判断Apache服务器的工作模式 - CSDN博客_files/logo.jpg"></a>
+<a id="loginname" href="http://m.blog.csdn.net/account/login">登录</a>
+</div>
+<div id="nav">
+<a href="http://m.blog.csdn.net/" id="shouye1">首页</a>
+<a href="http://m.blog.csdn.net/column/index" id="zhuanlan1">专栏</a>
+<a href="http://m.blog.csdn.net/People/index" id="zhuanjia1">专家</a>
+<a href="http://m.blog.csdn.net/home/hot" id="rewen1">热文</a>
+</div>
+<div id="main">
+        <div id="top">
+        <div class="avatar">
+        <a href="http://m.blog.csdn.net/blog/ghj1976" class="name">蝈蝈俊.net</a>
+        </div>
+        <div class="content">
+        <h1><a href="http://m.blog.csdn.net/blog/ghj1976/6128779#">[原]如何判断Apache服务器的工作模式</a></h1>
+        <p class="time"><span>2011-1-11</span><span>阅读2536</span> <a href="http://m.blog.csdn.net/blog/ghj1976/6128779#comment">评论<span id="sp_cmt">1</span></a></p>
+        <div id="articlecontent">
+        <p>如何才能知道当前的apache2使用什么工作机制？我们可以通过httpd -l命令列出apache的所有模块，就可以知道其工作方式：</p>  <p>&nbsp;</p>  <p><strong>prefork 工作模式</strong>&nbsp;</p>  <p>如果httpd -l列出prefork.c。则表示是 prefork 工作方式。 如下面所示：    <br>Compiled in modules:     <br>&nbsp; core.c     <br>&nbsp; prefork.c     <br>&nbsp; http_core.c     <br>&nbsp; mod_so.c</p>  <p>这表明当前apache2的工作方式是 prefork</p>  <p>&nbsp;</p>  <p>对于 prefork 工作模式的 apache 来说，在 httpd.conf 中对它的设置是在</p>  <p># prefork MPM    <br># StartServers: number of server processes to start     <br># MinSpareServers: minimum number of server processes which are kept spare     <br># MaxSpareServers: maximum number of server processes which are kept spare     <br># ServerLimit: maximum value for MaxClients for the lifetime of the server     <br># MaxClients: maximum number of server processes allowed to start     <br># MaxRequestsPerChild: maximum number of requests a server process serves     <br><ifmodule prefork.c="">     <br>StartServers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8     <br>MinSpareServers&nbsp;&nbsp;&nbsp; 5     <br>MaxSpareServers&nbsp;&nbsp; 20     <br>ServerLimit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 256     <br>MaxClients&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 256     <br>MaxRequestsPerChild&nbsp; 4000     <br></ifmodule></p>  <p>ServerLimit    <br>默认的MaxClient最大是256个线程,如果想设置更大的值，就的加上ServerLimit这个参数。20000是ServerLimit这个参数的最大值。     <br>如果需要更大，则必须编译apache,此前都是不需要重新编译Apache。     <br>生效前提：必须放在其他指令的前面 </p>  <p>StartServers    <br>指定服务器启动时建立的子进程数量，prefork默认为5。 </p>  <p>MinSpareServers    <br>指定空闲子进程的最小数量，默认为5。如果当前空闲子进程数少于MinSpareServers ，     <br>那么Apache将以最大每秒一个的速度产生新的子进程。此参数不要设的太大。 </p>  <p>MaxSpareServers    <br>设置空闲子进程的最大数量，默认为10。如果当前有超过MaxSpareServers数量的空闲子进程，那么父进程将杀死多余的子进程。     <br>此参数不要设的 太大。如果你将该指令的值设置为比MinSpareServers小，Apache将会自动将其修改成”MinSpareServers+1″。 </p>  <p>MaxClients    <br>限定同一时间客户端最大接入请求的数量(单个进程并发线程数)，默认为256。任何超过MaxClients限制的请求都将进入等候队列,一旦一个链接被释放，     <br>队列中的请求将得到服务。要增大这个值，你必须同时增大ServerLimit。 </p>  <p>MaxRequestsPerChild    <br>每个子进程在其生存期内允许伺服的最大请求数量，默认为10000.到达MaxRequestsPerChild的限制后，子进程将会结束。     <br>如果 MaxRequestsPerChild为”0″，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：     <br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。     <br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。</p>  <p>   <br>按照前面的设置，在该工作模式下，服务器启动后起动8个httpd进程(加父进程共9个，通过 ps -ax|grep httpd命令可以看到)。     <br>当有用户连接时，apache会使用一个空闲进程为该连接服务，同时父进程会fork（复制）一个子进程。     <br>直到内存中的空闲进程达到MaxSpareServers。该模式是为了兼容一些旧版本的程序。缺省编译时的选项。</p>  <p>&nbsp;</p>  <p><strong>worker 工作模式</strong></p>  <p>如果httpd -l列出worker.c ，类似如下，则表示是 worker 工作模式</p>  <p>Compiled in modules:    <br>&nbsp; core.c     <br>&nbsp; worker.c     <br>&nbsp; http_core.c     <br>&nbsp; mod_so.c</p>  <p>这时候的配置文件如下：</p>  <p># worker MPM    <br># StartServers: initial number of server processes to start     <br># MaxClients: maximum number of simultaneous client connections     <br># MinSpareThreads: minimum number of worker threads which are kept spare     <br># MaxSpareThreads: maximum number of worker threads which are kept spare     <br># ThreadsPerChild: constant number of worker threads in each server process     <br># MaxRequestsPerChild: maximum number of requests a server process serves     <br><ifmodule worker.c="">     <br>StartServers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2     <br>MaxClients&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 150     <br>MinSpareThreads&nbsp;&nbsp;&nbsp;&nbsp; 25     <br>MaxSpareThreads&nbsp;&nbsp;&nbsp;&nbsp; 75     <br>ThreadsPerChild&nbsp;&nbsp;&nbsp;&nbsp; 25     <br>MaxRequestsPerChild&nbsp; 0     <br></ifmodule></p>  <p>StartServers    <br>服务器启动时建立的子进程数，默认值是”3″。 </p>  <p>MaxClients    <br>允许同时伺服的最大接入请求数量(最大线程数量)。任何超过MaxClients限制的请求都将进入等候队列。默认值是”400″ ,     <br>16(ServerLimit)乘以25(ThreadsPerChild)的结果。因此要增加MaxClients的时候，你必须同时增加 ServerLimit的值。 </p>  <p>MinSpareThreads    <br>最小空闲线程数,默认值是”75″。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太少，子进程将产生新的空闲线程。 </p>  <p>MaxSpareThreads    <br>设置最大空闲线程数。默认值是”250″。这个MPM将基于整个服务器监视空闲线程数。如果服务器中总的空闲线程数太多，子进程将杀死多余的空闲线程。     <br>MaxSpareThreads的取值范围是有限制的。Apache将按照如下限制自动修正你设置的值：     <br>worker要求其大于等于 MinSpareThreads加上ThreadsPerChild的和。 </p>  <p>ThreadsPerChild    <br>每个子进程建立的常驻的执行线程数。默认值是25。子进程在启动时建立这些线程后就不再建立新的线程了。 </p>  <p>MaxRequestsPerChild    <br>设置每个子进程在其生存期内允许伺服的最大请求数量。到达MaxRequestsPerChild的限制后，子进程将会结束。如果MaxRequestsPerChild为”0″，子进程将永远不会结束。将MaxRequestsPerChild设置成非零值有两个好处：     <br>1.可以防止(偶然的)内存泄漏无限进行，从而耗尽内存。     <br>2.给进程一个有限寿命，从而有助于当服务器负载减轻的时候减少活动进程的数量。     <br>注意对于KeepAlive链接，只有第一个请求会被计数。事实上，它改变了每个子进程限制最大链接数量的行为。</p>  <p>该模式是由线程来监听客户的连接。当有新客户连接时，由其中的一个空闲线程接受连接。    <br>服务器在启动时启动两个进程，每个进程产生的线程数是固定的 (ThreadsPerChild决定)，因此启动时有50个线程。     <br>当50个线程不够用时，服务器自动fork一个进程，再产生25个线程。</p>  <p>&nbsp;</p>  <p><strong>参看：</strong></p>  <p>Apache服务器的优化之模式设置    <br><a href="http://www.phpq.net/apache/apache-server-optimization.html">http://www.phpq.net/apache/apache-server-optimization.html</a></p>  <p>apache2.0 prefork和worker模块性能调优    <br><a title="http://blog.csdn.net/wenbingcai/archive/2009/05/18/4197557.aspx" href="http://blog.csdn.net/wenbingcai/archive/2009/05/18/4197557.aspx">http://blog.csdn.net/wenbingcai/archive/2009/05/18/4197557.aspx</a></p>  <p>apache的prefork和worker工作模式    <br><a href="http://hi.baidu.com/%C7%E0%B4%BA%B5%C4%BA%E3%D0%C4/blog/item/07d314a4aba0eb98d04358fe.html">http://hi.baidu.com/%C7%E0%B4%BA%B5%C4%BA%E3%D0%C4/blog/item/07d314a4aba0eb98d04358fe.html</a></p>  <p>Apache的prefork模式和worker模式    <br><a title="http://www.ccvita.com/339.html" href="http://www.ccvita.com/339.html">http://www.ccvita.com/339.html</a></p>  <p>CentOS+Apache+Mysql+Php安装及优化配置小记    <br><a href="http://liang831002.blog.51cto.com/188904/88422">http://liang831002.blog.51cto.com/188904/88422</a></p>
+        </div>
+        </div>
+        <div class="next_page">
+            <a href="http://m.blog.csdn.net/blog/ghj1976/6126630" class="next_btn">上一篇</a>
+            <a href="http://m.blog.csdn.net/blog/ghj1976/6129318" class="next_btn">下一篇</a>
+        </div>
+        <div class="view">
+        <a href="http://m.blog.csdn.net/account/login" class="button">请先登录后，再发表评论！</a>
+        </div>
+        <div class="comment_sub">
+        <span class="lf10">查看评论</span>
+        <ul id="cmt_ul">        <li> 
+        <p class="time"><span>1楼</span><a href="http://m.blog.csdn.net/blog/CunningBoy" class="name">CunningBoy</a><span>2011-01-12 17:47</span></p>
+        <p>[e01]</p>
+        </li>
+        </ul>
+        <a href="http://m.blog.csdn.net/comment/6128779" class="lf10">更多评论（1）</a>
+        </div>
+        </div>
+        <script type="text/javascript" src="./如何判断Apache服务器的工作模式 - CSDN博客_files/ajax(1).js"></script>
+        <script type="text/javascript">
+            function subform() {
+                if (!el('con').value) {
+                    el('con').focus();
+                    return;
+                }
+                Ajax.post('/comment/6128779?save=1', 'con=' + encodeURIComponent(el('con').value));
+                alert('评论成功！');
+
+                var li = document.createElement('li');
+                var s = '<p class="time"><span>' + (parseInt(el('sp_cmt').innerHTML, 10) + 1) + '楼</span><a class="name">我</a><span>刚刚</span></p>';
+                s += '<p>' + el('con').value + '</p>';
+                li.innerHTML = s;
+                el('cmt_ul').insertBefore(li, el('cmt_ul').firstChild);
+            }
+        </script>
+
+</div>
+
+<div class="back-top" id="ding1">
+<a href="http://m.blog.csdn.net/blog/ghj1976/6128779#" onclick="document.body.scrollTop=0;return false;">
+<img src="./如何判断Apache服务器的工作模式 - CSDN博客_files/back-top.jpg">回顶部</a>
+</div>
+<div id="footer">
+<p><a class="now" href="http://m.blog.csdn.net/">移动版</a>|<a href="http://blog.csdn.net/" onclick="document.cookie=&#39;wap-pc=1; domain=blog.csdn.net; path=/;&#39;;">桌面版</a></p>
+<p>©1999-2012, CSDN.NET, All Rights Reserved</p>
+</div>
+
+</div>
+<script src="./如何判断Apache服务器的工作模式 - CSDN博客_files/wapall.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var username = getUN();
+    if (username == '') {
+        el('loginname').innerHTML = "登录";
+        el('loginname').href = "/account/login";
+    }
+    else {
+        el('loginname').innerHTML = username;
+        el('loginname').href = "/blog/"+username;
+    
+    } 
+</script>
+
+</body></html>

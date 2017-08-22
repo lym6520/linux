@@ -1,0 +1,28 @@
+Linux挂载Windows分区
+mount ntfs分区
+一.单机挂windows的NTFS分区
+1. 上www.google.com搜索并下载 kernel-ntfs-2.4.18-14.i686.rpm
+2. rpm -ivh kernel-ntfs-2.4.18-14.i686.rpm
+3. mkdir /mnt/share
+4. mount -t ntfs /dev/hda1 /mnt/share
+要挂载Windows分区，首先新建一个目录/mnt/share，修改/etc/fstab，在最末尾添上（假设Windows安装在硬盘的第1个分区）
+/dev/hda1 /mnt/share ntfs defaults 0 0
+二.网络上一台windows和linux机器，linux机器挂载windows上的共享文件
+windows IP:192.168.1.1
+1.linux挂载192.168.1.1(windows)上共享文件dbf,挂在linux的/mnt/share目录下,在/mnt下建立share目录
+mount -t smbfs -o username=massky,password=massky //192.168.
+1.1/dbf /mnt/share
+2.机器重启自动挂载，vi /etc/fstab最后加入：
+//192.168.1.1/dbf /mnt/share smbfs defaults,auto,username=m
+assky,password=massky 0 0
+
+
+=======================================================================
+linux机器挂载windows上的共享文件:
+mount -o username=Administrator,password=123456 //192.168.7.130/floder /mnt/lym
+
+机器重启自动挂载，vi /etc/fstab最后加入：
+//192.168.1.1/floder /mnt/share  defaults,auto,username=Administrator,password=123456 0 0
+
+
+mount -o username=hdyuser,password=hedongyuan..2008 //192.168.1.22/FTPServer/eip /mnt/eip

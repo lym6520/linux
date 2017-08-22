@@ -1,0 +1,7 @@
+1.yum安装ibus
+yum list ibus                                 列出ibus的包信息
+yum list ibus-pinyin                      列出拼音输入法的包信息
+yum install ibus   ibus-pinyin       安装输入法的框架ibus及拼音输入法
+2.输入法设置
+进入system – preferences – input method 里面选择"ibus", 然后关闭。
+3.reboot

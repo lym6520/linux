@@ -1,0 +1,4 @@
+修改配置文件实现修改机器名
+#vi /etc/sysconfig/network  //修改HOSTNAME=XX
+#vi /etc/hosts              //把默认的机器名localhost localhost.localhost localhst改为XX
+ //修改后重启机器
