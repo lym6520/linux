@@ -1,0 +1,40 @@
+ntp常用服务器：
+中国国家授时中心：210.72.145.44
+NTP服务器(上海) ：ntp.api.bz
+
+网络时间同步命令：
+ntpdate -u ntp.api.bz
+
+
+手动设置时间：
+例3：设置时间为下午14点36分。
+# date -s 14:36:00
+Fri Nov 26 14:15:00 CST 1999 
+实例：设置时间伟2008年8月8号12:00
+# date -s "2008-08-08 12:00:00"
+修改完后,记得执行clock -w，把系统时间写入CMOS
+
+
+
+Linux时间服务器配置(192.168.10.1)
+
+1）. # rpm -ivh ntp-4.1.2-4.EL3.1.i386.rpm
+2）. # vi /etc/ntp.conf
+注释一行
+restrict default ignore
+加入一行
+restrict 192.168.10.0 mask 255.255.255.0 notrust nomodify notrap
+3）. # vi /etc/ntp/step-tickers
+加入一行
+pool.ntp.org
+这样每次ntpd启动时，会自动连接该国际标准时间服务器；
+4）. # service ntpd start
+5）. # netstat -an |grep 123
+确保该端口以udp方式开放
+时间客户端配置(192.168.10.2)
+1）. # ntpdate 192.168.10.2
+应该显示同步成功
+2）. # crond -e
+加入
+0-59/10 * * * * /usr/sbin/ntpdate 192.168.10.1
+表示每隔10分钟同步一次时间
