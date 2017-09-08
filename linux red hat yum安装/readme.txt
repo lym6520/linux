@@ -1,3 +1,10 @@
+
+查看yum安装版本
+rpm -qa|grep yum
+卸载已安装的yum
+rpm -qa|grep yum|xargs rpm -e --nodeps
+
+
 安装软件包。
 rpm -ivh python-iniparse-0.3.1-2.1.el6.noarch.rpm
 rpm -ivh python-urlgrabber-3.9.1-11.el6.noarch.rpm
