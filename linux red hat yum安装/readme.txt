@@ -13,3 +13,13 @@ wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
 将此配置文件替换/etc/yum.repos.d同名文件
 修改文件中$releasever的对应版本，这里修改为6
 sed -i "s;\$releasever;6;g" CentOS6-Base-163.repo
+
+
+
+清理yum缓存
+#yum clean all
+将服务器软件包信息缓存至本地，提高搜索安装效率
+#yum makecache
+
+测试
+#yum seach vim
