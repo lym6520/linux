@@ -1,0 +1,45 @@
+CentOS7安装iptables防火墙（默认的防火墙不是iptables,而是firewalle）
+
+安装iptable iptable-service
+
+#先检查是否安装了iptables  
+service iptables status  
+#安装iptables  
+yum install -y iptables  
+#升级iptables  
+yum update iptables   
+#安装iptables-services  
+yum install iptables-services 
+
+禁用/停止自带的firewalld服务
+#停止firewalld服务  
+systemctl stop firewalld  
+#禁用firewalld服务  
+systemctl mask firewalld 
+firewall-cmd --state #查看默认防火墙状态（关闭后显示notrunning，开启后显示running）
+
+
+
+开启iptables服务
+
+
+#注册iptables服务  
+#相当于以前的chkconfig iptables on  
+systemctl enable iptables.service  
+#开启服务  
+systemctl start iptables.service  
+#查看状态  
+systemctl status iptables.service
+
+
+
+
+解决vsftpd在iptables开启后,无法使用被动模式的问题
+
+1.首先在/etc/sysconfig/iptables-config中修改或者添加以下内容
+
+#添加以下内容,注意顺序不能调换  
+IPTABLES_MODULES="ip_conntrack_ftp"  
+IPTABLES_MODULES="ip_nat_ftp"  
+2.重新设置iptables设置
+iptables -A INPUT -m state --state  RELATED,ESTABLISHED -j ACCEPT  

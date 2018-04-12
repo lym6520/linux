@@ -1,6 +1,6 @@
  
 参考以下命令：
-#打开内核路由功能
+#打开内核路由功能（系统重启后会重置为0）
 echo "1">/proc/sys/net/ipv4/ip_forward
 【重要】vi /etc/sysconfig/iptables
 允许远程链接（SSH,MySQL等）控制其背后的内网服务器 

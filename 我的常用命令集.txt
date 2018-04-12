@@ -138,6 +138,11 @@ yum -y install openssh-clients
 yum install openssh-clients
 
 
+监控网络客户连接数：
+netstat -n | grep tcp | grep 侦听端口 | wc -l
+
+监控java线程数：
+ps -eLf | grep java | wc -l
 
 　　
 
