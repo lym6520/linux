@@ -1,5 +1,8 @@
 查看进程 端口:
-netstat -plten | grep java 
+netstat -plten | grep java
+
+查看tcp链接数：
+netstat -nat|awk '{print $6}'|sort|uniq -c |sort 
   
 
 查看java进程: 
@@ -143,6 +146,16 @@ netstat -n | grep tcp | grep 侦听端口 | wc -l
 
 监控java线程数：
 ps -eLf | grep java | wc -l
+
+
+删除home目录下 *.log 文件
+find /home | grep  -E ^.*\\.log$|xargs rm -rf
+find /home | grep  -E ^.*\\/logs\\/localhost.*\\.txt$|xargs rm -rf
+说明：
+ find . | grep -v -E \/abc.log$ | xargs rm -rf
+grep 搜索文字过滤命令，-v参数取反，-E参数代表后面跟着的是正则表达式，\/abc.log$代表以"
+xargs 将标准输入中的每一行逐行作为参数执行后面的命令
+
 
 　　
 
