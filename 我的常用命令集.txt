@@ -1,3 +1,12 @@
+sed -n '/ERROR/p' catalina.log > out.log 输出日志文件catalina.log中含有ERROR关键字的行到out.log文件
+选定行的范围: 逗号
+sed -n '/test/,/check/p' file        所有在模块test和check所确定范围内的行都被打印
+sed -n '5,/^test/p' file                 打印从第5行开始到第一个包含以test开始行之间的所有行
+sed '/test/,/check/s/$/sed test/' file    对于模块test和west之间的行,每行的末尾用字符串sed test替换
+
+查找catalina.out*匹配文件 关键词keyword1、keyword2 的日志信息
+find logs/catalina.out* | xargs less | grep -i 'keyword1' | grep 'keyword2'
+
 查看进程 端口:
 netstat -plten | grep java
 
@@ -46,6 +55,15 @@ vi /用户目录/.bashrc
 SSH乱码问题：
 export LANG=zh_CN.GBK
 export NLS_LANG="AMERICAN_AMERICA.ZHS16GBK" 
+
+类型1
+export LANG=zh_CN.GBK
+export NLS_LANG="AMERICAN_AMERICA.ZHS16GBK"
+类型2
+export LANG=en_US.UTF-8
+export NLS_LANG=""
+
+
 
 
 查看分区信息:
